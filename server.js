@@ -37,6 +37,7 @@ io.on('connection', function(socket){
 
 app.use(bodyParser.urlencoded({ extended: true })); // used to manipulate json objects in http params/responses
 app.use(morgan('combined'));  // use morgan to log requests to the console
+
 mongoose.connect(db.url); // connect to database
 app.set('superSecret', secret.secret); // secret variable
 app.use(session({ secret: 'this-is-a-secret-token', cookie: { secure: false, httpOnly: false}}));
