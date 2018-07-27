@@ -137,7 +137,7 @@ export default {
   name: 'landing',
   data () {
     return {
-      form_state: 'email', // 'not engaged',
+      form_state: 'not engaged',
       role: 'resi',
       email: '',
       email_error: false,
