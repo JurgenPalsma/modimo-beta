@@ -18,6 +18,24 @@ module.exports = function(app) {
     app.post('/hello', function(req, res) {
         res.json({"hi":"hi"})
     });
+    
+    /**
+     * @api {get} /ping Ping the API
+     * @apiName Ping
+     * @apiGroup Public
+     *
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "success": true,
+     *       "pong": "pong"
+     *     }
+     *
+     */
+    app.post('/hello', function(req, res) {
+        return res.json({'success': true, 'pong': 'pong'})
+    });
 
     /*
         Route to register
