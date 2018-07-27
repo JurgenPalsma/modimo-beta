@@ -22,10 +22,10 @@
             </nav>
             </div>            
             
-            <div v-if="form_state === 'not engaged'" class="section is-large hero-body">
+            <div v-if="form_state === 'not engaged'" class="section is-medium hero-body">
                 <div class="container has-text-centered">
                     <div class="column is-6 is-offset-3">
-                        <h1 class="title">
+                        <h1 class="title section">
                             La Résidence 2.0
                         </h1>
                         <h2 class="subtitle">
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div v-else-if="form_state === 'email'" class="section is-large hero-body">
+            <div v-else-if="form_state === 'email' && !email_error" class="section is-large hero-body">
                 <div class="container ">
                   <div class="column is-6 is-offset-3">
                       <h1 class="title">
@@ -74,7 +74,33 @@
                       <div class="box">
                             <div class="field is-grouped">
                                 <p class="control is-expanded">
-                                    <input class="input" type="text" v-model="email" placeholder="Enter your email">
+                                    <input class="input" type="text" v-model="email" placeholder="Email">
+                                </p>
+                                <p class="control">
+                                    <a class="button is-info" @click="launch_demo">
+                                       J'y vais
+                                    </a>
+                                </p>
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+
+            <div v-else-if="form_state === 'email' && email_error" class="section is-large hero-body">
+                <div class="container ">
+                  <div class="column is-6 is-offset-3">
+                      <h1 class="title">
+                          Ooooops
+                      </h1>
+                      <h2 class="subtitle">
+                          Ton email est invalide. Renseigne un vrai mail stp
+                      </h2>
+                      
+                      <div class="box">
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input class="input is-danger" type="text" v-model="email" placeholder="Entre un vrai mail ici">
                                 </p>
                                 <p class="control">
                                     <a class="button is-info" @click="launch_demo">
@@ -111,10 +137,10 @@ export default {
   name: 'landing',
   data () {
     return {
-      form_state: 'not engaged',
+      form_state: 'email', // 'not engaged',
       role: 'resi',
       email: '',
-      emailInputError: false,
+      email_error: false,
       api_online: false,
       loading: false
     }
@@ -152,8 +178,7 @@ export default {
           this.loading = false
         }
       } else {
-        alert(demo.data.message)
-        console.log(demo)
+        this.email_error = true
         this.loading = false
       }
     },
