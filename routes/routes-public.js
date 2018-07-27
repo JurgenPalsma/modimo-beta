@@ -33,7 +33,7 @@ module.exports = function(app) {
      *     }
      *
      */
-    app.post('/hello', function(req, res) {
+    app.post('/ping', function(req, res) {
         return res.json({'success': true, 'pong': 'pong'})
     });
 
