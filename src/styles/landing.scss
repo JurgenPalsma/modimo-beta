@@ -1,0 +1,36 @@
+
+$cta-color: #f33535;
+
+.glowing {
+    animation-duration: 2s;
+    animation-name: disruptive-glow;
+    animation-iteration-count: infinite;
+  }
+
+@keyframes disruptive-glow {
+    from {
+        background-color: $cta-color;
+        box-shadow: 0 0 9px $cta-color;
+    }
+    50% {
+        background-color: darken($cta-color, 10%);
+        box-shadow: 0 0 18px darken($cta-color, 10%);
+    }
+    to {
+        background-color: $cta-color;
+        box-shadow: 0 0 9px $cta-color;
+    }
+}
+
+.is-horizontal-center {
+    justify-content: center;
+}
+
+.is-loader {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
