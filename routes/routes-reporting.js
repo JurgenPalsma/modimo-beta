@@ -1,6 +1,6 @@
-const User          = require('../models/user');
-const Reporting     = require('../models/reporting');
-
+const User = require('../models/user');
+const Ticket = require('../models/tickets/ticket');
+const Reporting = require('../models/reporting');
 module.exports = function(app, apiRoutes) {
 
     apiRoutes.get('/reporting/reporting', function(req, res) {     
@@ -75,4 +75,114 @@ module.exports = function(app, apiRoutes) {
         }
     });
 
-};
+
+
+    apiRoutes.get('/reporting/stats', function(req, res) {
+        console.log('salut')     
+        User.findOne({token: req.headers['x-access-token']
+        }, function (err, user) {
+          if (err) return res.json({success: false, message: 'Error from db'});
+          else if (!user) return res.json({success: false, message: 'User not found.'});
+          else if (!user.roles.includes("ROOT") && !user.roles.includes("ADMIN") && !user.roles.includes("CARETAKER")) return res.json({success: false, message: 'Access denied'});
+          else {
+              let daterange = ""
+                if (req.headers.from == '' && req.headers.to == '') {
+                    daterange = {$gte:new Date("2016-07-03T14:05:18.902Z"),$lte:new Date()}
+                } 
+                else daterange = {$gte:new Date(req.headers.from),$lte:new Date(req.headers.to)}
+                Ticket.find(
+                    {residence_id: user.residence,
+                    "created_at":daterange}
+                ).lean().exec(function(err, tickets) { // TODO sort here by period
+                    if (err) return res.json({success: false, message: 'Error from db' + err});
+                    else {
+                        if (tickets.length == 0)
+                            return res.json({success: false, message: 'No tickets found for this period'});
+                        // Returned stats about tickets
+                        let tickets_numbers = {
+                            tickets_pending: 0,
+                            tickets_open: 0,
+                            tickets_closed: 0,
+                            tickets_created_per_day: [],
+                            avg_resolution_time: 0,
+                            shortest_ticket: null,
+                            longest_ticket: null
+                        }
+    
+                        // Returned stats about caretakers
+                        let caretaker_numbers = {
+                            tickets: [{
+                                _id: "",
+                                name: "",
+                                tickets_closed: 0
+                            }]
+                        }
+                        
+    
+                        function ct_exists(arr, val) { // Opti
+                            return arr.some(function(arrVal) {
+                                if  (val === arrVal._id)
+                                    arrVal.tickets_closed += 1;
+                                return val == arrVal._id
+                              });
+                        }
+                        
+                        function tc_date_exists(arr, val) { // Opti
+                            return arr.some(function(arrVal) {
+                                if  (val === arrVal.date)
+                                    arrVal.amount += 1;
+                                return val == arrVal.date
+                              });
+                        }
+    
+    
+                        resolution_times = []
+                        
+                        tickets.map(function(ticket) {
+                            if (ticket.advancement === "100") {
+                                tickets_numbers.shortest_ticket = ticket
+                                tickets_numbers.longest_ticket = ticket
+                            }
+                        })
+    
+                        // ---  Parse tickets 
+                        tickets.map(function(ticket) {
+                            if (ticket.advancement === "100") { // if ticket is closed
+                                tickets_numbers.tickets_closed += 1 // ++ number of closed tickets
+                                
+                                // completion time 
+                                resolution_times.push(ticket.resolution_time) // add ticket time to avg
+                                if (tickets_numbers.shortest_ticket.resolution_time > ticket.resolution_time) tickets_numbers.shortest_ticket = ticket
+                                else if (tickets_numbers.longest_ticket < ticket.resolution_time) tickets_numbers.longest_ticket = ticket
+                                
+                                // Add ticket to caretaker's number of tickets closed
+                                if (!ct_exists(caretaker_numbers.tickets, ticket.closed_by))
+                                    caretaker_numbers.tickets.push({_id: ticket.closed_by, tickets_closed:1})     
+                            }
+                            else if (ticket.advancement === "50") // if ticket is open
+                                tickets_numbers.tickets_open +=  1
+                            else  // if ticket is not seen by caretaker
+                                tickets_numbers.tickets_pending +=  1
+                                '2017-05-13'
+                            t_date = new Date(ticket.created_at);
+                            t_date_f = t_date.getFullYear() + '-' + t_date.getMonth() + '-' + t_date.getDate();
+                            if (!tc_date_exists(tickets_numbers.tickets_created_per_day, t_date_f))
+                                tickets_numbers.tickets_created_per_day.push({date: t_date_f, amount:1})
+                        })
+                    
+                        const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
+    
+                        tickets_numbers.avg_resolution_time = arrAvg(resolution_times)
+                        
+                        return res.json({success: true,
+                            ticket_numbers : tickets_numbers,
+                            caretaker_numbers : caretaker_numbers,
+                            ticketlist : tickets});  
+                        
+                    }
+                });
+            }
+        });
+    });
+}
+        

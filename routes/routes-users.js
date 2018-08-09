@@ -1,5 +1,5 @@
 const User          = require('../models/user'); // get our mongoose model
-const Application   = require('../models/applications/application');
+const Application = require('../models/applications/application');
 
 /*          Modimo API - User management             */
 
