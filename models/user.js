@@ -15,5 +15,6 @@ module.exports = mongoose.model('User', new Schema({
         type: String,
         lowercase: true
     },
-    spammable: Boolean
+    spammable: Boolean,
+    created_at: Date
 }, { runSettersOnQuery: true }));

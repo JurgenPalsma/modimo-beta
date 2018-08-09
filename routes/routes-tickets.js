@@ -1,10 +1,11 @@
-const Ticket        = require('../models/tickets/ticket');
-const Comment       = require('../models/comment');
-const User          = require('../models/user');
-const Notif         = require('../functions/notifications');
-const Notification  = require('../models/notifications/notification');
+const Ticket = require('../models/tickets/ticket');
+const Comment = require('../models/comment');
+const User = require('../models/user');
+const Notif = require('../functions/notifications');
+const Notification = require('..//models/notifications/notification');
 
-module.exports = function(app, apiRoutes, io) {
+
+module.exports = function(app, apiRoutes) {
 
   // route to add a ticket
   apiRoutes.post('/tickets/ticket', function(req, res) {
@@ -25,12 +26,14 @@ module.exports = function(app, apiRoutes, io) {
             downvote:[],
             created_at: new Date(),
             updated_at: new Date(),
+            resolution_time: null,
+            closed_by: "",
             residence_id: user.residence,
             advancement: '10',
           });
 
           ticket.save(function(err) {
-            Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
+            Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id);
             if (err) res.json({success: false, message: err.message});
             else res.json({success: true});
           });
@@ -45,7 +48,7 @@ module.exports = function(app, apiRoutes, io) {
     }, function (err, user) {
       if (err) return res.json({success: false, message: 'Error from db'});
       if (!user)
-        return res.json({success: false, message: 'User not found.'});
+        res.json({success: false, message: 'User not found.'});
       else if (req.headers.author_id)
         Ticket.find({
           author_id: req.headers.author_id
@@ -151,15 +154,19 @@ module.exports = function(app, apiRoutes, io) {
                     if (err) return res.json({success: false, message: 'Error from db'})
                     if (!ticket)
                         return res.json({success: false, message: 'Ticket not found'})
-                    else if ((user.roles == 'CARETAKER' || user.roles == 'ROOT' || user.roles == 'ADMIN'))
+                    else if ((user.roles == 'CARETAKER' || user.roles == 'ROOT' || user.roles == 'ADMIN')) {
+                        closed_by = ""
+                        if (req.body.advancement == '100')
+                            closed_by =  user._id
                         Ticket.update({
-                            _id: ticket.id}, {advancement:req.body.advancement}, function(err) {
+                            _id: ticket.id}, {advancement:req.body.advancement, closed_by:closed_by}, function(err) {
                             if (!err) {
                                 res.json({success: true, message: 'Ticket update success'})
                             }
                             else
                                 res.json({success: false, message: 'Ticket update Failed'})
                         });
+                    }
                     else
                         return res.json({success: false, message: 'You must be CARETAKER or ADMIN to edit it'})
                 });
@@ -176,7 +183,7 @@ module.exports = function(app, apiRoutes, io) {
         }, function (err, user) {
             if (err) return res.json({success: false, message: 'Error from db'});
             if (!user)
-                return res.json({success: false, message: 'User not found.'});
+                res.json({success: false, message: 'User not found.'});
             else{
                 Ticket.findOne({
                     _id: req.body.ticket_id
@@ -185,25 +192,40 @@ module.exports = function(app, apiRoutes, io) {
                     if (!ticket)
                         return res.json({success: false, message: 'Ticket not found'})
                     else if (ticket.author_id == user.id || user.roles.includes("ROOT") || user.roles.includes("ADMIN")
-                    || user.roles.includes("CARETAKER"))
+                    || user.roles.includes("CARETAKER")) {
+                        closed_by = ""
+                        closed_time = null
+                        if (req.body.advancement == '100') {
+                            closed_by = user._id 
+                            closed_time = Math.abs(new Date() - ticket.created_at) / (60*60*1000)
+                            console.log(closed_time)
+                        } 
                         Ticket.update({
-                            _id: ticket.id}, {description:req.body.description, title:req.body.title, updated_at:new Date(), advancement:req.body.advancement}, function(err) {
+                            _id: ticket.id}, {description:req.body.description, 
+                                title:req.body.title, 
+                                updated_at:new Date(),  
+                                advancement:req.body.advancement,
+                                closed_by:closed_by,
+                                resolution_time: closed_time
+                            }, function(err) {
                             if (!err) {
                               if (req.body.advancement != ticket.advancement)
-                                Notif.advancementTicket(req.body.title, user._id, user.name, ticket.id, req.body.advancement, ticket.residence_id, io);
+                                Notif.advancementTicket(req.body.title, user._id, user.name, ticket.id, req.body.advancement, ticket.residence_id);
                               else{
-                                Notif.updateTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
-                                return res.json({success: true, message: 'Ticket update success'})
+                                Notif.updateTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id);
+                                res.json({success: true, message: 'Ticket update success'})
                               }
                                 Ticket.findOne({
                                     _id: req.body.ticket_id
                                 }, function (err, freshticket) {
-                                    return res.json({success: true, ticket: freshticket, message: 'Ticket update success'})
+                                    res.json({success: true, ticket: freshticket, message: 'Ticket update success'})
                                 });
                             }
                             else
-                                return res.json({success: false, message: 'Ticket update Failed'})
+                                res.json({success: false, message: 'Ticket update Failed'})
                         });
+                    }
+                        
                     else
                         return res.json({success: false, message: 'Permission denied'})
                 });
@@ -220,7 +242,7 @@ module.exports = function(app, apiRoutes, io) {
         }, function (err, user) {
             if (err) return res.json({success: false, message: 'Error from db'});
             if (!user)
-                return res.json({success: false, message: 'User not found.'});
+                res.json({success: false, message: 'User not found.'});
             else {
                 Ticket.findOne({
                     _id: req.body.ticket_id
@@ -251,10 +273,10 @@ module.exports = function(app, apiRoutes, io) {
 
                         Ticket.update({_id: ticket.id}, {upvote:ticket.upvote, downvote:ticket.downvote}, function (err) {
                             if (!err) {
-                                return res.json({success: true, ticket: ticket})
+                                res.json({success: true, ticket: ticket})
                             }
                             else
-                                return res.json({success: false, ticket: ticket})
+                                res.json({success: false, ticket: ticket})
                         });
 
                     }
