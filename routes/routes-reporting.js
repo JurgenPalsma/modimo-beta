@@ -78,7 +78,6 @@ module.exports = function(app, apiRoutes) {
 
 
     apiRoutes.get('/reporting/stats', function(req, res) {
-        console.log('salut')     
         User.findOne({token: req.headers['x-access-token']
         }, function (err, user) {
           if (err) return res.json({success: false, message: 'Error from db'});

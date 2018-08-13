@@ -127,7 +127,6 @@ module.exports = function(app) {
     
     // route to get list of residences
     app.get('/api/residences', function(req, res) {
-    
         Residence.find({
         }, function (err, resi) {
             if (err) return res.json({success: false, message: 'Error from db'});

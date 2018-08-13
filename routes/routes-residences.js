@@ -59,6 +59,30 @@ module.exports = function(app, apiRoutes) {
         }
     });
 
+    // route to get resi with specified id
+    apiRoutes.get('/residence', function(req, res) {
+        if (!req.headers['id'])
+            return res.json({success: false, message: 'Error: request incomplete'});
+        User.findOne({
+            token: req.headers['x-access-token'],
+        }, function (err, user) {
+            if (err) return res.json({success: false, message: 'Error from db'});
+            if (!user)
+                res.json({success: false, message: 'User not found.'});
+            else {
+                Residence.findOne({
+                    _id: req.headers.id
+                }, function (err, resi) {
+                    if (err) return res.json({success: false, message: 'Error from db'});
+                    if (!resi)
+                        return res.json({success: false, message: 'info not found'})
+                    else
+                        return res.json({success: true, residence: resi});
+                });
+            }
+        });
+    });
+
     // UNSAFE: gives caretaker's password
     apiRoutes.get('/residence/caretaker', function(req, res) {
 
