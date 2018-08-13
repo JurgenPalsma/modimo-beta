@@ -6,15 +6,13 @@
 
 <script>
 export default {
-  name: 'app',
-  mounted () {
-    if (this.$cookies.get('api_token')) {
-      // TODO: fill user info here
-      this.$router.push('home')
-    } else {
-      this.$router.push('/')
+    name: 'app',
+    mounted () {
+        if (this.$cookies.get('api_token')) {
+        } else {
+            this.$router.push('/')
+        }
     }
-  }
 }
 </script>
 

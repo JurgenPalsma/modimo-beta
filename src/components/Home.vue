@@ -26,6 +26,9 @@
             <router-link  to="/tickets">
                 <a class="button is-success">Tickets</a>
             </router-link>
+            <router-link  to="/analytics">
+                <a class="button is-success">Analytics</a>
+            </router-link>
             <a class="button is-danger" @click="logout">Logout</a>
 
         </div>
@@ -40,18 +43,18 @@
 import AuthService from '@/services/AuthService'
 
 export default {
-  name: 'home',
-  data () {
-    return {
+    name: 'home',
+    data () {
+        return {
+        }
+    },
+    methods: {
+        logout: function () {
+            AuthService.logout(this.$cookies.get('api_token'))
+            this.$cookies.remove('api_token')
+            this.$router.push('/')
+        }
     }
-  },
-  methods: {
-    logout: function () {
-      AuthService.logout(this.$cookies.get('api_token'))
-      this.$cookies.remove('api_token')
-      this.$router.push('/')
-    }
-  }
 }
 </script>
 <style lang="scss">

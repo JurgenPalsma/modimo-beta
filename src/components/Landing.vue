@@ -134,61 +134,62 @@ import DemoService from '@/services/DemoService'
 import AuthService from '@/services/AuthService'
 
 export default {
-  name: 'landing',
-  data () {
-    return {
-      form_state: 'not engaged',
-      role: 'resi',
-      email: '',
-      email_error: false,
-      api_online: false,
-      loading: false
-    }
-  },
-  mounted () {
-  },
-  methods: {
-    engage: function (state, admin = false) {
-      this.form_state = state
-      if (state === 'email') {
-        // Launch heroku dyno if api is offline by pinging it
-        this.ping_api()
-      }
-      if (admin) this.role = 'admin'
-    },
-    async ping_api () {
-      const response = await AuthService.ping()
-      if (response.data.success) {
-        this.api_online = true
-      }
-    },
-    async launch_demo () {
-      this.loading = true
-      const demo = this.role === 'resi' ? await DemoService.create_resident_demo(this.email) : await DemoService.create_admin_demo(this.email)
-      if (demo.data.success) {
-        console.log(demo.data)
-        const auth = await AuthService.authenticate(demo.data.user.email, demo.data.user.password)
-        if (auth.data.success) {
-          this.$cookies.set('api_token', auth.data.token)
-          this.$parent.current_user = demo.data.user
-          this.$parent.api_token = auth.data.token
-          this.$router.push('home')
-        } else {
-          alert('Couldnt log in: ' + auth.data.message)
-          this.loading = false
+    name: 'landing',
+    data () {
+        return {
+            form_state: 'not engaged',
+            role: 'resi',
+            email: '',
+            email_error: false,
+            api_online: false,
+            loading: false
         }
-      } else {
-        this.email_error = true
-        this.loading = false
-      }
     },
-    async redirect_login () {
-      this.loading = true
-      window.location = 'https://modimo.herokuapp.com/login'
+    mounted () {
+    },
+    methods: {
+        engage: function (state, admin = false) {
+            this.form_state = state
+            if (state === 'email') {
+                // Launch heroku dyno if api is offline by pinging it
+                this.ping_api()
+            }
+            if (admin) this.role = 'admin'
+        },
+        async ping_api () {
+            const response = await AuthService.ping()
+            if (response.data.success) {
+                this.api_online = true
+            }
+        },
+        async launch_demo () {
+            this.loading = true
+            const demo = this.role === 'resi' ? await DemoService.create_resident_demo(this.email) : await DemoService.create_admin_demo(this.email)
+            if (demo.data.success) {
+                console.log(demo.data)
+                const auth = await AuthService.authenticate(demo.data.user.email, demo.data.user.password)
+                if (auth.data.success) {
+                    this.$cookies.set('api_token', auth.data.token)
+                    this.$parent.current_user = demo.data.user
+                    this.$parent.api_token = auth.data.token
+                    this.$router.push('home')
+                } else {
+                    alert('Couldnt log in: ' + auth.data.message)
+                    this.loading = false
+                }
+            } else {
+                this.email_error = true
+                this.loading = false
+            }
+        },
+        async redirect_login () {
+            this.loading = true
+            window.location = 'https://modimo.herokuapp.com/login'
+        }
     }
-  }
 }
 </script>
+
 <style lang="scss">
 @import '../styles/landing.scss'
 </style>

@@ -31,17 +31,17 @@
 
 <script>
 export default {
-  name: 'home',
-  data () {
-    return {
-      toggled: false
+    name: 'home',
+    data () {
+        return {
+            toggled: false
+        }
+    },
+    methods: {
+        toggle: function () {
+            this.toggled = !this.toggled
+        }
     }
-  },
-  methods: {
-    toggle: function () {
-      this.toggled = !this.toggled
-    }
-  }
 }
 </script>
 
