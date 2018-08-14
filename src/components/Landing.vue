@@ -7,9 +7,9 @@
             <nav class="navbar">
                 <div class="container">
                     <div id="navbarMenu" class="navbar-menu">
-                        <div class="navbar-end" @click="redirect_login">
+                        <div class="navbar-end" >
                             <span class="navbar-item">
-                                <a class="button is-white is-outlined" href="#">
+                                <a class="button is-white is-outlined" href="/login">
                                     <span class="icon">
                                         <i class="fa fa-key"></i>
                                     </span>
@@ -181,10 +181,6 @@ export default {
                 this.email_error = true
                 this.loading = false
             }
-        },
-        async redirect_login () {
-            this.loading = true
-            window.location = 'https://modimo.herokuapp.com/login'
         }
     }
 }

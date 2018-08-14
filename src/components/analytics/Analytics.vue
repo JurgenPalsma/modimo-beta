@@ -1,68 +1,107 @@
 <template>
-    <section class="hero is-info  is-fullheight">
+    <section class="hero is-info is-fullheight">
+    <nav></nav>
+        
         <div class="section container">
-            <div class="section">
-                <h1 class="title">
-                    Analytics
-                </h1>
-            </div>
-            <date-picker v-model="daterange" lang='fr' range :shortcuts="shortcuts"></date-picker>
-            <div class="level">
-                <div class="level-item has-text-centered">
-                    <div>
-                    <p class="heading">Open tickets</p>
-                    <p class="title">{{n_tickets_open}}</p>
+            <div class="tile is-ancestor notification">
+                
+                <div class="tile is-vertical">
+
+                    <div class="tile">
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-info">
+                                <p class="title">Select date range:</p>
+                                <div class="content">
+                                    <date-picker v-model="daterange" lang='fr' range :shortcuts="shortcuts"></date-picker>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification">
+                            <p class="title is-1 has-text-grey-dark">{{current_user.residence.name}}</p>
+                            </article>
+                        </div>
                     </div>
+
+
+
+                    <div class="tile">
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-info">
+                            <p class="title">{{n_tickets_open}}</p>
+                            <p class="subtitle">Tickets open</p>
+                            </article>
+                        </div>
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-info">
+                            <p class="title">{{n_tickets_pending}}</p>
+                            <p class="subtitle">Tickets pending</p>
+                            </article>
+                        </div>
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-info">
+                            <p class="title">{{n_tickets_closed}}</p>
+                            <p class="subtitle">Tickets closed</p>
+                            </article>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="tile">
+                    <div class="tile is-parent is-vertical">
+                        <article class="tile is-child notification is-info">
+                        <p class="title">Tickets created by date</p>
+                        <figure class="image">
+                            <area-chart :data="tickets_created_per_day" :library="{animation: { easing: 'easeOutQuad' }}"></area-chart>
+                        </figure>
+                        </article>
+                        <article class="tile is-child notification is-info">
+                        <p class="title">Pretty impressive!</p>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification is-info">
+                        <p class="title">Gardi performance</p>
+                        <p class="subtitle">This chart shows who closed the most tickets</p>
+                        <figure class="image">
+                            <pie-chart :messages="{empty: 'Pas de tickets fermés a ce jour'}" :data="chart_tickets" :library="{animation: { easing: 'easeOutQuad' }}"></pie-chart>
+                        </figure>
+                        </article>
+                    </div>
+                    </div>
+                    <div class="tile">
+                    <div class="tile is-vertical is-parent">
+                        <article class="tile is-child notification is-info">
+                        <p class="title">Shortest ticket</p>
+                        <p class="subtitle">{{shortest_ticket.title}}</p>
+                        <div class="content">
+                        Resolved in just: {{shortest_ticket_time}}
+                        </div>
+                        </article>
+                    </div>
+                    <div class="tile is-vertical is-parent">
+                        <article class="tile is-child notification is-info">
+                        <p class="title">{{avg_ticket_time}}</p>
+                        <p class="subtitle">Average ticket resolution time</p>
+                        </article>
+                    </div>
+                    <div class="tile is-vertical is-parent">
+                        <article class="tile is-child notification is-info">
+                        <p class="title">Longest ticket</p>
+                        <p class="subtitle">{{longest_ticket.title}}</p>
+                        <div class="content">
+                        Resolved after: {{longest_ticket_time}}
+                        </div>
+                        </article>
+                    </div>
+                    </div>
+
                 </div>
-                <div class="level-item has-text-centered">
-                    <div>
-                    <p class="heading">Tickets pending</p>
-                    <p class="title">{{n_tickets_pending}}</p>
-                    </div>
-                </div>
-                <div class="level-item has-text-centered">
-                    <div>
-                    <p class="heading">Tickets closed</p>
-                    <p class="title">{{n_tickets_closed}}</p>
-                    </div>
-                </div> 
-            </div>
-
-            <div> 
-                <pie-chart :messages="{empty: 'Pas de tickets fermés a ce jour'}" :data="chart_tickets" :library="{animation: { easing: 'easeOutQuad' }}"></pie-chart>
-            </div>
-
-            <div>
-                <area-chart :data="tickets_created_per_day" :library="{animation: { easing: 'easeOutQuad' }}"></area-chart>
-            </div>
-            <!-- TODO: Set router link to ticket -->
-            <div class="level">
-                    <div class="level-item has-text-centered">      
-                        <div>
-                            <p class="heading">Shortest ticket</p>
-                            <p class="title">{{shortest_ticket_time}}</p>
-                            {{shortest_ticket.title}}
-                        </div>
-                    </div>
-                <!-- TODO: Set router link to ticket -->
-                    <div class="level-item has-text-centered">      
-                        <div>
-                            <p class="heading">Average resolution time</p>
-                            <p class="title">{{avg_ticket_time}}</p>
-                        </div>
-                    </div>
-                <!-- TODO: Set router link to ticket -->
-                    <div class="level-item has-text-centered">      
-                        <div>
-                            <p class="heading">Longest Ticket</p>
-                            <p class="title">{{longest_ticket_time}}</p>
-                            {{longest_ticket.title}}
-                        </div>
-                    </div>
-            </div>
-
-        </div>
-    
+            
+            </div>   
+        </div>    
     </section>
 </template>
 
@@ -104,6 +143,9 @@ export default {
                 start: '00:00',
                 step: '00:30',
                 end: '23:30'
+            },
+            current_user: {
+                residence: ''
             }
         }
     },
@@ -112,6 +154,7 @@ export default {
     },
     methods: {
         async load () {
+            this.current_user = await this.$parent.getCurrentUser()
             const resp = await AnalyticsService.getStats(this.$cookies.get('api_token'), this.daterange)
             if (resp.data.success) {
                 this.n_tickets_open = resp.data.ticket_numbers.tickets_open
