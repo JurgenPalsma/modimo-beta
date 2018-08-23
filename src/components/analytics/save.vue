@@ -161,3 +161,21 @@ export default {
 <style lang="scss">
 
 </style>
+<div class="tile is-parent">
+                <div class="tile">
+                    <article class="tile is-child notification is-info">
+                    <p class="title">{{n_tickets_open}}</p>
+                    <p class="subtitle">Tickets open</p>
+                    </article>
+
+                    <article class="tile is-child notification is-info">
+                    <p class="title">{{n_tickets_pending}}</p>
+                    <p class="subtitle">Tickets pending</p>
+                    </article>
+
+                    <article class="tile is-child notification is-info">
+                    <p class="title">{{n_tickets_closed}}</p>
+                    <p class="subtitle">Tickets closed</p>
+                    </article>
+                </div>
+            </div>
