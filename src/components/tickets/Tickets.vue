@@ -16,82 +16,39 @@ export default {
     name: 'tickets',
     data () {
         return {
-	tickets:[
-		{
-			'_id': 'aeijazoiejazoiej',
-			'title': 'Salut jai un probleme',
-			'content': 'Lascenceur est cassé',
-			'author_id': 'ezaoijeeeaezazo',
-			 'created_at': {
-        		'$date': '2018-08-13T10:09:26.236Z'
-    		},
-    		'updated_at': {
-        		'$date': '2018-08-13T10:12:47.414Z'
-    		},
-			'comment': [
-				{
-					'_id': 'aeoizjezaojiaez',
-					'author_id': 'eazoijeizaoj',
-					'content': 'Ouais cest un vrai probleme',
-					'created_at': {
-		        		'$date': '2018-08-13T10:09:26.236Z'
-		    		},
-		    		'updated_at': {
-		        		'$date': '2018-08-13T10:12:47.414Z'
-		    		},
-				},
-				{
-					'_id': 'aaezojiaez',
-					'author_id': 'eaeazejeizaoj',
-					'content': 'Ouais',
-					'created_at': {
-		        		'$date': '2018-08-13T10:09:26.236Z'
-		    		},
-		    		'updated_at': {
-		        		'$date': '2018-08-13T10:12:47.414Z'
-		    		},
-				}
-			],
-			'votes': [
-					'aeoizjezaojiaez',
-					'aaezojiaez'
-			],
-			'status': 'open'
-		},
-		{
-			'_id': 'aeijazaezoiejazoiej',
-			'title': 'Salut jai un deuxieme probleme',
-			'content': 'La porte est cassée',
-			'author_id': 'ezaoijeeeaaezezazo',
-			 'created_at': {
-        		'$date': '2018-08-13T10:09:26.236Z'
-    		},
-    	'updated_at': {
-        		'$date': '2018-08-13T10:12:47.414Z'
-    		},
-			'comment': [
-				{
-					'_id': 'aeoizjeqxczaojiaez',
-					'author_id': 'eazoijeizaoj',
-					'content': 'Ouais je suis daccord',
-					'created_at': {
-		        		'$date': '2018-08-13T10:09:26.236Z'
-		    		},
-		    		'updated_at': {
-		        		'$date': '2018-08-13T10:12:47.414Z'
-		    		},
-				}
-			],
-			'votes': [
-					'aeoizjezaojiaez',
-					'aaezojiaez',
-					'oezaijoezaezaioezaiojoijeaz'
-			],
-			'status': 'closed'
-		}
-	]
-
-}
+            tickets: [
+                {
+                    '_id': '123133',
+                    'title': 'salut jai un réel probleme',
+                    'content': 'mon ascenceur est cassé',
+                    'author_id': '1238EeGZY3',
+                    'residence_id': '1e238aEeGZY3',
+                    'status': 'open',
+                    'created_at': {
+                        '$date': '2018-08-13T10:09:26.236Z'
+                    },
+                    'updated_at': {
+                        '$date': '2018-08-13T10:12:47.414Z'
+                    },
+                    'comments': [
+                        {
+                            '_id': '123133',
+                            'author_id': 'oji23oijzea3',
+                            'content': 'cest un vrai probleme',
+                            'created_at': {
+                                '$date': '2018-08-14T10:09:26.236Z'
+                            },
+                            'updated_at': {
+                                '$date': '2018-08-14T10:12:47.414Z'
+                            }
+                        }
+                    ],
+                    'votes': [
+                        '123133'
+                    ]
+                }
+            ]
+        }
     },
     components: {
         'ticket': ticket
