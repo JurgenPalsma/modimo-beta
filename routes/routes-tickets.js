@@ -1,5 +1,6 @@
 const Ticket = require('../models/tickets/ticket');
 const ticketStatus = require('../models/tickets/ticketStatus')
+const ticketSorter = require('../functions/ticketSorter')
 const Comment = require('../models/comment');
 const User = require('../models/user');
 const Notif = require('../functions/notifications');
@@ -66,7 +67,6 @@ module.exports = function(app, apiRoutes, io) {
                             else {
                                 updated_votes.push(user._id)
                             }
-                            console.log(updated_votes)
                             Ticket.update({ _id: ticket.id }, {
                                     votes: updated_votes
                                 }, function(err) {
@@ -139,21 +139,7 @@ module.exports = function(app, apiRoutes, io) {
             }
         });
     });
-
-    function sortTickets(orderlist, tickets) {
-        if (orderlist.includes('date_asc')) {
-            tickets.sort(function(a, b) { 
-                return b.created_at - a.created_at;
-            })
-        }
-        else  if (orderlist.includes('date_desc')) {
-            tickets.sort(function(a, b) { 
-                return a.created_at - b.created_at;
-            })
-        }
-        return tickets
-    }
-
+    
     // Get les tickets d'une rési
     apiRoutes.get('/tickets', function(req, res) {
         if (!req.headers['residence_id'])
@@ -173,7 +159,7 @@ module.exports = function(app, apiRoutes, io) {
                         return res.json({success: false, message: 'info not found'})
                     else {
                         if (req.headers.ordered_by)
-                            tickets = sortTickets(req.headers.ordered_by, tickets)
+                            tickets = ticketSorter.sortTickets(req.headers.ordered_by, tickets)
                         return res.json({success: true, tickets: tickets});
                     }
                 });
