@@ -140,6 +140,20 @@ module.exports = function(app, apiRoutes, io) {
         });
     });
 
+    function sortTickets(orderlist, tickets) {
+        if (orderlist.includes('date_asc')) {
+            tickets.sort(function(a, b) { 
+                return b.created_at - a.created_at;
+            })
+        }
+        else  if (orderlist.includes('date_desc')) {
+            tickets.sort(function(a, b) { 
+                return a.created_at - b.created_at;
+            })
+        }
+        return tickets
+    }
+
     // Get les tickets d'une rési
     apiRoutes.get('/tickets', function(req, res) {
         if (!req.headers['residence_id'])
@@ -157,8 +171,11 @@ module.exports = function(app, apiRoutes, io) {
                     if (err) return res.json({success: false, message: 'Error from db'});
                     if (!tickets)
                         return res.json({success: false, message: 'info not found'})
-                    else
+                    else {
+                        if (req.headers.ordered_by)
+                            tickets = sortTickets(req.headers.ordered_by, tickets)
                         return res.json({success: true, tickets: tickets});
+                    }
                 });
             }
         });
