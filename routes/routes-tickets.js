@@ -1,154 +1,87 @@
-const Ticket = require('../../app/models/tickets/ticket');
+const Ticket = require('../models/tickets/ticket');
+const ticketStatus = require('../models/tickets/ticketStatus')
 const Comment = require('../models/comment');
-const User = require('../../app/models/user');
-const Notif = require('../../app/functions/notifications');
-const Notification = require('../../app/models/notifications/notification');
+const User = require('../models/user');
+const Notif = require('../functions/notifications');
+const Notification = require('../models/notifications/notification');
 
 module.exports = function(app, apiRoutes, io) {
 
-/*
-
-  // route to add a ticket
-  apiRoutes.post('/tickets/ticket', function(req, res) {
-
-    if (!req.body.title || !req.body.description)
-      res.json({success: false, message: 'Error: request incomplete'});
-    else
-      User.findOne({token: req.headers['x-access-token']}, function (err, user) {
-        if (err) throw err;
-        if (!user)
-          res.json({success: false, message: 'Bad auth token'});
-        else {
-          let ticket = new Ticket({
-            author_id: user._id,
-            title: req.body.title,
-            description: req.body.description,
-            upvote: [],
-            downvote:[],
-            created_at: new Date(),
-            updated_at: new Date(),
-            residence_id: user.residence,
-            advancement: '10',
-          });
-
-          ticket.save(function(err) {
-            Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
-            if (err) res.json({success: false, message: err.message});
-            else res.json({success: true});
-          });
-        }
-      });
-  });
-
-*/
-
 // route to add a ticket
-apiRoutes.post('/tickets/ticket', function(req, res) {
+    apiRoutes.post('/tickets/ticket', function(req, res) {
 
-  if (!req.body.title)
-    res.json({success: false, message: 'Error: request incomplete'});
-  else
-    User.findOne({token: req.headers['x-access-token']}, function (err, user) {
-      if (err) throw err;
-      if (!user)
-        res.json({success: false, message: 'Bad auth token'});
-      else {
-        let ticket = new Ticket({
-          title: req.body.title,
-          content: req.body.content,
-          created_at: new Date(),
-          updated_at: new Date(),
-          comment: req.body.comment,
-          votes: [],
-          status: req.body.status,
-          author_id: user._id,
-          residence_id: user.residence,
-        });
-
-        ticket.save(function(err) {
-          //Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
-          if (err) res.json({success: false, message: err.message});
-          else res.json({success: true});
-        });
-      }
-    });
-});
-
-/*
-
-  // route to get list of tickets
-  apiRoutes.get('/tickets/tickets', function(req, res) {
-    User.findOne({
-      token: req.headers['x-access-token'],
-    }, function (err, user) {
-      if (err) return res.json({success: false, message: 'Error from db'});
-      if (!user)
-        return res.json({success: false, message: 'User not found.'});
-      else if (req.headers.author_id)
-        Ticket.find({
-          author_id: req.headers.author_id
-        }, function(err, tickets) {
-          if (err) return {success: false, message: 'Error from db'};
-          else {
-
-            // get all ids of authors
-            var ids = [];
-            for (t in tickets) {
-                ids.push(tickets[t].author_id)
-            }
-
-            // find all authors and add them to tickets
-            User.find({_id: {$in: ids}}, function(err, us) {
-                if (err) return {success: false, message: 'Error from db'};
-                if (!us) return {success: false, message: 'Not found'};
+        if (!req.body.title)
+            res.json({success: false, message: 'Error: request incomplete'});
+        else
+            User.findOne({token: req.headers['x-access-token']}, function (err, user) {
+                if (err) throw err;
+                else if (!user)
+                    res.json({success: false, message: 'Bad auth token'});
                 else {
-                    for (u in us) {
-                        us[u].password = undefined;
-                        us[u].token = undefined;
-                        for (t in tickets) {
-                            if (tickets[t].author_id == us[u]._id)
-                                tickets[t].author = us[u];
-                        }
-                    }
-                    return res.json({success: true, tickets: tickets});
+                    let ticket = new Ticket({
+                    title: req.body.title,
+                    content: req.body.content,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    comment: req.body.comment,
+                    votes: [],
+                    status: ticketStatus.open,
+                    author_id: user._id,
+                    residence_id: user.residence,
+                    });
+                    ticket.save(function(err) {
+                    //Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
+                    if (err) res.json({success: false, message: err.message});
+                    else res.json({success: true, ticket: ticket});
+                    });
                 }
             });
-          }
-        })
-      else {
-        Ticket.find({residence_id: user.residence}).lean().exec(function(err, tickets) {
-            if (err) return {success: false, message: 'Error from db'};
-            else {
-
-                // get all ids of authors
-                var ids = [];
-                for (t in tickets) {
-                    ids.push(tickets[t].author_id)
-                }
-
-                // find all authors and add them to tickets
-                User.find({_id: {$in: ids}}, function(err, us) {
-                    if (err) return {success: false, message: 'Error from db'};
-                    if (!us) return {success: false, message: 'Not found'};
-                    else {
-                        for (u in us) {
-                            us[u].password = undefined;
-                            us[u].token = undefined;
-                            for (t in tickets) {
-                                if (tickets[t].author_id == us[u]._id)
-                                    tickets[t].author = us[u];
-                            }
-                        }
-                        return res.json({success: true, tickets: tickets});
-                    }
-                });
-            }
-        });
-      }
     });
-  });
 
-*/
+    // route to upvote/downvote
+    apiRoutes.post('/tickets/vote', function(req, res) {
+
+        if (!req.body.ticket_id)
+            res.json({success: false, message: 'Error: request incomplete'});
+        else
+            User.findOne({token: req.headers['x-access-token']}, function (err, user) {
+                if (err) throw err;
+                else if (!user)
+                    res.json({success: false, message: 'Bad auth token'});
+                else {
+                    Ticket.findOne({
+                        _id: req.body.ticket_id
+                    }, function (err, ticket) {
+                        if (err) return res.json({success: false, message: 'Error from db'})
+                        else if (!ticket) return res.json({success: false, message: 'Ticket not found'})
+                        else {
+                            let updated_votes = ticket.votes
+                            if (updated_votes.indexOf(user._id) > -1) {
+                                for (var i=updated_votes.length-1; i>=0; i--) {
+                                    if (String(updated_votes[i]) === String(user._id)) {
+                                        updated_votes.splice(i, 1);
+                                    }
+                                }
+                            }
+                            else {
+                                updated_votes.push(user._id)
+                            }
+                            console.log(updated_votes)
+                            Ticket.update({ _id: ticket.id }, {
+                                    votes: updated_votes
+                                }, function(err) {
+                                    if (err) res.json({success: false, message: 'Ticket update Failed'})
+                                    else res.json({success: true, message: 'Ticket update success', ticket: ticket})
+                            });
+                        }
+                            
+                    });
+                }
+            });
+    });
+
+
+
 
     // route to get ticket with specified id
     apiRoutes.get('/tickets/ticket', function(req, res) {
@@ -202,6 +135,30 @@ apiRoutes.post('/tickets/ticket', function(req, res) {
                         });
                     else
                         return res.json({success: false, message: 'You must be CARETAKER or ADMIN to edit it'})
+                });
+            }
+        });
+    });
+
+    // Get les tickets d'une rési
+    apiRoutes.get('/tickets', function(req, res) {
+        if (!req.headers['residence_id'])
+            return res.json({success: false, message: 'Error: request incomplete'});
+        User.findOne({
+            token: req.headers['x-access-token'],
+        }, function (err, user) {
+            if (err) return res.json({success: false, message: 'Error from db'});
+            if (!user)
+                res.json({success: false, message: 'User not found.'});
+            else {
+                Ticket.find({
+                    residence_id: req.headers.residence_id
+                }, function (err, tickets) {
+                    if (err) return res.json({success: false, message: 'Error from db'});
+                    if (!tickets)
+                        return res.json({success: false, message: 'info not found'})
+                    else
+                        return res.json({success: true, tickets: tickets});
                 });
             }
         });
