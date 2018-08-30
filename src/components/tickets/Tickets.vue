@@ -1,6 +1,5 @@
 <style src="./scss/Tickets.scss"></style>
 <template>
-<!--Responsiness-->
 <!--V-bind:class-->
 <!--Status "Open/Close"-->
 <!--Give_UserIdtoTicketModal-->
@@ -12,22 +11,22 @@
             <div class="tile is-ancestor">
                 <div class="tile is-vertical">
                     <div v-for="ticket in tickets" :key="ticket._id" 
-                        class="tile is-child background-tile is-mobile"
+                        class="tile is-child background-tile"
                         v-bind:class="{ active: isActive }">
                         <a @click="showModal = true" style="color: #4a4a4a">
-                        <div class="columns is-centered is-mobile">
-                            <div class="column">
+                        <div class="columns is-centered">
+                            <div class="column is-mobile">
                                 <div id="ticket-status" class="has-text-centered bell-status">
                                     <i class="fas fa-bell fa-4x"></i>
                                 </div>
                             </div>
-                            <div class="column is-one-third">
+                            <div class="column is-one-third is-mobile">
                                 <div id="ticket-title" class="has-text-left">
                                     <p class="bold modimo-color"> {{ ticket.title }} </p>
                                     <p class="bold">Crées par : </p> TheYoung Stéph 
                                 </div>
                             </div>
-                            <div class="column is-one-quarter">
+                            <div class="column is-one-quarter is-mobile">
                                 <div id="ticket-time" class="has-text-left">
                                         <p class="bold">Crées le : </p>
                                         <time datetime="2018-08-13T10:09:26.236Z">13 Aout 2018 - 09:26</time> <br>
@@ -35,7 +34,7 @@
                                         <time datetime="2018-08-13T10:12:47.414Z">13 Aout 2018 - 12:47</time>
                                 </div>
                             </div>
-                            <div class="column is-one-third">
+                            <div class="column is-one-third is-mobile">
                                 <div id="ticket-advancement" class="has-text-left">
                                     <p class="bold">Avancement :</p>
                                     <div class="animated-advancement">
