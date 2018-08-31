@@ -4,7 +4,7 @@
             <div class="modal-background"></div>
                 <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Ticket title</p>
+                    <p class="modal-card-title">Nouveau Ticket</p>
                     <button class="delete" aria-label="close" @click="$emit('close_modal')"></button>
                 </header>
                 <section class="modal-card-body">
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    name: 'ticket',
+    name: 'ticketCreation',
     data () {
         return {
             isActive: true
