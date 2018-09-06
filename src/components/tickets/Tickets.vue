@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <ticket v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
+        <ticket ticket='ticket' v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
         <ticketCreation v-show="showModalTicketCreation" @close_modal="showModalTicketCreation = false"></ticketCreation>
     </section>
 </template>
@@ -68,6 +68,7 @@ import ticketCreation from './TicketCreation.vue'
 
 export default {
     name: 'tickets',
+    props: ['tickets'],
     data () {
         return {
             showModalTicket: false,

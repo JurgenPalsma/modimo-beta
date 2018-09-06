@@ -4,7 +4,7 @@
             <div class="modal-background"></div>
                 <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Ticket title</p>
+                    <p class="modal-card-title">{{ ticket.title }}</p>
                     <button class="delete" aria-label="close" @click="$emit('close_modal')"></button>
                 </header>
                 <section class="modal-card-body">
@@ -22,17 +22,18 @@
 <script>
 export default {
     name: 'ticket',
+    props: ['ticket'],
     data () {
         return {
             isActive: true
         }
     },
-    methods: {
-
-    }
+    methods: {}
 }
+
 </script>
 
 <style lang="scss">
 
+       
 </style>
