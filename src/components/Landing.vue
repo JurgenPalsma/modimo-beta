@@ -13,7 +13,7 @@
                                     <span class="icon">
                                         <i class="fa fa-key"></i>
                                     </span>
-                                    <span>Login</span>
+                                    <span>Connection</span>
                                 </a>
                             </span>
                         </div>
@@ -38,26 +38,28 @@
 
             <div v-else-if="form_state === 'interested'" class="section is-large hero-body">
                 <div class="container has-text-centered">
-                  <div class="columns">
-                    <div class="column">
-                      <div class="card" v-on:click="engage('email', true)">
-                        <div class="card-content">
-                          <p class="title has-text-black">
-                            Je suis un gardien
-                          </p>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="blog-card spring-fever" v-on:click="engage('email', true)">
+                                <div class="title-content">
+                                    <h3>Je suis un professionnel.</h3>
+                                </div>
+                                <div class="card-info">
+                                    Si vous êtes un professionnel, venez découvrir les avantages de Modimo 
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="card" v-on:click="engage('email')">
-                        <div class="card-content">
-                          <p class="title has-text-black">
-                            Je suis un resi
-                          </p>
+                        <div class="column">
+                            <div class="blog-card spring-fever" v-on:click="engage('email')">
+                                <div class="title-content">
+                                    <h3>Je suis un particulier.</h3>
+                                </div>
+                                <div class="card-info">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim. 
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
             </div>
 
@@ -68,7 +70,7 @@
                           Pas si vite!
                       </h1>
                       <h2 class="subtitle">
-                          File ton email stp pour qu'on puisse prospecter
+                          Entre ton adresse email pour créer ton compte et découvrir la plateforme.
                       </h2>
                       
                       <div class="box">
@@ -94,7 +96,7 @@
                           Ooooops
                       </h1>
                       <h2 class="subtitle">
-                          Ton email est invalide. Renseigne un vrai mail stp
+                          Ton email est invalide. Renseigne une vraie adresse email.
                       </h2>
                       
                       <div class="box">
