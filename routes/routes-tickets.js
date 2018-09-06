@@ -140,7 +140,7 @@ module.exports = function(app, apiRoutes, io) {
         });
     });
     
-    // Get les tickets d'une rési
+    // Get les tickets d'une rési avec tri
     apiRoutes.get('/tickets', function(req, res) {
         if (!req.headers['residence_id'])
             return res.json({success: false, message: 'Error: request incomplete'});

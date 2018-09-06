@@ -3,7 +3,7 @@ const User          = require('../models/user');
 const Ticket        = require('../models/tickets/ticket');
 const Notif         = require('../functions/notifications');
 const Lead          = require('../models/lead');
-
+const ticketList    = require('../config/demo_tickets')
 
 let create_lead = function(role, email) {
     lead = new Lead({
@@ -55,24 +55,59 @@ module.exports = function(app, apiRoutes) {
         }
     }
 
+    /*
+        '_id': '123133',
+        'title': 'Du feu dans la cheminée',
+        'content': 'mon ascenceur est cassé',
+        'author_id': '1238EeGZY3',
+        'residence_id': '1e238aEeGZY3',
+        'status': 'open',
+        'created_at': {
+            '$date': '2018-08-13T10:09:26.236Z'
+        },
+        'updated_at': {
+            '$date': '2018-08-13T10:12:47.414Z'
+        },
+        'comments': [
+            {
+                '_id': '123133',
+                'author_id': 'oji23oijzea3',
+                'content': 'cest un vrai probleme',
+                'created_at': {
+                    '$date': '2018-08-14T10:09:26.236Z'
+                },
+                'updated_at': {
+                    '$date': '2018-08-14T10:12:47.414Z'
+                }
+            }
+        ],
+        'votes': [
+            '123133'
+        ]
+    */
+
     let fill_demo_tickets = function(user, res_id, caretaker_id) {
-        
-        let ticket = new Ticket({
-            author_id: caretaker_id,
-            title: "Il y a un pb dans cette residence",
-            description: "Oui un petit pb. lache un like frr. Et commente",
-            upvote: [],
-            downvote:[],
-            created_at: new Date(),
-            updated_at: new Date(),
-            residence_id: res_id,
-            advancement: '10',
-          });
-          if ((ticket.save()).hasWriteError) return ({success: false, message: "Db not writable"})
-          else {
+        writeError = false
+        ticketList.forEach(function (dticket) {
+            let ticket = new Ticket({
+                author_id: caretaker_id,
+                title: dticket.title,
+                content: dticket.content,
+                created_at: new Date(),
+                updated_at: new Date(),
+                residence_id: res_id,
+                status: dticket.status
+            });
+            if ((ticket.save()).hasWriteError) {
+                writeError = true
+                return ({success: false, message: "Db not writable"})
+            }
+        });
+    
+        if (!writeError) {
             //Notif.createTicket("Un premier ticket est apparu", user._id, user.name, ticket.id, ticket.residence_id);
             return({success: true});
-          }
+        }
     }
 
     apiRoutes.post('/demo/resident', function(req, res) {
