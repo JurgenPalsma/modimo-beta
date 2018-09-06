@@ -26,11 +26,25 @@ $cta-color: #f33535;
     justify-content: center;
 }
 
+.is-vertical-center {
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    height: 100%
+}
+
 .is-loader {
     animation: spin 1s linear infinite;
+}
+
+.is-fullheight-minus-navbar {
+    min-height: calc(100vh - 52px);
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
