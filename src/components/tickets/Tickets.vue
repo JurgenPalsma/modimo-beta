@@ -10,9 +10,8 @@
             <div class="tile is-ancestor">
                 <div class="tile is-vertical">
                     <div v-for="ticket in tickets" :key="ticket._id" 
-                        class="tile is-child background-tile"
-                        v-bind:class="{ active: isActive }">
-                        <a @click="showModalTicket = true" style="color: #4a4a4a">
+                        class="tile is-child background-tile">
+                        <a @click="idToModal(ticket)" style="color: #4a4a4a">
                         <div class="columns is-centered">
                             <div class="column is-mobile">
                                 <div id="ticket-status" class="has-text-centered icon-status">
@@ -54,10 +53,10 @@
                             </div>
                         </div>
                     </a>
+                  <ticket :ticket="currentTicket" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
                 </div>
             </div>
         </div>
-        <ticket ticket='ticket' v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
         <ticketCreation v-show="showModalTicketCreation" @close_modal="showModalTicketCreation = false"></ticketCreation>
     </section>
 </template>
@@ -68,11 +67,11 @@ import ticketCreation from './TicketCreation.vue'
 
 export default {
     name: 'tickets',
-    props: ['tickets'],
     data () {
         return {
             showModalTicket: false,
             showModalTicketCreation: false,
+            currentTicket: {},
             tickets: [
                 {
                     '_id': '123133',
@@ -140,6 +139,13 @@ export default {
     components: {
         'ticket': ticket,
         'ticketCreation': ticketCreation
+    },
+
+    methods: {
+        idToModal: function (ticket) {
+            this.currentTicket = ticket
+            this.showModalTicket = true
+        }
     }
 }
 </script>
