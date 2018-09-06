@@ -17,7 +17,7 @@
             </div>
 
             <div id="navMenubd-example" class="navbar-menu">
-                <div class="navbar-start">
+                <div v-if="this.$route.name != 'Home'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home">Apps</a>
                         <div class="navbar-dropdown ">

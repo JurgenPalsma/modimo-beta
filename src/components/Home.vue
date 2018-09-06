@@ -5,16 +5,7 @@
             <h1 class="title is-1">
                 Applications
             </h1>
-
-        <!-- <div class="section">
-            <h2 class="subtitle">
-                Ton token pour l'api:
-            </h2>
-            <div> 
-                {{ this.$cookies.get('api_token') }}
-            </div>
-        </div> -->
-
+            
             <div class="columns">
                 <router-link to="/tickets" class="column is-one-quarter-desktop">
                     <div class="card">
