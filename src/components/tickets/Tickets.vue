@@ -16,8 +16,8 @@
                         <div class="columns is-centered">
                             <div class="column is-mobile">
                                 <div id="ticket-status" class="has-text-centered icon-status">
-                                    <i v-if="ticket.status === 'open'" class="fas fa-bell fa-4x"></i>
-                                    <i v-else-if="ticket.status === 'close'" class="fas fa-lock fa-4x"></i>
+                                    <i v-if="ticket.status === 'open'" class="fas fa-bell fa-3x"></i>
+                                    <i v-else-if="ticket.status === 'close'" class="fas fa-lock fa-3x"></i>
                                 </div>
                             </div>
                             <div class="column is-one-third is-mobile">
