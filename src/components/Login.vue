@@ -7,7 +7,7 @@
                 <div class="card-content">
                   <h1 class="title has-text-centered">
                     <img src="/static/img/icons/logo.png" alt="Modimo" width="75">
-                    <p class="has-text-dark">Welcome</p>
+                    <p class="has-text-dark">Bienvenue</p>
                   </h1>
                   <p class="control has-icon">
                     <i class="fa fa-envelope"></i>  
@@ -15,13 +15,13 @@
                   </p>
                   <p class="control has-icon">
                     <i class="fa fa-lock"></i>
-                    <input class="input" type="password" v-model="password" placeholder="Password">
+                    <input class="input" type="password" v-model="password" placeholder="Mot de passe">
                   </p>
                   <p class="control has-text-centered">-</p>
                   <p class="control">
                     <button class="button is-primary is-medium is-fullwidth"  @click="login">
                       <i class="fa fa-user"></i>
-                      Login
+                      Connection
                     </button>
                   </p>
                 </div>
