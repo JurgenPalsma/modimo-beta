@@ -45,7 +45,7 @@
                                     <h3>Je suis un professionnel.</h3>
                                 </div>
                                 <div class="card-info">
-                                    Si vous êtes un professionnel, venez découvrir les avantages de Modimo 
+                                    Si vous êtes un professionnel, venez découvrir les avantages que Modimo peut vous apporter dans votre travail.
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     <h3>Je suis un particulier.</h3>
                                 </div>
                                 <div class="card-info">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim. 
+                                    Si vous êtes un particulier, venez essayer la plateforme Modimo que votre co-propriété est suscéptible d'utiliser dans votre résidence.
                                 </div>
                             </div>
                         </div>
