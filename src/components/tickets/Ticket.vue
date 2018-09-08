@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="modal is-active">
-            <div class="modal-background" @click="$emit('close_modal')"></div>
+            <div class="modal-background" style="opacity:50%;" @click="$emit('close_modal')"></div>
             <div class="modal-content">
                 <!-- Any other Bulma elements you want -->
                 <div class="box">
@@ -17,7 +17,7 @@
                                 <span v-if="ticket.updated_at.$date === ticket.created_at.$date">Crée le </span>
                                 <span v-else>Modifié le </span>
                                 {{ticket.updated_at.$date}}
-                                <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE ET LANCER UNE MODAL (ou changer celle-ci) POUR MODIFIER LE TICKET-->
+                                <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE ET LANCER UNE MODAL ptetre celle de creation de ticket POUR MODIFIER LE TICKET-->
                                 <!--<span v-if="ticket.author_id === session._id">--> · <a>Modifier ticket</a><!--</span>-->
                             </small>
                         </p>
@@ -66,7 +66,6 @@
 <script>
 export default {
     name: 'ticket',
-    props: ['ticket'],
     data () {
         return {
             isActive: true,
