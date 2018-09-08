@@ -66,6 +66,7 @@
 <script>
 export default {
     name: 'ticket',
+    props: ['ticket'],
     data () {
         return {
             isActive: true,
@@ -112,12 +113,12 @@ export default {
             }
         }
     },
-    methods: {
-
-    }
+    methods: {}
 }
+
 </script>
 
 <style lang="scss">
 
+       
 </style>
