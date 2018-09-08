@@ -22,7 +22,7 @@
                             </div>
                             <div class="column is-one-third is-mobile">
                                 <div id="ticket-title" class="has-text-left title-section">
-                                    <p class="bold modimo-color"> {{ ticket.title }} </p>
+                                    <p class="bold modimo-color modimo-size"> {{ ticket.title }} </p>
                                     <p class="bold">Crées par : </p> TheYoung Stéph 
                                 </div>
                             </div>
