@@ -22,12 +22,12 @@
                             <div class="column is-one-third is-mobile">
                                 <div id="ticket-title" class="has-text-left title-section">
                                     <p class="bold modimo-color modimo-size"> {{ ticket.title }} </p>
-                                    <p class="bold">Crées par : </p> TheYoung Stéph 
+                                    <p class="bold">Créé par : </p> TheYoung Stéph 
                                 </div>
                             </div>
                             <div class="column is-one-quarter is-mobile">
                                 <div id="ticket-time" class="has-text-left">
-                                        <p class="bold">Crées le : </p>
+                                        <p class="bold">Créé le : </p>
                                         <time datetime="2018-08-13T10:09:26.236Z">13 Aout 2018 - 09:26</time> <br>
                                         <p class="bold">Derniere modification : </p>
                                         <time datetime="2018-08-13T10:12:47.414Z">13 Aout 2018 - 12:47</time>

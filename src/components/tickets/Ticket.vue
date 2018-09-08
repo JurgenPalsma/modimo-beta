@@ -46,12 +46,12 @@
                         <div class="media-content">
                             <div class="field">
                                 <p class="control">
-                                    <textarea class="textarea" rows="1" placeholder="Add a comment..."></textarea>
+                                    <textarea class="textarea" rows="1" placeholder="Écrit ton commentaire..."></textarea>
                                 </p>
                             </div>
                             <div class="field">
                                 <p class="control">
-                                    <button class="button">Commenter</button>
+                                    <button class="button is-pulled-right">Envoyer</button>
                                 </p>
                             </div>
                         </div>
@@ -115,6 +115,5 @@
         methods: {}
     }
 </script>
-
 <style lang="scss">       
 </style>
