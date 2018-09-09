@@ -12,7 +12,7 @@
                                     <span class="icon">
                                         <i class="fa fa-key"></i>
                                     </span>
-                                    <span>Connexion</span>
+                                    <span>Connection</span>
                                 </a>
                             </span>
                         </div>
@@ -26,41 +26,43 @@
                         <h1 class="title section">
                             La Résidence 2.0
                         </h1>
-                        <h2 class="subtitle">
+                        <h2 class="subtitle disruptBtn">
                            Etes vous prêt(e) à disrupter votre résidence? Un paragraphe #startupnation qui explique le produit
                         </h2>
                         
                     </div>
                     <section>
-                        <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class=""></iframe>
+                        <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
                     </section>
                     <div class="column is-6 is-offset-3">
-                        <a class="button is-large is-fullwidth is-rounded has-text-white glowing disruptBtn" v-on:click="engage('interested')">Je Disrupte</a>
+                        <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Je Disrupte</a>
                     </div>
                 </div>
             </div>
             <div v-else-if="form_state === 'interested'" class="section is-large hero-body">
                 <div class="container has-text-centered">
-                  <div class="columns">
-                    <div class="column">
-                      <div class="card" v-on:click="engage('email', true)">
-                        <div class="card-content">
-                          <p class="title has-text-black">
-                            Je suis un gardien
-                          </p>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="blog-card spring-fever" v-on:click="engage('email', true)">
+                                <div class="title-content">
+                                    <h3>Je suis un professionnel.</h3>
+                                </div>
+                                <div class="card-info">
+                                    Si vous êtes un professionnel, venez découvrir les avantages que Modimo peut vous apporter dans votre travail.
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="card" v-on:click="engage('email')">
-                        <div class="card-content">
-                          <p class="title has-text-black">
-                            Je suis un resident
-                          </p>
+                        <div class="column">
+                            <div class="blog-card spring-fever" v-on:click="engage('email')">
+                                <div class="title-content">
+                                    <h3>Je suis un particulier.</h3>
+                                </div>
+                                <div class="card-info">
+                                    Si vous êtes un particulier, venez essayer la plateforme Modimo que votre co-propriété est suscéptible d'utiliser dans votre résidence.
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
             </div>
 
@@ -71,7 +73,7 @@
                           Pas si vite!
                       </h1>
                       <h2 class="subtitle">
-                          Veuillez nous indiquer une adresse mail afin de pouvoir vous contacter
+                          Entre ton adresse email pour créer ton compte et découvrir la plateforme.
                       </h2>
                       
                       <div class="box">
@@ -97,7 +99,7 @@
                           Ooooops
                       </h1>
                       <h2 class="subtitle">
-                          Ton email est invalide. Renseigne un vrai mail stp
+                          Ton email est invalide. Renseigne une vraie adresse email.
                       </h2>
                       
                       <div class="box">
@@ -117,12 +119,17 @@
             </div>
             <footer class="footer hero is-info">
                 <div class="columns is-mobile">
-                <div class="column">1</div>
-                <div class="column">2</div>
-                <div class="column">3</div>
-                <div class="column">
+                <div class="column is-vertical-center">
+                    <p><strong>Adresse Email:</strong></p>
+                    <font-awesome-icon icon="envelope"></font-awesome-icon>
+                    <p class="inline">jurgen.palsma@gmail.com</p>
+                </div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column" is-vertical-center>
                     <p><strong>Réseaux sociaux:</strong></p>
-                    
+                    <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
+                    <a href="https://www.facebook.com/ModimoFR/">Notre Facebook</a>
                 </div>
             </div>
             </footer>
