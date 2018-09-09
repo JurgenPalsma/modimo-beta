@@ -27,8 +27,8 @@ $cta-color: #f33535;
 }
 
 .is-vertical-center {
-    display: flex;
     align-items: center;
+    text-align: center;
 }
 
 .card {
@@ -38,6 +38,23 @@ $cta-color: #f33535;
 .is-loader {
     animation: spin 1s linear infinite;
 }
+
+.video-aligned {
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 75%;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.fa-facebook-square {
+    color: white;
+    background: #3B5998; 
+}
+
 
 .is-fullheight-minus-navbar {
     min-height: calc(100vh - 52px);

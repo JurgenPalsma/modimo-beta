@@ -4,8 +4,7 @@
     <!-- If the Api is online, display landing page -->
     <div v-if="!loading" >
         <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
+            <nav class="navbar"> 
                     <div id="navbarMenu" class="navbar-menu">
                         <div class="navbar-end" >
                             <span class="navbar-item">
@@ -18,7 +17,6 @@
                             </span>
                         </div>
                     </div>
-                </div>
             </nav>
             </div>            
             
@@ -28,14 +26,19 @@
                         <h1 class="title section">
                             La Résidence 2.0
                         </h1>
-                        <h2 class="subtitle">
+                        <h2 class="subtitle disruptBtn">
                            Etes vous prêt(e) à disrupter votre résidence? Un paragraphe #startupnation qui explique le produit
                         </h2>
-                      <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Je Disrupte</a>
+                        
+                    </div>
+                    <section>
+                        <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
+                    </section>
+                    <div class="column is-6 is-offset-3">
+                        <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Je Disrupte</a>
                     </div>
                 </div>
             </div>
-
             <div v-else-if="form_state === 'interested'" class="section is-large hero-body">
                 <div class="container has-text-centered">
                     <div class="columns">
@@ -114,6 +117,22 @@
                     </div>
                 </div>
             </div>
+            <footer class="footer hero is-info">
+                <div class="columns is-mobile">
+                <div class="column is-vertical-center">
+                    <p><strong>Adresse Email:</strong></p>
+                    <font-awesome-icon icon="envelope"></font-awesome-icon>
+                    <p class="inline">jurgen.palsma@gmail.com</p>
+                </div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column" is-vertical-center>
+                    <p><strong>Réseaux sociaux:</strong></p>
+                    <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
+                    <a href="https://www.facebook.com/ModimoFR/">Notre Facebook</a>
+                </div>
+            </div>
+            </footer>
       </div>
 
       <!-- If the Api is offline, display loader -->
@@ -137,6 +156,7 @@ import AuthService from '@/services/AuthService'
 
 export default {
     name: 'landing',
+    videoId: 'S7A77ClZKcQ',
     data () {
         return {
             form_state: 'not engaged',
@@ -150,6 +170,26 @@ export default {
     mounted () {
     },
     methods: {
+        ready (event) {
+            this.player = event.player
+        },
+        playing (event) {
+            // The player is playing a video.
+        },
+        change () {
+            // when you change the value, the player will also change.
+            // If you would like to change `playerVars`, please change it before you change `videoId`.
+            // If `playerVars.autoplay` is 1, `loadVideoById` will be called.
+            // If `playerVars.autoplay` is 0, `cueVideoById` will be called.
+            this.videoId = 'another video id'
+        },
+        stop () {
+            this.player.stopVideo()
+        },
+        pause () {
+            this.player.pauseVideo()
+        },
+
         engage: function (state, admin = false) {
             this.form_state = state
             if (state === 'email') {
