@@ -30,6 +30,17 @@ $cta-color: #f33535;
     animation: spin 1s linear infinite;
 }
 
+.video-aligned {
+
+    margin: 0 auto;
+    width: 75%;
+    height: 1% !important;
+}
+
+.disruptBtn {
+    margin-top: 10px;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
