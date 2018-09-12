@@ -9,10 +9,10 @@
                         <div class="content">
                             <strong class="modimo-color modimo-size"><!--{{ticket.author_id}}-->Jean-Pierre_Gardien - {{ticket.title}}</strong>
                             <br>
+                            <br>
                             <span ref="display_ticket">{{ticket.content}}</span>
                             <!--ICI LE CHAMP QUI APPARAIT POUR LA MODIF DU MESSAGE-->
                             <div ref="space_modif_ticket" class="media-content" v-bind:style="{display: 'none'}">
-                                <br>
                                 <div class="field">
                                     <p class="control">
                                         <textarea ref="text_modif_ticket" v-bind:value="ticket.content" class="textarea" rows="1"></textarea>
@@ -31,7 +31,7 @@
                                 <span v-else>Modifié le </span>
                                 {{ticket.updated_at.$date}}
                                 <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE -->
-                                <!--<span v-if="ticket.author_id === session._id">--> · <a v-on:click="modifTicket">Modifier ticket</a><!--</span>-->
+                                <!--<span v-if="ticket.author_id === session._id">--> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier ticket</a><!--</span>-->
                             </small>
                         </div>
                         <article class="media">
@@ -128,10 +128,12 @@
             modifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'
                 this.$refs.display_ticket.style = 'display: none;'
+                this.$refs.modif_ticket_button.style = 'display: none;'
             },
             cancelModifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: none;'
                 this.$refs.display_ticket.style = 'display: block;'
+                this.$refs.modif_ticket_button.style = 'display: inline;'
             }
         }
     }
