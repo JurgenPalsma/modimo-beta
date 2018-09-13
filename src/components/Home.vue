@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </router-link>
-                <router-link v-if="current_user && current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') " to="/analytics" class="column is-one-quarter-desktop">
+                <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-one-quarter-desktop">
                     <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
@@ -72,7 +72,7 @@ export default {
     name: 'home',
     data () {
         return {
-            current_user: ""
+            current_user: null
         }
     },
 
