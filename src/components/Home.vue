@@ -1,8 +1,8 @@
 <template>
-  <section class="hero is-info is-fullheight-minus-navbar">
+  <section class="hero modimo-dark is-fullheight-minus-navbar">
     <div class="container">
         <br/><br/>
-            <h1 class="title is-1">
+            <h1 class="title white-title is-1">
                 Applications
             </h1>
             
@@ -74,6 +74,7 @@ export default {
         return {
         }
     },
+
     methods: {
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
@@ -84,5 +85,6 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '../styles/landing.scss'
+@import '../styles/landing.scss';
+@import '../styles/global.scss';
 </style>

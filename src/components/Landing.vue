@@ -18,7 +18,7 @@
                         </div>
                     </div>
             </nav>
-            </div>            
+        </div>            
             
             <div v-if="form_state === 'not engaged'" class="section modimo-clear">
                 <div class="container has-text-centered">
@@ -103,7 +103,7 @@
                       <div class="box">
                             <div class="field is-grouped">
                                 <p class="control is-expanded">
-                                    <input class="input" type="text" v-model="email" placeholder="Email">
+                                    <input autofocus class="input" type="text" @keypress.enter="launch_demo" v-model="email" placeholder="Email">
                                 </p>
                                 <p class="control">
                                     <a class="button is-info" @click="launch_demo">
@@ -129,7 +129,7 @@
                       <div class="box">
                             <div class="field is-grouped">
                                 <p class="control is-expanded">
-                                    <input class="input is-danger" type="text" v-model="email" placeholder="Entre un vrai mail ici">
+                                    <input autofocus @keypress.enter="launch_demo" class="input is-danger" type="text" v-model="email" placeholder="Entre un vrai mail ici">
                                 </p>
                                 <p class="control">
                                     <a class="button is-info" @click="launch_demo">
@@ -143,14 +143,12 @@
             </div>
             <footer class="footer modimo-dark footer-resized">
             <div class="columns is-mobile">
-                <div class="column is-vertical-center">
+                <div class="column has-text-centered">
                     <a @click="contactModal()">
                     <p class="strong">Nous Contacter</p>
                     </a>
                 </div>
-                <div class="column"></div>
-                <div class="column"></div>
-                <div class="column" is-vertical-center>
+                <div class="column has-text-centered">
                     <p class="strong">Réseaux sociaux:</p>
                     <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
                     <a href="https://www.facebook.com/ModimoFR/" class="white">Notre Facebook</a>
@@ -161,14 +159,30 @@
 
       <!-- If the Api is offline, display loader -->
       <div v-else> 
-        <h2 class="section title has-text-centered">
-            Chargement...
-        </h2>
-        <div class="section is-flex is-horizontal-center is-medium">
-          <figure class="image is-loader  is-128x128 ">
-            <img src="../assets/logo.png">
-          </figure>
-          </div>
+        <div class="modimo-clear">
+            <nav class="navbar modimo-dark"> 
+                    <div id="navbarMenu" class="navbar-menu">
+                        <div class="navbar-end" >
+                            <span class="navbar-item">
+                                <a class="button is-outlined" href="/login">
+                                    <span class="icon">
+                                        <i class="fa fa-key"></i>
+                                    </span>
+                                    <span>Connection</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+            </nav>
+        </div>            
+            <div class="section is-fullheight-minus-navbar is-flex is-horizontal-center is-medium">
+                <h2 class="section title has-text-centered">
+                    Chargement...
+                </h2>
+                <figure class="image is-loader  is-128x128 ">
+                <img src="../assets/logo.png">
+                </figure>
+            </div>
       </div>
       <contact v-show="showModalContact" @close_modal="showModalContact = false"></contact>
     </section>
@@ -240,7 +254,6 @@ export default {
             this.loading = true
             const demo = this.role === 'resi' ? await DemoService.create_resident_demo(this.email) : await DemoService.create_admin_demo(this.email)
             if (demo.data.success) {
-                console.log(demo.data)
                 const auth = await AuthService.authenticate(demo.data.user.email, demo.data.user.password)
                 if (auth.data.success) {
                     this.$cookies.set('api_token', auth.data.token)
@@ -248,7 +261,7 @@ export default {
                     this.$parent.api_token = auth.data.token
                     this.$router.push('home')
                 } else {
-                    alert('Couldnt log in: ' + auth.data.message)
+                    this.$parent.notification = {type: 'failure', message: auth.data.message}
                     this.loading = false
                 }
             } else {

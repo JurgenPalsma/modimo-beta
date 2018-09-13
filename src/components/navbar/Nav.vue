@@ -30,12 +30,24 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="field is-grouped">
+                            <p class="control" >
+                                <a class="button">
+                                <span class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <span>Mailer</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                        <div class="field is-grouped">
                             <p class="control" @click="logout">
                                 <a class="button">
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Déconnection</span>
+                                <span>Déconnexion</span>
                                 </a>
                             </p>
                         </div>

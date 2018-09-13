@@ -32,5 +32,14 @@ export default {
                 'ticket_id': id
             }
         })
+    },
+    postTicket (token, title, content) {
+        return Api().post('/api/tickets/ticket', {}, {
+            headers : {
+                'x-access-token': token,
+                'title': title,
+                'content': content
+            }
+        })
     }
 }
