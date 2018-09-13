@@ -1,33 +1,46 @@
 <template>
-      <section class="hero is-fullheight is-medium modimo-dark is-bold">
-        <div class="hero-body">
-          <div class="container">
-            <div class="columns is-centered">
-              <article class="card is-rounded">
-                <div class="card-content">
-                  <h1 class="title has-text-centered">
-                    <img src="/static/img/icons/logo.png" alt="Modimo" width="75">
-                    <p class="text-dark">Bienvenue</p>
-                  </h1>
-                  <p class="control has-icon">
-                    <i class="fa fa-envelope text-dark"></i>  
-                    <input class="input" type="email"  v-model="email" placeholder="Email">
-                  </p>
-                  <p class="control has-icon">
-                    <i class="fa fa-lock text-dark"></i>
-                    <input class="input" type="password" v-model="password" placeholder="Mot de passe">
-                  </p>
-                  <p class="control has-text-centered">-</p>
-                  <p class="control">
-                    <button class="button is-primary is-medium is-fullwidth"  @click="login">
-                      <i class="fa fa-user"></i>
-                      Connection
-                    </button>
-                  </p>
+  <section class="hero is-fullheight is-medium modimo-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <article class="card is-rounded">
+            <div class="card-content">
+              <h1 class="title has-text-centered">
+                <img src="/static/img/icons/logo.png" alt="Modimo" width="75">
+                <p class="text-dark">Bienvenue</p>
+              </h1>
+
+                <div class="field">
+                  <label class="label">Mail</label>
+                  <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" placeholder="Votre Mail..." v-model="email">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
                 </div>
-              </article>
-            </div>
-          </div>
+
+                <div class="field">
+                  <label class="label">Mot de passe</label>
+                  <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="password" placeholder="Votre Mot de passe..." v-model="password">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-key"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <p class="control has-text-centered">-</p>
+                <p class="control">
+                  <button class="button is-primary is-medium is-fullwidth"  @click="login">
+                    <i class="fa fa-user"></i>
+                    Connection
+                  </button>
+                </p>
+              </div>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -36,7 +49,6 @@
 import AuthService from '@/services/AuthService'
 
 export default {
-
     name: 'Login',
     data () {
         return {
