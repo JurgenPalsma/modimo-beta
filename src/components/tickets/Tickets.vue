@@ -27,15 +27,15 @@
                                 <div class="column is-one-third is-mobile">
                                     <div id="ticket-title" class="has-text-left title-section">
                                         <p class="bold modimo-color modimo-size"> {{ ticket.title }} </p>
-                                        <p class="bold">Créé par : </p> TheYoung Stéph 
+                                        <p class="bold">Créé par : </p> {{ticket.author_id}}
                                     </div>
                                 </div>
                                 <div class="column is-one-quarter is-mobile">
                                     <div id="ticket-time" class="has-text-left">
                                             <p class="bold">Créé le : </p>
-                                            <time datetime="2018-08-13T10:09:26.236Z">13 Aout 2018 - 09:26</time> <br>
+                                            <time :datetime="ticket.created_at">{{ dateFormater(ticket.created_at) }}</time> <br>
                                             <p class="bold">Derniere modification : </p>
-                                            <time datetime="2018-08-13T10:12:47.414Z">13 Aout 2018 - 12:47</time>
+                                            <time :datetime="ticket.updated_at">{{ dateFormater(ticket.updated_at) }}</time>
                                     </div>
                                 </div>
                                 <div class="column is-one-third is-mobile">
@@ -50,7 +50,7 @@
                                     </div>
                                     <div id="ticket-vote" class="has-text-left">
                                         <p class="bold">vote :</p>
-                                        <i class="far fa-thumbs-up"></i> 8
+                                        <i class="far fa-thumbs-up"></i> {{ ticket.votes.length}}
                                     </div>
                                 </div>
                             </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import ticket from './Ticket.vue'
 import ticketCreation from './TicketCreation.vue'
 import TicketService from '@/services/TicketService'
@@ -80,7 +81,7 @@ export default {
             author_id: '',
             title: '',
             content: '',
-            votes: '',
+            votes: [],
             comments: '',
             created_at: null,
             updated_at: null,
@@ -113,6 +114,11 @@ export default {
         idToModal: function (ticket) {
             this.currentTicket = ticket
             this.showModalTicket = true
+        },
+
+        dateFormater(unFormatedDate) {
+            var date = moment(String(unFormatedDate)).format('MM/DD/YYYY hh:mm')
+            return (date)
         }
     },
     components: {

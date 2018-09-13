@@ -1,23 +1,23 @@
 <template>
     <section>
 
-        <nav v-if="this.$route.name != 'Landing' && this.$route.name != 'Login'" class="navbar">
+        <nav v-if="$route.name != 'Landing'" class="navbar">
 
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
                     <img src="/static/img/icons/logo.png" alt="Modimo">
-                    <span class="is-hidden-touch">&nbsp;Accueil</span>
+                    <span v-if="$route.name != 'Home'" class="is-hidden-touch">&nbsp;Accueil</span>
                 </a>
 
-                <div class="navbar-burger burger" data-target="navMenubd-example">
-                <span></span>
-                <span></span>
-                <span></span>
+                <div v-if="$route.name != 'Login'" class="navbar-burger burger" data-target="navMenubd-example">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
 
             <div id="navMenubd-example" class="navbar-menu">
-                <div v-if="this.$route.name != 'Home'" class="navbar-start">
+                <div v-if="$route.name != 'Home' && $route.name != 'Login'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home">Apps</a>
                         <div class="navbar-dropdown ">
@@ -27,8 +27,8 @@
                     </div>
                 </div>
 
-                <div class="navbar-end">
-                    <div v-if="this.currentUser && this.currentUser.roles && this.currentUser.roles.includes('ROOT')" class="navbar-item">
+                <div v-if="$route.name != 'Login'" class="navbar-end">
+                    <div  v-if="current_user && current_user.roles && current_user.roles.includes('ROOT')" class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
@@ -47,7 +47,7 @@
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Déconnexion</span>
+                                <span>Déconnection</span>
                                 </a>
                             </p>
                         </div>
@@ -68,8 +68,8 @@ export default {
     name: 'navbar',
     data () {
         return {
-            currentUser: null,
             showMailerModal: false,
+            current_user: null
         }
     },
     
@@ -77,6 +77,7 @@ export default {
   },
 
     mounted () {
+        this.load()
         document.addEventListener('DOMContentLoaded', function () {
             var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
             if ($navbarBurgers.length > 0) {
@@ -93,14 +94,13 @@ export default {
         this.load()
     },
     methods: {
+        async load() {
+            this.current_user = await this.$parent.getCurrentUser()
+        },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')
             this.$router.push('/')
-        },
-
-        async load () {
-            this.currentUser = await this.$parent.getCurrentUser()
         },
 
         mailerModal: function () {

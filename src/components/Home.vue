@@ -8,7 +8,7 @@
             
             <div class="columns">
                 <router-link to="/tickets" class="column is-one-quarter-desktop">
-                    <div class="card">
+                    <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
                             <div class="media-left">
@@ -24,8 +24,8 @@
                         </div>
                     </div>
                 </router-link>
-                <router-link to="/analytics" class="column is-one-quarter-desktop">
-                    <div class="card">
+                <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-one-quarter-desktop">
+                    <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
                             <div class="media-left">
@@ -42,7 +42,7 @@
                     </div>
                 </router-link>
                 <div class="column is-one-quarter-desktop">
-                    <div class="card">
+                    <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
                             <div class="media-left">
@@ -72,10 +72,18 @@ export default {
     name: 'home',
     data () {
         return {
+            current_user: null
         }
     },
 
+    mounted: function () {
+        this.load()
+    },
+
     methods: {
+        async load () {
+            this.current_user = await this.$parent.getCurrentUser()
+        },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')
