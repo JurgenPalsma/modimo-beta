@@ -63,7 +63,7 @@ export default {
                 this.$cookies.set('api_token', auth.data.token)
                 this.$router.push('home')
             } else {
-                alert('Couldnt log in: ' + auth.data.message)
+                this.$parent.notification = {type: 'failure', message: auth.data.message}
             }
         }
     }

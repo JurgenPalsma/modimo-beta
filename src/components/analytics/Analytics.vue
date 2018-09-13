@@ -168,7 +168,7 @@ export default {
                 this.longest_ticket = resp.data.ticket_times.longest_ticket
                 this.longest_ticket_time = resp.data.ticket_times.longest_ticket_time
             } else {
-                alert('Bad date range')
+                this.$parent.notification = {type: 'failure', message: 'Erreur lors du chargement des données'}
             }
         }
     },

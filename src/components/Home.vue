@@ -74,6 +74,7 @@ export default {
         return {
         }
     },
+
     methods: {
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
