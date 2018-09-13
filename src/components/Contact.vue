@@ -42,7 +42,7 @@
                                     <button @click="submitContactHandler()" class="button is-link">Envoyer</button>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-text">Cancel</button>
+                                    <button class="button is-text">Annuler</button>
                                 </div>
                                 </div>
                         </div>
