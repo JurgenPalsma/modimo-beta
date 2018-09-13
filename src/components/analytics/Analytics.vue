@@ -10,7 +10,7 @@
                     <div class="tile">
                         <div class="tile is-vertical is-parent">
                             <article class="tile is-child notification is-info">
-                                <p class="title">Select date range:</p>
+                                <p class="title">Selectionner la plage de dates:</p>
                                 <div class="content">
                                     <date-picker v-model="daterange" lang='fr' range :shortcuts="shortcuts"></date-picker>
                                 </div>
@@ -30,19 +30,19 @@
                         <div class="tile is-vertical is-parent">
                             <article class="tile is-child notification is-info">
                             <p class="title">{{n_tickets_open}}</p>
-                            <p class="subtitle">Tickets open</p>
+                            <p class="subtitle">Tickets ouverts</p>
                             </article>
                         </div>
                         <div class="tile is-vertical is-parent">
                             <article class="tile is-child notification is-info">
                             <p class="title">{{n_tickets_pending}}</p>
-                            <p class="subtitle">Tickets pending</p>
+                            <p class="subtitle">Tickets en attente</p>
                             </article>
                         </div>
                         <div class="tile is-vertical is-parent">
                             <article class="tile is-child notification is-info">
                             <p class="title">{{n_tickets_closed}}</p>
-                            <p class="subtitle">Tickets closed</p>
+                            <p class="subtitle">Tickets fermés</p>
                             </article>
                         </div>
                     </div>
@@ -52,19 +52,19 @@
                     <div class="tile">
                     <div class="tile is-parent is-vertical">
                         <article class="tile is-child notification is-info">
-                        <p class="title">Tickets created by date</p>
+                        <p class="title">Tickets créés par date</p>
                         <figure class="image">
                             <area-chart :data="tickets_created_per_day" :library="{animation: { easing: 'easeOutQuad' }}"></area-chart>
                         </figure>
                         </article>
                         <article class="tile is-child notification is-info">
-                        <p class="title">Pretty impressive!</p>
+                        <p class="title">Plutot impressionnant!</p>
                         </article>
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child notification is-info">
-                        <p class="title">Gardi performance</p>
-                        <p class="subtitle">This chart shows who closed the most tickets</p>
+                        <p class="title">Performances du Gardien</p>
+                        <p class="subtitle">Cette charte montre qui a fermé le plus de tickets</p>
                         <figure class="image">
                             <pie-chart :messages="{empty: 'Pas de tickets fermés a ce jour'}" :data="chart_tickets" :library="{animation: { easing: 'easeOutQuad' }}"></pie-chart>
                         </figure>
@@ -74,25 +74,25 @@
                     <div class="tile">
                     <div class="tile is-vertical is-parent">
                         <article class="tile is-child notification is-info">
-                        <p class="title">Shortest ticket</p>
+                        <p class="title">Ticket le plus rapide</p>
                         <p class="subtitle">{{shortest_ticket.title}}</p>
                         <div class="content">
-                        Resolved in just: {{shortest_ticket_time}}
+                        Résolue en seulement: {{shortest_ticket_time}}
                         </div>
                         </article>
                     </div>
                     <div class="tile is-vertical is-parent">
                         <article class="tile is-child notification is-info">
                         <p class="title">{{avg_ticket_time}}</p>
-                        <p class="subtitle">Average ticket resolution time</p>
+                        <p class="subtitle">Temps de résolution moyen pour un ticket</p>
                         </article>
                     </div>
                     <div class="tile is-vertical is-parent">
                         <article class="tile is-child notification is-info">
-                        <p class="title">Longest ticket</p>
+                        <p class="title">Ticket le plus lent</p>
                         <p class="subtitle">{{longest_ticket.title}}</p>
                         <div class="content">
-                        Resolved after: {{longest_ticket_time}}
+                        Résolue après: {{longest_ticket_time}}
                         </div>
                         </article>
                     </div>
@@ -133,7 +133,7 @@ export default {
             to: '',
             shortcuts: [
                 {
-                    text: 'Today',
+                    text: `Aujourd'hui`,
                     onClick: () => {
                         this.daterange = [ new Date(), new Date() ]
                     }
