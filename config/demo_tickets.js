@@ -6,6 +6,9 @@ module.exports = [
      'created_at': {
          '$date': '2018-08-14T10:09:26.236Z'
      },
+     'updated_at': {
+        '$date': '2018-08-14T10:09:26.236Z'
+    },
      'comments': [
             {
                 '_id': '123133',
@@ -73,6 +76,9 @@ module.exports = [
         'content': 'Le parking sous terrain à été victime de tagueur la nuit dernière, il faudrait effacer ces graffitis qui sont, pour certains violents',
         'status': 'open',
         'created_at': {
+            '$date': '2018-07-15T09:42:42.427Z'
+        },
+        'updated_at': {
             '$date': '2018-07-15T09:42:42.427Z'
         },
         'comments': [
