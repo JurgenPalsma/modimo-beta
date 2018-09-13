@@ -1,5 +1,5 @@
 <template>
-      <section class="hero is-fullheight is-medium is-info is-bold">
+      <section class="hero is-fullheight is-medium modimo-dark is-bold">
         <div class="hero-body">
           <div class="container">
             <div class="columns is-centered">
@@ -7,14 +7,14 @@
                 <div class="card-content">
                   <h1 class="title has-text-centered">
                     <img src="/static/img/icons/logo.png" alt="Modimo" width="75">
-                    <p class="has-text-dark">Bienvenue</p>
+                    <p class="text-dark">Bienvenue</p>
                   </h1>
                   <p class="control has-icon">
-                    <i class="fa fa-envelope"></i>  
+                    <i class="fa fa-envelope text-dark"></i>  
                     <input class="input" type="email"  v-model="email" placeholder="Email">
                   </p>
                   <p class="control has-icon">
-                    <i class="fa fa-lock"></i>
+                    <i class="fa fa-lock text-dark"></i>
                     <input class="input" type="password" v-model="password" placeholder="Mot de passe">
                   </p>
                   <p class="control has-text-centered">-</p>
@@ -59,4 +59,5 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../styles/global.scss'
 </style>
