@@ -30,7 +30,7 @@
                 <div v-if="$route.name != 'Login'" class="navbar-end">
                     <div class="navbar-item">
                         <div class="field is-grouped">
-                            <p class="control" @click='mailerModal()'>
+                            <p v-if="current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') " class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
                                     <i class="fa fa-envelope"></i>
@@ -69,9 +69,11 @@ export default {
     data () {
         return {
             showMailerModal: false,
+            current_user: null
         }
     },
     mounted () {
+        this.load()
         document.addEventListener('DOMContentLoaded', function () {
             var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
             if ($navbarBurgers.length > 0) {
@@ -87,6 +89,9 @@ export default {
         })
     },
     methods: {
+        async load() {
+            this.current_user = await this.$parent.getCurrentUser()
+        },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')
