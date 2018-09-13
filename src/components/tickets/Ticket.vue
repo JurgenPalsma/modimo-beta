@@ -27,7 +27,7 @@
                             </div>
                             <br>
                             <small class="small-text">
-                                <span v-if="ticket.updated_at.$date === ticket.created_at">Crée le </span>
+                                <span v-if="ticket.updated_at === ticket.created_at">Crée le </span>
                                 <span v-else>Modifié le </span>
                                 {{ticket.updated_at}}
                                 <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE -->
