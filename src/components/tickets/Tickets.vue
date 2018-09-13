@@ -96,7 +96,7 @@ export default {
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
             } else {
-                alert('Something went wrong with ticket data')
+                this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
             }
         },
 

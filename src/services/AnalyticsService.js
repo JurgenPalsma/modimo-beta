@@ -46,7 +46,7 @@ function addDatetoTicketList (tickets) {
 
 function formatTimeHours (avg) {
     // TODO: format string so we dont get weird floats for time avg but get "jour, mois, etc"
-    if (avg.toFixed(1) !== 0) {
+    if (avg && avg.toFixed(1) !== 0) {
         return avg.toFixed(1) + 'h'
     } else {
         return '<1h'
