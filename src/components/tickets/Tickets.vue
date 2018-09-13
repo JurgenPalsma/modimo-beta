@@ -92,8 +92,8 @@ export default {
     methods: {
         async load () {
             this.current_user = await this.$parent.getCurrentUser()
-            const resp = await TicketService.getTicket(this.$cookies.get('api_token'), this.ticket_id)
-            if (resp.data.success) {
+            const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
+            if (resp.success) {
                 this.author_id = resp.data.author_id
                 this.title = resp.data.title
                 this.content = resp.data.content
