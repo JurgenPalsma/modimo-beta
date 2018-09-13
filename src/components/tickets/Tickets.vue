@@ -27,7 +27,7 @@
                                 <div class="column is-one-third is-mobile">
                                     <div id="ticket-title" class="has-text-left title-section">
                                         <p class="bold modimo-color modimo-size"> {{ ticket.title }} </p>
-                                        <p class="bold">Créé par : </p> TheYoung Stéph 
+                                        <p class="bold">Créé par : </p> {{ticket.author_id}}
                                     </div>
                                 </div>
                                 <div class="column is-one-quarter is-mobile">

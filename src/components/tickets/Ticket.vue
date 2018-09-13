@@ -7,7 +7,7 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size"><!--{{ticket.author_id}}-->TheYoung Stéph - {{ticket.title}}</strong>
+                            <strong class="modimo-color modimo-size">{{ticket.author_id}} - {{ticket.title}}</strong>
                             <br>
                             <br>
                             <span ref="display_ticket">{{ticket.content}}</span>
