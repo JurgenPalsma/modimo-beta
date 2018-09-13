@@ -3,7 +3,9 @@ module.exports = [
         'title': 'Bienvenue dans la démo Modimo',
         'content': 'Ce ticket est un ticket de test, ici, vous pourrez exposer un problème au sein de votre résidence',
         'status': 'open',
-     'created_at': '2018-08-14T10:09:26.236Z',
+     'created_at': {
+         '$date': '2018-08-14T10:09:26.236Z'
+     },
      'comments': [
             {
                 '_id': '123133',
