@@ -12,6 +12,13 @@ import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 library.add(faEnvelope)
 library.add(faFacebookSquare)
 
+// Analytics
+Vue.use(VueAnalytics, {
+	id: 'UA-116703749-3',
+	router
+})
+
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VueCookie)
