@@ -102,6 +102,7 @@ export default {
             this.showModalTicketCreation = false;
         },
         async load () {
+            // console.log(this.$parent)
             this.current_user = await this.$parent.getCurrentUser()
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
