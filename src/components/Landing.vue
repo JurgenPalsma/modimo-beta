@@ -1,14 +1,14 @@
 <template>
-  <section class="hero is-info is-fullheight">
+  <section class=" is-info is-fullheight">
 
     <!-- If the Api is online, display landing page -->
     <div v-if="!loading" >
-        <div class="hero-head">
-            <nav class="navbar"> 
+        <div class="modimo-clear">
+            <nav class="navbar modimo-dark"> 
                     <div id="navbarMenu" class="navbar-menu">
                         <div class="navbar-end" >
                             <span class="navbar-item">
-                                <a class="button is-white is-outlined" href="/login">
+                                <a class="button is-outlined" href="/login">
                                     <span class="icon">
                                         <i class="fa fa-key"></i>
                                     </span>
@@ -20,26 +20,49 @@
             </nav>
             </div>            
             
-            <div v-if="form_state === 'not engaged'" class="section is-medium hero-body">
+            <div v-if="form_state === 'not engaged'" class="section modimo-clear">
                 <div class="container has-text-centered">
+                   
                     <div class="column is-6 is-offset-3">
-                        <h1 class="title section">
-                            La Résidence 2.0
+                         <img src="/static/img/logofull.svg">
+                        <h1 class="title section text-dark">
+                            La Résidence centralisée
                         </h1>
-                        <h2 class="subtitle disruptBtn">
-                           Etes vous prêt(e) à disrupter votre résidence? Un paragraphe #startupnation qui explique le produit
+                        <h2 class="subtitle">
+                           Modimo est une plateforme utilitaire et sociale ayant pour but d’accroître la valeur ajoutée du bien immobilier. Elle permet d’optimiser le travail des gérants de locations et d’améliorer le confort des résidents ainsi que les rapports entre eux.
                         </h2>
                         
                     </div>
                     <section>
                         <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
                     </section>
+                    <section class="margin-vertical">
+                    <div class="column is-12">
+                        <div class="columns is-mobile">
+                             <div class="column">
+                                <img src="/static/img/time.png">
+                                <h1 class="title">Utilitaire</h1>
+                                <p class="subtitle">Réglez rapidement tout vos problèmes administratifs</p>
+                            </div>
+                            <div class="column is-vertical-center">
+                                <img src="/static/img/team.png">
+                                <h1 class="title">Sociale</h1>
+                                <p class="subtitle">Ameliorez ensemble la vie de votre Résidence</p>
+                            </div>
+                            <div class="column" is-vertical-center>
+                                <img src="/static/img/responsive.png">
+                                <h1 class="title">Responsive</h1>
+                                <p class="subtitle">Accessible depuis tout type de résolution d'écran!</p>
+                            </div>
+                        </div> 
+                    </div>
+                    </section>
                     <div class="column is-6 is-offset-3">
-                        <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Je Disrupte</a>
+                        <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Découvrir Modimo</a>
                     </div>
                 </div>
             </div>
-            <div v-else-if="form_state === 'interested'" class="section is-large hero-body">
+            <div v-else-if="form_state === 'interested'" class="section is-large modimo-clear">
                 <div class="container has-text-centered">
                     <div class="columns">
                         <div class="column">
@@ -66,13 +89,13 @@
                 </div>
             </div>
 
-            <div v-else-if="form_state === 'email' && !email_error" class="section is-large hero-body">
+            <div v-else-if="form_state === 'email' && !email_error" class="section is-large modimo-clear">
                 <div class="container ">
                   <div class="column is-6 is-offset-3">
                       <h1 class="title">
                           Pas si vite!
                       </h1>
-                      <h2 class="subtitle">
+                      <h2 class="subtitle .text-dark">
                           Entre ton adresse email pour créer ton compte et découvrir la plateforme.
                       </h2>
                       
@@ -92,13 +115,13 @@
                 </div>
             </div>
 
-            <div v-else-if="form_state === 'email' && email_error" class="section is-large hero-body">
+            <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
                 <div class="container ">
                   <div class="column is-6 is-offset-3">
-                      <h1 class="title">
+                      <h1 class="title text-dark">
                           Ooooops
                       </h1>
-                      <h2 class="subtitle">
+                      <h2 class="subtitle text-dark">
                           Ton email est invalide. Renseigne une vraie adresse email.
                       </h2>
                       
@@ -117,19 +140,19 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer hero is-info">
-                <div class="columns is-mobile">
+            <footer class="footer modimo-dark footer-resized">
+            <div class="columns is-mobile">
                 <div class="column is-vertical-center">
-                    <p><strong>Adresse Email:</strong></p>
-                    <font-awesome-icon icon="envelope"></font-awesome-icon>
-                    <p class="inline">jurgen.palsma@gmail.com</p>
+                    <a @click="contactModal()">
+                    <p class="strong">Nous Contacter</p>
+                    </a>
                 </div>
                 <div class="column"></div>
                 <div class="column"></div>
                 <div class="column" is-vertical-center>
-                    <p><strong>Réseaux sociaux:</strong></p>
+                    <p class="strong">Réseaux sociaux:</p>
                     <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
-                    <a href="https://www.facebook.com/ModimoFR/">Notre Facebook</a>
+                    <a href="https://www.facebook.com/ModimoFR/" class="white">Notre Facebook</a>
                 </div>
             </div>
             </footer>
@@ -146,19 +169,21 @@
           </figure>
           </div>
       </div>
-    
+      <contact v-show="showModalContact" @close_modal="showModalContact = false"></contact>
     </section>
 </template>
 
 <script>
 import DemoService from '@/services/DemoService'
 import AuthService from '@/services/AuthService'
+import Contact from './Contact.vue'
 
 export default {
     name: 'landing',
     videoId: 'S7A77ClZKcQ',
     data () {
         return {
+            showModalContact: false,
             form_state: 'not engaged',
             role: 'resi',
             email: '',
@@ -167,8 +192,14 @@ export default {
             loading: false
         }
     },
+
+    components: {
+        'contact': Contact
+    },
+
     mounted () {
     },
+
     methods: {
         ready (event) {
             this.player = event.player
@@ -223,11 +254,16 @@ export default {
                 this.email_error = true
                 this.loading = false
             }
+        },
+
+        contactModal: function () {
+            this.showModalContact = true
         }
     }
 }
 </script>
 
 <style lang="scss">
-@import '../styles/landing.scss'
+@import '../styles/landing.scss',
+'../styles/global.scss'
 </style>

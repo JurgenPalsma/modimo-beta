@@ -1,5 +1,5 @@
 
-$cta-color: #f33535;
+$cta-color: #2b5bb2;
 
 .glowing {
     animation-duration: 2s;
@@ -22,6 +22,10 @@ $cta-color: #f33535;
     }
 }
 
+.margin-vertical {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
 .is-horizontal-center {
     justify-content: center;
 }
@@ -29,6 +33,10 @@ $cta-color: #f33535;
 .is-vertical-center {
     align-items: center;
     text-align: center;
+}
+
+.footer-resized {
+    padding: 3rem 1.5rem 3rem !important;
 }
 
 .card {
@@ -50,11 +58,26 @@ $cta-color: #f33535;
     display: inline-block;
 }
 
-.fa-facebook-square {
+.fa-facebook {
     color: white;
     background: #3B5998; 
 }
 
+a:hover {
+    color: gainsboro;
+}
+
+a {
+    color: white; 
+}
+
+.icon-card {
+    display: inline-block;
+}
+
+.strong {
+    font-weight: 700 !important;
+}
 
 .is-fullheight-minus-navbar {
     min-height: calc(100vh - 52px);
