@@ -1,14 +1,14 @@
 <template>
-  <section class="hero is-info is-fullheight">
+  <section class=" is-info is-fullheight">
 
     <!-- If the Api is online, display landing page -->
     <div v-if="!loading" >
-        <div class="hero-head">
-            <nav class="navbar"> 
+        <div class="modimo-clear">
+            <nav class="navbar modimo-dark"> 
                     <div id="navbarMenu" class="navbar-menu">
                         <div class="navbar-end" >
                             <span class="navbar-item">
-                                <a class="button is-white is-outlined" href="/login">
+                                <a class="button is-outlined" href="/login">
                                     <span class="icon">
                                         <i class="fa fa-key"></i>
                                     </span>
@@ -20,10 +20,12 @@
             </nav>
             </div>            
             
-            <div v-if="form_state === 'not engaged'" class="section is-medium hero-body">
+            <div v-if="form_state === 'not engaged'" class="section modimo-clear">
                 <div class="container has-text-centered">
+                   
                     <div class="column is-6 is-offset-3">
-                        <h1 class="title section">
+                         <img src="/static/img/logofull.svg">
+                        <h1 class="title section text-dark">
                             La Résidence 2.0
                         </h1>
                         <h2 class="subtitle disruptBtn">
@@ -39,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else-if="form_state === 'interested'" class="section is-large hero-body">
+            <div v-else-if="form_state === 'interested'" class="section is-large modimo-clear">
                 <div class="container has-text-centered">
                     <div class="columns">
                         <div class="column">
@@ -66,13 +68,13 @@
                 </div>
             </div>
 
-            <div v-else-if="form_state === 'email' && !email_error" class="section is-large hero-body">
+            <div v-else-if="form_state === 'email' && !email_error" class="section is-large modimo-clear">
                 <div class="container ">
                   <div class="column is-6 is-offset-3">
                       <h1 class="title">
                           Pas si vite!
                       </h1>
-                      <h2 class="subtitle">
+                      <h2 class="subtitle .text-dark">
                           Entre ton adresse email pour créer ton compte et découvrir la plateforme.
                       </h2>
                       
@@ -92,13 +94,13 @@
                 </div>
             </div>
 
-            <div v-else-if="form_state === 'email' && email_error" class="section is-large hero-body">
+            <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
                 <div class="container ">
                   <div class="column is-6 is-offset-3">
-                      <h1 class="title">
+                      <h1 class="title text-dark">
                           Ooooops
                       </h1>
-                      <h2 class="subtitle">
+                      <h2 class="subtitle text-dark">
                           Ton email est invalide. Renseigne une vraie adresse email.
                       </h2>
                       
@@ -117,19 +119,19 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer hero is-info">
+            <footer class="footer modimo-dark is-info">
                 <div class="columns is-mobile">
                 <div class="column is-vertical-center">
-                    <p><strong>Adresse Email:</strong></p>
+                    <p class="strong">Adresse Email:</p>
                     <font-awesome-icon icon="envelope"></font-awesome-icon>
                     <p class="inline">jurgen.palsma@gmail.com</p>
                 </div>
                 <div class="column"></div>
                 <div class="column"></div>
                 <div class="column" is-vertical-center>
-                    <p><strong>Réseaux sociaux:</strong></p>
+                    <p class="strong">Réseaux sociaux:</p>
                     <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
-                    <a href="https://www.facebook.com/ModimoFR/">Notre Facebook</a>
+                    <a href="https://www.facebook.com/ModimoFR/" class="white">Notre Facebook</a>
                 </div>
             </div>
             </footer>
@@ -229,5 +231,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/landing.scss'
+@import '../styles/landing.scss',
+'../styles/global.scss'
 </style>
