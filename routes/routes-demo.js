@@ -55,42 +55,33 @@ module.exports = function(app, apiRoutes) {
         }
     }
 
-    /*
-        '_id': '123133',
-        'title': 'Du feu dans la cheminée',
-        'content': 'mon ascenceur est cassé',
-        'author_id': '1238EeGZY3',
-        'residence_id': '1e238aEeGZY3',
-        'status': 'open',
-        'created_at': {
-            '$date': '2018-08-13T10:09:26.236Z'
-        },
-        'updated_at': {
-            '$date': '2018-08-13T10:12:47.414Z'
-        },
-        'comments': [
-            {
-                '_id': '123133',
-                'author_id': 'oji23oijzea3',
-                'content': 'cest un vrai probleme',
-                'created_at': {
-                    '$date': '2018-08-14T10:09:26.236Z'
-                },
-                'updated_at': {
-                    '$date': '2018-08-14T10:12:47.414Z'
-                }
-            }
-        ],
-        'votes': [
-            '123133'
-        ]
-    */
+    let gen_caretaker = function(residence_id) {
+        c_names = ['Jean', 'Adrienne', 'Murielle', 'François', 'Thibaut']
+        c_name = c_names[Math.floor(Math.random()*c_names.length)]
+        let caretaker = new User({
+            name: c_name,
+            password: "super secret",
+            residence: residence_id,
+            email:  c_name + residence_id + "@modimo.fr",
+            roles: ["CARETAKER", "ADMIN"]
+        });
+        if ((caretaker.save()).hasWriteError)
+            return null
+        return (caretaker)
+    }
 
     let fill_demo_tickets = function(user, res_id, caretaker_id) {
         writeError = false
+
+        caretakers = [caretaker_id]
+        for (let i = 0; i < 3; i++) {
+            c = gen_caretaker(res_id)
+            caretakers.push(c._id)
+        }
+
         ticketList.forEach(function (dticket) {
             let ticket = new Ticket({
-                author_id: caretaker_id,
+                author_id: caretakers[Math.floor(Math.random()*caretakers.length)],
                 title: dticket.title,
                 content: dticket.content,
                 created_at: new Date(dticket.created_at.$date),
