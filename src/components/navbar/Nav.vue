@@ -30,7 +30,7 @@
                 <div v-if="$route.name != 'Login'" class="navbar-end">
                     <div class="navbar-item">
                         <div class="field is-grouped">
-                            <p class="control" >
+                            <p class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
                                     <i class="fa fa-envelope"></i>
@@ -56,15 +56,21 @@
             </div>
             
         </nav>
-
+        <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
     </section>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService'
-export default {
+import Mailer from '../mails/Mailer.vue'
 
+export default {
     name: 'navbar',
+    data () {
+        return {
+            showMailerModal: false,
+        }
+    },
     mounted () {
         document.addEventListener('DOMContentLoaded', function () {
             var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
@@ -85,8 +91,17 @@ export default {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')
             this.$router.push('/')
+        },
+
+        mailerModal: function () {
+            this.showMailerModal = true
         }
+    },
+
+    components: {
+        'mailer': Mailer
     }
+    
 }
 </script>
 
