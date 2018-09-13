@@ -92,20 +92,15 @@ export default {
     methods: {
         async load () {
             this.current_user = await this.$parent.getCurrentUser()
-            const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
-            if (resp.success) {
-                this.author_id = resp.data.author_id
-                this.title = resp.data.title
-                this.content = resp.data.content
-                this.votes = resp.data.votes
-                this.comments = resp.data.comments
-                this.created_at = resp.data.created_at
-                this.updated_at = resp.data.updated_at
-                this.status = resp.data.status
-                this.residence_id = resp.data.residence_id
+            const resp = await TicketService.getTickets(this.$cookies.get('api_token'), '5b9a298c0a027f00149f95b0')
+            //  this.current_user.residence._id
+            console.log(resp)
+            if (resp.data.success) {
+                this.tickets = resp.data.tickets
             } else {
                 alert('Something went wrong with ticket data')
             }
+            console.log
         },
 
         idToModal: function (ticket) {
