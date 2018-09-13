@@ -1,5 +1,5 @@
 
-$cta-color: #f33535;
+$cta-color: #2b5bb2;
 
 .glowing {
     animation-duration: 2s;
@@ -50,11 +50,41 @@ $cta-color: #f33535;
     display: inline-block;
 }
 
-.fa-facebook-square {
+.fa-facebook {
     color: white;
     background: #3B5998; 
 }
 
+.modimo-clear {
+    background-color: white;
+    color: black;
+}
+
+.modimo-dark {
+    background-color: #2b5bb2;
+    color: white !important;
+}
+
+.text-dark {
+    color: rgb(35, 47, 62) !important;
+}
+
+.modimo-title {
+    background-color: white;
+    color: white;
+}
+
+a:hover {
+    color: gainsboro;
+}
+
+a {
+    color: white; 
+}
+
+.strong {
+    font-weight: 700 !important;
+}
 
 .is-fullheight-minus-navbar {
     min-height: calc(100vh - 52px);
