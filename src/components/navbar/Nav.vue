@@ -30,7 +30,7 @@
                 <div v-if="$route.name != 'Login'" class="navbar-end">
                     <div class="navbar-item">
                         <div class="field is-grouped">
-                            <p v-if="current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') " class="control" @click='mailerModal()'>
+                            <p v-if="current_user && current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER')" class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
                                     <i class="fa fa-envelope"></i>
@@ -69,7 +69,7 @@ export default {
     data () {
         return {
             showMailerModal: false,
-            current_user: null
+            current_user: {}
         }
     },
     mounted () {
