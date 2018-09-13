@@ -23,7 +23,7 @@
                     </div>                
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success" @click="postTicket">Sauvegarder Changement</button>
+                    <button class="button is-success" @click="postTicket">Créé</button>
                     <button class="button" @click="$emit('close_modal')">Annuler</button>
                 </footer>
             </div>
