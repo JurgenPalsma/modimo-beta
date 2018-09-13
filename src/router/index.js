@@ -4,6 +4,7 @@ import Landing from '@/components/Landing'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Tickets from '@/components/tickets/Tickets'
+import MailCreate from '@/components/Mails/mailCreate.vue'
 import Analytics from '@/components/analytics/Analytics'
 
 Vue.use(Router)
@@ -30,6 +31,12 @@ export default new Router({
             path: '/tickets',
             name: 'Tickets',
             component: Tickets
+        },
+        ,
+        {
+            path: '/mailCreate',
+              name: 'mailCreate',
+              component: MailCreate
         },
         {
             path: '/analytics',
