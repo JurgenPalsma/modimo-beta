@@ -78,8 +78,9 @@ export default {
                 const resp = await ContactService.postContact(this.contactName, this.contactMail, this.contactMessage)
                 if (resp.data.success) {
                     this.$emit('close_modal')
+                    this.$parent.$parent.notification = {type: 'success', message: 'Message envoyé'}
                 } else {
-                    alert('Something went Wrong while posting contact')
+                    this.$parent.$parent.notification = {type: 'failure', message: "L'envoi du mail a échoué"}
                 }
             }
         }

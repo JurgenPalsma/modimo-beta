@@ -1,6 +1,5 @@
 <template>
   <section class="hero is-info is-fullheight-minus-navbar">
-    <notification :new_notification="notification"/>
     <div class="container">
         <br/><br/>
             <h1 class="title is-1">
@@ -68,18 +67,12 @@
 
 <script>
 import AuthService from '@/services/AuthService'
-import Notifications from './Notifications'
 
 export default {
     name: 'home',
     data () {
         return {
-            notification: {type: 'success', message: 'coucou'}
         }
-    },
-
-    created: function () {
-        this.notification = {type: 'success', message: 'les notifs marchent !'}
     },
 
     methods: {
@@ -88,9 +81,6 @@ export default {
             this.$cookies.remove('api_token')
             this.$router.push('/')
         }
-    },
-    components: {
-        'notifications': Notifications
     }
 }
 </script>
