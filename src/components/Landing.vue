@@ -144,7 +144,7 @@
             <div class="columns is-mobile">
                 <div class="column is-vertical-center">
                     <a @click="contactModal()">
-                    <p><strong>Contact</strong></p>
+                    <p class="strong">Nous Contacter</p>
                     </a>
                 </div>
                 <div class="column"></div>
