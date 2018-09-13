@@ -122,8 +122,8 @@
             <footer class="footer modimo-dark is-info">
                 <div class="columns is-mobile">
                 <div class="column is-vertical-center">
-                    <a @click="contactModal()" style="color: #4a4a4a">
-                    <p><strong>Contact</strong></p>
+                    <a @click="contactModal()">
+                    <p class="strong">Nous Contacter</p>
                     </a>
                 </div>
                 <div class="column"></div>

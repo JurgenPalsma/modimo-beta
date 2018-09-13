@@ -12,14 +12,14 @@
                             <div class="field">
                                 <label class="label">Nom</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Votre Nom">
+                                    <input class="input" type="text" placeholder="Votre Nom" v-model="contactName">
                                 </div>
                                 </div>
 
                                 <div class="field">
                                 <label class="label">Mail</label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="email" placeholder="Votre Mail" value="">
+                                    <input class="input" type="email" placeholder="Votre Mail" v-model="contactMail">
                                     <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
                                     </span>
@@ -32,22 +32,13 @@
                                 <div class="field">
                                 <label class="label">Message</label>
                                 <div class="control">
-                                    <textarea class="textarea" placeholder="Votre Texte"></textarea>
+                                    <textarea class="textarea" placeholder="Votre Texte" v-model="contactMessage"></textarea>
                                 </div>
                                 </div>
-
-                                <!--div class="field">
-                                <div class="control">
-                                    <label class="checkbox">
-                                    <input type="checkbox">
-                                    I agree to the <a href="#">terms and conditions</a>
-                                    </label>
-                                </div>
-                                </div-->
 
                                 <div class="field is-grouped">
                                 <div class="control">
-                                    <button class="button is-link">Submit</button>
+                                    <button @click="submitContactHandler()" class="button is-link">Envoyer</button>
                                 </div>
                                 <div class="control">
                                     <button class="button is-text">Cancel</button>
@@ -62,16 +53,38 @@
 </template>
 
 <script>
-    export default {
-        name: 'contact',
-        data () {
-            return {
-            }
-        },
-        methods: {
 
+import ContactService from '@/services/TicketService'
+
+export default {
+    name: 'contact',
+    data () {
+        return {
+            contactName: '',
+            contactMail: '',
+            contactMessage: '',
+            contact_inputs: true
+        }
+    },
+    methods: {
+        submitContactHandler: async function () {
+            if (this.contactName.length === 0) {
+                this.$refs.contactName.placeholder = 'Name: Mandatory'
+                this.contact_inputs = false
+            } else if (this.contactMail === 0) {
+                this.$refs.contactMail.placeholder = 'Email: Mandatory'
+                this.contact_inputs = false
+            } else {
+                const resp = await ContactService.postContact(this.contactName, this.contactMail, this.contactMessage)
+                if (resp.data.success) {
+                    this.emit('close_modal')
+                } else {
+                    alert('Something went Wrong while posting contact')
+                }
+            }
         }
     }
+}
 </script>
 <style lang="scss" src="./tickets/scss/Tickets.scss">       
 </style>
