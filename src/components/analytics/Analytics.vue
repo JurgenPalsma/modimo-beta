@@ -1,16 +1,16 @@
 <template>
-    <section class="hero is-info is-fullheight">
+    <section class="hero modimo-dark is-fullheight">
     <nav></nav>
         
         <div class="section container">
-            <div class="tile is-ancestor notification">
+            <div class="tile is-ancestor notification modimo-dark">
                 
                 <div class="tile is-vertical">
 
                     <div class="tile">
                         <div class="tile is-vertical is-parent">
-                            <article class="tile is-child notification is-info">
-                                <p class="title">Selectionner la plage de dates:</p>
+                            <article class="tile is-child notification is-white">
+                                <p class="title">Sélectionnez la plage de dates:</p>
                                 <div class="content">
                                     <date-picker v-model="daterange" lang='fr' range :shortcuts="shortcuts"></date-picker>
                                 </div>
@@ -18,8 +18,8 @@
                         </div>
 
                         <div class="tile is-vertical is-parent">
-                            <article class="tile is-child notification">
-                            <p class="title is-1 has-text-grey-dark">{{current_user.residence.name}}</p>
+                            <article class="tile is-child notification is-white">
+                            <p class="title is-1">{{current_user.residence.name}}</p>
                             </article>
                         </div>
                     </div>
@@ -28,20 +28,20 @@
 
                     <div class="tile">
                         <div class="tile is-vertical is-parent">
-                            <article class="tile is-child notification is-info">
-                            <p class="title">{{n_tickets_open}}</p>
+                            <article class="tile is-child notification is-white">
+                            <p class="title modimo-title">{{n_tickets_open}}</p>
                             <p class="subtitle">Tickets ouverts</p>
                             </article>
                         </div>
                         <div class="tile is-vertical is-parent">
-                            <article class="tile is-child notification is-info">
-                            <p class="title">{{n_tickets_pending}}</p>
+                            <article class="tile is-child notification is-white">
+                            <p class="title modimo-title">{{n_tickets_pending}}</p>
                             <p class="subtitle">Tickets en attente</p>
                             </article>
                         </div>
                         <div class="tile is-vertical is-parent">
-                            <article class="tile is-child notification is-info">
-                            <p class="title">{{n_tickets_closed}}</p>
+                            <article class="tile is-child notification is-white">
+                            <p class="title modimo-title">{{n_tickets_closed}}</p>
                             <p class="subtitle">Tickets fermés</p>
                             </article>
                         </div>
@@ -51,20 +51,20 @@
                     
                     <div class="tile">
                     <div class="tile is-parent is-vertical">
-                        <article class="tile is-child notification is-info">
+                        <article class="tile is-child notification is-white">
                         <p class="title">Tickets créés par date</p>
                         <figure class="image">
                             <area-chart :data="tickets_created_per_day" :library="{animation: { easing: 'easeOutQuad' }}"></area-chart>
                         </figure>
                         </article>
-                        <article class="tile is-child notification is-info">
-                        <p class="title">Plutot impressionnant!</p>
+                        <article class="tile is-child notification is-white">
+                        <p class="title">Statistiques</p>
                         </article>
                     </div>
                     <div class="tile is-parent">
-                        <article class="tile is-child notification is-info">
+                        <article class="tile is-child notification is-white">
                         <p class="title">Performances du Gardien</p>
-                        <p class="subtitle">Cette charte montre qui a fermé le plus de tickets</p>
+                        <p class="subtitle">Cette charte montre qui a fermé le plus de ticket</p>
                         <figure class="image">
                             <pie-chart :messages="{empty: 'Pas de tickets fermés a ce jour'}" :data="chart_tickets" :library="{animation: { easing: 'easeOutQuad' }}"></pie-chart>
                         </figure>
@@ -73,25 +73,25 @@
                     </div>
                     <div class="tile">
                     <div class="tile is-vertical is-parent">
-                        <article class="tile is-child notification is-info">
+                        <article class="tile is-child notification is-white">
                         <p class="title">Ticket le plus rapide</p>
                         <p class="subtitle">{{shortest_ticket.title}}</p>
-                        <div class="content">
+                        <div class="content modimo-title">
                         Résolue en seulement: {{shortest_ticket_time}}
                         </div>
                         </article>
                     </div>
                     <div class="tile is-vertical is-parent">
-                        <article class="tile is-child notification is-info">
-                        <p class="title">{{avg_ticket_time}}</p>
+                        <article class="tile is-child notification is-white">
+                        <p class="title modimo-title">{{avg_ticket_time}}</p>
                         <p class="subtitle">Temps de résolution moyen pour un ticket</p>
                         </article>
                     </div>
                     <div class="tile is-vertical is-parent">
-                        <article class="tile is-child notification is-info">
+                        <article class="tile is-child notification is-white">
                         <p class="title">Ticket le plus lent</p>
                         <p class="subtitle">{{longest_ticket.title}}</p>
-                        <div class="content">
+                        <div class="content modimo-title">
                         Résolue après: {{longest_ticket_time}}
                         </div>
                         </article>
@@ -184,5 +184,5 @@ export default {
 </script>
 
 <style lang="scss">
-
+@import '../../styles/global.scss';
 </style>

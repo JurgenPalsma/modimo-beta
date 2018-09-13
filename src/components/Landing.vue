@@ -120,7 +120,7 @@
                 <div class="container ">
                   <div class="column is-6 is-offset-3">
                       <h1 class="title text-dark">
-                          Ooooops
+                          Ooooups
                       </h1>
                       <h2 class="subtitle text-dark">
                           Ton email est invalide. Renseigne une vraie adresse email.

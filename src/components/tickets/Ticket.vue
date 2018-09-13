@@ -27,12 +27,12 @@
                             </div>
                             <br>
                             <small class="small-text">
-                                <span v-if="ticket.updated_at === ticket.created_at">Crée le </span>
+                                <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
 
                                 <span v-else>Modifié le </span>
                                 {{ticket.updated_at}}
                                 <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE -->
-                                <!--<span v-if="ticket.author_id === session._id">--> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier ticket</a><!--</span>-->
+                                <!--<span v-if="ticket.author_id === session._id">--> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a><!--</span>-->
                             </small>
                         </div>
                         <article class="media">

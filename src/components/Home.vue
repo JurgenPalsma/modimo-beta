@@ -8,7 +8,7 @@
             
             <div class="columns">
                 <router-link to="/tickets" class="column is-one-quarter-desktop">
-                    <div class="card">
+                    <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
                             <div class="media-left">
@@ -25,7 +25,7 @@
                     </div>
                 </router-link>
                 <router-link to="/analytics" class="column is-one-quarter-desktop">
-                    <div class="card">
+                    <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
                             <div class="media-left">
@@ -42,7 +42,7 @@
                     </div>
                 </router-link>
                 <div class="column is-one-quarter-desktop">
-                    <div class="card">
+                    <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
                             <div class="media-left">

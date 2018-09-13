@@ -1,23 +1,23 @@
 <template>
     <section>
 
-        <nav v-if="this.$route.name != 'Landing' && this.$route.name != 'Login'" class="navbar">
+        <nav v-if="$route.name != 'Landing'" class="navbar">
 
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
                     <img src="/static/img/icons/logo.png" alt="Modimo">
-                    <span class="is-hidden-touch">&nbsp;Accueil</span>
+                    <span v-if="$route.name != 'Home'" class="is-hidden-touch">&nbsp;Accueil</span>
                 </a>
 
-                <div class="navbar-burger burger" data-target="navMenubd-example">
-                <span></span>
-                <span></span>
-                <span></span>
+                <div v-if="$route.name != 'Login'" class="navbar-burger burger" data-target="navMenubd-example">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
 
             <div id="navMenubd-example" class="navbar-menu">
-                <div v-if="this.$route.name != 'Home'" class="navbar-start">
+                <div v-if="$route.name != 'Home' && $route.name != 'Login'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home">Apps</a>
                         <div class="navbar-dropdown ">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="navbar-end">
+                <div v-if="$route.name != 'Login'" class="navbar-end">
                     <div class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" >
@@ -47,7 +47,7 @@
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Déconnexion</span>
+                                <span>Déconnection</span>
                                 </a>
                             </p>
                         </div>

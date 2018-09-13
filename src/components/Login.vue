@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-fullheight is-medium modimo-dark is-bold">
+  <section class="hero is-fullheight-minus-navbar is-medium modimo-dark is-bold">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
@@ -11,7 +11,7 @@
               </h1>
 
                 <div class="field">
-                  <label class="label">Mail</label>
+                  <label class="label">Email</label>
                   <div class="control has-icons-left has-icons-right">
                     <input class="input" type="email" placeholder="Votre Mail..." v-model="email">
                     <span class="icon is-small is-left">
