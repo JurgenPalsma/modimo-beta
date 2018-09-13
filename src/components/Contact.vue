@@ -7,19 +7,20 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size">Formulaire de Contact</strong>
+                            <strong class="modimo-color modimo-size ">Formulaire de Contact</strong>
+                            <br>
                             <br>
                             <div class="field">
                                 <label class="label">Nom</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Votre Nom" v-model="contactName">
+                                    <input class="input" type="text" placeholder="Votre Nom" v-model="contactName" ref="contactName">
                                 </div>
                                 </div>
 
                                 <div class="field">
                                 <label class="label">Mail</label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="email" placeholder="Votre Mail" v-model="contactMail">
+                                    <input class="input" type="email" placeholder="Votre Mail" v-model="contactMail" ref="contactMail">
                                     <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
                                     </span>
@@ -32,7 +33,7 @@
                                 <div class="field">
                                 <label class="label">Message</label>
                                 <div class="control">
-                                    <textarea class="textarea" placeholder="Votre Texte" v-model="contactMessage"></textarea>
+                                    <textarea class="textarea" placeholder="Votre Texte" v-model="contactMessage" ref="contactMessage"></textarea>
                                 </div>
                                 </div>
 
@@ -54,7 +55,7 @@
 
 <script>
 
-import ContactService from '@/services/TicketService'
+import ContactService from '@/services/ContactService'
 
 export default {
     name: 'contact',
@@ -62,22 +63,21 @@ export default {
         return {
             contactName: '',
             contactMail: '',
-            contactMessage: '',
-            contact_inputs: true
+            contactMessage: ''
         }
     },
     methods: {
         submitContactHandler: async function () {
             if (this.contactName.length === 0) {
                 this.$refs.contactName.placeholder = 'Name: Mandatory'
-                this.contact_inputs = false
-            } else if (this.contactMail === 0) {
+            } else if (this.contactMail.length === 0) {
                 this.$refs.contactMail.placeholder = 'Email: Mandatory'
-                this.contact_inputs = false
+            } else if (this.contactMessage.length === 0) {
+                this.$refs.contactMessage.placeholder = 'Message: Mandatory'
             } else {
                 const resp = await ContactService.postContact(this.contactName, this.contactMail, this.contactMessage)
                 if (resp.data.success) {
-                    this.emit('close_modal')
+                    this.$emit('close_modal')
                 } else {
                     alert('Something went Wrong while posting contact')
                 }
