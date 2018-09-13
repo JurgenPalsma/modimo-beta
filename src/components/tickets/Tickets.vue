@@ -93,14 +93,11 @@ export default {
         async load () {
             this.current_user = await this.$parent.getCurrentUser()
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), '5b9a298c0a027f00149f95b0')
-            //  this.current_user.residence._id
-            console.log(resp)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
             } else {
                 alert('Something went wrong with ticket data')
             }
-            console.log
         },
 
         idToModal: function (ticket) {
