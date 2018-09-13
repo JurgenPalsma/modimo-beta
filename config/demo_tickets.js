@@ -26,7 +26,7 @@ module.exports = [
     {
             'title': 'Ascenseur en panne',
             'content': 'L\'ascenseur du bâtiment A ne marche plus. Il est arrêté entre le deuxième et troisième étage. Merci de contacter OTIS afin qu\'ils interviennent',
-            'status': 'pending',
+            'status': 'open',
             'created_at': {
                 '$date': '2018-07-05T08:01:28.327Z'
             },
@@ -50,7 +50,7 @@ module.exports = [
     {
             'title': 'Fenêtre premier étage cassée',
             'content': 'Fenêtre dans la cage d\'escalier du 1er étage ne ferme plus. Pour éviter tout cambriolage, il faudrait que le gardien intervienne dans les plus brefs délais',
-            'status': 'closed',
+            'status': 'close',
             'created_at': {
                 '$date': '2018-06-25T06:34:28.337Z'
             },
