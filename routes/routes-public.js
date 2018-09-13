@@ -2,7 +2,7 @@ const Lead          = require('../models/lead');
 
 module.exports = function(app) {
 
-    apiRoutes.post('/lead', function(req, res) {
+    app.post('/lead', function(req, res) {
         lead = new Lead({
             name: req.name,
             email: req.mail,
