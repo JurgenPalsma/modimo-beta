@@ -71,31 +71,31 @@
                         </article>
                     </div>
                     </div>
-                    <div class="tile">
-                    <div class="tile is-vertical is-parent">
-                        <article class="tile is-child notification is-white">
-                        <p class="title">Ticket le plus rapide</p>
-                        <p class="subtitle">{{shortest_ticket.title}}</p>
-                        <div class="content modimo-title">
-                        Résolue en seulement: {{shortest_ticket_time}}
+                    <div class="tile" v-if="shortest_ticket && longest_ticket">
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-white">
+                            <p class="title">Ticket le plus rapide</p>
+                            <p class="subtitle">{{shortest_ticket.title}}</p>
+                            <div class="content modimo-title">
+                            Résolu en seulement: {{shortest_ticket_time}}
+                            </div>
+                            </article>
                         </div>
-                        </article>
-                    </div>
-                    <div class="tile is-vertical is-parent">
-                        <article class="tile is-child notification is-white">
-                        <p class="title modimo-title">{{avg_ticket_time}}</p>
-                        <p class="subtitle">Temps de résolution moyen pour un ticket</p>
-                        </article>
-                    </div>
-                    <div class="tile is-vertical is-parent">
-                        <article class="tile is-child notification is-white">
-                        <p class="title">Ticket le plus lent</p>
-                        <p class="subtitle">{{longest_ticket.title}}</p>
-                        <div class="content modimo-title">
-                        Résolue après: {{longest_ticket_time}}
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-white">
+                            <p class="title modimo-title">{{avg_ticket_time}}</p>
+                            <p class="subtitle">Temps de résolution moyen par ticket</p>
+                            </article>
                         </div>
-                        </article>
-                    </div>
+                        <div class="tile is-vertical is-parent">
+                            <article class="tile is-child notification is-white">
+                            <p class="title">Ticket le plus lent</p>
+                            <p class="subtitle">{{longest_ticket.title}}</p>
+                            <div class="content modimo-title">
+                            Résolu après: {{longest_ticket_time}}
+                            </div>
+                            </article>
+                        </div>
                     </div>
 
                 </div>
