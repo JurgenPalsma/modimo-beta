@@ -28,14 +28,14 @@
                 </div>
 
                 <div class="navbar-end">
-                    <div class="navbar-item">
+                    <div v-if="this.currentUser && this.currentUser.roles && this.currentUser.roles.includes('ROOT')" class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <span>Mailer</span>
+                                <span>Envoyer un mail</span>
                                 </a>
                             </p>
                         </div>
@@ -68,9 +68,14 @@ export default {
     name: 'navbar',
     data () {
         return {
+            currentUser: null,
             showMailerModal: false,
         }
     },
+    
+    created: function () {
+  },
+
     mounted () {
         document.addEventListener('DOMContentLoaded', function () {
             var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
@@ -84,13 +89,18 @@ export default {
                     })
                 })
             }
-        })
+        });
+        this.load()
     },
     methods: {
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')
             this.$router.push('/')
+        },
+
+        async load () {
+            this.currentUser = await this.$parent.getCurrentUser()
         },
 
         mailerModal: function () {
