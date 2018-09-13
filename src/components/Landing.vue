@@ -22,9 +22,10 @@
             
             <div v-if="form_state === 'not engaged'" class="section modimo-clear">
                 <div class="container has-text-centered">
-                   
-                    <div class="column is-6 is-offset-3">
+                   <div class="column is-4 is-offset-4 ">
                          <img src="/static/img/logofull.svg">
+                    </div>
+                    <div class="column is-6 is-offset-3">
                         <h1 class="title section text-dark">
                             La Résidence centralisée
                         </h1>
