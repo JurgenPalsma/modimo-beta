@@ -49,7 +49,6 @@ export default {
     },
 
     mounted () {
-        datalayer.push()
         if (this.$cookies.get('api_token')) {
         } else if (this.$route.name !== 'Login') {
             this.$router.push('/')

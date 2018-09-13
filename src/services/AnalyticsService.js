@@ -19,7 +19,14 @@ export default {
         if (res.data.success) {
             res.data.chart_tickets = await addTicketCloserToTicketList(token, res.data.caretaker_numbers.tickets)
             res.data.tickets_created_per_day = addDatetoTicketList(res.data.ticket_numbers.tickets_created_per_day)
-            res.data.ticket_times = formatTicketTime(res.data.ticket_numbers.avg_resolution_time, res.data.ticket_numbers.shortest_ticket, res.data.ticket_numbers.longest_ticket)
+            res.data.ticket_times = { 'avg_ticket_time': 0,
+            'shortest_ticket': 0,
+            'longest_ticket': 0,
+            'shortest_ticket_time': 0,
+            'longest_ticket_time': 0
+                
+                
+            }//formatTicketTime(res.data.ticket_numbers.avg_resolution_time, res.data.ticket_numbers.shortest_ticket, res.data.ticket_numbers.longest_ticket)
         }
         return res
     }
@@ -54,6 +61,10 @@ function formatTimeHours (avg) {
 }
 
 function formatTicketTime (avg, short, long) {
+    console.log(avg)
+    console.log(short)
+    console.log(long)
+
     return { 'avg_ticket_time': formatTimeHours(avg),
         'shortest_ticket': short,
         'longest_ticket': long,
