@@ -5,7 +5,8 @@ export default {
         return Api().get('/api/tickets', {
             headers: {
                 'x-access-token': token,
-                'residence_id': id
+                'residence_id': id,
+                'ordered_by': ['vote_desc', 'date_asc']
             }
         })
     },
