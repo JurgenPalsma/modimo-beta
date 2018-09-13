@@ -1,3 +1,5 @@
+const Lead          = require('../models/lead');
+
 module.exports = function(app) {
 
     apiRoutes.post('/lead', function(req, res) {
@@ -11,9 +13,9 @@ module.exports = function(app) {
         if ((lead.save()).hasWriteError) 
             return ({success: false, message: "Db not writable"})
         else
-            return res.json({success: true, message: "Constact posted"})
+            return res.json({success: true, message: "Contact posted"})
     })
-    
+
     /**
      * @api {get} /hello Ping the API
      * @apiName Hello
