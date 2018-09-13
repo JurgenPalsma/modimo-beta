@@ -3,6 +3,7 @@ module.exports = [
         'title': 'Bienvenue dans la démo Modimo',
         'content': 'Ce ticket est un ticket de test, ici, vous pourrez exposer un problème au sein de votre résidence',
         'status': 'open',
+        "votes": [],
      'created_at': {
          '$date': '2018-08-14T10:09:26.236Z'
      },
@@ -26,7 +27,7 @@ module.exports = [
     {
             'title': 'Ascenseur en panne',
             'content': 'L\'ascenseur du bâtiment A ne marche plus. Il est arrêté entre le deuxième et troisième étage. Merci de contacter OTIS afin qu\'ils interviennent',
-            'status': 'open',
+            'status': 'close',
             'created_at': {
                 '$date': '2018-07-05T08:01:28.327Z'
             },
@@ -74,7 +75,7 @@ module.exports = [
     {
         'title': 'Dégradation parking',
         'content': 'Le parking sous terrain à été victime de tagueur la nuit dernière, il faudrait effacer ces graffitis qui sont, pour certains violents',
-        'status': 'open',
+        'status': 'close',
         'created_at': {
             '$date': '2018-07-15T09:42:42.427Z'
         },
