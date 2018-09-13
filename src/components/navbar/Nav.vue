@@ -1,11 +1,12 @@
 <template>
     <section>
 
-        <nav v-if="this.$route.name != 'Landing' && this.$route.name != 'Login'" class="navbar ">
+        <nav v-if="this.$route.name != 'Landing' && this.$route.name != 'Login'" class="navbar">
 
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
                     <img src="/static/img/icons/logo.png" alt="Modimo">
+                    <span class="is-hidden-touch">&nbsp;Accueil</span>
                 </a>
 
                 <div class="navbar-burger burger" data-target="navMenubd-example">
@@ -16,21 +17,12 @@
             </div>
 
             <div id="navMenubd-example" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item " href="/home">
-                        <span class="bd-emoji">🏠</span> &nbsp;Home
-                    </a>
+                <div v-if="this.$route.name != 'Home'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link  is-active" href="/home">
-                            Apps
-                        </a>
+                        <a class="navbar-link" href="/home">Apps</a>
                         <div class="navbar-dropdown ">
-                            <a class="navbar-item " href="/tickets">
-                                Tickets
-                            </a>
-                            <a class="navbar-item" href="/analytics">
-                                Analytics
-                            </a>               
+                            <a class="navbar-item " href="/tickets">Tickets</a>
+                            <a class="navbar-item" href="/analytics">Statistiques</a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +35,7 @@
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Logout</span>
+                                <span>Déconnection</span>
                                 </a>
                             </p>
                         </div>
