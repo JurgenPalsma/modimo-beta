@@ -11,19 +11,19 @@
                     <div class="field">
                         <label class="label">Titre</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Titre du ticket...">
+                            <input class="input" type="text" v-model="title" placeholder="Titre du ticket...">
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Message</label>
                         <div class="control">
-                            <textarea class="textarea" placeholder="Message du ticket..."></textarea>
+                            <textarea class="textarea" v-model="content" placeholder="Message du ticket..."></textarea>
                         </div>
                     </div>                
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success">Save changes</button>
+                    <button class="button is-success" @click="postTicket">Save changes</button>
                     <button class="button" @click="$emit('close_modal')">Cancel</button>
                 </footer>
             </div>
@@ -38,6 +38,8 @@ export default {
     name: 'ticketCreation',
     data () {
         return {
+            title: '',
+            content: '',
             isActive: true
         }
     },
@@ -45,6 +47,12 @@ export default {
             
         postTicket: function () {
             TicketService.postTicket(this.$cookies.get('api_token'), this.title, this.content)
+            .then(response => {
+                if (!response.data.success || !response.data.ticket)
+                    this.$parent.$parent.notification = {type: 'failure', message: "Un champ est manquant"}
+                else
+                    this.$emit('close_modal', response.data.ticket);
+            })
         }
 
     }
