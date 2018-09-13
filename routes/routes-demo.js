@@ -93,8 +93,8 @@ module.exports = function(app, apiRoutes) {
                 author_id: caretaker_id,
                 title: dticket.title,
                 content: dticket.content,
-                created_at: dticket.created_at,
-                updated_at: dticket.updated_at,
+                created_at: new Date(dticket.created_at.$date),
+                updated_at: new Date(dticket.updated_at.$date),
                 residence_id: res_id,
                 status: dticket.status
             });
