@@ -32,12 +32,6 @@ export default new Router({
             name: 'Tickets',
             component: Tickets
         },
-        ,
-        {
-            path: '/mailCreate',
-              name: 'mailCreate',
-              component: MailCreate
-        },
         {
             path: '/analytics',
             name: 'Analytics',
