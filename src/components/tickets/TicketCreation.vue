@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import TicketService from '@/services/TicketService'
+
 export default {
     name: 'ticketCreation',
     data () {
@@ -40,6 +42,10 @@ export default {
         }
     },
     methods: {
+            
+        postTicket: function () {
+            TicketService.postTicket(this.$cookies.get('api_token'), this.title, this.content)
+        }
 
     }
 }
