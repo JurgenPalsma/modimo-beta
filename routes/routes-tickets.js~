@@ -11,7 +11,7 @@ module.exports = function(app, apiRoutes, io) {
 // route to add a ticket
     apiRoutes.post('/tickets/ticket', function(req, res) {
 
-        if (!req.headers.title || !req.headers.content)
+        if (!req.body.title && !req.body.content)
             res.json({success: false, message: 'Error: request incomplete'});
         else
             User.findOne({token: req.headers['x-access-token']}, function (err, user) {
@@ -20,8 +20,8 @@ module.exports = function(app, apiRoutes, io) {
                     res.json({success: false, message: 'Bad auth token'});
                 else {
                     let ticket = new Ticket({
-                    title: req.headers.title,
-                    content: req.headers.content,
+                    title: req.body.title,
+                    content: req.body.content,
                     created_at: new Date(),
                     updated_at: new Date(),
                     votes: [],
