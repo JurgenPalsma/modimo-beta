@@ -1,6 +1,5 @@
 <style src="./scss/Tickets.scss"></style>
 <template>
-<!--Give_UserIdto Component-->
     <section class="section">
         <div class="title has-text-centered">
             Tickets
@@ -28,9 +27,9 @@
                             <div class="column is-one-quarter is-mobile">
                                 <div id="ticket-time" class="has-text-left">
                                         <p class="bold">Créé le : </p>
-                                        <time datetime="2018-08-13T10:09:26.236Z">13 Aout 2018 - 09:26</time> <br>
+                                        <time datetime="ticket.created_at">09/13/2018 11:55</time> <br>
                                         <p class="bold">Derniere modification : </p>
-                                        <time datetime="2018-08-13T10:12:47.414Z">13 Aout 2018 - 12:47</time>
+                                        <time datetime="ticket.updated_at">09/13/2018 15:35</time>
                                 </div>
                             </div>
                             <div class="column is-one-third is-mobile">
@@ -53,7 +52,7 @@
                             </div>
                         </div>
                     </a>
-                  <ticket :ticket="currentTicket" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
+                    <ticket :ticket="currentTicket" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
                 </div>
             </div>
         </div>
