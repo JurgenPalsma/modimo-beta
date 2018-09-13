@@ -143,14 +143,12 @@
             </div>
             <footer class="footer modimo-dark footer-resized">
             <div class="columns is-mobile">
-                <div class="column is-vertical-center">
+                <div class="column has-text-centered">
                     <a @click="contactModal()">
                     <p class="strong">Nous Contacter</p>
                     </a>
                 </div>
-                <div class="column"></div>
-                <div class="column"></div>
-                <div class="column" is-vertical-center>
+                <div class="column has-text-centered">
                     <p class="strong">Réseaux sociaux:</p>
                     <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
                     <a href="https://www.facebook.com/ModimoFR/" class="white">Notre Facebook</a>
