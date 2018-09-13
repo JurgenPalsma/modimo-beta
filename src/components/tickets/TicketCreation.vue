@@ -11,7 +11,7 @@
                     <div class="field">
                         <label class="label">Titre</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Titre du ticket...">
+                            <input class="input" type="text" :v-model="title" placeholder="Titre du ticket...">
                         </div>
                     </div>
 
@@ -38,6 +38,8 @@ export default {
     name: 'ticketCreation',
     data () {
         return {
+            title: "",
+            content: "",
             isActive: true
         }
     },
