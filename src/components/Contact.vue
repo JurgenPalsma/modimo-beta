@@ -42,7 +42,7 @@
                                     <button @click="submitContactHandler()" class="button is-link">Envoyer</button>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-text">Annuler</button>
+                                    <button class="button is-text" @click="$emit('close_modal')">Annuler</button>
                                 </div>
                                 </div>
                         </div>
