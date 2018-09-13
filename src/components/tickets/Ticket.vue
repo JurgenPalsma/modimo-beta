@@ -11,7 +11,7 @@
                 </a>
             </header>
             <div v-if="toggled" class="card-content">
-                <div> Author </div> 
+                <div> Author </div>
                 <div> 12/01/10 </div>
                 <div class="content">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
@@ -30,6 +30,54 @@
 </template>
 
 <script>
+
+import TicketService from '@/services/TicketService'
+
+export default {
+    name: 'Ticket',
+
+    data () {
+        return {
+            //Maybe not the type but data?
+          author_id: "",
+          title: "",
+          content: "",
+          votes: "",
+          comments: "",
+          created_at: null,
+          updated_at: null,
+          status: "",
+          residence_id: "",
+          //not the type, empty data
+        }
+    },
+    mounted: function () {
+        this.load() //plusieurs fonctions appelées-> composant monté load la data
+    },
+    methods: {
+        async load () {
+            this.current_user = await this.$parent.getCurrentUser()
+            const resp = await TicketService.getTicket(this.$cookies.get('api_token'), this.ticket_id)
+            if (resp.data.success) {
+                this.author_id = resp.data.author_id
+                this.title = resp.data.title
+                this.content = resp.data.content
+                this.votes = resp.data.votes
+                this.comments = resp.data.comments
+                this.created_at = resp.data.created_at
+                this.updated_at = resp.data.updated_at
+                this.status = resp.data.status
+                this.residence_id = resp.data.residence_id
+            } else {
+                alert('Something went wrong with ticket data')
+            }
+        }
+    },
+
+}
+
+/* OLD
+
 export default {
     name: 'home',
     data () {
@@ -43,6 +91,7 @@ export default {
         }
     }
 }
+*/
 </script>
 
 <style lang="scss">
