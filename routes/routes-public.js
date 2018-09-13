@@ -1,5 +1,19 @@
 module.exports = function(app) {
 
+    apiRoutes.post('/lead', function(req, res) {
+        lead = new Lead({
+            name: req.name,
+            email: req.mail,
+            msg: req.message,
+            role: req.role,
+            from_demo: true
+        });
+        if ((lead.save()).hasWriteError) 
+            return ({success: false, message: "Db not writable"})
+        else
+            return res.json({success: true, message: "Constact posted"})
+    })
+    
     /**
      * @api {get} /hello Ping the API
      * @apiName Hello
