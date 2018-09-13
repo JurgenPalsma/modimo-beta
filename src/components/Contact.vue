@@ -15,7 +15,7 @@
                                 <br>
                                 <div class="field">
                                     <p class="control">
-                                        <textarea ref="text_modif_ticket" v-bind:value=Contact3 class="textarea" rows="1"></textarea>
+                                        <!-- <textarea ref="text_modif_ticket" v-bind:value=Contact3 class="textarea" rows="1"></textarea> -->
                                     </p>
                                 </div>
                                 <div class="field">

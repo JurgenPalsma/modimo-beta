@@ -71,6 +71,9 @@ export default {
     data () {
         return {
             //  Maybe not the type but data?
+            tickets: [],
+            showModalTicket: false,
+            showModalTicketCreation: false,
             author_id: '',
             title: '',
             content: '',
