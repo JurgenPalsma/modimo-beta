@@ -64,88 +64,55 @@
 <script>
 import ticket from './Ticket.vue'
 import ticketCreation from './TicketCreation.vue'
+import TicketService from '@/services/TicketService'
 
 export default {
-    name: 'tickets',
+    name: 'Ticket',
     data () {
         return {
-            showModalTicket: false,
-            showModalTicketCreation: false,
-            currentTicket: {},
-            tickets: [
-                {
-                    '_id': '123133',
-                    'title': 'Du feu dans la cheminée',
-                    'content': 'mon ascenceur est cassé',
-                    'author_id': '1238EeGZY3',
-                    'residence_id': '1e238aEeGZY3',
-                    'status': 'open',
-                    'created_at': {
-                        '$date': '2018-08-13T10:09:26.236Z'
-                    },
-                    'updated_at': {
-                        '$date': '2018-08-13T10:12:47.414Z'
-                    },
-                    'comments': [
-                        {
-                            '_id': '123133',
-                            'author_id': 'oji23oijzea3',
-                            'content': 'cest un vrai probleme',
-                            'created_at': {
-                                '$date': '2018-08-14T10:09:26.236Z'
-                            },
-                            'updated_at': {
-                                '$date': '2018-08-14T10:12:47.414Z'
-                            }
-                        }
-                    ],
-                    'votes': [
-                        '123133'
-                    ]
-                },
-                {
-                    '_id': '123144',
-                    'title': 'Ampoule cassée',
-                    'content': 'mon ascenceur communique avec les sovietique',
-                    'author_id': '1238EeGZY4',
-                    'residence_id': '1e238aEeGZY4',
-                    'status': 'close',
-                    'created_at': {
-                        '$date': '2018-08-14T10:09:26.236Z'
-                    },
-                    'updated_at': {
-                        '$date': '2018-08-14T10:12:47.414Z'
-                    },
-                    'comments': [
-                        {
-                            '_id': '123133',
-                            'author_id': 'oji23oijzea3',
-                            'content': 'cest un vrai faux probleme',
-                            'created_at': {
-                                '$date': '2018-08-15T10:09:26.236Z'
-                            },
-                            'updated_at': {
-                                '$date': '2018-08-15T10:12:47.414Z'
-                            }
-                        }
-                    ],
-                    'votes': [
-                        '123144'
-                    ]
-                }
-            ]
+            //  Maybe not the type but data?
+            author_id: '',
+            title: '',
+            content: '',
+            votes: '',
+            comments: '',
+            created_at: null,
+            updated_at: null,
+            status: '',
+            residence_id: ''
+            //  not the type, empty data
+        }
+    },
+    mounted: function () {
+        this.load() //  plusieurs fonctions appelées-> composant monté load la data
+    },
+    methods: {
+        async load () {
+            this.current_user = await this.$parent.getCurrentUser()
+            const resp = await TicketService.getTicket(this.$cookies.get('api_token'), this.ticket_id)
+            if (resp.data.success) {
+                this.author_id = resp.data.author_id
+                this.title = resp.data.title
+                this.content = resp.data.content
+                this.votes = resp.data.votes
+                this.comments = resp.data.comments
+                this.created_at = resp.data.created_at
+                this.updated_at = resp.data.updated_at
+                this.status = resp.data.status
+                this.residence_id = resp.data.residence_id
+            } else {
+                alert('Something went wrong with ticket data')
+            }
+        },
+
+        idToModal: function (ticket) {
+            this.currentTicket = ticket
+            this.showModalTicket = true
         }
     },
     components: {
         'ticket': ticket,
         'ticketCreation': ticketCreation
-    },
-
-    methods: {
-        idToModal: function (ticket) {
-            this.currentTicket = ticket
-            this.showModalTicket = true
-        }
     }
 }
 </script>

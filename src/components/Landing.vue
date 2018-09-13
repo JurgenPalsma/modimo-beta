@@ -120,9 +120,9 @@
             <footer class="footer hero is-info">
                 <div class="columns is-mobile">
                 <div class="column is-vertical-center">
-                    <p><strong>Adresse Email:</strong></p>
-                    <font-awesome-icon icon="envelope"></font-awesome-icon>
-                    <p class="inline">jurgen.palsma@gmail.com</p>
+                    <a @click="contactModal()" style="color: #4a4a4a">
+                    <p><strong>Contact</strong></p>
+                    </a>
                 </div>
                 <div class="column"></div>
                 <div class="column"></div>
@@ -146,19 +146,21 @@
           </figure>
           </div>
       </div>
-    
+      <contact v-show="showModalContact" @close_modal="showModalContact = false"></contact>
     </section>
 </template>
 
 <script>
 import DemoService from '@/services/DemoService'
 import AuthService from '@/services/AuthService'
+import Contact from './Contact.vue'
 
 export default {
     name: 'landing',
     videoId: 'S7A77ClZKcQ',
     data () {
         return {
+            showModalContact: false,
             form_state: 'not engaged',
             role: 'resi',
             email: '',
@@ -167,8 +169,14 @@ export default {
             loading: false
         }
     },
+
+    components: {
+        'contact': Contact
+    },
+
     mounted () {
     },
+
     methods: {
         ready (event) {
             this.player = event.player
@@ -223,6 +231,10 @@ export default {
                 this.email_error = true
                 this.loading = false
             }
+        },
+
+        contactModal: function () {
+            this.showModalContact = true
         }
     }
 }
