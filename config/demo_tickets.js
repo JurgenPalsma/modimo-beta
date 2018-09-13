@@ -24,8 +24,12 @@ module.exports = [
             'title': 'Ascenseur en panne',
             'content': 'L\'ascenseur du bâtiment A ne marche plus. Il est arrêté entre le deuxième et troisième étage. Merci de contacter OTIS afin qu\'ils interviennent',
             'status': 'pending',
-        'created_at': '2018-07-05T08:01:28.327Z',
-        'updated_at': '2018-07-07T08:13:01.457Z',
+            'created_at': {
+                '$date': '2018-07-05T08:01:28.327Z'
+            },
+            'updated_at': {
+                '$date': '2018-07-07T08:13:01.457Z'
+            },
             'comments': [
                 {
                     '_id': '123133',
@@ -44,8 +48,12 @@ module.exports = [
             'title': 'Fenêtre premier étage cassée',
             'content': 'Fenêtre dans la cage d\'escalier du 1er étage ne ferme plus. Pour éviter tout cambriolage, il faudrait que le gardien intervienne dans les plus brefs délais',
             'status': 'closed',
-        'created_at': '2018-06-25T06:34:28.337Z',
-        'updated_at': '2018-06-26T08:22:02.257Z',
+            'created_at': {
+                '$date': '2018-06-25T06:34:28.337Z'
+            },
+            'updated_at': {
+                '$date': '2018-06-26T08:22:02.257Z'
+            },
             'comments': [
                 {
                     '_id': '123133',
@@ -64,7 +72,9 @@ module.exports = [
         'title': 'Dégradation parking',
         'content': 'Le parking sous terrain à été victime de tagueur la nuit dernière, il faudrait effacer ces graffitis qui sont, pour certains violents',
         'status': 'open',
-     'created_at': '2018-07-15T09:42:42.427Z',
+        'created_at': {
+            '$date': '2018-07-15T09:42:42.427Z'
+        },
         'comments': [
             {
                 '_id': '123133',
