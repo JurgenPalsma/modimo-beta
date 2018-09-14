@@ -42,7 +42,7 @@
                                     <button @click="createMail()" class="button is-link">Envoyer</button>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-text">Annuler</button>
+                                    <button class="button is-text" @click="$emit('close_modal')">Annuler</button>
                                 </div>
                                 </div>
                         </div>
@@ -58,6 +58,8 @@
 </style>
 
 <script>
+import MailService from '@/services/MailService'
+
 export default {
   data () {
     return {
@@ -77,26 +79,19 @@ export default {
 
       createMail: function() {
         if (!this.mail.title || !this.mail.description || !this.mail.to)
-          return alert("Missing something ?");
-
-        this.$http.post(this.$config.api + '/mail', {
-        subject: this.mail.title,
-        text: this.mail.description,
-        to: this.mail.to },
-        {headers: {'x-access-token': this.$cookies.get('dev-api-token')}}).then(response => {
-          if (response.body.success) {
-            this.mail.title = '';
-            this.mail.description = '';
-            this.mail.to = '';
-            return alert("success " + response.body.message);
-          }
-          else
-            alert(response.body.message);
-        }, response => {
-          alert("DEBUG: something went wrong while sending mail " + response.body.message)
-      });
+          return alert("Un champ est manquant?");
+        MailService.postMail(this.$cookies.get('api_token'), this.mail.title, this.mail.description, this.mail.to)
+        .then(response => {
+                if (!response.data.success)
+                    this.$parent.$parent.notification = {type: 'failure', message: "Echec de l'envoi"}
+                else
+                {
+                    this.$parent.$parent.notification = {type: 'success', message: "Email Envoyé"}
+                    this.$emit('close_modal');
+                }
+            });
     }
-  },
+  }
 }
 </script>
 

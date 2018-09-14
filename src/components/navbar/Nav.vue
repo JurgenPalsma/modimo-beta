@@ -28,14 +28,14 @@
                 </div>
 
                 <div v-if="$route.name != 'Login'" class="navbar-end">
-                    <div class="navbar-item">
+                    <div  v-if="current_user && current_user.roles && current_user.roles.includes('ROOT')" class="navbar-item">
                         <div class="field is-grouped">
-                            <p v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER'))" class="control" @click='mailerModal()'>
+                            <p class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <span>Mailer</span>
+                                <span>Envoyer un mail</span>
                                 </a>
                             </p>
                         </div>
@@ -72,6 +72,10 @@ export default {
             current_user: null
         }
     },
+    
+    created: function () {
+  },
+
     mounted () {
         this.load()
         document.addEventListener('DOMContentLoaded', function () {
@@ -86,7 +90,8 @@ export default {
                     })
                 })
             }
-        })
+        });
+        this.load()
     },
     methods: {
         async load() {

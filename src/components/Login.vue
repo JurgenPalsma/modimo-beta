@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-fullheight-minus-navbar is-medium modimo-dark is-bold">
+  <section class="hero is-fullheight is-medium modimo-dark is-bold">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
