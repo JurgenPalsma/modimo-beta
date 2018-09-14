@@ -44,7 +44,7 @@
                                         <br>
                                         <small class="small-text">
                                             <span v-if="comment.updated_at.$date === comment.created_at.$date">Créé le </span>
-                                            <span v-else>Modifié le </span>{{fateFormater(comment.updated_at.$date)}}
+                                            <span v-else>Modifié le </span>{{dateFormater(comment.updated_at.$date)}}
                                         </small>
                                     </p>
                                     </article>
