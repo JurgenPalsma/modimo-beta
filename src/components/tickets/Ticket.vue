@@ -7,7 +7,7 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size">{{ticket_author}} - {{ticket.title}}</strong>
+                            <strong class="modimo-color modimo-size">{{ticket.title}}</strong>
                             <br>
                             <br>
                             <span ref="display_ticket">{{ticket.content}}</span>
@@ -62,10 +62,10 @@
                             </div>
                             <div class="field">
                                 <p class="control is-pulled-right">
-                                    <!--<span v-if="this.current_user.role[0] == 'CARE_TAKER'">-->
+                                    <span v-if="current_user && current_user.roles.includes('CARETAKER')">
                                         <button class="button is-warning">Clôturer</button>
                                         <button class="button is-warning">Envoyer et Clôturer</button>
-                                    <!--</span>-->
+                                    </span>
                                     <button class="button">Envoyer</button>
                                 </p>
                             </div>
@@ -85,7 +85,7 @@
         props: ['ticket'],
         data () {
             return {
-                current_user: '',
+                current_user: null,
                 ticket_author: 'Author',
                 isNone: 'none;',
                 isActive: true
@@ -132,15 +132,15 @@
                 // }
             }
         },
-        updated: function () {
+        mounted: function () {
         this.get_author(this.ticket.author_id)
         //console.log('lol')
         },
         methods: {
-            async get_author () {
+            async get_author (author_id) {
                 //console.log(this.$parent)
                 this.current_user = await UserService.getCurrentUser()
-                const resp = await UserService.getUser(this.$cookies.get('api_token'), this.ticket.author_id)
+                const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
                 if (resp.data.success) {
                     this.ticket_author = resp.data.user.name
                 } else {
