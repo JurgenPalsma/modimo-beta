@@ -7,7 +7,7 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size">{{ticket.author_id}} - {{ticket.title}}</strong>
+                            <strong class="modimo-color modimo-size">{{ticket.title}}</strong>
                             <br>
                             <br>
                             <span ref="display_ticket">{{ticket.content}}</span>
@@ -28,11 +28,10 @@
                             <br>
                             <small class="small-text">
                                 <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
-
                                 <span v-else>Modifié le </span>
-                                {{ticket.updated_at}}
+                                {{dateFormater(ticket.updated_at)}}
                                 <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE -->
-                                <!--<span v-if="ticket.author_id === session._id">--> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a><!--</span>-->
+                                <span v-if="this.current_user == this.ticket_author"> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a></span>
                             </small>
                         </div>
                         <article class="media">
@@ -45,7 +44,7 @@
                                         <br>
                                         <small class="small-text">
                                             <span v-if="comment.updated_at.$date === comment.created_at.$date">Créé le </span>
-                                            <span v-else>Modifié le </span>{{comment.updated_at.$date}}
+                                            <span v-else>Modifié le </span>{{dateFormater(comment.updated_at.$date)}}
                                         </small>
                                     </p>
                                     </article>
@@ -54,7 +53,6 @@
                         </article>
                     </div>
                     <!--</article>-->
-                    <br>
                     <article class="media">
                         <div class="media-content">
                             <div class="field">
@@ -63,8 +61,12 @@
                                 </p>
                             </div>
                             <div class="field">
-                                <p class="control">
-                                    <button class="button is-pulled-right">Envoyer</button>
+                                <p class="control is-pulled-right">
+                                    <span v-if="current_user && current_user.roles.includes('CARETAKER')">
+                                        <button class="button is-warning">Clôturer</button>
+                                        <button class="button is-warning">Envoyer et Clôturer</button>
+                                    </span>
+                                    <button class="button">Envoyer</button>
                                 </p>
                             </div>
                         </div>
@@ -76,13 +78,15 @@
 </template>
 
 <script>
-    import TicketService from '@/services/TicketService'
-
+    import UserService from '@/services/UserService'
+    import moment from 'moment'
     export default {
-        name: 'ticket',
+        // name: 'ticket',
         props: ['ticket'],
         data () {
             return {
+                current_user: null,
+                ticket_author: 'Author',
                 isNone: 'none;',
                 isActive: true
                 // ticket: {
@@ -128,19 +132,21 @@
                 // }
             }
         },
-        // mounted: function () {
-        // this.load() //  plusieurs fonctions appelées-> composant monté load la data
-        // },
+        mounted: function () {
+        this.get_author(this.ticket.author_id)
+        //console.log('lol')
+        },
         methods: {
-            // async load () {
-            //     this.current_user = await this.$parent.getCurrentUser()
-            //     const resp = await TicketService.getTicket(this.$cookies.get('api_token'), this.currentTicket)
-            //     if (resp.data.success) {
-            //         this.ticket = resp.data.ticket
-            //     } else {
-            //         alert('Something went wrong with ticket data')
-            //     }
-            // },
+            async get_author (author_id) {
+                //console.log(this.$parent)
+                this.current_user = await UserService.getCurrentUser()
+                const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
+                if (resp.data.success) {
+                    this.ticket_author = resp.data.user.name
+                } else {
+                    alert('Erreur lors de la récuperation de l\'auteur')
+                }
+            },
             modifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'
                 this.$refs.display_ticket.style = 'display: none;'
@@ -150,6 +156,10 @@
                 this.$refs.space_modif_ticket.style = 'display: none;'
                 this.$refs.display_ticket.style = 'display: block;'
                 this.$refs.modif_ticket_button.style = 'display: inline;'
+            },
+            dateFormater(unFormatedDate) {
+            var date = moment(String(unFormatedDate)).format('MM/DD/YYYY hh:mm')
+            return (date)
             }
         },
     }
