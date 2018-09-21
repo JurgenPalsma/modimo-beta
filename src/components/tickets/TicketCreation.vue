@@ -23,7 +23,7 @@
                     </div>                
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success" @click="postTicket">Créer</button>
+                    <button class="button is-success create-ticket-button" @click="postTicket">Créer</button>
                     <button class="button" @click="$emit('close_modal')">Annuler</button>
                 </footer>
             </div>
