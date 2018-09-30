@@ -3,7 +3,7 @@
         <div class="modal is-active">
             <div class="my-modal-background modal-background" style="opacity:50%;" @click="$emit('close_modal')"></div>
             <div class="modal-content">
-                <div class="box">
+                <div v-if="ticket" class="box">
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
@@ -132,9 +132,11 @@
                 // }
             }
         },
-        mounted: function () {
-        this.get_author(this.ticket.author_id)
-        //console.log('lol')
+        watch: {
+            ticket: function (newTicket) {
+                if (newTicket)
+                    this.get_author(newTicket.author_id)
+            },
         },
         methods: {
             async get_author (author_id) {
