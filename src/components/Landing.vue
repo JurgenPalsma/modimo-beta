@@ -18,128 +18,124 @@
             </nav>
         </div>            
             
-            <div v-if="form_state === 'not engaged'" class="section modimo-clear modimo-landing-container">
-                <div class="container has-text-centered">
-                   <div class="column is-4 is-offset-4 ">
-                         <img src="/static/img/logofull.svg">
-                    </div>
-                    <div class="column is-6 is-offset-3">
-                        <h1 class="title section text-dark" style="padding-top:20px">
-                            La Résidence centralisée
-                        </h1>
-                        <h2 class="subtitle">
-                           Modimo est une plateforme utilitaire et sociale ayant pour but d’accroître la valeur ajoutée du bien immobilier. Elle permet d’optimiser le travail des gérants de locations et d’améliorer le confort des résidents ainsi que les rapports entre eux.
-                        </h2>
-                        
-                    </div>
-                    <section>
-                        <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
-                    </section>
-                    <section class="margin-vertical">
-                    <div class="column is-12">
-                        <div class="columns is-mobile">
-                             <div class="column">
-                                <img src="/static/img/time.png">
-                                <h1 class="title">Utilitaire</h1>
-                                <p class="subtitle">Réglez rapidement tout vos problèmes administratifs</p>
-                            </div>
-                            <div class="column is-vertical-center">
-                                <img src="/static/img/team.png">
-                                <h1 class="title">Sociale</h1>
-                                <p class="subtitle">Ameliorez ensemble la vie de votre Résidence</p>
-                            </div>
-                            <div class="column is-vertical-center is-hidden-mobile">
-                                <img src="/static/img/responsive.png">
-                                <h1 class="title">Responsive</h1>
-                                <p class="subtitle">Accessible depuis tout type de résolution d'écran!</p>
-                            </div>
-                        </div> 
-                    </div>
-                    </section>
-                    <div class="column is-6 is-offset-3">
-                        <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Découvrir Modimo</a>
-                    </div>
+        <div v-if="form_state === 'not engaged'" class="section modimo-clear modimo-landing-container">
+            <div class="container has-text-centered">
+                <div class="column is-4 is-offset-4 ">
+                    <img src="/static/img/logofull.png">
+                </div>
+                <div class="column is-6 is-offset-3">
+                    <h2 class="subtitle">
+                        Modimo est une plateforme utilitaire et sociale ayant pour but d’accroître la valeur ajoutée du bien immobilier. Elle permet d’optimiser le travail des gérants de locations et d’améliorer le confort des résidents ainsi que les rapports entre eux.
+                    </h2>
+                </div>
+                <section>
+                    <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
+                </section>
+                <section class="margin-vertical">
+                <div class="column is-12">
+                    <div class="columns is-mobile">
+                            <div class="column">
+                            <img src="/static/img/time.png">
+                            <h1 class="title">Utilitaire</h1>
+                            <p class="subtitle">Réglez rapidement tout vos problèmes administratifs</p>
+                        </div>
+                        <div class="column is-vertical-center">
+                            <img src="/static/img/team.png">
+                            <h1 class="title">Sociale</h1>
+                            <p class="subtitle">Ameliorez ensemble la vie de votre Résidence</p>
+                        </div>
+                        <div class="column is-vertical-center is-hidden-mobile">
+                            <img src="/static/img/responsive.png">
+                            <h1 class="title">Responsive</h1>
+                            <p class="subtitle">Accessible depuis tout type de résolution d'écran!</p>
+                        </div>
+                    </div> 
+                </div>
+                </section>
+                <div class="column is-6 is-offset-3">
+                    <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Découvrir Modimo</a>
                 </div>
             </div>
-            <div v-else-if="form_state === 'interested'" class="section is-large modimo-clear">
-                <div class="container has-text-centered">
-                    <div class="columns">
-                        <div class="column">
-                            <div class="blog-card spring-fever" v-on:click="engage('email', true)">
-                                <div class="title-content">
-                                    <h3>Je suis un professionnel.</h3>
-                                </div>
-                                <div class="card-info">
-                                    Si vous êtes un professionnel, venez découvrir les avantages que Modimo peut vous apporter dans votre travail.
-                                </div>
+        </div>
+        <div v-else-if="form_state === 'interested'" class="section is-large modimo-clear">
+            <div class="container has-text-centered">
+                <div class="columns">
+                    <div class="column">
+                        <div class="blog-card spring-fever" v-on:click="engage('email', true)">
+                            <div class="title-content">
+                                <h3>Je suis un professionnel.</h3>
+                            </div>
+                            <div class="card-info">
+                                Si vous êtes un professionnel, venez découvrir les avantages que Modimo peut vous apporter dans votre travail.
                             </div>
                         </div>
-                        <div class="column">
-                            <div class="blog-card spring-fever" v-on:click="engage('email')">
-                                <div class="title-content">
-                                    <h3>Je suis un particulier.</h3>
-                                </div>
-                                <div class="card-info">
-                                    Si vous êtes un particulier, venez essayer la plateforme Modimo que votre co-propriété est suscéptible d'utiliser dans votre résidence.
-                                </div>
+                    </div>
+                    <div class="column">
+                        <div class="blog-card spring-fever" v-on:click="engage('email')">
+                            <div class="title-content">
+                                <h3>Je suis un particulier.</h3>
+                            </div>
+                            <div class="card-info">
+                                Si vous êtes un particulier, venez essayer la plateforme Modimo que votre co-propriété est suscéptible d'utiliser dans votre résidence.
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div v-else-if="form_state === 'email' && !email_error" class="section is-large modimo-clear">
-                <div class="container ">
-                  <div class="column is-6 is-offset-3">
-                      <h1 class="title">
-                          Pas si vite!
-                      </h1>
-                      <h2 class="subtitle .text-dark">
-                          Entre ton adresse email pour créer ton compte et découvrir la plateforme.
-                      </h2>
-                      
-                      <div class="box">
-                            <div class="field is-grouped">
-                                <p class="control is-expanded">
-                                    <input autofocus class="input" type="text" @keypress.enter="launch_demo" v-model="email" placeholder="Email">
-                                </p>
-                                <p class="control">
-                                    <a class="button is-info" @click="launch_demo">
-                                       J'y vais
-                                    </a>
-                                </p>
-                            </div>
-                        </div>                  
-                    </div>
+        <div v-else-if="form_state === 'email' && !email_error" class="section is-large modimo-clear">
+            <div class="container ">
+                <div class="column is-6 is-offset-3">
+                    <h1 class="title">
+                        Pas si vite!
+                    </h1>
+                    <h2 class="subtitle .text-dark">
+                        Entre ton adresse email pour créer ton compte et découvrir la plateforme.
+                    </h2>
+                    
+                    <div class="box">
+                        <div class="field is-grouped">
+                            <p class="control is-expanded">
+                                <input autofocus class="input" type="text" @keypress.enter="launch_demo" v-model="email" placeholder="Email">
+                            </p>
+                            <p class="control">
+                                <a class="button is-info" @click="launch_demo">
+                                    J'y vais
+                                </a>
+                            </p>
+                        </div>
+                    </div>                  
                 </div>
             </div>
+        </div>
 
-            <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
-                <div class="container ">
-                  <div class="column is-6 is-offset-3">
-                      <h1 class="title text-dark">
-                          Ooooups
-                      </h1>
-                      <h2 class="subtitle text-dark">
-                          Ton email est invalide. Renseigne une vraie adresse email.
-                      </h2>
-                      
-                      <div class="box">
-                            <div class="field is-grouped">
-                                <p class="control is-expanded">
-                                    <input autofocus @keypress.enter="launch_demo" class="input is-danger" type="text" v-model="email" placeholder="Entre un vrai mail ici">
-                                </p>
-                                <p class="control">
-                                    <a class="button is-info" @click="launch_demo">
-                                       J'y vais
-                                    </a>
-                                </p>
-                            </div>
-                        </div>                  
-                    </div>
+        <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
+            <div class="container ">
+                <div class="column is-6 is-offset-3">
+                    <h1 class="title text-dark">
+                        Ooooups
+                    </h1>
+                    <h2 class="subtitle text-dark">
+                        Ton email est invalide. Renseigne une vraie adresse email.
+                    </h2>
+                    
+                    <div class="box">
+                        <div class="field is-grouped">
+                            <p class="control is-expanded">
+                                <input autofocus @keypress.enter="launch_demo" class="input is-danger" type="text" v-model="email" placeholder="Entre un vrai mail ici">
+                            </p>
+                            <p class="control">
+                                <a class="button is-info" @click="launch_demo">
+                                    J'y vais
+                                </a>
+                            </p>
+                        </div>
+                    </div>                  
                 </div>
             </div>
-            <footer class="footer modimo-dark footer-resized">
+        </div>
+        <footer class="footer modimo-dark footer-resized">
             <div class="columns is-mobile">
                 <div class="column has-text-centered">
                     <a @click="contactModal()">
@@ -152,7 +148,7 @@
                     <a href="https://www.facebook.com/ModimoFR/" class="white">Notre Facebook</a>
                 </div>
             </div>
-            </footer>
+        </footer>
       </div>
 
       <!-- If the Api is offline, display loader -->
@@ -172,7 +168,7 @@
                         </div>
                     </div>
             </nav>
-        </div>            
+        </div>
             <div class="section is-fullheight-minus-navbar is-flex is-horizontal-center is-medium">
                 <h2 class="section title has-text-centered">
                     Chargement...
