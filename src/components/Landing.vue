@@ -1,9 +1,9 @@
 <template>
-  <section class=" is-info is-fullheight">
+  <section class="is-info is-fullheight">
 
     <!-- If the Api is online, display landing page -->
-    <div v-if="!loading" >
-        <div class="modimo-clear" style="position:fixed;width: 100%;z-index:1000">
+    <div v-if="!loading" style="padding-top:52px">
+        <div class="modimo-clear" style="position:fixed;width: 100%;z-index:1000;top:0">
             <nav class="navbar modimo-dark"> 
                 <div class="navbar-end" style="justify-content:flex-end;margin-left:auto;align-items: stretch;display: flex;">
                     <span class="navbar-item">
@@ -53,11 +53,11 @@
                 </div>
                 </section>
                 <div class="column is-6 is-offset-3">
-                    <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="engage('interested')">Découvrir Modimo</a>
+                    <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                 </div>
             </div>
         </div>
-        <div v-else-if="form_state === 'interested'" class="section is-large modimo-clear">
+        <div v-else-if="form_state === 'interested'" class="section modimo-clear is-fullheight-minus-navbar">
             <div class="container has-text-centered">
                 <div class="columns">
                     <div class="column">
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div v-else-if="form_state === 'email' && !email_error" class="section is-large modimo-clear">
+        <div v-else-if="form_state === 'email' && !email_error" class="section is-fullheight-minus-navbar modimo-clear">
             <div class="container ">
                 <div class="column is-6 is-offset-3">
                     <h1 class="title">
@@ -215,6 +215,9 @@ export default {
         },
         playing (event) {
             // The player is playing a video.
+        },
+        scrollToTop() {
+            window.scrollTo(0,0);
         },
         change () {
             // when you change the value, the player will also change.
