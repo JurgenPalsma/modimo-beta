@@ -3,30 +3,28 @@
 
     <!-- If the Api is online, display landing page -->
     <div v-if="!loading" >
-        <div class="modimo-clear">
+        <div class="modimo-clear" style="position:fixed;width: 100%;z-index:1000">
             <nav class="navbar modimo-dark"> 
-                    <div id="navbarMenu" class="navbar-menu">
-                        <div class="navbar-end" >
-                            <span class="navbar-item">
-                                <a class="button is-outlined" href="/login">
-                                    <span class="icon">
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                    <span>Connection</span>
-                                </a>
+                <div class="navbar-end" style="justify-content:flex-end;margin-left:auto;align-items: stretch;display: flex;">
+                    <span class="navbar-item">
+                        <a class="button is-outlined" href="/login">
+                            <span class="icon">
+                                <i class="fa fa-key"></i>
                             </span>
-                        </div>
-                    </div>
+                            <span>Connection</span>
+                        </a>
+                    </span>
+                </div>
             </nav>
         </div>            
             
-            <div v-if="form_state === 'not engaged'" class="section modimo-clear">
+            <div v-if="form_state === 'not engaged'" class="section modimo-clear modimo-landing-container">
                 <div class="container has-text-centered">
                    <div class="column is-4 is-offset-4 ">
                          <img src="/static/img/logofull.svg">
                     </div>
                     <div class="column is-6 is-offset-3">
-                        <h1 class="title section text-dark">
+                        <h1 class="title section text-dark" style="padding-top:20px">
                             La Résidence centralisée
                         </h1>
                         <h2 class="subtitle">
@@ -50,7 +48,7 @@
                                 <h1 class="title">Sociale</h1>
                                 <p class="subtitle">Ameliorez ensemble la vie de votre Résidence</p>
                             </div>
-                            <div class="column" is-vertical-center>
+                            <div class="column is-vertical-center is-hidden-mobile">
                                 <img src="/static/img/responsive.png">
                                 <h1 class="title">Responsive</h1>
                                 <p class="subtitle">Accessible depuis tout type de résolution d'écran!</p>

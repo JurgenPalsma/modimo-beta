@@ -11,27 +11,29 @@
                 Tickets
                 <a @click="showModalTicketCreation = true" class="super-button">+</a>
             </div>
-            <div class="buttons has-addons is-centered">
-                <span class="button" :class="index === 0 ? 'is-info' : ''" @click="index = 0">Ouverts</span>
-                <span class="button" :class="index === 1 ? 'is-info' : ''" @click="index = 1">Tous</span>
-                <span class="button" :class="index === 2 ? 'is-info' : ''" @click="index = 2">Fermés</span>
-                <div style="position:absolute;right:0">
+            <div style="position:relative">
+                <div class="buttons has-addons is-centered">
+                    <span class="button" :class="index === 0 ? 'is-info' : ''" @click="index = 0">Ouverts</span>
+                    <span class="button" :class="index === 1 ? 'is-info' : ''" @click="index = 1">Tous</span>
+                    <span class="button" :class="index === 2 ? 'is-info' : ''" @click="index = 2">Fermés</span>
+                </div>
+                <div style="position:absolute;top:0;right:0">
                     <div class="dropdown" :class="dropdownVisible ? 'is-active' : ''" @click="dropdownVisible = !dropdownVisible">
-                    <div class="dropdown-trigger">
-                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>{{this.sortBy[this.sortIndex]}}</span>
-                        <span class="icon is-small">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                        </button>
-                    </div>
-                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content">
-                            <a v-for="(sort, index) in sortBy" :key="sort" @click="sortIndex = index" class="dropdown-item" :class="index === sortIndex ? 'is-active' : ''">
-                                {{sort}}
-                            </a>
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span>{{this.sortBy[this.sortIndex]}}</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                            </button>
                         </div>
-                    </div>
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <a v-for="(sort, index) in sortBy" :key="sort" @click="sortIndex = index" class="dropdown-item" :class="index === sortIndex ? 'is-active' : ''">
+                                    {{sort}}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +144,6 @@ export default {
             this.showModalTicketCreation = false;
         },
         async load () {
-            // console.log(this.$parent)
             this.current_user = await this.$parent.getCurrentUser()
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {

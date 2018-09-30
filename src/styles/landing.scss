@@ -49,8 +49,8 @@ $cta-color: #2b5bb2;
 
 .video-aligned {
 
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     width: 75%;
 }
 
@@ -88,6 +88,21 @@ a {
     100% { transform: rotate(360deg); }
 }
 
+@media screen and (max-width: 588px) {
+    .modimo-landing-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .video-aligned {
+        width: 100%;
+        height: 250px
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+}
 
 // variables
 $card-width:  500px;
