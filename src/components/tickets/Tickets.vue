@@ -15,9 +15,28 @@
                 <span class="button" :class="index === 0 ? 'is-info' : ''" @click="index = 0">Ouverts</span>
                 <span class="button" :class="index === 1 ? 'is-info' : ''" @click="index = 1">Tous</span>
                 <span class="button" :class="index === 2 ? 'is-info' : ''" @click="index = 2">Fermés</span>
+                <div style="position:absolute;right:0">
+                    <div class="dropdown" :class="dropdownVisible ? 'is-active' : ''" @click="dropdownVisible = !dropdownVisible">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span>{{this.sortBy[this.sortIndex]}}</span>
+                        <span class="icon is-small">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            <a v-for="(sort, index) in sortBy" :key="sort" @click="sortIndex = index" class="dropdown-item" :class="index === sortIndex ? 'is-active' : ''">
+                                {{sort}}
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
             <br>
-                <div class="tile is-ancestor">
+                <div class="tile">
                     <div class="tile is-vertical">
                     <div v-for="ticket in showTickets" :key="ticket._id"
                         class="tile is-child background-tile" style="border-radius: 3px; padding: 10px 0">
@@ -94,7 +113,10 @@ export default {
             status: '',
             residence_id: '',
             currentTicket: undefined,
-            index: 1
+            index: 1,
+            dropdownVisible: false,
+            sortBy: ['Le plus important', 'Le plus récent'],
+            sortIndex: 0
             //  not the type, empty data
         }
     },
@@ -105,12 +127,16 @@ export default {
     watch: {
         index: function(newIndex) {
             this.showTickets = this.sortTickets(newIndex);
+        },
+        sortIndex: function(newIndex) {
+            this.showTickets = this.sortTickets(newIndex);
         }
     },
     methods: {
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
                 this.tickets.push(ticket);
+                this.showTickets = this.sortTickets(this.index);
                 this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
             }
             this.showModalTicketCreation = false;
@@ -128,10 +154,10 @@ export default {
         },
         sortTickets: function(index) {
             let tickets = this.tickets.sort((a, b) => {
-                if ((a.status === b.status && a.votes.length > b.votes.length) ||
+                if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && a.created_at > b.created_at))) ||
                     (a.status !== b.status && a.status === 'open'))
                     return -1;
-                else if ((a.status === b.status && a.votes.length < b.votes.length) ||
+                else if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length < b.votes.length) || (this.sortIndex === 1 && a.created_at < b.created_at))) ||
                          (a.status !== b.status && a.status === 'closed'))
                     return 1;
                 return 0;
