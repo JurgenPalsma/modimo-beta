@@ -138,7 +138,7 @@ module.exports = function(app, apiRoutes) {
                         resolution_times = []
                         
                         tickets.map(function(ticket) {
-                            if (ticket.advancement === "100") {
+                            if (ticket.status === "closed") {
                                 tickets_numbers.shortest_ticket = ticket
                                 tickets_numbers.longest_ticket = ticket
                             }
@@ -146,7 +146,7 @@ module.exports = function(app, apiRoutes) {
     
                         // ---  Parse tickets 
                         tickets.map(function(ticket) {
-                            if (ticket.advancement === "100") { // if ticket is closed
+                            if (ticket.status === "closed") { // if ticket is closed
                                 tickets_numbers.tickets_closed += 1 // ++ number of closed tickets
                                 
                                 // completion time 
@@ -158,7 +158,7 @@ module.exports = function(app, apiRoutes) {
                                 if (!ct_exists(caretaker_numbers.tickets, ticket.closed_by))
                                     caretaker_numbers.tickets.push({_id: ticket.closed_by, tickets_closed:1})     
                             }
-                            else if (ticket.advancement === "50") // if ticket is open
+                            else if (ticket.status === "open") // if ticket is open
                                 tickets_numbers.tickets_open +=  1
                             else  // if ticket is not seen by caretaker
                                 tickets_numbers.tickets_pending +=  1

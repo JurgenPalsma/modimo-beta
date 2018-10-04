@@ -1,6 +1,9 @@
 ### IDE ###
 .idea
 
+### VS ### 
+.vscode
+
 ### MACOS files ###
 .DS_Store
 
