@@ -17,7 +17,6 @@ export default {
             }
         })
         if (res.data.success) {
-            console.log(res.data)
             res.data.chart_tickets = await addTicketCloserToTicketList(token, res.data.caretaker_numbers.tickets)
             res.data.tickets_created_per_day = addDatetoTicketList(res.data.ticket_numbers.tickets_created_per_day)
             res.data.ticket_times = formatTicketTime(res.data.ticket_numbers.avg_resolution_time, res.data.ticket_numbers.shortest_ticket, res.data.ticket_numbers.longest_ticket)

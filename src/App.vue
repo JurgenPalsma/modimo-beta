@@ -36,7 +36,8 @@ import Notifications from './components/Notifications'
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MNC6RPZ')
+})(window,document,'script','dataLayer','GTM-W7DT24G')
+
 
 export default {
 
@@ -50,6 +51,9 @@ export default {
 
     mounted () {
         if (this.$cookies.get('api_token')) {
+            if (!this.currentUser) {
+                this.currentUser = this.getCurrentUser()
+            }
         } else if (this.$route.name !== 'Login') {
             this.$router.push('/')
         }
@@ -57,6 +61,7 @@ export default {
     
     data() {
         return {
+            currentUser: {},
             notification: undefined
         }
     },
@@ -65,6 +70,8 @@ export default {
         async getCurrentUser () {
             let curUser = await UserService.getCurrentUser(this.$cookies.get('api_token'))
             if (curUser.data.success) {
+                ga('set', 'dimension1', curUser.data.user.residence._id);
+                this.$cookies.set('residenceId', curUser.data.user.residence._id)
                 return curUser.data.user
             } else {
                 console.log('Could not load current user')
