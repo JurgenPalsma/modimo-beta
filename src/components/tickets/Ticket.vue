@@ -7,10 +7,10 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size">{{ticket.title}}</strong>
+                            <strong class="modimo-color modimo-size">{{ticket.author_name}} - {{ticket.title}}</strong>
                             <br>
                             <br>
-                            <span ref="display_ticket">{{ticket.content}}</span>
+                            <span ref="display_ticket">{{ticket.content}} {{ticket._id}}</span>
                             <!--ICI LE CHAMP QUI APPARAIT POUR LA MODIF DU MESSAGE-->
                             <div ref="space_modif_ticket" class="media-content" v-bind:style="{display: 'none'}">
                                 <div class="field">
@@ -30,8 +30,7 @@
                                 <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
                                 <span v-else>Modifié le </span>
                                 {{dateFormater(ticket.updated_at)}}
-                                <!-- ICI IL FAUT AFFICHER SEULEMENT SI L'AUTEUR EST LA PERSONNE CONNECTEE -->
-                                <span v-if="this.current_user == this.ticket_author"> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a></span>
+                                <span v-if="this.current_user._id == this.ticket._id"> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a></span>
                             </small>
                         </div>
                         <article class="media">
@@ -39,7 +38,7 @@
                                 <div v-for="comment in ticket.comments" :key="comment._id" >
                                     <article class="media">
                                     <p>
-                                        <strong class="modimo-color">{{comment.author_id}}&nbsp;</strong>
+                                        <strong class="modimo-color">{{comment.author_name}}&nbsp;</strong>
                                         {{comment.content}}
                                         <br>
                                         <small class="small-text">
@@ -57,7 +56,7 @@
                         <div class="media-content">
                             <div class="field">
                                 <p class="control">
-                                    <textarea class="textarea" rows="1" placeholder="Écrit ton commentaire..."></textarea>
+                                    <textarea v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire..."></textarea>
                                 </p>
                             </div>
                             <div class="field">
@@ -66,7 +65,7 @@
                                         <button class="button is-warning">Clôturer</button>
                                         <button class="button is-warning">Envoyer et Clôturer</button>
                                     </span>
-                                    <button class="button">Envoyer</button>
+                                    <button ref="send_comment" class="button" @click="commentTicket">Envoyer</button>
                                 </p>
                             </div>
                         </div>
@@ -79,14 +78,15 @@
 
 <script>
     import UserService from '@/services/UserService'
+    import CommentService from '@/services/CommentService'
     import moment from 'moment'
     export default {
         // name: 'ticket',
-        props: ['ticket'],
+        props: ['ticket', 'current_user'],
         data () {
             return {
-                current_user: null,
-                ticket_author: 'Author',
+                text_comment: '',
+                //current_user: null,
                 isNone: 'none;',
                 isActive: true
                 // ticket: {
@@ -132,20 +132,32 @@
                 // }
             }
         },
-        mounted: function () {
-        this.get_author(this.ticket.author_id)
-        //console.log('lol')
-        },
         methods: {
-            async get_author (author_id) {
-                //console.log(this.$parent)
-                this.current_user = await UserService.getCurrentUser()
-                const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
-                if (resp.data.success) {
-                    this.ticket_author = resp.data.user.name
-                } else {
-                    alert('Erreur lors de la récuperation de l\'auteur')
-                }
+            // async get_author (author_id) {
+            //     //console.log(this.$parent)
+            //     this.current_user = await UserService.getCurrentUser()
+            //     const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
+            //     if (resp.data.success) {
+            //         this.ticket_author = resp.data.user.name
+            //     } else {
+            //         alert('Erreur lors de la récuperation de l\'auteur')
+            //     }
+            // },
+            commentTicket: async function (event) {
+                var date = new Date()
+                this.ticket.comments.push({
+                    'author_name' : this.current_user.name,
+                    'content': this.text_comment,
+                    'created_at': {
+                        '$date': date
+                    },
+                    'updated_at': {
+                        '$date': date
+                    }
+                })
+                console.log(Date.now())
+                CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
+                this.text_comment = ''
             },
             modifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'

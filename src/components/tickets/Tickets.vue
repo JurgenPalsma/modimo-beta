@@ -27,14 +27,14 @@
                                 <div class="column is-one-third is-mobile">
                                     <div id="ticket-title" class="has-text-left title-section">
                                         <p class="bold modimo-color modimo-size"> {{ ticket.title }} </p>
-                                        <p class="bold">Créé par : </p> {{ticket.author_id}}
+                                        <p class="bold">Créé par : </p> {{ ticket.author_name }}
                                     </div>
                                 </div>
                                 <div class="column is-one-quarter is-mobile">
                                     <div id="ticket-time" class="has-text-left">
                                             <p class="bold">Créé le : </p>
                                             <time :datetime="ticket.created_at">{{ dateFormater(ticket.created_at) }}</time> <br>
-                                            <p class="bold">Derniere modification : </p>
+                                            <p class="bold">Dernière modification : </p>
                                             <time :datetime="ticket.updated_at">{{ dateFormater(ticket.updated_at) }}</time>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </a>
-                        <ticket :ticket="currentTicket" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
+                        <ticket :ticket="currentTicket" :current_user="current_user" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
                     </div>
                 </div>
             </div>
@@ -69,12 +69,15 @@ import moment from 'moment'
 import ticket from './Ticket.vue'
 import ticketCreation from './TicketCreation.vue'
 import TicketService from '@/services/TicketService'
+import UserService from '@/services/UserService'
+
 
 export default {
     name: 'Ticket',
     data () {
         return {
             //  Maybe not the type but data?
+            currentTicket: '',
             tickets: [],
             showModalTicket: false,
             showModalTicketCreation: false,
@@ -94,6 +97,25 @@ export default {
         this.load() //  plusieurs fonctions appelées-> composant monté load la data
     },
     methods: {
+        get_tickets_authors () {
+                //console.log(this.$parent)
+            this.tickets.forEach(async (ticket) => {
+                const resp = await UserService.getUser(this.$cookies.get('api_token'), ticket.author_id)
+                if (resp.data.success) {
+                    ticket.author_name = resp.data.user.name;
+                } else {
+                    alert('Erreur lors de la récuperation du nom de l\'auteur du ticket')
+                }
+                ticket.comments.forEach(async (comment) => {
+                    const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
+                    if (resp.data.success) {
+                        comment.author_name = resp.data.user.name;
+                    } else {
+                        alert('Erreur lors de la récuperation du nom de l\'auteur du commentaire')
+                    }
+                })
+            })
+        },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
                 this.tickets.push(ticket);
@@ -107,6 +129,8 @@ export default {
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
+                this.get_tickets_authors()
+
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
             }
