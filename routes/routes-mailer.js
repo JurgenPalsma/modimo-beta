@@ -19,7 +19,7 @@ module.exports = function(app, apiRoutes) {
                 if (err) return res.json({success: false, message: 'Error from db'});
                 else if (!currentUser)
                     return res.json({success: false, message: 'User not found'});
-                else if (!currentUser.roles.includes("ROOT")) // Modimo only
+                else if (!currentUser.roles.includes("ROOT") && !currentUser.roles.includes("ADMIN") && !currentUser.roles.includes("CARETAKER")) // Modimo only
                     return res.json({success: false, message: 'Permission denied'});
                 else {
                     if (req.body.to == "resident")
