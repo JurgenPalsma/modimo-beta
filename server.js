@@ -54,6 +54,7 @@ require('./routes/routes-comments')(app, apiRoutes);
 require('./routes/routes-notification')(app, apiRoutes, io);
 require('./routes/routes-mailer')(app, apiRoutes);
 require('./routes/routes-reporting')(app, apiRoutes);
+require('./routes/routes-informations')(app, apiRoutes);
 
 // apply the routes to our application with the prefix /api
 app.use('/api', apiRoutes);
