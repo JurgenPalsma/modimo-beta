@@ -18,8 +18,10 @@ module.exports = function(app, apiRoutes) {
             if (err) return res.json({success: false, message: 'Error from db'});
             if (!user)
                 res.json({success: false, message: 'User not found.'});
-            else if (!req.body.parent_id || !req.body.parent_name || !req.body.content)
+            else if (!req.body.parent_id || !req.body.content) {
+                console.log(req.body.content);
                 return res.json({success: false, message: 'Informations missing'});
+            }
             else {
                 if (!getParent(req.body.parent_name))
                     return res.json({success: false, message: 'Parent not found'});
@@ -35,8 +37,6 @@ module.exports = function(app, apiRoutes) {
                             content: req.body.content,
                             author_id: user._id,
                             parent_id: parent._id,
-                            parent_name: req.body.parent_name,
-                            author_name: user.name,
                             created_at: new Date(),
                             updated_at: new Date()
                         });
