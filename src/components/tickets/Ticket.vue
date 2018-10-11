@@ -62,8 +62,8 @@
                             <div class="field">
                                 <p class="control is-pulled-right">
                                     <span v-if="current_user && current_user.roles.includes('CARETAKER')">
-                                        <button class="button is-warning">Clôturer</button>
-                                        <button class="button is-warning">Envoyer et Clôturer</button>
+                                        <button class="button is-warning" @click="closeTicket">Clôturer</button>
+                                        <button class="button is-warning" @click="commentAndClose">Envoyer et Clôturer</button>
                                     </span>
                                     <button ref="send_comment" class="button" @click="commentTicket">Envoyer</button>
                                 </p>
@@ -143,6 +143,9 @@
             //         alert('Erreur lors de la récuperation de l\'auteur')
             //     }
             // },
+            closeTicket: async function (event) {
+                // call close ticket service
+            },
             commentTicket: async function (event) {
                 var date = new Date()
                 this.ticket.comments.push({
@@ -155,9 +158,18 @@
                         '$date': date
                     }
                 })
-                console.log(Date.now())
-                CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
                 this.text_comment = ''
+                const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
+                if (resp.data.success) {
+                    console.log('successss')
+                }
+                else {
+                    console.log(resp.data.message)
+                }
+            },
+            commentAndClose: async function (event) {
+                commentTicket()
+                closeTicket()
             },
             modifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'
