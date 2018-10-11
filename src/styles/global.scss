@@ -28,3 +28,7 @@
     text-align: justify;
     text-justify: inter-word;
 }
+
+.is-fullheight-minus-navbar {
+    min-height: calc(100vh - 52px);
+}
