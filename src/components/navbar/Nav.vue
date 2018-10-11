@@ -28,7 +28,7 @@
                 </div>
 
                 <div v-if="$route.name != 'Login'" class="navbar-end">
-                    <div  v-if="current_user && current_user.roles && current_user.roles.includes('ROOT')" class="navbar-item">
+                    <div @userdata="load()" v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
@@ -76,6 +76,10 @@ export default {
     created: function () {
   },
 
+  updated: function () {
+      this.load();
+  },
+
     mounted () {
         this.load()
         document.addEventListener('DOMContentLoaded', function () {
@@ -90,8 +94,7 @@ export default {
                     })
                 })
             }
-        });
-        this.load()
+        }); 
     },
     methods: {
         async load() {

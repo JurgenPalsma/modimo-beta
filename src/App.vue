@@ -69,7 +69,7 @@ export default {
     methods: {
         async getCurrentUser () {
             let curUser = await UserService.getCurrentUser(this.$cookies.get('api_token'))
-            if (curUser.data.success) {
+            if (curUser.data && curUser.data.success) {
                 ga('set', 'dimension1', curUser.data.user.residence._id);
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
                 return curUser.data.user
