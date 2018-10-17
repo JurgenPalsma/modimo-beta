@@ -18,9 +18,8 @@ module.exports = function(app, apiRoutes) {
             if (err) return res.json({success: false, message: 'Error from db'});
             if (!user)
                 res.json({success: false, message: 'User not found.'});
-            else if (!req.body.parent_id || !req.body.content) {
-                console.log(req.body.content);
-                return res.json({success: false, message: 'Informations missing'});
+            else if (!req.body.parent_id || !req.body.parent_name || !req.body.content) {
+                return res.json({success: false, message: 'Informations missing motha faka' + ' ' + req.body.parent_name + ' ' + req.body.parent_id + ' ' + req.body.content});
             }
             else {
                 if (!getParent(req.body.parent_name))
@@ -33,12 +32,13 @@ module.exports = function(app, apiRoutes) {
                         return res.json({success: false, message: 'Parent not found'});
                     else if (req.body.content.length)
                     {
+                        const date = new Date();
                         let comment = new Comment({
                             content: req.body.content,
                             author_id: user._id,
                             parent_id: parent._id,
-                            created_at: new Date(),
-                            updated_at: new Date()
+                            created_at: date,
+                            updated_at: date
                         });
                         comment.save(function(err) {
                             if (err) res.json({success: false, message: err.message});
