@@ -140,7 +140,7 @@ export default {
 
     // route to get all labels name
     getAllLabels(user_token) {
-        return Api().get('/applications/labels/all', {
+        return Api().get('/api/applications/labels/all', {
             headers: {
                 'x-access-token': user_token,  
             }
@@ -148,6 +148,59 @@ export default {
     },
 
     // route to post an application rates from an application_id
-    
+    postApplicationRateByAppID(user_token, objRate) {
+        return Api().post('/api/applications/rates', {}, {
+            'stars': objRate.stars,
+            'application_id': objRate.application_id,
+            'quote': objRate.quote,
+            'comment': objRate.comment,
+            headers: {
+                'x-access-token': user_token    
+            }
+        })
+    },
 
+    // route to delete a rates in application with rate_id and application_id
+    deleteRateinApp(user_token, objRate) {
+        return Api().delete('/api/applications/rates', {
+            'application_id': objRate.application_id,
+            'rate_id': objRate.rate_id,
+            headers: {
+                'x-access-token': user_token,    
+            }
+        })
+    },
+
+    // route to update a rate in an app by his id
+    patchRate(user_token, objRate) {
+        return Api().patch('/api/applications/rates', {
+            'rate_id': objRate.rate_id,
+            'stars': objRate.stars,
+            'comment': objRate.comment,
+            'quote': objRate.quote,
+            headers: {
+                'x-access-token': user_token   
+            }
+        })
+    },
+
+    // route to get all application rates from an application id
+    getAllRatesFromAppID(user_token, app_id) {
+        return Api().get('/api/applications/rates', {
+            headers: {
+                'x-access-token': user_token,  
+                'application_id': app_id
+            }
+        })
+    },
+
+    // route to get all keywords from a keyword name or get all keyword list
+    getAllKeywordsByANameOrKeywordsList(user_token, keyword_name) {
+        return Api().get('/api/applications/keywords', {
+            headers: {
+                'x-access-token': user_token,  
+                'keyword': keyword_name
+            }
+        })
+    },
 }
