@@ -1,0 +1,103 @@
+<template>
+    <section class="hero is-fullheight-minus-navbar modimo-dark">
+        <div class="hero-body">
+            <div class="container">
+                <div class="tile is-vertical">
+                    <div class="tile">
+                        <div class="tile  is-parent">
+                            <article class="tile is-child notification is-white">
+                                
+                                <nav class="level">
+                                    <div class="level-left">
+                                        <p class="level-item"><a class="button is-info"><span class="icon is-small"><i class="fa fa-angle-left"></i></span></a></p>
+                                        <div class="level-item">
+                                        <p class="title is-3">
+                                            <strong>{{app.name}}</strong>
+                                        </p>
+                                        </div>
+                                    </div>
+                                    <!-- Left side -->
+                                    <div class="level-right">
+                                        
+                                    </div>
+                                     <!-- Right side -->
+                                    <div class="level-right">
+                                        <p class="level-item">
+                                            <i v-for="i in app.rate_average" :key="i" class="fas fa-star has-text-info"></i>
+                                            <i v-for="i in 5 - app.rate_average" :key="i"  class="fas fa-star"></i>
+                                        </p>
+                                    </div>
+                                </nav>
+
+                                <div >
+                                    <div class="content card-image">
+                                        <figure class="image">
+                                            <img :src="app.logo" alt="Placeholder image">
+                                        </figure>
+                                        <p class="has-text-centered has-text-grey-light"> {{app.small_description}} </p>
+                                    </div>
+                                    <div class="content">
+                                    <div class="tags">
+                                        <span v-for="tagName in app.label_name" :key="tagName" class="tag is-medium">{{tagName}}</span>
+                                    </div>
+                                        <p class="is-size-7 has-text-grey-light"> Mis à jour le: {{dateFormater(app.updated_at)}}</p>
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="subtitle">Description</h3>
+                                        
+                                        <p>
+                                            {{app.description}}
+                                        </p>
+                                    </div>
+                                
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+import moment from "moment";
+
+    export default {
+        name: 'StoreAppDetails',
+        data () {
+            return {
+                app: {
+                    name: "Nom de l'app",
+                    //shortname: "S",
+                    //link: String,
+                    logo: "/static/img/appmockup.png",
+                    //mini_logo: String,
+                    //author_name: String,
+                    //keywords: [String],
+                    created_at: new Date(),
+                    rate_average: 3,
+                    //rate_count: Number,
+                    updated_at: new Date(),
+                    small_description: "Description courte de l'app",
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Why do we use it?It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+                    //version: String,
+                    label_name: ["Label1", "Label2", "Label3"]
+                }
+            }
+        },
+        methods: {
+            dateFormater(unFormatedDate) {
+                var date = moment(String(unFormatedDate)).format("MM/DD/YYYY");
+                return date;
+            }
+        },
+    }
+</script>
+<style lang="scss"> 
+@import '../../styles/global.scss';
+
+.is-horizontal-center {
+	justify-content: center;
+}
+</style>
