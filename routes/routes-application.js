@@ -555,7 +555,7 @@ module.exports = function(app, apiRoutes, io) {
         });
     });
 
-    // route to update a rate in an app
+    // route to update a rate in an app by his id
     apiRoutes.patch('/applications/rates', function(req, res) {
         if (!req.body.rate_id || !req.body.stars || !req.body.comment || !req.body.quote)
             return res.json({success: false, message: 'Error: request incomplete'});
