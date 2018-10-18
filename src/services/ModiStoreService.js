@@ -14,12 +14,12 @@ export default {
             'version': objApplication.version,
             'label_name': objApplication.label_name,
             'link': objApplication.link ? objApplication.link : null,
-            'keyword': objApplication.keyword ? objApplication.keyword : null
+            'keyword': objApplication.keyword ? objApplication.keyword : null,
             headers: {
                 'x-access-token': user_token    
             }
         })
-    }
+    },
 
     // route to patch application
     patchApplications(user_token, objApplication) {
@@ -38,7 +38,7 @@ export default {
                 'application_id': objApplication.application_id,
             }
         })
-    }
+    },
 
     // route to delete an application by its id
     deleteApplicationByID(user_token, objApplication) {
@@ -48,7 +48,7 @@ export default {
                 'application_id': objApplication.application_id,
             }
         })
-    }
+    },
 
     // route to get all applications
     getAllApplications(user_token) {
@@ -57,7 +57,7 @@ export default {
                 'x-access-token': user_token,    
             }
         })
-    }
+    },
 
     // route to get all applications of a user
     getMyInstalledApplications(user_token) {
@@ -66,7 +66,7 @@ export default {
                 'x-access-token': user_token,    
             }
         })
-    }
+    },
 
     // route to get an application by his link
     getApplicationByLink(user_token, objApplication) {
@@ -76,7 +76,7 @@ export default {
                 'application_link': objApplication.application_link
             }
         })
-    }
+    },
 
     // route to get one application by id
     getApplicationById(user_token, objApplication) {
@@ -86,7 +86,7 @@ export default {
                 'application_id': objApplication.application_id
             }
         })
-    }
+    },
 
     // route to get all applications by author_name
     getApplicationByAuthor(user_token, objApplication) {
@@ -96,47 +96,47 @@ export default {
                 'author_name': objApplication.author_name
             }
         })
-    }
+    },
 
     // route to create a label with empty list of app
     postLabel(user_token, label_name) {
         return Api().post('/api/applications/labels', {}, {
-            'name': label_name
+            'name': label_name,
             headers: {
                 'x-access-token': user_token,  
             }
         })
-    }
+    },
 
     // route to delete a label
     deleteLabel(user_token, label_id) {
         return Api().delete('/api/applications/label', {
-            'label_id': label_id
+            'label_id': label_id,
             headers: {
                 'x-access-token': user_token,  
             }
         })
-    }
+    },
 
     // route to get a label by label name
     getLabelByLabelName(user_token, label_name) {
         return Api().get('/api/applications/labels', {
-            'name': label_name
+            'name': label_name,
             headers: {
                 'x-access-token': user_token,  
             }
         })
-    }
+    },
 
     // route research applications corresponding with a name of research
     getAppsBySearchName(user_token, name) {
         return Api().get('/api/applications/applications', {
-            'name': name
+            'name': name,
             headers: {
                 'x-access-token': user_token,  
             }
         })
-    }
+    },
 
     // route to get all labels name
     getAllLabels(user_token) {
@@ -145,7 +145,7 @@ export default {
                 'x-access-token': user_token,  
             }
         })
-    }
+    },
 
     // route to post an application rates from an application_id
     
