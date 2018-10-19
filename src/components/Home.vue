@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </router-link>
-                <router-link to="/applications" class="column is-one-quarter-desktop">
+                <router-link to="/modistore" class="column is-one-quarter-desktop">
                     <div class="card" style="border-radius: 3px">
                         <div class="card-content">
                             <div class="media is-vertical-center">
