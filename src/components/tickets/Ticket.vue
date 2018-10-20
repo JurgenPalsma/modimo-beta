@@ -140,7 +140,6 @@
         },
         methods: {
             async get_author (author_id) {
-                //console.log(this.$parent)
                 this.current_user = await UserService.getCurrentUser()
                 const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
                 if (resp.data.success) {

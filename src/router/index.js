@@ -7,6 +7,7 @@ import Tickets from '@/components/tickets/Tickets'
 import Modistore from '@/components/modistore/Modistore'
 //  import MailCreate from '@/components/Mails/mailCreate.vue'
 import Analytics from '@/components/analytics/Analytics'
+import StoreAppDetails from '@/components/store/AppDetails'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
             path: '/analytics',
             name: 'Analytics',
             component: Analytics
+        },
+        {
+            path: '/store/app',
+            name: 'StoreAppDetails',
+            component: StoreAppDetails
         }
     ]
 })
