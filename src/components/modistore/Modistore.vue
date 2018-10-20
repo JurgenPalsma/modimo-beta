@@ -7,27 +7,29 @@
             </h1>
             <div class="columns is-multiline is-mobile">
                 <div v-for="app in applications" :key="app._id" class="column is-one-quarter-desktop"> 
-                    <div>
-                        <div class="card" style="border-radius: 3px">
-                            <div class="card-content">
-                                <div class="media is-vertical-center">
-                                    <div class="media-left">
-                                        <figure class="image is-64x64">
-                                        <img :src="app.mini_logo" :alt="app.name">
-                                        </figure>
-                                    </div>
-                                    <div class="media-content ">
-                                        <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center">{{app.shortname}}</p>
+                    <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
+                        <div>
+                            <div class="card" style="border-radius: 3px">
+                                <div class="card-content">
+                                    <div class="media is-vertical-center">
+                                        <div class="media-left">
+                                            <figure class="image is-64x64">
+                                            <img :src="app.mini_logo" :alt="app.name">
+                                            </figure>
+                                        </div>
+                                        <div class="media-content ">
+                                            <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center">{{app.shortname}}</p>
+                                            
+                                        </div>
                                         
                                     </div>
-                                    
+                                    <div class="content">
+                                            <p class="is-size-7 is-italic has-text-grey-dark">{{app.description}}</p>
+                                        </div>
                                 </div>
-                                <div class="content">
-                                        <p class="is-size-7 is-italic has-text-grey-dark">{{app.description}}</p>
-                                    </div>
                             </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
                 <div class="column is-one-quarter-desktop">
                         <div class="card" style="border-radius: 3px">
@@ -48,18 +50,14 @@
                 </div>
             </div>
     </div>
-    
-
-</section>
+    </section>
 </template>
 
 <script>
-import AuthService from '@/services/AuthService'
 import ModistoreService from '@/services/ModistoreService'
-import moment from 'moment'
 
 export default {
-    name: 'home',
+    name: 'modistore',
     data () {
         return {
             current_user: null,
@@ -84,15 +82,7 @@ export default {
         },
 
         async load () {
-            this.current_user = await this.$parent.getCurrentUser()
             await this.getApps()
-            console.log(this.applications)
-        },
-
-        logout: function () {
-            AuthService.logout(this.$cookies.get('api_token'))
-            this.$cookies.remove('api_token')
-            this.$router.push('/')
         }
     },
 }

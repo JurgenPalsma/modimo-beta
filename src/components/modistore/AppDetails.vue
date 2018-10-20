@@ -9,7 +9,9 @@
                                 
                                 <nav class="level">
                                     <div class="level-left">
+                                        <router-link to="/modistore">
                                         <p class="level-item"><a class="button is-info"><span class="icon is-small"><i class="fa fa-angle-left"></i></span></a></p>
+                                        </router-link>
                                         <div class="level-item">
                                         <p class="title is-3">
                                             <strong>{{app.name}}</strong>
@@ -24,7 +26,7 @@
                                     <div class="level-right">
                                         <p class="level-item">
                                             <i v-for="i in app.rate_average" :key="i" class="fas fa-star has-text-info"></i>
-                                            <i v-for="i in 5 - app.rate_average" :key="i"  class="fas fa-star"></i>
+                                            <i v-for="j in 5 - app.rate_average" :key="j + app.rate_average"  class="fas fa-star"></i>
                                         </p>
                                     </div>
                                 </nav>
@@ -64,28 +66,39 @@
 import moment from "moment";
 
     export default {
+        props: ['application'],
         name: 'StoreAppDetails',
         data () {
             return {
                 app: {
                     name: "Nom de l'app",
-                    //shortname: "S",
-                    //link: String,
+                    shortname: "app",
+                    link: "",
                     logo: "/static/img/appmockup.png",
-                    //mini_logo: String,
-                    //author_name: String,
-                    //keywords: [String],
-                    created_at: new Date(),
+                    author_name: "author",
                     rate_average: 3,
-                    //rate_count: Number,
+                    rate_count: Number,
                     updated_at: new Date(),
                     small_description: "Description courte de l'app",
                     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Why do we use it?It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-                    //version: String,
+                    version: "1.0",
                     label_name: ["Label1", "Label2", "Label3"]
                 }
             }
         },
+        mounted() {
+            if (this.application) {
+                this.app.name = this.application.shortname
+                this.app.rate_average = Number(this.application.rate_average.toFixed())
+                this.app.updated_at = this.application.updated_at
+                this.app.small_description = this.application.small_description
+                this.app.description = this.application.description
+                this.app.label_name = this.application.label_name
+
+            } else {
+                console.log("no props passed")
+            }
+        }, 
         methods: {
             dateFormater(unFormatedDate) {
                 var date = moment(String(unFormatedDate)).format("MM/DD/YYYY");
