@@ -19,7 +19,7 @@ module.exports = function(app, apiRoutes) {
             if (!user)
                 res.json({success: false, message: 'User not found.'});
             else if (!req.body.parent_id || !req.body.parent_name || !req.body.content) {
-                return res.json({success: false, message: 'Informations missing motha faka' + ' ' + req.body.parent_name + ' ' + req.body.parent_id + ' ' + req.body.content});
+                return res.json({success: false, message: 'Informations missing' + ' ' + req.body.parent_name + ' ' + req.body.parent_id + ' ' + req.body.content});
             }
             else {
                 if (!getParent(req.body.parent_name))
