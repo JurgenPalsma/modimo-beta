@@ -7,11 +7,6 @@ $color_validate: green;
 	font-size: 40px;
 }
 
-.icon-status {
-	padding-left: 45px;
-	padding-top: 20px;
-}
-
 .title-section {
 	padding-left: 30px;
 }
@@ -20,16 +15,46 @@ $color_validate: green;
 	background: #fff;
 }
 
-.background-tile {
-	background: #f5f5f5;
+.modimo-tile {
+	background: white;
+	border-radius: 3px;
+	padding: 10px 0;
 }
 
 .modimo-color {
 	color: #2b5bb2;
 }
 
-.modimo-size {
-	font-size: 20px;
+.modimo-title-size {
+	font-size: 16px;
+}
+
+.modimo-content-size {
+	font-size: 14px;
+}
+
+.modimo-tiny-padding {
+	padding: .4rem;
+}
+
+@media screen and (min-width: 769px) {// tablet
+	.modimo-title-size {
+		font-size: 18px;
+	}
+
+	.modimo-content-size {
+		font-size: 15px;
+	}
+}
+
+@media screen and (min-width: 1000px) {// desktop
+	.modimo-title-size {
+		font-size: 20px;
+	}
+
+	.modimo-content-size {
+		font-size: 16px;
+	}
 }
 
 .small-text {
@@ -38,6 +63,10 @@ $color_validate: green;
 
 .bold {
 	font-weight: bold;
+}
+
+.no-bold {
+	font-weight: normal;
 }
 
 .comment {
@@ -49,31 +78,12 @@ $color_validate: green;
 }
 /** Advancement **/
 
-.animated-advancement {
-	padding-right: 30px;
-	height: 24px;
-	display: flex;
-	justify-content: center;
-}
-
 .circle-processDown {
 	color: #ff4d4d;
-	display: inline-block;
-	width: 600px;
-	height: 10px;
-	border-radius: 5px;
-	margin: 2px;
-	position: relative;
 }
 
 .circle-processUp {
 	color: #5cd65c;
-	display: inline-block;
-	width: 600px;
-	height: 10px;
-	border-radius: 5px;
-	margin: 2px;
-	position: relative;
 }
 
 @keyframes example {
@@ -147,4 +157,32 @@ $color_validate: green;
 	-ms-transform: scale(1, 1);
 	-webkit-transform: scale(1, 1);
 	transform: scale(1, 1);
+}
+
+.dropdown {
+  width: 100%;
+
+  .dropdown-trigger {
+    width: 100%
+  }
+
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: space-between
+  }
+
+}
+
+.columns.is-vcentered {
+  -webkit-box-align: center;
+     -ms-flex-align: center;
+        align-items: center;
+}
+
+.is-text-overflow {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
