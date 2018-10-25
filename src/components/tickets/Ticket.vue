@@ -139,7 +139,6 @@
             // },
         },
         methods: {
-<<<<<<< HEAD
             // async getAuthor(author_id) {
             //     //console.log(this.$parent)
             //     //this.current_user = this.$parent.currentUser()
@@ -167,11 +166,6 @@
                 })
                 const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
                 this.text_comment = ''
-=======
-            async get_author (author_id) {
-                this.current_user = await UserService.getCurrentUser()
-                const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
->>>>>>> 6c1a415e4680a9e9e3180326aac431efdf32d8c1
                 if (resp.data.success) {
                     console.log('successss')
                 }

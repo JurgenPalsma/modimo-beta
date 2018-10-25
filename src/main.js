@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // if (window.location.protocol !== 'https:') window.location.href = 'https://modimo.herokuapp.com'
-=======
-//if (window.location.protocol !== 'https:') window.location.href = 'https://modimo.herokuapp.com'
->>>>>>> 6c1a415e4680a9e9e3180326aac431efdf32d8c1
 
 import Vue from 'vue'
 import App from './App'

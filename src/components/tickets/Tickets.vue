@@ -52,7 +52,6 @@
                                             <i v-else-if="ticket.status === 'closed'" class="fas fa-lock fa-2x"></i>
                                         </div>
                                     </div>
-<<<<<<< HEAD
                                 </div>
                                 <div class="column is-one-third is-mobile">
                                     <div id="ticket-title" class="has-text-left title-section">
@@ -66,14 +65,6 @@
                                             <time :datetime="ticket.created_at">{{ dateFormater(ticket.created_at) }}</time> <br>
                                             <p class="bold">Dernière modification : </p>
                                             <time :datetime="ticket.updated_at">{{ dateFormater(ticket.updated_at) }}</time>
-=======
-                                    <div class="column is-8-mobile is-4-desktop">
-                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
-                                    </div>
-                                    <div class="column is-8-mobile is-4-desktop">
-                                        <p class="bold modimo-content-size is-text-overflow">Créé le <time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
-                                        <p class="bold modimo-content-size is-text-overflow">par <span class="no-bold">{{ticket.author_id}}</span></p>
->>>>>>> 6c1a415e4680a9e9e3180326aac431efdf32d8c1
                                     </div>
                                     <div class="column is-4-mobile is-3-desktop has-text-right">
                                         <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
@@ -81,15 +72,9 @@
                                         <p class="bold"><i class="far fa-thumbs-up"/> {{ ticket.votes.length}}</p>
                                     </div>
                                 </div>
-<<<<<<< HEAD
                             </div>
                         </a>
                         <ticket :ticket="currentTicket" :current_user="current_user" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
-=======
-                            </a>
-                            <ticket :ticket="currentTicket" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
-                        </div>
->>>>>>> 6c1a415e4680a9e9e3180326aac431efdf32d8c1
                     </div>
                 </div>
                 <ticketCreation v-show="showModalTicketCreation" @close_modal="closeModalTicketCreation"></ticketCreation>

@@ -25,9 +25,6 @@
                             </div>
                         </div>
                     </router-link>
-<<<<<<< HEAD
-                    <router-link v-if="current_user && current_user.roles && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-12-mobile is-6-tablet is-4-desktop">
-=======
                     <router-link to="/modistore" class="column is-one-quarter-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
@@ -46,7 +43,6 @@
                         </div>
                     </router-link>
                     <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-one-quarter-desktop">
->>>>>>> 6c1a415e4680a9e9e3180326aac431efdf32d8c1
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">

@@ -51,7 +51,6 @@ export default {
     },
 
     mounted: function (){
-        console.log(this.$cookies.get('api_token'))
         if (this.$cookies.get('api_token')) {
             this.getCurrentUser()
         } else if (this.$route.name !== 'Login') {
@@ -72,8 +71,6 @@ export default {
             if (curUser.data && curUser.data.success) {
                 ga('set', 'dimension1', curUser.data.user.residence._id);
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
-                console.log('lol')
-                console.log(curUser)
                 this.currentUser = curUser.data.user
             } else {
                 console.log('Could not load current user')
