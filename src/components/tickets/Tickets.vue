@@ -124,15 +124,7 @@ export default {
             this.showTickets = this.sortTickets(newIndex);
         },
         sortIndex: function(newIndex) {
-<<<<<<< HEAD
-            this.showTickets = this.sortTickets(newIndex);
-        },
-        '$parent.currentUser' : function(newCurrentUser) {
-            this.current_user = newCurrentUser
-            this.load();
-=======
             this.showTickets = this.sortTickets(this.index);
->>>>>>> 6c1a415e4680a9e9e3180326aac431efdf32d8c1
         }
     },
     methods: {
