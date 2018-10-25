@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </router-link>
-                    <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-12-mobile is-6-tablet is-4-desktop">
+                    <router-link v-if="current_user && current_user.roles && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-12-mobile is-6-tablet is-4-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">
@@ -81,8 +81,8 @@ export default {
     },
 
     methods: {
-        async load () {
-            this.current_user = await this.$parent.getCurrentUser()
+        load () {
+            this.current_user = this.$parent.currentUser
         },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))

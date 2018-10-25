@@ -28,7 +28,7 @@
                 </div>
 
                 <div v-if="$route.name != 'Login'" class="navbar-end">
-                    <div @userdata="load()" v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" class="navbar-item">
+                    <div @userdata="load()" v-if="currentUser && currentUser.roles && (currentUser.roles.includes('ROOT') || currentUser.roles.includes('CARETAKER') || currentUser.roles.includes('ADMIN'))" class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
@@ -69,19 +69,14 @@ export default {
     data () {
         return {
             showMailerModal: false,
-            current_user: null
+            currentUser: null
         }
     },
-    
-    created: function () {
-  },
 
   updated: function () {
-      this.load();
   },
 
     mounted () {
-        this.load()
         document.addEventListener('DOMContentLoaded', function () {
             var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
             if ($navbarBurgers.length > 0) {
@@ -96,10 +91,12 @@ export default {
             }
         }); 
     },
+    watch: {
+        '$parent.currentUser' : function (newCurrentUser) {
+            this.currentUser = newCurrentUser
+        }
+    },
     methods: {
-        async load() {
-            this.current_user = await this.$parent.getCurrentUser()
-        },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')

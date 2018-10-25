@@ -47,13 +47,13 @@ export default {
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date())
         gtag('config', 'UA-116703749-1')
+
     },
 
-    mounted () {
+    mounted: function (){
+        console.log(this.$cookies.get('api_token'))
         if (this.$cookies.get('api_token')) {
-            if (!this.currentUser) {
-                this.currentUser = this.getCurrentUser()
-            }
+            this.getCurrentUser()
         } else if (this.$route.name !== 'Login') {
             this.$router.push('/')
         }
@@ -72,10 +72,11 @@ export default {
             if (curUser.data && curUser.data.success) {
                 ga('set', 'dimension1', curUser.data.user.residence._id);
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
-                return curUser.data.user
+                console.log('lol')
+                console.log(curUser)
+                this.currentUser = curUser.data.user
             } else {
                 console.log('Could not load current user')
-                return {}
             }
         }
     },

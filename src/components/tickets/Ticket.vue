@@ -56,7 +56,7 @@
                         <div class="media-content">
                             <div class="field">
                                 <p class="control">
-                                    <textarea v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire..."></textarea>
+                                    <input v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire...">
                                 </p>
                             </div>
                             <div class="field">
@@ -133,15 +133,15 @@
             }
         },
         watch: {
-            ticket: function (newTicket) {
-                if (newTicket)
-                    this.get_author(newTicket.author_id)
-            },
+            // ticket: function (newTicket) {
+            //     if (newTicket)
+            //         this.getAuthor(newTicket.author_id)
+            // },
         },
         methods: {
-            // async get_author (author_id) {
+            // async getAuthor(author_id) {
             //     //console.log(this.$parent)
-            //     this.current_user = await UserService.getCurrentUser()
+            //     //this.current_user = this.$parent.currentUser()
             //     const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
             //     if (resp.data.success) {
             //         this.ticket_author = resp.data.user.name
@@ -164,8 +164,8 @@
                         '$date': date
                     }
                 })
-                this.text_comment = ''
                 const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
+                this.text_comment = ''
                 if (resp.data.success) {
                     console.log('successss')
                 }

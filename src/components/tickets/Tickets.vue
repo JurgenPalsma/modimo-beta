@@ -95,6 +95,7 @@ import moment from 'moment'
 import ticket from './Ticket.vue'
 import ticketCreation from './TicketCreation.vue'
 import TicketService from '@/services/TicketService'
+import CommentsService from '@/services/CommentService'
 import UserService from '@/services/UserService'
 
 
@@ -125,20 +126,20 @@ export default {
             //  not the type, empty data
         }
     },
-    mounted: function () {
-        this.load() //  plusieurs fonctions appelées-> composant monté load la data
-    },
-
     watch: {
         index: function(newIndex) {
             this.showTickets = this.sortTickets(newIndex);
         },
         sortIndex: function(newIndex) {
             this.showTickets = this.sortTickets(newIndex);
+        },
+        '$parent.currentUser' : function(newCurrentUser) {
+            this.current_user = newCurrentUser
+            this.load();
         }
     },
     methods: {
-        get_tickets_authors () {
+        get_tickets_authors_and_comments () {
                 //console.log(this.$parent)
             this.tickets.forEach(async (ticket) => {
                 const resp = await UserService.getUser(this.$cookies.get('api_token'), ticket.author_id)
@@ -147,6 +148,15 @@ export default {
                 } else {
                     alert('Erreur lors de la récuperation du nom de l\'auteur du ticket')
                 }
+                const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)
+                if (resp2.data.success) {
+                    console.log('lol')
+                    console.log(resp2.data.comments)
+                    ticket.comments = resp2.data.comments;
+                } else {
+                    alert('Erreur lors de la récuperation du nom de l\'auteur du commentaire')
+                }
+
                 ticket.comments.forEach(async (comment) => {
                     const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
                     if (resp.data.success) {
@@ -166,12 +176,11 @@ export default {
             this.showModalTicketCreation = false;
         },
         async load () {
-            this.current_user = await this.$parent.getCurrentUser()
+            console.log(this.current_user)
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
-                this.get_tickets_authors()
-
+                this.get_tickets_authors_and_comments()
                 this.showTickets = this.sortTickets(this.index)
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
