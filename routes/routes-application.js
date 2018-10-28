@@ -270,7 +270,7 @@ module.exports = function(app, apiRoutes, io) {
        });
    });
 
-    // route to get applications by link
+    // route to get an application by his link
     apiRoutes.get('/applications/link', function(req, res) {
         io.emit('salut', {msg:'raph'});
         if (!req.headers.application_link)
@@ -385,20 +385,11 @@ module.exports = function(app, apiRoutes, io) {
                     else
                         res.json({success: false, message: 'Label removal Failed'})
                 });
-                Application.find({
-                    author_name: req.headers.author_name
-                }, function (err, applications) {
-                if (err) res.json({sucess: false, message: 'Error from db'});
-                if (applications.length == 0)
-                    res.json({sucess: false, message: 'Applications not found'});
-                else
-                    es.json({sucess: true, applications: applications});
-                });
             }
         });
     });
 
-    // route to get list of app by labels name
+    // route to get a label by label name
     apiRoutes.get('/applications/labels/', function(req, res) {
         if (!req.headers.name)
             return res.json({success: false, message:'Error: request incomplete'});
@@ -422,7 +413,7 @@ module.exports = function(app, apiRoutes, io) {
         });
     });
 
-    // route to get list of app by labels name or app name
+    // route research applications corresponding with a name of research
     apiRoutes.get('/applications/applications/', function(req, res) {
         if (!req.headers.name)
             return res.json({success: false, message:'Error: request incomplete'});
@@ -564,7 +555,7 @@ module.exports = function(app, apiRoutes, io) {
         });
     });
 
-    // route to update a rate in an app
+    // route to update a rate in an app by his id
     apiRoutes.patch('/applications/rates', function(req, res) {
         if (!req.body.rate_id || !req.body.stars || !req.body.comment || !req.body.quote)
             return res.json({success: false, message: 'Error: request incomplete'});
