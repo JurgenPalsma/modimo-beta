@@ -94,6 +94,8 @@ import moment from "moment";
                 this.app.small_description = this.application.small_description
                 this.app.description = this.application.description
                 this.app.label_name = this.application.label_name
+                this.app.logo = this.application.logo
+
 
             } else {
                 console.log("no props passed")
