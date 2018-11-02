@@ -150,8 +150,6 @@ export default {
                 }
                 const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)
                 if (resp2.data.success) {
-                    console.log('lol')
-                    console.log(resp2.data.comments)
                     ticket.comments = resp2.data.comments;
                 } else {
                     alert('Erreur lors de la récuperation du nom de l\'auteur du commentaire')
@@ -176,7 +174,6 @@ export default {
             this.showModalTicketCreation = false;
         },
         async load () {
-            console.log(this.current_user)
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
