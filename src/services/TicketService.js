@@ -42,5 +42,16 @@ export default {
                 'content': content
             }
         })
+    },
+    closeTicket (token, id, status) {
+        return Api().patch('/api/tickets/avancement', 
+        {
+            'ticket_id': id,
+            'status': status
+        }, {
+            headers: {
+                'x-access-token': token
+            }
+        })
     }
 }

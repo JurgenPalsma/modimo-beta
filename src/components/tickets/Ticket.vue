@@ -43,7 +43,7 @@
                                         <br>
                                         <small class="small-text">
                                             <span v-if="comment.updated_at.$date === comment.created_at.$date">Créé le </span>
-                                            <span v-else>Modifié le </span>{{dateFormater(comment.updated_at.$date)}}
+                                            <span v-else>Modifié le </span>{{dateFormater(comment.updated_at)}}
                                         </small>
                                     </p>
                                     </article>
@@ -79,6 +79,7 @@
 <script>
     import UserService from '@/services/UserService'
     import CommentService from '@/services/CommentService'
+    import TicketService from '@/services/TicketService'
     import moment from 'moment'
     export default {
         // name: 'ticket',
@@ -89,68 +90,13 @@
                 //current_user: null,
                 isNone: 'none;',
                 isActive: true
-                // ticket: {
-                //     '_id': '123133',
-                //     'title': 'Du feu dans la cheminée',
-                //     'content': 'mon ascenseur est cassé, j\'ai envie d\'une pomme.',
-                //     'author_id': '1238EeGZY3',
-                //     'residence_id': '1e238aEeGZY3',
-                //     'status': 'open',
-                //     'created_at': {
-                //         '$date': '2018-08-13T10:09:26.236Z'
-                //     },
-                //     'updated_at': {
-                //         '$date': '2018-08-13T10:12:47.414Z'
-                //     },
-                //     'comments': [
-                //         {
-                //             '_id': '123133',
-                //             'author_id': 'NadineDu6eme',
-                //             'content': 'c\'est un vrai problème !',
-                //             'created_at': {
-                //                 '$date': '2018-08-14T10:09:26.236Z'
-                //             },
-                //             'updated_at': {
-                //                 '$date': '2018-08-14T10:09:26.236Z'
-                //             }
-                //         },
-                //         {
-                //             '_id': '123134',
-                //             'author_id': 'GastonRDC',
-                //             'content': 'Je suis d\'accord.',
-                //             'created_at': {
-                //                 '$date': '2018-08-14T10:09:26.236Z'
-                //             },
-                //             'updated_at': {
-                //                 '$date': '2018-08-14T10:12:47.414Z'
-                //             }
-                //         }
-                //     ],
-                //     'votes': [
-                //         '123133'
-                //     ]
-                // }
             }
         },
         watch: {
-            // ticket: function (newTicket) {
-            //     if (newTicket)
-            //         this.getAuthor(newTicket.author_id)
-            // },
         },
         methods: {
-            // async getAuthor(author_id) {
-            //     //console.log(this.$parent)
-            //     //this.current_user = this.$parent.currentUser()
-            //     const resp = await UserService.getUser(this.$cookies.get('api_token'), author_id)
-            //     if (resp.data.success) {
-            //         this.ticket_author = resp.data.user.name
-            //     } else {
-            //         alert('Erreur lors de la récuperation de l\'auteur')
-            //     }
-            // },
             closeTicket: async function (event) {
-                // call close ticket service
+                const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
             },
             commentTicket: async function (event) {
                 var date = new Date()
