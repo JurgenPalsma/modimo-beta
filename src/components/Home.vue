@@ -8,7 +8,7 @@
                 </h1>
                 
                 <div class="columns is-multiline is-mobile">
-                    <router-link to="/tickets" class="column is-12-mobile is-6-tablet is-4-desktop">
+                    <router-link to="/tickets" class="column is-12-mobile is-6-tablet is-3-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">
@@ -25,7 +25,24 @@
                             </div>
                         </div>
                     </router-link>
-                    <router-link v-if="current_user && current_user.roles && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-12-mobile is-6-tablet is-4-desktop">
+                    <router-link to="/modistore" class="column is-one-quarter-desktop">
+                        <div class="card" style="border-radius: 3px">
+                            <div class="card-content">
+                                <div class="media is-vertical-center">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                    <img src="/static/img/ModiStore.png" alt="Tickets">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="is-size-5 has-text-weight-bold has-text-link">ModiStore</p>
+                                    <p class="is-size-7 is-italic has-text-grey-dark">Intégrez de nouvelles applications à votre résidence</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
+                    <router-link v-if="current_user && current_user.roles && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-one-quarter-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">
@@ -36,13 +53,13 @@
                                 </div>
                                 <div class="media-content">
                                     <p class="is-size-5 has-text-weight-bold has-text-link">Statistiques</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Observez l'activité de la résidence Observez l'activité de la résidence</p>
+                                    <p class="is-size-7 is-italic has-text-grey-dark">Observez l'activité de la résidence</p>
                                 </div>
                                 </div>
                             </div>
                         </div>
                     </router-link>
-                    <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                    <div class="column is-12-mobile is-6-tablet is-3-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">
