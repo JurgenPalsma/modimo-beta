@@ -47,19 +47,19 @@
                             <a @click="idToModal(ticket)" style="color: #4a4a4a">
                                 <div class="columns is-vcentered is-mobile is-multiline" style="margin:0">
                                     <div class="column is-2-mobile is-1-desktop">
-                                        <div id="ticket-status" class="has-text-centered icon-status">
+                                        <div id="ticket-status" class="icon-status">
                                             <i v-if="ticket.status === 'open'" class="fas fa-bell fa-2x"></i>
                                             <i v-else-if="ticket.status === 'closed'" class="fas fa-lock fa-2x"></i>
                                         </div>
                                     </div>
-                                    <div class="column is-8-mobile is-4-desktop">
+                                    <div class="column is-11-mobile is-6-desktop">
                                         <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
                                     </div>
-                                    <div class="column is-8-mobile is-4-desktop">
-                                        <p class="bold modimo-content-size is-text-overflow">Créé le <time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
-                                        <p class="bold modimo-content-size is-text-overflow">par <span class="no-bold">{{ticket.author_id}}</span></p>
+                                    <div class="column is-6-mobile is-3-desktop">
+                                        <p class="bold modimo-content-size is-text-overflow has-text-right">Créé le <time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
+                                        <p class="bold modimo-content-size is-text-overflow has-text-right"><span v-if="ticket.author_name!=''" >par </span><span class="no-bold">{{ticket.author_name}}</span></p>
                                     </div>
-                                    <div class="column is-4-mobile is-3-desktop has-text-right">
+                                    <div class="column is-3-mobile is-2-desktop has-text-right">
                                         <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
                                         <span v-else-if="ticket.status === 'closed'" class="bold circle-processDown">Fermé</span>
                                         <p class="bold"><i class="far fa-thumbs-up"/> {{ ticket.votes.length}}</p>
@@ -132,6 +132,7 @@ export default {
                 if (resp.data.success) {
                     ticket.author_name = resp.data.user.name;
                 } else {
+                    ticket.author_name = ticket.author_id
                     alert('Erreur lors de la récuperation du nom de l\'auteur du ticket')
                 }
                 const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)

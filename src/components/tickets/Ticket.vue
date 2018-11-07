@@ -42,7 +42,7 @@
                                         {{comment.content}}
                                         <br>
                                         <small class="small-text">
-                                            <span v-if="comment.updated_at.$date === comment.created_at.$date">Créé le </span>
+                                            <span v-if="comment.updated_at === comment.created_at">Créé le </span>
                                             <span v-else>Modifié le </span>{{dateFormater(comment.updated_at)}}
                                         </small>
                                     </p>
@@ -97,6 +97,14 @@
         methods: {
             closeTicket: async function (event) {
                 const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
+                if (resp.data.success) {
+                    console.log('successss')
+                }
+                else {
+                    console.log('CLOSE TICKET failed :')
+                    console.log(resp.data.message)
+                }
+                this.$emit('close_modal')
             },
             commentTicket: async function (event) {
                 var date = new Date()
