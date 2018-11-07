@@ -44,7 +44,7 @@ export default {
         })
     },
     closeTicket (token, id, status) {
-        return Api().patch('/api/tickets/avancement', 
+        return Api().patch('/api/tickets/ticket/avancement', 
         {
             'ticket_id': id,
             'status': status
