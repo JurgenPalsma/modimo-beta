@@ -123,7 +123,7 @@ module.exports = function(app, apiRoutes, io) {
                     if (err) return res.json({success: false, message: 'Error from db'})
                     if (!ticket)
                         return res.json({success: false, message: 'Ticket not found'})
-                    else if ((user.roles == 'CARETAKER' || user.roles == 'ROOT' || user.roles == 'ADMIN'))
+                    else if ((user.roles.includes('CARETAKER') || user.roles.include('ROOT') || user.roles.includes('ADMIN')))
                         Ticket.update({
                             _id: ticket.id}, {status:req.body.status}, function(err) {
                             if (!err) {
