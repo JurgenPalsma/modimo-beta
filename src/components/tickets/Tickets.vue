@@ -47,13 +47,13 @@
                             <a @click="idToModal(ticket)" style="color: #4a4a4a">
                                 <div class="columns is-vcentered is-mobile is-multiline" style="margin:0">
                                     <div class="column is-2-mobile is-1-desktop">
-                                        <div id="ticket-status" class="icon-status">
+                                        <div id="ticket-status" class="icon-status has-text-centered">
                                             <i v-if="ticket.status === 'open'" class="fas fa-bell fa-2x"></i>
                                             <i v-else-if="ticket.status === 'closed'" class="fas fa-lock fa-2x"></i>
                                         </div>
                                     </div>
                                     <div class="column is-11-mobile is-6-desktop">
-                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
+                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered"> {{ ticket.title }} </p>
                                     </div>
                                     <div class="column is-6-mobile is-3-desktop">
                                         <p class="bold modimo-content-size is-text-overflow has-text-right">Créé le <time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
@@ -125,41 +125,6 @@ export default {
         }
     },
     methods: {
-        get_tickets_authors_and_comments () {
-                //console.log(this.$parent)
-            this.tickets.forEach(async (ticket) => {
-                const resp = await UserService.getUser(this.$cookies.get('api_token'), ticket.author_id)
-                if (resp.data.success) {
-                    ticket.author_name = resp.data.user.name;
-                } else {
-                    ticket.author_name = ticket.author_id
-                    alert('Erreur lors de la récuperation du nom de l\'auteur du ticket')
-                }
-                const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)
-                if (resp2.data.success) {
-                    ticket.comments = resp2.data.comments;
-                } else {
-                    alert('Erreur lors de la récuperation du nom de l\'auteur du commentaire')
-                }
-
-                ticket.comments.forEach(async (comment) => {
-                    const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
-                    if (resp.data.success) {
-                        comment.author_name = resp.data.user.name;
-                    } else {
-                        alert('Erreur lors de la récuperation du nom de l\'auteur du commentaire')
-                    }
-                })
-            })
-        },
-        closeModalTicketCreation: function(ticket) {
-            if (ticket) {
-                this.tickets.push(ticket);
-                this.showTickets = this.sortTickets(this.index);
-                this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
-            }
-            this.showModalTicketCreation = false;
-        },
         async load () {
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
@@ -170,6 +135,46 @@ export default {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
             }
         },
+        async get_tickets_authors_and_comments () {
+                //console.log(this.$parent)
+            // let n = 0;
+            this.tickets.forEach(async (ticket, n) => {
+                const resp = await UserService.getUser(this.$cookies.get('api_token'), ticket.author_id)
+                if (resp.data.success) {
+                    ticket.author_name = resp.data.user.name;
+                } else {
+                    // Vue.set(this.tickets, n, ticket.author_id)
+                    ticket.author_name = ticket.author_id
+                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du ticket'}
+                }
+                const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)
+                if (resp2.data.success) {
+                    ticket.comments = resp2.data.comments;
+                } else {
+                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du commentaire'}
+                }
+
+                ticket.comments.forEach(async (comment) => {
+                    const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
+                    if (resp.data.success) {
+                        comment.author_name = resp.data.user.name;
+                    } else {
+                        this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du commentaire'}
+                    }
+                })
+                n = n + 1;
+            })
+            vm.$forceUpdate();
+        },
+        closeModalTicketCreation: function(ticket) {
+            if (ticket) {
+                this.tickets.push(ticket);
+                this.showTickets = this.sortTickets(this.index);
+                this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
+            }
+            this.showModalTicketCreation = false;
+        },
+
         sortTickets: function(index) {
             let tickets = this.tickets.sort((a, b) => {
                 if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && a.created_at > b.created_at))) ||

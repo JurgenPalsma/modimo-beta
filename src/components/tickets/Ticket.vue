@@ -10,7 +10,7 @@
                             <strong class="modimo-color modimo-size">{{ticket.author_name}} - {{ticket.title}}</strong>
                             <br>
                             <br>
-                            <span ref="display_ticket">{{ticket.content}} {{ticket._id}}</span>
+                            <span ref="display_ticket">{{ticket.content}}</span>
                             <!--ICI LE CHAMP QUI APPARAIT POUR LA MODIF DU MESSAGE-->
                             <div ref="space_modif_ticket" class="media-content" v-bind:style="{display: 'none'}">
                                 <div class="field">
@@ -98,6 +98,7 @@
             closeTicket: async function (event) {
                 const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
                 if (resp.data.success) {
+                    this.ticket.status = "closed"
                     console.log('successss')
                 }
                 else {
