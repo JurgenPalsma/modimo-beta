@@ -1,54 +1,56 @@
 <template>
-  <section class="hero modimo-dark is-fullheight-minus-navbar">
-    <div class="container">
-        <br/><br/>
-            <h1 class="title white-title is-1">
-                Modistore
-            </h1>
-            <div class="columns is-multiline is-mobile">
-                <div v-for="app in applications" :key="app._id" class="column is-one-quarter-desktop"> 
-                    <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
-                        <div>
+    <section class="hero modimo-dark is-fullheight-minus-navbar">
+    <div class="hero-body">
+        <div class="container">
+            <br/><br/>
+                <h1 class="title white-title is-1">
+                    Modistore
+                </h1>
+                <div class="columns is-multiline is-mobile">
+                    <div v-for="app in applications" :key="app._id" class="column is-one-quarter-desktop"> 
+                        <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
+                            <div>
+                                <div class="card " style="border-radius: 3px, height:200px">
+                                    <div class="card-content">
+                                        <div class="media is-vertical-center">
+                                            <div class="media-left">
+                                                <figure class="image is-64x64">
+                                                <img :src="app.mini_logo" :alt="app.name">
+                                                </figure>
+                                            </div>
+                                            <div class="media-content ">
+                                                <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center">{{app.shortname}}</p>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="content content-description">
+                                                <p class="is-size-7 is-italic has-text-grey-dark">{{app.description}}</p>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="column is-one-quarter-desktop">
                             <div class="card" style="border-radius: 3px">
                                 <div class="card-content">
                                     <div class="media is-vertical-center">
-                                        <div class="media-left">
-                                            <figure class="image is-64x64">
-                                            <img :src="app.mini_logo" :alt="app.name">
-                                            </figure>
-                                        </div>
-                                        <div class="media-content ">
-                                            <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center">{{app.shortname}}</p>
-                                            
-                                        </div>
-                                        
+                                    <div class="media-left">
+                                        <figure class="image is-64x64">
+                                        <img src="/static/img/comingsoon.png" alt="Analytics">
+                                        </figure>
                                     </div>
-                                    <div class="content">
-                                            <p class="is-size-7 is-italic has-text-grey-dark">{{app.description}}</p>
-                                        </div>
+                                    <div class="media-content">
+                                        <p class="is-size-5 has-text-weight-bold has-text-dark">Prochainement</p>
+                                        <p class="is-size-7 is-italic has-text-grey-dark">Pleins d'applications à venir !</p>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </router-link>
+                    </div>
                 </div>
-                <div class="column is-one-quarter-desktop">
-                        <div class="card" style="border-radius: 3px">
-                            <div class="card-content">
-                                <div class="media is-vertical-center">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img src="/static/img/comingsoon.png" alt="Analytics">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="is-size-5 has-text-weight-bold has-text-dark">Prochainement</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Pleins d'applications à venir !</p>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
+        </div>
     </div>
     </section>
 </template>
