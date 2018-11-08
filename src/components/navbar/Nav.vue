@@ -46,7 +46,7 @@
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Déconnection</span>
+                                <span>Déconnexion</span>
                                 </a>
                             </p>
                         </div>
