@@ -141,7 +141,7 @@ module.exports = function (app, apiRoutes) {
 
     // route to modify info with id
     apiRoutes.patch('/infos/info', function (req, res) {
-        if (!req.headers.info_id || !req.headers.title || !req.headers.content)
+        if (!req.body.info_id || !req.body.title || !req.body.content)
             return res.json({
                 success: false,
                 message: 'Error: request incomplete'
@@ -160,7 +160,7 @@ module.exports = function (app, apiRoutes) {
                 });
             else {
                 Info.findOne({
-                    _id: req.headers.info_id
+                    _id: req.body.info_id
                 }, function (err, info) {
                     if (err) return res.json({
                         success: false,
@@ -175,8 +175,8 @@ module.exports = function (app, apiRoutes) {
                         Info.update({
                             _id: info.id
                         }, {
-                                content: req.headers.content,
-                                title: req.headers.title,
+                                content: req.body.content,
+                                title: req.body.title,
                                 updated_at: new Date()
                             }, function (err) {
                                 if (!err) {
