@@ -11,10 +11,22 @@
     height: 230px;
 }
 
+$font-size: .75rem;
+$line-height: 1.5;
+$lines-to-show: 4;
+  
 .modistore-desc {
-    height: 70px;
-    text-overflow: ellipsis;
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: $font-size*$line-height*$lines-to-show;
+    margin: 0 auto;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modistore-card-footer {
@@ -55,8 +67,6 @@
 }
 
 .modistore-app-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
     width: 100%;
 }
 
