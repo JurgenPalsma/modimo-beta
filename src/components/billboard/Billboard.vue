@@ -12,12 +12,14 @@
       </div>
 
         <div class="tile is-ancestor">
-          <div v-for="info in thirdFirstInformations" :key="info._id" class="tile"> <!--@click="showModalBillboardModification = true"-->
+          <div v-for="info in thirdFirstInformations" :key="info._id" class="tile">
             <div class="tile is-parent is-vertical">
-              <article class="tile is-child box ">
-              <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                <p class="title">{{ info.title }}</p>
-                <p class="subtitle">{{ info.content }}</p>
+              <article class="tile is-child box">
+              <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
+                <p class="content">{{ info.content }}</p>
+                <p class="is-size-7" style="float: left">{{info.author_id}}</p>
+                <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
           </div>
@@ -28,10 +30,12 @@
             <div class="tile">
               <div class="tile is-parent is-vertical" style="margin-top: -20px;">
                 <div v-for="info in twoLeftVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
-                  <article class="tile is-child box ">
-                    <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                    <p class="title">{{ info.title }}</p>
-                    <p class="subtitle">{{ info.content }}</p>
+                  <article class="tile is-child box">
+                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                    <p class="title" @click="idToModal(info)">{{ info.title }}</p>
+                    <p class="content">{{ info.content }}</p>
+                    <p style="float: left">{{info.author_id}}</p>
+                    <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
               </div>
@@ -42,33 +46,51 @@
                   <figure class="title image is-4by3">
                     <img src="./../../../static/img/logofull.svg">
                   </figure>
-                  <p class="subtitle">Vous souhaite une agréable journée.</p>
+                  <p class="content">Vous souhaite une agréable journée.</p>
                 </article>
               </div>
               <div class="tile is-parent is-vertical" style="margin-top: -20px;">
                 <div v-for="info in twoRightVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
-                  <article class="tile is-child box ">
-                    <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                    <p class="title">{{ info.title }}</p>
-                    <p class="subtitle">{{ info.content }}</p>
+                  <article class="tile is-child box">
+                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                    <p class="title" @click="idToModal(info)">{{ info.title }}</p>
+                    <p class="content">{{ info.content }}</p>
+                    <p style="float: left">{{info.author_id}}</p>
+                    <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
               </div>
             </div>
             <div v-if="informations.length >= 7" class="tile is-parent">
               <article class="tile is-child box">
-                <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                <p class="title">{{ wideElement.title }}</p>
+                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                <p class="title" @click="idToModal(info)">{{ wideElement.title }}</p>
                 <div class="content">
                   <p>{{ wideElement.content }}</p>
                 </div>
+                <p style="float: left">{{info.author_id}}</p>
+                <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile is-ancestor">
+          <div v-for="info in twoBottomInformations" :key="info._Id" class="tile" style="margin-top: 20px;"> 
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
+                <p class="content">{{ info.content }}</p>
+                <p style="float: left">{{info.author_id}}</p>
+                <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
           </div>
         </div>
   
         <BillboardCreation v-show="showModalBillboardCreation" @close_modal="closeModalBillboardCreation"></BillboardCreation>
-        <BillboardModification v-show="showModalBillboardModification" @close_modal="closeModalBillboardModification"></BillboardModification>
+        <BillboardModification :info="selectedInformation" v-show="showModalBillboardModification" @close_modal="closeModalBillboardModification"></BillboardModification>
     </div>
   </section>   
 </template>
@@ -77,6 +99,7 @@
 import BillboardService from "@/services/BillboardService";
 import BillboardCreation from "./BillboardCreation.vue";
 import BillboardModification from "./BillboardModification.vue";
+import moment from "moment";
 
 export default {
   name: "Billboard",
@@ -87,6 +110,7 @@ export default {
       current_user: null,
 
       informations: [],
+      selectedInformation: undefined,
 
       // Front Element
       thirdElementTmp: [],
@@ -158,6 +182,11 @@ export default {
       this.showModalBillboardModification = false;
     },
 
+    idToModal: function(info) {
+      this.selectedInformation = info;
+      this.showModalBillboardModification = true;
+    },
+
     async load() {
       this.current_user = await this.$parent.getCurrentUser();
       const resp = await BillboardService.getInfos(
@@ -189,21 +218,9 @@ export default {
       );
     },
 
-    updateInformation: function(id, title, content) {
-      BillboardService.updateInfo(
-        this.$cookies.get("api_token"),
-        id,
-        title,
-        content
-      ).then(response => {
-        if (response.data.success) {
-          this.load();
-          this.$parent.notification = {
-            type: "success",
-            message: "Update Information Success"
-          };
-        }
-      });
+    dateFormater(unFormatedDate) {
+      var date = moment(String(unFormatedDate)).format("DD MMMM YYYY, h:mm:ss");
+      return date;
     }
   },
   components: {

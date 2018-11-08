@@ -11,19 +11,19 @@
                     <div class="field">
                         <label class="label">Titre</label>
                         <div class="control">
-                            <input class="input" type="text" v-model="title" placeholder="Titre de votre affiche...">
+                            <input class="input" type="text" v-model="info.title" placeholder="Titre de votre affiche...">
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Information</label>
                         <div class="control">
-                            <textarea class="textarea" v-model="content" placeholder="Information de votre affiche..."></textarea>
+                            <textarea class="textarea" v-model="info.content" placeholder="Information de votre affiche..."></textarea>
                         </div>
                     </div>                
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success" @click="postInformation">Créer</button>
+                    <button class="button is-success" @click="updateInformation(info._id, info.title, info.content)">Modifier</button>
                     <button class="button" @click="$emit('close_modal')">Annuler</button>
                 </footer>
             </div>
@@ -36,6 +36,7 @@ import BillboardService from "@/services/BillboardService";
 
 export default {
   name: "BillboardModification",
+  props: ["info"],
   data() {
     return {
       title: "",
@@ -43,23 +44,41 @@ export default {
       isActive: true
     };
   },
+  watch: {
+    info: function(newInfo) {
+      if (newInfo) this.get_author(newInfo.author_id);
+    }
+  },
   methods: {
-    postInformation: function() {
-      BillboardService.postInfo(
+    async get_author(author_id) {
+      //console.log(this.$parent)
+      this.current_user = await UserService.getCurrentUser();
+      const resp = await UserService.getUser(
         this.$cookies.get("api_token"),
-        this.title,
-        this.content
+        author_id
+      );
+      if (resp.data.success) {
+        this.ticket_author = resp.data.user.name;
+      } else {
+        alert("Erreur lors de la récuperation de l'auteur");
+      }
+    },
+    updateInformation: function(id, title, content) {
+      BillboardService.updateInfo(
+        this.$cookies.get("api_token"),
+        id,
+        title,
+        content
       ).then(response => {
-        if (!response.data.success || !response.data.info)
-          this.$parent.$parent.notification = {
-            type: "failure",
-            message: "Un champ est manquant"
+        if (response.data.success) {
+          this.load();
+          this.$parent.notification = {
+            type: "success",
+            message: "Update Information Success"
           };
-        else {
-            this.$parent.load();
-            this.$emit("close_modal", response.data.info);
         }
       });
+      this.$emit("close_modal");
     }
   }
 };

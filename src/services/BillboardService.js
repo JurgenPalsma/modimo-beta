@@ -18,13 +18,14 @@ export default {
   },
   updateInfo(token, id, title, content) {
     return Api().patch('/api/infos/info', {
-      headers: {
-        'x-access-token': token,
-        'info_id': id,
-        'title': title,
-        'content': content
-      }
-    })
+      'info_id': id,
+      'title': title,
+      'content': content
+    }, {
+        headers: {
+          'x-access-token': token,
+        }
+      })
   },
   deleteInfo(token, id) {
     return Api().delete('/api/infos/info', {
