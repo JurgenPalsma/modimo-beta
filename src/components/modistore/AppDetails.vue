@@ -7,22 +7,20 @@
                         <div class="tile  is-parent">
                             <article class="tile is-child notification is-white">
                                 
-                                <nav class="level">
+                                <nav class="level modistore-appdetail-header">
                                     <div class="level-left">
-                                        <router-link to="/modistore">
-                                        <p class="level-item"><a class="button is-info"><span class="icon is-small"><i class="fa fa-angle-left"></i></span></a></p>
-                                        </router-link>
-                                        <div class="level-item">
-                                        <p class="title is-3">
-                                            <strong>{{app.name}}</strong>
-                                        </p>
-                                        </div>
+                                        <p @click="$router.push('/modistore')" class="button modistore-button">Retour</p>
                                     </div>
                                     <!-- Left side -->
-                                    <div class="level-right">
-                                        
+                                    <div class="level-center">
+                                        <div class="level-item has-text-center">
+                                            <p class="title is-3">
+                                                <strong>{{app.name}}</strong>
+                                            </p>
+                                        </div>
                                     </div>
-                                     <!-- Right side -->
+                                        
+                                    <!-- Right side -->
                                     <div class="level-right">
                                         <p class="level-item">
                                             <i v-for="i in app.rate_average" :key="i" class="fas fa-star has-text-info"></i>
@@ -34,7 +32,12 @@
                                 <div >
                                     <div class="content card-image">
                                         <figure class="image">
-                                            <img :src="app.logo" alt="Placeholder image">
+                                            <div class="modistore-app-logo-container">
+                                                <img :src="app.logo" class="modistore-app-img" alt="Placeholder image">
+                                                <img src="../../../static/img/imac-top.png" class="modistore-app-mac-top"/>
+                                                <img src="../../../static/img/imac-top.png" class="modistore-app-mac-top2"/>
+                                            </div>
+                                            <img src="../../../static/img/imac-base.png" class="modistore-app-mac-base"/>
                                         </figure>
                                         <p class="has-text-centered has-text-grey-light"> {{app.small_description}} </p>
                                     </div>
@@ -86,7 +89,7 @@ import moment from "moment";
                 }
             }
         },
-        mounted() {
+        created() {
             if (this.application) {
                 this.app.name = this.application.shortname
                 this.app.rate_average = Number(this.application.rate_average.toFixed())
@@ -98,7 +101,7 @@ import moment from "moment";
 
 
             } else {
-                console.log("no props passed")
+                this.$router.push('/modistore');
             }
         }, 
         methods: {
@@ -111,6 +114,7 @@ import moment from "moment";
 </script>
 <style lang="scss"> 
 @import '../../styles/global.scss';
+@import './scss/ModiStore.scss';
 
 .is-horizontal-center {
 	justify-content: center;

@@ -6,3 +6,76 @@
     align-items: center;
     text-align: center;
 }
+
+.modistore-card {
+    height: 230px;
+}
+
+.modistore-desc {
+    height: 70px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.modistore-card-footer {
+    height: 30px;
+    text-align: right;
+    position: relative;
+}
+
+.modistore-button {
+    background-color: #2b5bb2;
+    color: #fff;
+    text-decoration: none;
+}
+
+.modistore-button:hover {
+    background-color: #fff;
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+}
+
+.modistore-button-disabled {
+    background-color: lightgray;
+    color: dimgray;
+}
+
+.modistore-see-more {
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-size: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    color: dimgrey;
+}
+
+.modistore-see-more:hover {
+    text-decoration: underline;
+}
+
+.modistore-app-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.modistore-appdetail-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.modistore-app-logo-container {
+    overflow: hidden;
+    line-height: 0;
+}
+
+.modistore-app-img {
+    position: absolute;
+}
+
+.modistore-app-mac-top2 {
+    position: absolute;
+    top: 0;
+    left: 0
+}
