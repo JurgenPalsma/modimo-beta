@@ -50,6 +50,11 @@ export default new Router({
             path: '/analytics',
             name: 'Analytics',
             component: Analytics
+        },
+        {
+            path: '/billboard',
+            name: 'Billboard',
+            component: Billboard
         }
     ]
 })
