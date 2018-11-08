@@ -6,6 +6,7 @@ import Home from '@/components/Home'
 import Tickets from '@/components/tickets/Tickets'
 import Modistore from '@/components/modistore/Modistore'
 import StoreAppDetails from '@/components/modistore/AppDetails'
+import Billboard from '@/components/billboard/Billboard'
 //  import MailCreate from '@/components/Mails/mailCreate.vue'
 import Analytics from '@/components/analytics/Analytics'
 
