@@ -2,7 +2,7 @@
     <section class="hero is-fullheight-minus-navbar modimo-dark">
         <div class="hero-body">
             <div class="title has-text-centered white-title">
-                    Envoi de mail
+                    Envoi de Mail
                 </div>
                 <br>
                 <br>
