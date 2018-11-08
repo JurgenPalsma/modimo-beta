@@ -90,10 +90,8 @@ export default {
 
   created: function() {},
 
-  created: function() {},
-
   updated: function() {
-    this.load();
+    if (current_user === null) this.load();
   },
 
   mounted() {
