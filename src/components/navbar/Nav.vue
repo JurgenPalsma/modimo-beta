@@ -20,7 +20,7 @@
                 <div v-if="$route.name != 'Home' && $route.name != 'Login'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home">Apps</a>
-                        <div class="navbar-dropdown ">
+                        <div class="navbar-dropdown">
                             <a class="navbar-item " href="/tickets">Tickets</a>
                             <a class="navbar-item" href="/analytics">Statistiques</a>
                         </div>

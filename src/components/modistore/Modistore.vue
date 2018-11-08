@@ -9,8 +9,7 @@
                 <div class="columns is-multiline is-mobile">
                     <div v-for="app in applications" :key="app._id" class="column is-one-quarter-desktop"> 
                         <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
-                            <div>
-                                <div class="card " style="border-radius: 3px, height:200px">
+                                <div class="card" style="border-radius: 3px">
                                     <div class="card-content">
                                         <div class="media is-vertical-center">
                                             <div class="media-left">
@@ -19,7 +18,7 @@
                                                 </figure>
                                             </div>
                                             <div class="media-content ">
-                                                <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center">{{app.shortname}}</p>
+                                                <p class="is-size-5 has-text-weight-bold has-text-link">{{app.shortname}}</p>
                                                 
                                             </div>
                                             
@@ -29,7 +28,6 @@
                                             </div>
                                     </div>
                                 </div>
-                            </div>
                         </router-link>
                     </div>
                     <div class="column is-one-quarter-desktop">
