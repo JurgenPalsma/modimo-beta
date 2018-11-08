@@ -112,6 +112,24 @@ apiRoutes.patch('/user/application/add', function(req, res) {
         });
     });
 
+    // get users by residenceId
+    apiRoutes.get('/users', function(req, res) {
+        User.findOne({token: req.headers['x-access-token']}, function(err, currentUser) {
+            if (err) return res.json({success: false, message: 'Error from db'});
+            if (!currentUser || !req.headers.residence_id) res.json({success: false, message: 'Bad params', currentUser : req.headers.residenceId})
+            else { 
+                let params = {residence: req.headers.residence_id};
+                User.find(params, function (err, users) {
+                    if (err) return res.json({success: false, message: 'Error from db, check your residence ID'});
+                    if (!users)
+                        res.json({success: false, message: 'Invalid residence ID'});
+                    else
+                        res.json({success: true, users: users});
+                });
+            }
+        });
+    });
+
     apiRoutes.delete('/user', function(req, res) { // TODO make this more safe
 
         User.findOne({token: req.headers['x-access-token']}, function(err, currentUser) {
@@ -133,10 +151,11 @@ apiRoutes.patch('/user/application/add', function(req, res) {
                             if (!err)
                                 res.json({success: true, message: 'User removed'})
                             else
-                                res.json({success: false, message: 'cant delete user'})
+                                res.json({success: false, message: 'cannot delete user'})
                         });
                 });
             }
         });
     });
 };
+
