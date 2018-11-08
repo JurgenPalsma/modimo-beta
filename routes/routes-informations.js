@@ -6,7 +6,7 @@ module.exports = function (app, apiRoutes) {
     // route to add a post to billboard
     apiRoutes.post('/infos/info', function (req, res) {
 
-        if (!req.body.title || !req.body.content)
+        if (!req.headers.title || !req.headers.content)
             return res.json({
                 success: false,
                 message: 'Error: request incomplete'
@@ -26,8 +26,8 @@ module.exports = function (app, apiRoutes) {
                     let info = new Info({
                         author_id: user._id,
                         info_type: 'info',
-                        title: req.body.title,
-                        content: req.body.content,
+                        title: req.headers.title,
+                        content: req.headers.content,
                         created_at: new Date(),
                         updated_at: new Date(),
                         residence: user.residence
@@ -141,7 +141,7 @@ module.exports = function (app, apiRoutes) {
 
     // route to modify info with id
     apiRoutes.patch('/infos/info', function (req, res) {
-        if (!req.body.info_id || !req.body.title || !req.body.content)
+        if (!req.headers.info_id || !req.headers.title || !req.headers.content)
             return res.json({
                 success: false,
                 message: 'Error: request incomplete'
@@ -160,7 +160,7 @@ module.exports = function (app, apiRoutes) {
                 });
             else {
                 Info.findOne({
-                    _id: req.body.info_id
+                    _id: req.headers.info_id
                 }, function (err, info) {
                     if (err) return res.json({
                         success: false,
@@ -175,21 +175,21 @@ module.exports = function (app, apiRoutes) {
                         Info.update({
                             _id: info.id
                         }, {
-                            content: req.body.content,
-                            title: req.body.title,
-                            updated_at: new Date()
-                        }, function (err) {
-                            if (!err) {
-                                return res.json({
-                                    success: true,
-                                    message: 'Info update success'
-                                })
-                            } else
-                                return res.json({
-                                    success: false,
-                                    message: 'Info update Failed'
-                                })
-                        });
+                                content: req.headers.content,
+                                title: req.headers.title,
+                                updated_at: new Date()
+                            }, function (err) {
+                                if (!err) {
+                                    return res.json({
+                                        success: true,
+                                        message: 'Info update success'
+                                    })
+                                } else
+                                    return res.json({
+                                        success: false,
+                                        message: 'Info update Failed'
+                                    })
+                            });
                     } else
                         return res.json({
                             success: false,
@@ -202,7 +202,7 @@ module.exports = function (app, apiRoutes) {
 
     // route to delete info with id
     apiRoutes.delete('/infos/info', function (req, res) {
-        if (!req.body.info_id)
+        if (!req.headers.info_id)
             return res.json({
                 success: false,
                 message: 'Error: request incomplete'
@@ -222,7 +222,7 @@ module.exports = function (app, apiRoutes) {
                 });
             else {
                 Info.findOne({
-                    _id: req.body.info_id
+                    _id: req.headers.info_id
                 }, function (err, info) {
                     if (err) return res.json({
                         success: false,
