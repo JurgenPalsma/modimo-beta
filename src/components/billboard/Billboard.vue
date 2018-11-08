@@ -15,7 +15,7 @@
           <div v-for="info in thirdFirstInformations" :key="info._id" class="tile"> <!--@click="showModalBillboardModification = true"-->
             <div class="tile is-parent is-vertical">
               <article class="tile is-child box ">
-              <button style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+              <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title">{{ info.title }}</p>
                 <p class="subtitle">{{ info.content }}</p>
               </article>
@@ -29,7 +29,7 @@
               <div class="tile is-parent is-vertical" style="margin-top: -20px;">
                 <div v-for="info in twoLeftVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
                   <article class="tile is-child box ">
-                    <button style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                    <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title">{{ info.title }}</p>
                     <p class="subtitle">{{ info.content }}</p>
                   </article>
@@ -48,7 +48,7 @@
               <div class="tile is-parent is-vertical" style="margin-top: -20px;">
                 <div v-for="info in twoRightVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
                   <article class="tile is-child box ">
-                    <button style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                    <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title">{{ info.title }}</p>
                     <p class="subtitle">{{ info.content }}</p>
                   </article>
@@ -57,7 +57,7 @@
             </div>
             <div v-if="informations.length >= 7" class="tile is-parent">
               <article class="tile is-child box">
-                <button style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                <button v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title">{{ wideElement.title }}</p>
                 <div class="content">
                   <p>{{ wideElement.content }}</p>
@@ -84,6 +84,7 @@ export default {
     return {
       showModalBillboardCreation: false,
       showModalBillboardModification: false,
+      current_user: null,
 
       informations: [],
 
@@ -158,8 +159,7 @@ export default {
     },
 
     async load() {
-      console.log(this.$parent);
-      //this.current_user = await this.$parent.getCurrentUser();
+      this.current_user = await this.$parent.getCurrentUser();
       const resp = await BillboardService.getInfos(
         this.$cookies.get("api_token")
       );
