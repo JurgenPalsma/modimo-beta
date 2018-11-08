@@ -1,14 +1,15 @@
 <template>
     <section class="hero is-fullheight-minus-navbar modimo-dark">
         <div class="hero-body">
+            <div class="title has-text-centered white-title">
+                    Envoi de mail
+                </div>
+                <br>
+                <br>
             <div class="container">           
                 <div class="box">
-                    <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size ">Envoi de mail</strong>
-                            <br>
-                            <br>
                             <div class="field">
                                 <label class="label">Titre</label>
                                 <div class="control">
