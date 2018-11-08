@@ -4,6 +4,7 @@ import Landing from '@/components/Landing'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Tickets from '@/components/tickets/Tickets'
+import Mailer from '@/components/mails/Mailer'
 import Modistore from '@/components/modistore/Modistore'
 import StoreAppDetails from '@/components/modistore/AppDetails'
 import Billboard from '@/components/billboard/Billboard'
@@ -46,6 +47,11 @@ export default new Router({
             path: '/tickets',
             name: 'Tickets',
             component: Tickets
+        },
+        {
+            path: '/mailer',
+            name: 'Mailer',
+            component: Mailer
         },
         {
             path: '/analytics',

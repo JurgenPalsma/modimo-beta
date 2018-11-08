@@ -1,8 +1,7 @@
 <template>
-    <section>
-        <div class="modal is-active">
-            <div class="my-modal-background modal-background" style="opacity:50%;" @click="$emit('close_modal')"></div>
-            <div class="modal-content">
+    <section class="hero is-fullheight-minus-navbar modimo-dark">
+        <div class="hero-body">
+            <div class="container">           
                 <div class="box">
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
@@ -49,7 +48,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>     
     </section>
 </template>
 
