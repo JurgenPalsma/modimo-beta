@@ -18,7 +18,7 @@
                                             </figure>
                                         </div>
                                         <div class="media-content ">
-                                            <p class="is-size-5 has-text-weight-bold has-text-link modistore-app-name">{{app.shortname}}</p>
+                                            <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center modistore-app-name">{{app.shortname}}</p>
                                         </div>
                                         
                                     </div>

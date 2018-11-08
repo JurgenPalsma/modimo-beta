@@ -145,7 +145,7 @@
                 if (resp.data.success) {
                     this.ticket_author = resp.data.user.name
                 } else {
-                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation de l\'auteur'}
+                    alert('Erreur lors de la récuperation de l\'auteur')
                 }
             },
             modifTicket: function (event) {

@@ -20,7 +20,7 @@
                 <div v-if="$route.name != 'Home' && $route.name != 'Login'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home">Apps</a>
-                        <div class="navbar-dropdown">
+                        <div class="navbar-dropdown ">
                             <a class="navbar-item " href="/tickets">Tickets</a>
                             <a class="navbar-item" href="/analytics">Statistiques</a>
                             <a class="navbar-item" href="/billboard">Mur d'affiche</a>
@@ -29,6 +29,18 @@
                 </div>
 
                 <div v-if="$route.name != 'Login'" class="navbar-end">
+                    <div @userdata="load()" v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" class="navbar-item">
+                        <div class="field is-grouped">
+                            <p class="control" @click='mailerModal()'>
+                                <a class="button">
+                                <span class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <span>Envoyer un mail</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                     <div class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" @click="notifModal()">
@@ -48,7 +60,7 @@
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Déconnexion</span>
+                                <span>Déconnection</span>
                                 </a>
                             </p>
                         </div>
@@ -56,18 +68,21 @@
                 </div>
             </div>
         </nav>
+        <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
         <notif v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
     </section>
 </template>
 
 <script>
 import AuthService from "@/services/AuthService";
+import Mailer from "../mails/Mailer.vue";
 import Notifications from "../notifications/notifications.vue";
 
 export default {
   name: "navbar",
   data() {
     return {
+      showMailerModal: false,
       showNotifModal: false,
       current_user: null
     };
@@ -108,6 +123,9 @@ export default {
       this.$router.push("/");
     },
 
+    mailerModal: function() {
+      this.showMailerModal = true;
+    },
     notifModal: function() {
       console.log("click on notif");
       this.showNotifModal = true;
@@ -115,6 +133,7 @@ export default {
   },
 
   components: {
+    mailer: Mailer,
     notif: Notifications
   }
 };
