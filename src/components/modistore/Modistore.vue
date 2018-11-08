@@ -1,5 +1,63 @@
 <template>
-    
+    <section class="hero modimo-dark is-fullheight-minus-navbar">
+        <div class="hero-body">
+            <div class="container">
+                <br/><br/>
+                <h1 class="title white-title is-1">
+                    Modistore
+                </h1>
+                <div class="columns is-multiline is-mobile">
+                    <div v-for="app in applications" :key="app._id" class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
+                        <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
+                            <div class="card modistore-card" style="border-radius: 3px">
+                                <div class="card-content modistore-card">
+                                    <div class="media is-vertical-center">
+                                        <div class="media-left">
+                                            <figure class="image is-64x64">
+                                            <img :src="app.mini_logo" :alt="app.name">
+                                            </figure>
+                                        </div>
+                                        <div class="media-content ">
+                                            <p class="is-size-5 has-text-weight-bold has-text-link is-horizontal-center modistore-app-name">{{app.shortname}}</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="content">
+                                        <p class="is-size-7 is-italic has-text-grey-dark modistore-desc">{{app.description}}</p>
+                                        <div class="modistore-card-footer">
+                                            <span class="modistore-see-more">Voir plus</span>
+                                            <span v-if="app.link && !app.added" class="button modistore-button">Ajouter</span>
+                                            <span v-else-if="app.link && app.added" class="button modistore-button-disabled" disabled>Ajoutée</span>
+                                            <span v-else class="button modistore-button-disabled" disabled>Prochainement</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
+                        <div class="card" style="border-radius: 3px; opacity: 0.5">
+                            <div class="card-content modistore-card">
+                                <div class="media is-vertical-center">
+                                    <div class="media-left">
+                                        <figure class="image is-64x64">
+                                        <img src="/static/img/comingsoon.png" alt="Analytics">
+                                        </figure>
+                                    </div>
+                                    <div class="media-content ">
+                                        <p class="is-size-5 has-text-weight-bold has-text-dark modistore-app-name">Prochainement</p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <p class="is-size-7 is-italic has-text-grey-dark">Pleins d'applications à venir !</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -14,23 +72,31 @@ export default {
         }
     },
 
-    mounted: function () {
+    created: function () {
         this.load()
     },
 
     methods: {
-
         async getApps () {
             const resp = await ModistoreService.getAllApplications(this.$cookies.get('api_token'));
             if (resp.data.sucess) {
-                this.applications = resp.data.applications
+                this.applications = resp.data.applications.sort((a, b) => {
+                    if (a.link === undefined) return 1
+                    if (b.link === undefined) return -1
+                    return 0
+                });
                 this.applications.splice(this.applications.findIndex(a => a.shortname === "ModiStore"), 1);
+                this.applications.forEach(app => {
+                    if (this.current_user.application_list.findIndex(a => a === app._id) != -1)
+                        app.added = true;
+                });
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des applications'}
             }
         },
 
         async load () {
+            this.current_user = await this.$parent.getCurrentUser()
             await this.getApps()
         }
     },

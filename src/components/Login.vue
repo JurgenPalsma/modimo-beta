@@ -23,7 +23,7 @@
                 <div class="field">
                   <label class="label">Mot de passe</label>
                   <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="password" placeholder="Votre Mot de passe..." v-model="password">
+                    <input @keypress.enter="login" class="input" type="password" placeholder="Votre Mot de passe..." v-model="password">
                     <span class="icon is-small is-left">
                       <i class="fas fa-key"></i>
                     </span>
@@ -32,7 +32,7 @@
 
                 <p class="control has-text-centered">-</p>
                 <p class="control">
-                  <button class="button is-primary is-medium is-fullwidth"  @click="login">
+                  <button class="button is-primary is-medium is-fullwidth" @click="login">
                     <i class="fa fa-user"></i>
                     Connection
                   </button>

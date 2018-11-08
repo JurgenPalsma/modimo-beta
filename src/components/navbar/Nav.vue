@@ -23,6 +23,7 @@
                         <div class="navbar-dropdown">
                             <a class="navbar-item " href="/tickets">Tickets</a>
                             <a class="navbar-item" href="/analytics">Statistiques</a>
+                            <a class="navbar-item" href="/billboard">Mur d'affiche</a>
                         </div>
                     </div>
                 </div>
@@ -33,8 +34,21 @@
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <span>Envoyer un mail</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                        <div class="field is-grouped">
+                            <p class="control" @click="notifModal()">
+                                <a class="button">
+                                <span class="icon">
                                     <i class="fa fa-bell"></i>
                                 </span>
+                                <span>Notifications</span>
                                 </a>
                             </p>
                         </div>
@@ -53,68 +67,78 @@
                     </div>
                 </div>
             </div>
-
         </nav>
         <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
+        <notif v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
     </section>
 </template>
 
 <script>
-import AuthService from '@/services/AuthService'
-import Mailer from '../mails/Mailer.vue'
+import AuthService from "@/services/AuthService";
+import Mailer from "../mails/Mailer.vue";
+import Notifications from "../notifications/notifications.vue";
 
 export default {
-    name: 'navbar',
-    data () {
-        return {
-            showMailerModal: false,
-            current_user: null
-        }
-    },
-
-    created: function () {
+  name: "navbar",
+  data() {
+    return {
+      showMailerModal: false,
+      showNotifModal: false,
+      current_user: null
+    };
   },
 
-  updated: function () {
-      this.load();
+  created: function() {},
+
+  created: function() {},
+
+  updated: function() {
+    this.load();
   },
 
-    mounted () {
-        this.load()
-        document.addEventListener('DOMContentLoaded', function () {
-            var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
-            if ($navbarBurgers.length > 0) {
-                $navbarBurgers.forEach(function ($el) {
-                    $el.addEventListener('click', function () {
-                        var target = $el.dataset.target
-                        var $target = document.getElementById(target)
-                        $el.classList.toggle('is-active')
-                        $target.classList.toggle('is-active')
-                    })
-                })
-            }
+  mounted() {
+    this.load();
+    document.addEventListener("DOMContentLoaded", function() {
+      var $navbarBurgers = Array.prototype.slice.call(
+        document.querySelectorAll(".navbar-burger"),
+        0
+      );
+      if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach(function($el) {
+          $el.addEventListener("click", function() {
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
+            $el.classList.toggle("is-active");
+            $target.classList.toggle("is-active");
+          });
         });
+      }
+    });
+  },
+  methods: {
+    async load() {
+      this.current_user = await this.$parent.getCurrentUser();
     },
-    methods: {
-        async load() {
-            this.current_user = await this.$parent.getCurrentUser()
-        },
-        logout: function () {
-            AuthService.logout(this.$cookies.get('api_token'))
-            this.$cookies.remove('api_token')
-            this.$router.push('/')
-        },
-
-        mailerModal: function () {
-            this.showMailerModal = true
-        }
+    logout: function() {
+      AuthService.logout(this.$cookies.get("api_token"));
+      this.$cookies.remove("api_token");
+      this.$router.push("/");
     },
 
-    components: {
-        'mailer': Mailer
+    mailerModal: function() {
+      this.showMailerModal = true;
+    },
+    notifModal: function() {
+      console.log("click on notif");
+      this.showNotifModal = true;
     }
+  },
 
-}
+  components: {
+    mailer: Mailer,
+    notif: Notifications
+  }
+};
 </script>
 
 <style lang="scss">
@@ -123,7 +147,7 @@ export default {
 
   .is-mega-menu-title {
     margin-bottom: 0;
-    padding: .375rem 1rem;
+    padding: 0.375rem 1rem;
   }
 }
 </style>
