@@ -34,8 +34,21 @@
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <span>Envoyer un mail</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                        <div class="field is-grouped">
+                            <p class="control" @click="notifModal()">
+                                <a class="button">
+                                <span class="icon">
                                     <i class="fa fa-bell"></i>
                                 </span>
+                                <span>Notifications</span>
                                 </a>
                             </p>
                         </div>
@@ -54,24 +67,28 @@
                     </div>
                 </div>
             </div>
-
         </nav>
         <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
+        <notif v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
     </section>
 </template>
 
 <script>
 import AuthService from "@/services/AuthService";
 import Mailer from "../mails/Mailer.vue";
+import Notifications from "../notifications/notifications.vue";
 
 export default {
   name: "navbar",
   data() {
     return {
       showMailerModal: false,
+      showNotifModal: false,
       current_user: null
     };
   },
+
+  created: function() {},
 
   created: function() {},
 
@@ -110,11 +127,16 @@ export default {
 
     mailerModal: function() {
       this.showMailerModal = true;
+    },
+    notifModal: function() {
+      console.log("click on notif");
+      this.showNotifModal = true;
     }
   },
 
   components: {
-    mailer: Mailer
+    mailer: Mailer,
+    notif: Notifications
   }
 };
 </script>
