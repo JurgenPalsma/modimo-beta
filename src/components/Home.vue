@@ -59,6 +59,23 @@
                             </div>
                         </div>
                     </router-link>
+                    <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER'))" to="/mailer" class="column is-one-quarter-desktop">
+                        <div class="card" style="border-radius: 3px">
+                            <div class="card-content">
+                                <div class="media is-vertical-center">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                    <img src="/static/img/email.png" alt="Mailer">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="is-size-5 has-text-weight-bold has-text-link">Mailer</p>
+                                    <p class="is-size-7 is-italic has-text-grey-dark">Envoyez des mails aux membres de votre résidence</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
                     <div class="column is-12-mobile is-6-tablet is-3-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
