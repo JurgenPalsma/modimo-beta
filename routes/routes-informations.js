@@ -6,7 +6,7 @@ module.exports = function (app, apiRoutes) {
     // route to add a post to billboard
     apiRoutes.post('/infos/info', function (req, res) {
 
-        if (!req.headers.title || !req.headers.content)
+        if (!req.body.title || !req.body.content)
             return res.json({
                 success: false,
                 message: 'Error: request incomplete'
@@ -26,8 +26,8 @@ module.exports = function (app, apiRoutes) {
                     let info = new Info({
                         author_id: user._id,
                         info_type: 'info',
-                        title: req.headers.title,
-                        content: req.headers.content,
+                        title: req.body.title,
+                        content: req.body.content,
                         created_at: new Date(),
                         updated_at: new Date(),
                         residence: user.residence
