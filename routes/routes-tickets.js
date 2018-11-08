@@ -30,7 +30,7 @@ module.exports = function(app, apiRoutes, io) {
                     residence_id: user.residence,
                     });
                     ticket.save(function(err) {
-                    //Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
+                    Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
                     if (err) res.json({success: false, message: err.message});
                     else res.json({success: true, ticket: ticket});
                     });
@@ -73,7 +73,7 @@ module.exports = function(app, apiRoutes, io) {
                                     else res.json({success: true, message: 'Ticket update success', ticket: ticket})
                             });
                         }
-                            
+
                     });
                 }
             });
@@ -138,7 +138,7 @@ module.exports = function(app, apiRoutes, io) {
             }
         });
     });
-    
+
     // Get les tickets d'une rési avec tri
     apiRoutes.get('/tickets', function(req, res) {
         if (!req.headers['residence_id'])
