@@ -33,9 +33,8 @@
                             <p class="control" @click='mailerModal()'>
                                 <a class="button">
                                 <span class="icon">
-                                    <i class="fa fa-envelope"></i>
+                                    <i class="fa fa-bell"></i>
                                 </span>
-                                <span>Envoyer un mail</span>
                                 </a>
                             </p>
                         </div>
@@ -54,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </nav>
         <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
     </section>
@@ -72,7 +71,7 @@ export default {
             current_user: null
         }
     },
-    
+
     created: function () {
   },
 
@@ -94,7 +93,7 @@ export default {
                     })
                 })
             }
-        }); 
+        });
     },
     methods: {
         async load() {
@@ -114,7 +113,7 @@ export default {
     components: {
         'mailer': Mailer
     }
-    
+
 }
 </script>
 
