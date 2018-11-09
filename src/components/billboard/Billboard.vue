@@ -18,7 +18,7 @@
               <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
                 <p class="content">{{ info.content }}</p>
-                <p class="is-size-7" style="float: left">{{info.author_id}}</p>
+                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
                 <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
@@ -34,7 +34,7 @@
                     <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title" @click="idToModal(info)">{{ info.title }}</p>
                     <p class="content">{{ info.content }}</p>
-                    <p style="float: left">{{info.author_id}}</p>
+                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
                     <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
@@ -55,7 +55,7 @@
                     <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title" @click="idToModal(info)">{{ info.title }}</p>
                     <p class="content">{{ info.content }}</p>
-                    <p style="float: left">{{info.author_id}}</p>
+                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
                     <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
@@ -68,8 +68,6 @@
                 <div class="content">
                   <p>{{ wideElement.content }}</p>
                 </div>
-                <p style="float: left">{{info.author_id}}</p>
-                <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
           </div>
@@ -82,7 +80,7 @@
                 <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
                 <p class="content">{{ info.content }}</p>
-                <p style="float: left">{{info.author_id}}</p>
+                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
                 <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
@@ -126,6 +124,7 @@ export default {
   },
 
   mounted: function() {
+    console.log("je passe");
     this.load();
   },
 
