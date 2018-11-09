@@ -29,8 +29,6 @@
                     </span>
                   </div>
                 </div>
-
-                <p class="control has-text-centered">-</p>
                 <p class="control">
                   <button class="button is-primary is-medium is-fullwidth" @click="login">
                     <i class="fa fa-user"></i>

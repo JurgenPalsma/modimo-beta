@@ -8,91 +8,23 @@
                 </h1>
                 
                 <div class="columns is-multiline is-mobile">
-                    <router-link to="/tickets" class="column is-12-mobile is-6-tablet is-3-desktop">
+                    <router-link v-for="app in applications" :key="app._id" :to="app.link" class="column is-12-mobile is-6-tablet is-3-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img src="/static/img/tickets.png" alt="Tickets">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="is-size-5 has-text-weight-bold has-text-link">Tickets</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Signalez un problème à votre résidence</p>
-                                </div>
+                                    <div class="media-left">
+                                        <figure class="image is-64x64">
+                                            <img :src="app.mini_logo" :alt="app.shortname">
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="is-size-5 has-text-weight-bold has-text-link">{{app.shortname}}</p>
+                                        <p class="is-size-7 is-italic has-text-grey-dark modimo-app-description">{{app.small_description}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </router-link>
-                    <router-link to="/modistore" class="column is-one-quarter-desktop">
-                        <div class="card" style="border-radius: 3px">
-                            <div class="card-content">
-                                <div class="media is-vertical-center">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img src="/static/img/ModiStore.png" alt="Tickets">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="is-size-5 has-text-weight-bold has-text-link">ModiStore</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Intégrez de nouvelles applications à votre résidence</p>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </router-link>
-                    <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-one-quarter-desktop">
-                        <div class="card" style="border-radius: 3px">
-                            <div class="card-content">
-                                <div class="media is-vertical-center">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img src="/static/img/analytics.png" alt="Analytics">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="is-size-5 has-text-weight-bold has-text-link">Statistiques</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Observez l'activité de la résidence</p>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </router-link>
-                    <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER'))" to="/mailer" class="column is-one-quarter-desktop">
-                        <div class="card" style="border-radius: 3px">
-                            <div class="card-content">
-                                <div class="media is-vertical-center">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img src="/static/img/email.png" alt="Mailer">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="is-size-5 has-text-weight-bold has-text-link">Mailer</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Envoyez des mails aux membres de votre résidence</p>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </router-link>
-                    <div class="column is-12-mobile is-6-tablet is-3-desktop">
-                        <div class="card" style="border-radius: 3px">
-                            <div class="card-content">
-                                <div class="media is-vertical-center">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img src="/static/img/comingsoon.png" alt="Analytics">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="is-size-5 has-text-weight-bold has-text-dark">Prochainement</p>
-                                    <p class="is-size-7 is-italic has-text-grey-dark">Pleins d'applications à venir !</p>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -101,22 +33,28 @@
 
 <script>
 import AuthService from '@/services/AuthService'
+import ModistoreService from '@/services/ModistoreService'
 
 export default {
     name: 'home',
     data () {
         return {
-            current_user: null
+            current_user: null,
+            applications: []
         }
     },
 
-    mounted: function () {
+    created: async function () {
         this.load()
     },
 
     methods: {
-        async load () {
-            this.current_user = await this.$parent.getCurrentUser()
+        load () {
+            this.current_user = this.$parent.getCurrentUser()
+            ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
+            .then(response => {
+                this.applications = response.data.applications;
+            })
         },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))

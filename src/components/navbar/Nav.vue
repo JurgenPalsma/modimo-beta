@@ -21,9 +21,9 @@
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home">Apps</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item " href="/tickets">Tickets</a>
-                            <a class="navbar-item" href="/analytics">Statistiques</a>
-                            <a class="navbar-item" href="/billboard">Mur d'affiche</a>
+                            <a class="navbar-item" v-for="app in applications" :key="app._id" :href="app.link">{{app.shortname}}</a>
+                            <!-- <a class="navbar-item" href="/analytics">Statistiques</a>
+                            <a class="navbar-item" href="/billboard">Mur d'affiche</a> -->
                         </div>
                     </div>
                 </div>
@@ -63,23 +63,18 @@
 <script>
 import AuthService from "@/services/AuthService";
 import Notifications from "../notifications/notifications.vue";
+import ModistoreService from '@/services/ModistoreService'
 
 export default {
   name: "navbar",
   data() {
     return {
       showNotifModal: false,
-      current_user: null
+      applications: null
     };
   },
 
-  created: function() {},
-
-  updated: function() {
-    if (current_user === null) this.load();
-  },
-
-  mounted() {
+  created: function() {
     this.load();
     document.addEventListener("DOMContentLoaded", function() {
       var $navbarBurgers = Array.prototype.slice.call(
@@ -98,22 +93,37 @@ export default {
       }
     });
   },
+
+    watch: {
+        currentUser: function(newCurrentUser) {
+            if (newCurrentUser && this.$cookies.get('api_token')) {
+                ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
+                .then(response => {
+                    this.applications = response.data.applications;
+                })
+            }
+        }
+    },
   methods: {
     async load() {
-      this.current_user = await this.$parent.getCurrentUser();
+        ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
+        .then(response => {
+            this.applications = response.data.applications;
+        })
     },
     logout: function() {
       AuthService.logout(this.$cookies.get("api_token"));
       this.$cookies.remove("api_token");
       this.$router.push("/");
+      this.$parent.currentUser = null;
     },
 
     notifModal: function() {
-      console.log("click on notif");
       this.showNotifModal = true;
     }
   },
 
+    props: ['currentUser'],
   components: {
     notif: Notifications
   }

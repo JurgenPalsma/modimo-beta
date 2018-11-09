@@ -2,12 +2,19 @@
     <section class="hero modimo-dark is-fullheight-minus-navbar">
         <div class="hero-body">
             <div class="container">
-                <br/><br/>
-                <h1 class="title white-title is-1">
-                    Modistore
-                </h1>
+                <div class="columns">
+                    <div class="column">
+                        <h1 class="title white-title is-1">
+                            Modistore
+                        </h1>
+                    </div>
+                    <div style="margin-top: auto; position: relative" class="column">
+                        <input class="input modistore-input-search is-info" type="text" placeholder="Rechercher une application"/>
+                        <span class="modistore-search-icon"><i class="fa fa-search"/></span>
+                    </div>
+                </div>
                 <div class="columns is-multiline is-mobile">
-                    <div v-for="app in applications" :key="app._id" class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
+                    <div v-for="app in (applicationsFiltered.length ? applicationsFiltered : applications)" :key="app._id" class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
                         <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
                             <div class="card modistore-card" style="border-radius: 3px">
                                 <div class="card-content modistore-card">
@@ -35,7 +42,7 @@
                             </div>
                         </router-link>
                     </div>
-                    <div class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
+                    <div v-if="applications && applications.length > 0" class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
                         <div class="card" style="border-radius: 3px; opacity: 0.5">
                             <div class="card-content modistore-card">
                                 <div class="media is-vertical-center">
@@ -68,7 +75,9 @@ export default {
     data () {
         return {
             current_user: null,
-            applications: []
+            applications: [],
+            searchContent: '',
+            applicationsFiltered: []
         }
     },
 

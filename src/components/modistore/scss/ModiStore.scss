@@ -86,3 +86,20 @@ $lines-to-show: 4;
     top: 0;
     left: 0
 }
+
+.modistore-input-search {
+    background-color: #142b39;
+    border-color: #2b68d7;
+    color: white;
+    padding-left: 36px;
+}
+
+.modistore-input-search::placeholder {
+    color: gray;
+}
+
+.modistore-search-icon {
+    position: absolute;
+    bottom: 18px;
+    left: 23px;
+}
