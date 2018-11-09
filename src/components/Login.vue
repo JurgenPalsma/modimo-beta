@@ -34,7 +34,7 @@
                 <p class="control">
                   <button class="button is-primary is-medium is-fullwidth" @click="login">
                     <i class="fa fa-user"></i>
-                    Connection
+                    Connexion
                   </button>
                 </p>
               </div>
