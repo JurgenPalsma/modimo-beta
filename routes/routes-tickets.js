@@ -19,11 +19,12 @@ module.exports = function(app, apiRoutes, io) {
                 else if (!user)
                     res.json({success: false, message: 'Bad auth token'});
                 else {
+                    let date = new Date()
                     let ticket = new Ticket({
                     title: req.headers.title,
                     content: req.headers.content,
-                    created_at: new Date(),
-                    updated_at: new Date(),
+                    created_at: date,
+                    updated_at: date,
                     votes: [],
                     status: ticketStatus.open,
                     author_id: user._id,
@@ -137,6 +138,38 @@ module.exports = function(app, apiRoutes, io) {
             }
         });
     });
+
+    // route to modify content of ticket by author
+    apiRoutes.patch('/tickets/ticket', function(req, res) {
+        if (!req.body.ticket_id || !req.body.content)
+            return res.json({success: false, message: 'Error: request incomplete'});
+        User.findOne({
+            token: req.headers['x-access-token'],
+        }, function (err, user) {
+            if (err) return res.json({success: false, message: 'Error from db'});
+            if (!user)
+                res.json({success: false, message: 'User not found.'});
+            else{
+                Ticket.findOne({
+                    _id: req.body.ticket_id
+                }, function (err, ticket) {
+                    if (err) return res.json({success: false, message: 'Error from db'})
+                    if (!ticket)
+                        return res.json({success: false, message: 'Ticket not found'})
+                    else if (user._id == ticket.author_id)
+                        Ticket.update({
+                            _id: ticket.id}, {content:req.body.content, updated_at:new Date()}, function(err) {
+                            if (!err) {
+                                res.json({success: true, message: 'Ticket update success'})
+                            }
+                            else
+                                res.json({success: false, message: 'Ticket update Failed'})
+                        });
+                    else return res.json({success: false, message: 'You must be AUTHOR of the ticket to edit it'})
+                });
+            }
+        });
+    });
     
     // Get les tickets d'une rési avec tri
     apiRoutes.get('/tickets', function(req, res) {
@@ -165,49 +198,49 @@ module.exports = function(app, apiRoutes, io) {
         });
     });
 
-    // route to modify ticket with id
-    apiRoutes.patch('/tickets/ticket', function(req, res) {
-        if (!req.body.ticket_id || !req.body.title || !req.body.status)
-            return res.json({success: false, message: 'Error: request incomplete'});
-        User.findOne({
-            token: req.headers['x-access-token'],
-        }, function (err, user) {
-            if (err) return res.json({success: false, message: 'Error from db'});
-            if (!user)
-                return res.json({success: false, message: 'User not found.'});
-            else{
-                Ticket.findOne({
-                    _id: req.body.ticket_id
-                }, function (err, ticket) {
-                    if (err) return res.json({success: false, message: 'Error from db'})
-                    if (!ticket)
-                        return res.json({success: false, message: 'Ticket not found'})
-                    else if (ticket.author_id == user.id || user.roles.includes("ROOT") || user.roles.includes("ADMIN")
-                    || user.roles.includes("CARETAKER"))
-                        Ticket.update({
-                            _id: ticket.id}, {title:req.body.title, updated_at:new Date(), status:req.body.status}, function(err) {
-                            if (!err) {
-                              if (req.body.status != ticket.status)
-                                Notif.advancementTicket(req.body.title, user._id, user.name, ticket.id, req.body.status, ticket.residence_id, io);
-                              else{
-                                Notif.updateTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
-                                return res.json({success: true, message: 'Ticket update success'})
-                              }
-                                Ticket.findOne({
-                                    _id: req.body.ticket_id
-                                }, function (err, freshticket) {
-                                    return res.json({success: true, ticket: freshticket, message: 'Ticket update success'})
-                                });
-                            }
-                            else
-                                return res.json({success: false, message: 'Ticket update Failed'})
-                        });
-                    else
-                        return res.json({success: false, message: 'Permission denied'})
-                });
-            }
-        });
-    });
+    // // route to modify ticket with id
+    // apiRoutes.patch('/tickets/ticket', function(req, res) {
+    //     if (!req.body.ticket_id || !req.body.title || !req.body.status)
+    //         return res.json({success: false, message: 'Error: request incomplete'});
+    //     User.findOne({
+    //         token: req.headers['x-access-token'],
+    //     }, function (err, user) {
+    //         if (err) return res.json({success: false, message: 'Error from db'});
+    //         if (!user)
+    //             return res.json({success: false, message: 'User not found.'});
+    //         else{
+    //             Ticket.findOne({
+    //                 _id: req.body.ticket_id
+    //             }, function (err, ticket) {
+    //                 if (err) return res.json({success: false, message: 'Error from db'})
+    //                 if (!ticket)
+    //                     return res.json({success: false, message: 'Ticket not found'})
+    //                 else if (ticket.author_id == user.id || user.roles.includes("ROOT") || user.roles.includes("ADMIN")
+    //                 || user.roles.includes("CARETAKER"))
+    //                     Ticket.update({
+    //                         _id: ticket.id}, {title:req.body.title, updated_at:new Date(), status:req.body.status}, function(err) {
+    //                         if (!err) {
+    //                           if (req.body.status != ticket.status)
+    //                             Notif.advancementTicket(req.body.title, user._id, user.name, ticket.id, req.body.status, ticket.residence_id, io);
+    //                           else{
+    //                             Notif.updateTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
+    //                             return res.json({success: true, message: 'Ticket update success'})
+    //                           }
+    //                             Ticket.findOne({
+    //                                 _id: req.body.ticket_id
+    //                             }, function (err, freshticket) {
+    //                                 return res.json({success: true, ticket: freshticket, message: 'Ticket update success'})
+    //                             });
+    //                         }
+    //                         else
+    //                             return res.json({success: false, message: 'Ticket update Failed'})
+    //                     });
+    //                 else
+    //                     return res.json({success: false, message: 'Permission denied'})
+    //             });
+    //         }
+    //     });
+    // });
 
     // route to modify vote with id
     apiRoutes.patch('/tickets/ticket/vote', function(req, res) {
