@@ -53,7 +53,8 @@
                                         </div>
                                     </div>
                                     <div class="column is-11-mobile is-6-desktop">
-                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile has-text-left-tablet"> {{ ticket.title }} </p>
+                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
+                                        <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaires</p>
                                     </div>
                                     <div class="column is-6-mobile is-3-desktop">
                                         <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
