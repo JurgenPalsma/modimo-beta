@@ -1,4 +1,5 @@
 const Lead          = require('../models/lead');
+const welcome_messages  = require('../config/welcome_messages');
 
 module.exports = function(app) {
 

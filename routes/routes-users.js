@@ -1,5 +1,8 @@
-const User          = require('../models/user'); // get our mongoose model
+const User          = require('../models/user');
 const Application = require('../models/applications/application');
+const Residence     = require('../models/residence');
+const welcome_messages  = require('../config/welcome_messages');
+const mailer      = require('../functions/mailer')
 
 /*          Modimo API - User management             */
 
@@ -16,6 +19,88 @@ apiRoutes.get('/current-user', function(req, res) {
         else
             res.json({success: true, user: user});
     });
+});
+
+apiRoutes.post('/admin_register_user', function(req, res) {
+    if ((req.body.name || (req.body.firstname && req.body.lastname))
+        && req.body.email 
+        && req.body.residence_id
+        && req.body.roles) {
+            User.findOne({token: req.headers['x-access-token']}, function (err, user) {
+                if (err) throw err;
+                else if (!user)
+                    res.json({success: false, message: 'User not authorised'});
+                else {
+                    // Check user roles
+                    // Check email 
+                    // Create user 
+                    // Send email
+                    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    if (!re.test(String(req.body.email).toLowerCase())) {return res.json({success: false, message: 'bad param: email'});}
+
+                    // check if user exists
+                    User.findOne({ email: req.body.email, residence: req.body.residence_id }, function(err, user) {
+                        if (err) throw err;
+                        if (user) {
+                            return res.json({success: false, message: 'User already exists'});
+                        } else {
+                            
+                            // check if resi exists
+                            Residence.findOne({
+                                _id: req.body.residence_id,
+                            }, function (err, residence) {
+                                if (err) return res.json({success: false, message: 'Error from db'});
+                                if (!residence) {
+                                    return res.json({success: false, message: 'Residence not found.'})
+                                } else if (residence) {
+                                    const payload = {
+                                        name: req.body.name ? req.body.name : req.body.lastname
+                                    };
+                                    let token = jwt.sign(payload, app.get('superSecret'), {
+                                        expiresIn: 60 * 60 * 24
+                                    });
+
+                                    // create user
+                                    let user = new User({
+                                        name: req.body.name ? req.body.name : "",
+                                        first_name: req.body.firstname ? req.body.firstname : "",
+                                        last_name: req.body.lastname ? req.body.lastname : "",
+                                        password: token,
+                                        email: req.body.email,
+                                        residence: req.body.residence_id,
+                                        roles: req.body.roles,
+                                        created_at: new Date(),
+                                        application_list: residence.default_app_ids,
+                                    });
+
+                                    // save the user
+                                    user.save(function(err) {
+                                        if (err) throw err;
+            
+                                        // get user's caretaker's ID first
+                                        User.findOne({
+                                            _id: residence.caretaker_id,
+                                        }, function (err, caretaker) {
+                                            if (err) return res.json({success: false, message: 'Error from db'});
+                                            if (!caretaker) {
+                                                return res.json({success: false, message: 'Caretaker not found.'})
+                                            } else if (caretaker) {
+                                            if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='On vous a inscrit dans la résidence 2.0', sub={name: user.name}, templateId= '43893a65-6e79-4630-acd8-be76286ae2e7'))
+                                                return res.json({success: true, message: "User registered"});
+                                            else
+                                                return res.json({success: false, message: "Registration mail not sent"});
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        }});
+
+                   
+                }
+            });
+    }
+    else res.json({success: false, message: 'Incomplete request. Need: (req.body.name || (req.body.firstname && req.body.lastname)) && req.body.email  && req.body.residence_id && req.body.roles'});
 });
 
 // get user by id
@@ -112,6 +197,24 @@ apiRoutes.patch('/user/application/add', function(req, res) {
         });
     });
 
+    // get users by residenceId
+    apiRoutes.get('/users', function(req, res) {
+        User.findOne({token: req.headers['x-access-token']}, function(err, currentUser) {
+            if (err) return res.json({success: false, message: 'Error from db'});
+            if (!currentUser || !req.headers.residence_id) res.json({success: false, message: 'Bad params', currentUser : req.headers.residenceId})
+            else { 
+                let params = {residence: req.headers.residence_id};
+                User.find(params, function (err, users) {
+                    if (err) return res.json({success: false, message: 'Error from db, check your residence ID'});
+                    if (!users)
+                        res.json({success: false, message: 'Invalid residence ID'});
+                    else
+                        res.json({success: true, users: users});
+                });
+            }
+        });
+    });
+
     apiRoutes.delete('/user', function(req, res) { // TODO make this more safe
 
         User.findOne({token: req.headers['x-access-token']}, function(err, currentUser) {
@@ -133,10 +236,11 @@ apiRoutes.patch('/user/application/add', function(req, res) {
                             if (!err)
                                 res.json({success: true, message: 'User removed'})
                             else
-                                res.json({success: false, message: 'cant delete user'})
+                                res.json({success: false, message: 'cannot delete user'})
                         });
                 });
             }
         });
     });
 };
+
