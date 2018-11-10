@@ -18,11 +18,14 @@ export default {
             }
         })
     },
-    updateTicket (token, id) {
-        return Api().patch('/api/tickets/ticket', {
+    updateTicket (token, id, content) {
+        return Api().patch('/api/tickets/ticket', 
+        {
+            'ticket_id': id,
+            'content': content
+        }, {
             headers: {
-                'x-access-token': token,
-                'ticket_id': id
+                'x-access-token': token
             }
         })
     },

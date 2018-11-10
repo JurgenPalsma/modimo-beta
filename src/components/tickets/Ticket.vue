@@ -140,7 +140,9 @@
             },
             modifTicket: async function (event) {
                 console.log(this.$refs.text_modif_ticket.value)
-                const rest = await TicketService.modifTicket(this.$cookies.get('api_token'), this.ticket._id, this.$refs.text_modif_ticket.value)
+                this.ticket.content = this.$refs.text_modif_ticket.value
+                this.ticket.updated_at = new Date()
+                const rest = await TicketService.updateTicket(this.$cookies.get('api_token'), this.ticket._id, this.$refs.text_modif_ticket.value)
                 this.$refs.space_modif_ticket.style = 'display: none;'
                 this.$refs.display_ticket.style = 'display: block;'
                 this.$refs.modif_ticket_button.style = 'display: inline;'
