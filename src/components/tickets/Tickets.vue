@@ -57,7 +57,7 @@
                                         <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaires</p>
                                     </div>
                                     <div class="column is-6-mobile is-3-desktop">
-                                        <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
+                                        <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.updated_at" class="no-bold">{{ dateFormater(ticket.updated_at) }}</time></p>
                                         <p class="bold modimo-content-size is-text-overflow has-text-right">{{ticket.author_name}}</p>
                                     </div>
                                     <div class="column is-3-mobile is-2 has-text-right">

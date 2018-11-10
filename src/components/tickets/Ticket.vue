@@ -1,10 +1,10 @@
 <template>
     <section>
         <div class="modal is-active">
-            <div class="my-modal-background modal-background" style="opacity:50%;" @click="$emit('close_modal')"></div>
+            <div class="my-modal-background modal-background" style="opacity:50%;" v-on:click="closeModal"></div>
             <div class="modal-content">
                 <div v-if="ticket" class="box">
-                    <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
+                    <button class="delete is-pulled-right" aria-label="close" v-on:click="closeModal"></button>
                     <div class="media-content">
                         <div class="content">
                             <strong class="modimo-color modimo-size">{{ticket.author_name}} - {{ticket.title}}</strong>
@@ -155,6 +155,14 @@
             dateFormater(unFormatedDate) {
             var date = moment(String(unFormatedDate)).format('MM/DD/YYYY hh:mm')
             return (date)
+            },
+            closeModal() {
+                if (this.$refs.modif_ticket_button) {
+                    this.$refs.space_modif_ticket.style = 'display: none;'
+                    this.$refs.display_ticket.style = 'display: block;'
+                    this.$refs.modif_ticket_button.style = 'display: inline;'
+                }
+                this.$emit('close_modal')
             }
         },
     }
