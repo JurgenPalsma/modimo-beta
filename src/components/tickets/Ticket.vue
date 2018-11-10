@@ -30,7 +30,7 @@
                                 <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
                                 <span v-else>Modifié le </span>
                                 {{dateFormater(ticket.updated_at)}}
-                                <span v-if="this.current_user._id == this.ticket._id"> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a></span>
+                                <span v-if="this.current_user._id == this.ticket.author_id"> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a></span>
                             </small>
                         </div>
                         <article class="media">
@@ -53,7 +53,7 @@
                     </div>
                     <!--</article>-->
                     <article class="media">
-                        <div class="media-content">
+                        <div v-if="ticket.status != 'closed'" class="media-content">
                             <div class="field">
                                 <p class="control">
                                     <input v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire...">
@@ -68,6 +68,9 @@
                                     <button ref="send_comment" class="button" @click="commentTicket">Envoyer</button>
                                 </p>
                             </div>
+                        </div>
+                        <div v-else class="media-content">
+                            <span class="bold circle-processDown is-pulled-right">Fermé</span>
                         </div>
                     </article>
                 </div>
@@ -105,19 +108,17 @@
                     console.log('CLOSE TICKET failed :')
                     console.log(resp.data.message)
                 }
+                this.$parent.showTickets = this.$parent.sortTickets(this.$parent.index);
+
                 this.$emit('close_modal')
             },
             commentTicket: async function (event) {
-                var date = new Date()
+                var date = new Date();
                 this.ticket.comments.push({
                     'author_name' : this.current_user.name,
                     'content': this.text_comment,
-                    'created_at': {
-                        '$date': date
-                    },
-                    'updated_at': {
-                        '$date': date
-                    }
+                    'created_at': date,
+                    'updated_at': date
                 })
                 const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
                 this.text_comment = ''
@@ -129,8 +130,8 @@
                 }
             },
             commentAndClose: async function (event) {
-                commentTicket()
-                closeTicket()
+                this.commentTicket()
+                this.closeTicket()
             },
             modifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'
