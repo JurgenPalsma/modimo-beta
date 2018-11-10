@@ -4,20 +4,20 @@
     <!-- If the Api is online, display landing page -->
     <div v-if="!loading" style="padding-top:52px">
         <div class="modimo-clear" style="position:fixed;width: 100%;z-index:1000;top:0">
-            <nav class="navbar modimo-dark"> 
+            <nav class="navbar modimo-dark">
                 <div class="navbar-end" style="justify-content:flex-end;margin-left:auto;align-items: stretch;display: flex;">
                     <span class="navbar-item">
                         <a class="button is-outlined" href="/login">
                             <span class="icon">
                                 <i class="fa fa-key"></i>
                             </span>
-                            <span>Connection</span>
+                            <span>Connexion</span>
                         </a>
                     </span>
                 </div>
             </nav>
-        </div>            
-            
+        </div>
+
         <div v-if="form_state === 'not engaged'" class="section modimo-clear modimo-landing-container">
             <div class="container has-text-centered">
                 <div class="column is-4 is-offset-4 ">
@@ -49,7 +49,7 @@
                             <h1 class="title">Responsive</h1>
                             <p class="subtitle">Accessible depuis tout type de résolution d'écran!</p>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 </section>
                 <div class="column is-6 is-offset-3">
@@ -93,7 +93,7 @@
                     <h2 class="subtitle .text-dark">
                         Entre ton adresse email pour créer ton compte et découvrir la plateforme.
                     </h2>
-                    
+
                     <div class="box">
                         <div class="field is-grouped">
                             <p class="control is-expanded">
@@ -105,7 +105,7 @@
                                 </a>
                             </p>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
                     <h2 class="subtitle text-dark">
                         Ton email est invalide. Renseigne une vraie adresse email.
                     </h2>
-                    
+
                     <div class="box">
                         <div class="field is-grouped">
                             <p class="control is-expanded">
@@ -131,7 +131,7 @@
                                 </a>
                             </p>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,9 +152,9 @@
       </div>
 
       <!-- If the Api is offline, display loader -->
-      <div v-else> 
+      <div v-else>
         <div class="modimo-clear">
-            <nav class="navbar modimo-dark"> 
+            <nav class="navbar modimo-dark">
                     <div id="navbarMenu" class="navbar-menu">
                         <div class="navbar-end" >
                             <span class="navbar-item">

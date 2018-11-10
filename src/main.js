@@ -1,5 +1,3 @@
-// if (window.location.protocol !== 'https:') window.location.href = 'https://modimo.herokuapp.com'
-
 import Vue from 'vue'
 import App from './App'
 import router from './router'

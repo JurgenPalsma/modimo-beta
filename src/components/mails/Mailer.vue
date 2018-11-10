@@ -1,15 +1,15 @@
 <template>
-    <section>
-        <div class="modal is-active">
-            <div class="my-modal-background modal-background" style="opacity:50%;" @click="$emit('close_modal')"></div>
-            <div class="modal-content">
+    <section class="hero is-fullheight-minus-navbar modimo-dark">
+        <div class="hero-body">
+            <div class="title has-text-centered white-title">
+                    Envoi de Mail
+                </div>
+                <br>
+                <br>
+            <div class="container">           
                 <div class="box">
-                    <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size ">Envoi de mail</strong>
-                            <br>
-                            <br>
                             <div class="field">
                                 <label class="label">Titre</label>
                                 <div class="control">
@@ -42,14 +42,14 @@
                                     <button @click="createMail()" class="button is-link">Envoyer</button>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-text" @click="$emit('close_modal')">Annuler</button>
+                                    <button class="button is-text" @click="$router.push('/home')">Annuler</button>
                                 </div>
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>     
     </section>
 </template>
 

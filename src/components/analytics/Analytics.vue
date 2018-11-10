@@ -2,7 +2,7 @@
     <section class="hero modimo-dark is-fullheight">
     <nav></nav>
         
-        <div class="section container">
+        <div class="section container" style="background-color: #2b5bb2">
             <div class="tile is-ancestor notification modimo-dark">
                 
                 <div class="tile is-vertical">
@@ -149,7 +149,7 @@ export default {
             }
         }
     },
-    mounted: function () {
+    created: function () {
         this.load()
     },
     methods: {

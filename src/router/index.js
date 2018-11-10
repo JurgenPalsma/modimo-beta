@@ -4,8 +4,10 @@ import Landing from '@/components/Landing'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Tickets from '@/components/tickets/Tickets'
+import Mailer from '@/components/mails/Mailer'
 import Modistore from '@/components/modistore/Modistore'
 import StoreAppDetails from '@/components/modistore/AppDetails'
+import Billboard from '@/components/billboard/Billboard'
 //  import MailCreate from '@/components/Mails/mailCreate.vue'
 import Analytics from '@/components/analytics/Analytics'
 
@@ -47,9 +49,19 @@ export default new Router({
             component: Tickets
         },
         {
+            path: '/mailer',
+            name: 'Mailer',
+            component: Mailer
+        },
+        {
             path: '/analytics',
             name: 'Analytics',
             component: Analytics
+        },
+        {
+            path: '/billboard',
+            name: 'Billboard',
+            component: Billboard
         }
     ]
 })

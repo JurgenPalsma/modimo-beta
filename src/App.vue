@@ -7,7 +7,7 @@
         </iframe>
     </noscript>
 
-    <Nav> </Nav>
+    <Nav :current-user="currentUser"/>
     <div class="notification-container">
         <notifications :new_notification="notification"/>
     </div>
@@ -40,28 +40,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 export default {
-
     name: 'app',
+    data() {
+        return {
+            currentUser: {},
+            notification: undefined
+        }
+    },
     created: function () {
         window.dataLayer = window.dataLayer || []
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date())
         gtag('config', 'UA-116703749-1')
-
-    },
-
-    mounted: function (){
         if (this.$cookies.get('api_token')) {
-            this.getCurrentUser()
+            if (!this.currentUser) {
+                this.getCurrentUser()
+            }
         } else if (this.$route.name !== 'Login') {
             this.$router.push('/')
-        }
-    },
-    
-    data() {
-        return {
-            currentUser: {},
-            notification: undefined
         }
     },
 

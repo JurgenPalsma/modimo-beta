@@ -21,7 +21,7 @@
                                 <div class="field">
                                     <p class="control is-pulled-right">
                                         <button class="button" v-on:click="cancelModifTicket">Annuler</button>&nbsp;
-                                        <button class="button">Modifier</button>
+                                        <button class="button" v-on:click="modifTicket">Modifier</button>
                                     </p>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                                 <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
                                 <span v-else>Modifié le </span>
                                 {{dateFormater(ticket.updated_at)}}
-                                <span v-if="this.current_user._id == this.ticket.author_id"> · <a ref="modif_ticket_button" v-on:click="modifTicket">Modifier le ticket</a></span>
+                                <span v-if="this.current_user._id == this.ticket.author_id && this.ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
                             </small>
                         </div>
                         <article class="media">
@@ -133,10 +133,17 @@
                 this.commentTicket()
                 this.closeTicket()
             },
-            modifTicket: function (event) {
+            activeModifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'
                 this.$refs.display_ticket.style = 'display: none;'
                 this.$refs.modif_ticket_button.style = 'display: none;'
+            },
+            modifTicket: async function (event) {
+                console.log(this.$refs.text_modif_ticket.value)
+                const rest = await TicketService.modifTicket(this.$cookies.get('api_token'), this.ticket._id, this.$refs.text_modif_ticket.value)
+                this.$refs.space_modif_ticket.style = 'display: none;'
+                this.$refs.display_ticket.style = 'display: block;'
+                this.$refs.modif_ticket_button.style = 'display: inline;'
             },
             cancelModifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: none;'
