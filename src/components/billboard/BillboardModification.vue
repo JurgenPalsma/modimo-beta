@@ -39,30 +39,11 @@ export default {
   props: ["info"],
   data() {
     return {
-      title: "",
-      content: "",
       isActive: true
     };
   },
-  watch: {
-    info: function(newInfo) {
-      if (newInfo) this.get_author(newInfo.author_id);
-    }
-  },
+
   methods: {
-    async get_author(author_id) {
-      //console.log(this.$parent)
-      this.current_user = await UserService.getCurrentUser();
-      const resp = await UserService.getUser(
-        this.$cookies.get("api_token"),
-        author_id
-      );
-      if (resp.data.success) {
-        this.ticket_author = resp.data.user.name;
-      } else {
-        alert("Erreur lors de la récuperation de l'auteur");
-      }
-    },
     updateInformation: function(id, title, content) {
       BillboardService.updateInfo(
         this.$cookies.get("api_token"),
@@ -71,7 +52,6 @@ export default {
         content
       ).then(response => {
         if (response.data.success) {
-          this.load();
           this.$parent.notification = {
             type: "success",
             message: "Update Information Success"

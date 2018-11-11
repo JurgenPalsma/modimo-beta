@@ -18,7 +18,7 @@
               <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
                 <p class="content">{{ info.content }}</p>
-                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
                 <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
@@ -34,7 +34,7 @@
                     <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title" @click="idToModal(info)">{{ info.title }}</p>
                     <p class="content">{{ info.content }}</p>
-                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                    <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
                     <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
@@ -55,7 +55,7 @@
                     <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title" @click="idToModal(info)">{{ info.title }}</p>
                     <p class="content">{{ info.content }}</p>
-                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                    <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
                     <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
@@ -80,7 +80,7 @@
                 <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
                 <p class="content">{{ info.content }}</p>
-                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
                 <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
@@ -95,6 +95,7 @@
 
 <script>
 import BillboardService from "@/services/BillboardService";
+import UserService from "@/services/UserService";
 import BillboardCreation from "./BillboardCreation.vue";
 import BillboardModification from "./BillboardModification.vue";
 import moment from "moment";
@@ -124,7 +125,6 @@ export default {
   },
 
   mounted: function() {
-    console.log("je passe");
     this.load();
   },
 
@@ -203,6 +203,21 @@ export default {
       }
     },
 
+    async getAuthorInformation(info) {
+      const resp = await UserService.getUser(
+        this.$cookies.get("api_token"),
+        info.author_id
+      );
+      if (resp.data.success) {
+        return resp.data.user.name;
+      } else {
+        this.$parent.notification = {
+          type: "failure",
+          message: "Erreur lors de la récupération de l'auteur"
+        };
+      }
+    },
+
     deleteInformation: function(id) {
       BillboardService.deleteInfo(this.$cookies.get("api_token"), id).then(
         response => {
@@ -218,7 +233,7 @@ export default {
     },
 
     dateFormater(unFormatedDate) {
-      var date = moment(String(unFormatedDate)).format("DD MMMM YYYY, h:mm:ss");
+      var date = moment(String(unFormatedDate)).format("DD MM YY, h:mm:ss");
       return date;
     }
   },
