@@ -21,29 +21,28 @@
             <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
                 
                 <div class="container">
-                
+                    <br/><br/>
                     <div class="columns has-text-left">
                         <div class="column">
                             <h1 class="landing-title has-text-left">La résidence 2.0</h1>
                             <p class="landing-subtitle is-5 has-text-left">Automatisez la gestion de votre résidence.<br> Je ferais le wording un peu plus tard <br> Mais disons que ce texte prendra 3 lignes de longueurs moyennes.</p>
-                            <a class="button is-medium discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
-                            <a class="button is-medium signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
+                            <a class="button discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
+                            <a class="button signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
                         </div>
 
                         <div class="column is-4">
-                            <div class="column" >
+                            <br/>
                             <img src="/static/img/logofull.png">
-                            </div>
                         </div>  
                     </div>
                 </div>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
             <div v-else-if="form_state === 'interested'" class="section modimo-clear modimo-landingtitle-container is-fullheight">
-                <span @click="scrollToTop();engage('not engaged')" class="landing-back-button">Retour</span>
-                <div class="container has-text-centered">
+                <div class="container has-text-centered pro-part-container">
+                    <br/><br/>
                     <div class="columns">
-                        <div class="column">
+                        <div class="column is-full-mobile">
                             <div class="blog-card spring-fever" v-on:click="engage('email', true)">
                                 <div class="title-content">
                                     <h3>Je suis un professionnel</h3>
@@ -65,12 +64,13 @@
                         </div>
                     </div>
                 </div>
+                <span @click="scrollToTop();engage('not engaged')" class="landing-back-button">Retour</span>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
-            <div v-else-if="form_state === 'email' && !email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight">
-                <span @click="scrollToTop();engage('interested')" class="landing-back-button">Retour</span>
-                <div class="container ">
+            <div v-else-if="form_state === 'email' && !email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight form-registration">
+                <div class="container">
+                    <br/><br/>
                     <div class="column is-6 is-offset-3">
                         <h1 class="title">
                             On y est presque
@@ -106,16 +106,16 @@
                             </div>
 
                             <div v-if="this.role === 'resi'" class="field">
-                                <p class="select control is-expanded">
-                                    <select v-model="role_selected">
+                                <p class="select control is-expanded" style="width: 100%">
+                                    <select v-model="role_selected" style="width: 100%">
                                         <option>Resident</option>
                                         <option>Gardien ou gestionnaire de résidence</option>
                                     </select>
                                 </p>
                             </div>
                             <div v-else class="field">
-                                <p class="select control is-expanded">
-                                    <select v-model="role_selected">
+                                <p class="select control is-expanded" style="width: 100%">
+                                    <select v-model="role_selected" style="width: 100%">
                                         <option>Gardien ou gestionnaire de résidence</option>
                                         <option>Resident</option>
                                     </select>
@@ -138,6 +138,7 @@
                         </div>
                     </div>
                 </div>
+                <span @click="scrollToTop();engage('interested')" class="landing-back-button">Retour</span>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
