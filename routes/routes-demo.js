@@ -4,6 +4,7 @@ const Ticket        = require('../models/tickets/ticket');
 const Notif         = require('../functions/notifications');
 const Lead          = require('../models/lead');
 const ticketList    = require('../config/demo_tickets')
+const mailer        = require('../functions/mailer')
 
 let create_lead = function(role, email) {
     lead = new Lead({
@@ -141,10 +142,12 @@ module.exports = function(app, apiRoutes) {
                 let ticket_r = fill_demo_tickets(user, resi.residence._id, resi.caretaker._id)
                 if (!ticket_r.success) return res.json(ticket_r)
                 
-                let lead_r = create_lead('RESIDENT', req.body.email)
+                let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
                 if (!lead_r.success) return res.json(lead_r)
-
-                return res.json({success: true, message: "User registered", user: user})
+                if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='Bienvenue dans la résidence 2.0!', sub={'name': user.name}, templateId= '84068877-9d3c-4d8b-bf5d-0ccda1894db0'))
+                    return res.json({success: true, message: "User registered", user: user})
+                else
+                    return res.json({success: false, message: "Registration mail not sent"});
             }
         });
     });
