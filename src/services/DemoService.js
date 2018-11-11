@@ -11,5 +11,14 @@ export default {
         return Api().post('/api/demo/admin', {
             'email': email
         })
-    }
+    },
+    create_demo (firstname, lastname, password, email, roles, residenceName) {
+        return Api().post('/api/demo', {
+            'email': email,
+            'residenceName': residenceName,
+            'firstname': firstname,
+            'lastname': lastname,
+            'password': password
+        })
+    },
 }
