@@ -6,7 +6,7 @@
                 <h1 class="title white-title is-1">
                     Applications
                 </h1>
-                
+
                 <div class="columns is-multiline is-mobile">
                     <router-link to="/tickets" class="column is-12-mobile is-6-tablet is-3-desktop">
                         <div class="card" style="border-radius: 3px">
@@ -37,6 +37,23 @@
                                 <div class="media-content">
                                     <p class="is-size-5 has-text-weight-bold has-text-link">ModiStore</p>
                                     <p class="is-size-7 is-italic has-text-grey-dark">Intégrez de nouvelles applications à votre résidence</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
+                    <router-link to="/PanneauAdmin" class="column is-one-quarter-desktop">
+                        <div class="card" style="border-radius: 3px">
+                            <div class="card-content">
+                                <div class="media is-vertical-center">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                    <img src="/static/img/panneauAdmin.jpg" alt="Panneau d'administration">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="is-size-5 has-text-weight-bold has-text-link">Panneau Administration</p>
+                                    <p class="is-size-7 is-italic has-text-grey-dark">Gerer votre résidence</p>
                                 </div>
                                 </div>
                             </div>
