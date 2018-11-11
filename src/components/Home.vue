@@ -42,13 +42,13 @@
                             </div>
                         </div>
                     </router-link>
-                    <router-link to="/PanneauAdmin" class="column is-one-quarter-desktop">
+                    <router-link to="/panneauAdmin" class="column is-one-quarter-desktop">
                         <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-center">
                                 <div class="media-left">
                                     <figure class="image is-64x64">
-                                    <img src="/static/img/panneauAdmin.jpg" alt="Panneau d'administration">
+                                    <img src="/static/img/panneauAdmin.jpg" alt="PanneauAdmin">
                                     </figure>
                                 </div>
                                 <div class="media-content">
