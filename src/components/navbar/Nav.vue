@@ -1,7 +1,7 @@
 <template>
     <section>
 
-        <nav v-if="$route.name != 'Landing'" class="navbar">
+        <nav v-if="$route.name != 'Landing'" class="navbar modimo-navbar">
 
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
@@ -142,4 +142,12 @@ export default {
     padding: 0.375rem 1rem;
   }
 }
+
+.modimo-navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 </style>

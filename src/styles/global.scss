@@ -50,3 +50,10 @@ $lines-to-show: 2;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.hero.is-fullheight {
+    .hero-body {
+        align-items: flex-start;
+        padding-top: 52px;
+    }
+}

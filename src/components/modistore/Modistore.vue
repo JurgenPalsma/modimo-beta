@@ -1,9 +1,10 @@
 <template>
-    <section class="hero modimo-dark is-fullheight-minus-navbar">
+    <section class="hero modimo-dark is-fullheight">
         <div class="hero-body">
             <div class="container">
                 <div class="columns">
                     <div class="column">
+                        <br/><br/>
                         <h1 class="title white-title is-1">
                             Modistore
                         </h1>
@@ -105,7 +106,8 @@ export default {
         },
 
         async load () {
-            this.current_user = await this.$parent.getCurrentUser()
+            await this.$parent.getCurrentUser();
+            this.current_user =  this.$parent.currentUser;
             await this.getApps()
         }
     },

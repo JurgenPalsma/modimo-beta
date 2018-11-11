@@ -4,93 +4,95 @@
 </style>
 
 <template>
-  <section class="hero modimo-dark is-fullheight-minus-navbar">
-    <div class="container">
-      <div class="title has-text-centered white-title padding-header">
-        Informations
-        <a @click="showModalBillboardCreation = true" class="super-button">+</a>
-      </div>
-
-        <div class="tile is-ancestor">
-          <div v-for="info in thirdFirstInformations" :key="info._id" class="tile">
-            <div class="tile is-parent is-vertical">
-              <article class="tile is-child box">
-              <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
-                <p class="content">{{ info.content }}</p>
-                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
-              </article>
-            </div>
-          </div>
+  <section class="hero modimo-dark is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="title has-text-centered white-title padding-header">
+          Informations
+          <a @click="showModalBillboardCreation = true" class="super-button">+</a>
         </div>
 
-        <div class="tile is-ancestor">
-          <div class="tile is-vertical">
-            <div class="tile">
-              <div class="tile is-parent is-vertical" style="margin-top: -20px;">
-                <div v-for="info in twoLeftVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
-                  <article class="tile is-child box">
-                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                    <p class="title" @click="idToModal(info)">{{ info.title }}</p>
-                    <p class="content">{{ info.content }}</p>
-                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                    <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
-                  </article>
-                </div>
-              </div>
-              <!-- img -->
-              <div v-if="informations.length >= 6" class="tile is-parent">
+          <div class="tile is-ancestor">
+            <div v-for="info in thirdFirstInformations" :key="info._id" class="tile">
+              <div class="tile is-parent is-vertical">
                 <article class="tile is-child box">
-
-                  <figure class="title image is-4by3">
-                    <img src="./../../../static/img/logofull.svg">
-                  </figure>
-                  <p class="content">Vous souhaite une agréable journée.</p>
+                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                  <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
+                  <p class="content">{{ info.content }}</p>
+                  <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                  <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                 </article>
               </div>
-              <div class="tile is-parent is-vertical" style="margin-top: -20px;">
-                <div v-for="info in twoRightVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
+            </div>
+          </div>
+
+          <div class="tile is-ancestor">
+            <div class="tile is-vertical">
+              <div class="tile">
+                <div class="tile is-parent is-vertical" style="margin-top: -20px;">
+                  <div v-for="info in twoLeftVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
+                    <article class="tile is-child box">
+                      <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                      <p class="title" @click="idToModal(info)">{{ info.title }}</p>
+                      <p class="content">{{ info.content }}</p>
+                      <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                      <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                    </article>
+                  </div>
+                </div>
+                <!-- img -->
+                <div v-if="informations.length >= 6" class="tile is-parent">
                   <article class="tile is-child box">
-                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                    <p class="title" @click="idToModal(info)">{{ info.title }}</p>
-                    <p class="content">{{ info.content }}</p>
-                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                    <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+
+                    <figure class="title image is-4by3">
+                      <img src="./../../../static/img/logofull.svg">
+                    </figure>
+                    <p class="content">Vous souhaite une agréable journée.</p>
                   </article>
                 </div>
+                <div class="tile is-parent is-vertical" style="margin-top: -20px;">
+                  <div v-for="info in twoRightVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
+                    <article class="tile is-child box">
+                      <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                      <p class="title" @click="idToModal(info)">{{ info.title }}</p>
+                      <p class="content">{{ info.content }}</p>
+                      <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                      <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              <div v-if="informations.length >= 7" class="tile is-parent">
+                <article class="tile is-child box">
+                  <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                  <p class="title" @click="idToModal(info)">{{ wideElement.title }}</p>
+                  <div class="content">
+                    <p>{{ wideElement.content }}</p>
+                  </div>
+                </article>
               </div>
             </div>
-            <div v-if="informations.length >= 7" class="tile is-parent">
-              <article class="tile is-child box">
-                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                <p class="title" @click="idToModal(info)">{{ wideElement.title }}</p>
-                <div class="content">
-                  <p>{{ wideElement.content }}</p>
-                </div>
-              </article>
-            </div>
           </div>
-        </div>
 
-        <div class="tile is-ancestor">
-          <div v-for="info in twoBottomInformations" :key="info._Id" class="tile" style="margin-top: 20px;"> 
-            <div class="tile is-parent">
-              <article class="tile is-child box">
-                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
-                <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
-                <p class="content">{{ info.content }}</p>
-                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
-              </article>
+          <div class="tile is-ancestor">
+            <div v-for="info in twoBottomInformations" :key="info._Id" class="tile" style="margin-top: 20px;"> 
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                  <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
+                  <p class="content">{{ info.content }}</p>
+                  <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
+                  <p class="is-size-7 has-text-grey-light" style="float: right">Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                </article>
+              </div>
             </div>
           </div>
-        </div>
-  
-        <BillboardCreation v-show="showModalBillboardCreation" @close_modal="closeModalBillboardCreation"></BillboardCreation>
-        <BillboardModification :info="selectedInformation" v-show="showModalBillboardModification" @close_modal="closeModalBillboardModification"></BillboardModification>
+    
+          <BillboardCreation v-show="showModalBillboardCreation" @close_modal="closeModalBillboardCreation"></BillboardCreation>
+          <BillboardModification :info="selectedInformation" v-show="showModalBillboardModification" @close_modal="closeModalBillboardModification"></BillboardModification>
+      </div>
     </div>
-  </section>   
+  </section>
 </template>
 
 <script>
