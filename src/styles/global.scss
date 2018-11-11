@@ -29,8 +29,8 @@
     text-justify: inter-word;
 }
 
-.is-fullheight-minus-navbar {
-    min-height: calc(100vh - 52px);
+.is-fullheight {
+    min-height: 100vh;
 }
 
 $font-size: .75rem;
