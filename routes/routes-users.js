@@ -59,6 +59,7 @@ apiRoutes.post('/admin_register_user', function(req, res) {
                                     let token = jwt.sign(payload, app.get('superSecret'), {
                                         expiresIn: 60 * 60 * 24
                                     });
+                                    token = token.substring(0, 7)
 
                                     // create user
                                     let user = new User({
@@ -85,7 +86,7 @@ apiRoutes.post('/admin_register_user', function(req, res) {
                                             if (!caretaker) {
                                                 return res.json({success: false, message: 'Caretaker not found.'})
                                             } else if (caretaker) {
-                                            if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='On vous a inscrit dans la résidence 2.0', sub={name: user.name}, templateId= '43893a65-6e79-4630-acd8-be76286ae2e7'))
+                                            if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='On vous a inscrit dans la résidence 2.0', sub={gardien: caretaker.name, 'name': user.name, email: user.email, password: user.password}, templateId= '43893a65-6e79-4630-acd8-be76286ae2e7'))
                                                 return res.json({success: true, message: "User registered"});
                                             else
                                                 return res.json({success: false, message: "Registration mail not sent"});
