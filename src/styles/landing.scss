@@ -166,13 +166,14 @@ body{
   left: 0;
   transition: margin .3s, opacity .3s cubic-bezier(.33,.66,.66,1);
 }
-h3{
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 2px;
+
+h3 {
+  font-size: 26px;
+  font-weight: 600;
   color: $h-color;
   margin-bottom: 0;
 }
+
 .card-info{
   width: 100%;
   position: absolute;
@@ -231,4 +232,15 @@ h3{
     background-color: white;
     text-align: center;
     margin-bottom: -25px;
+}
+
+.landing-back-button {
+    position: absolute;
+    top: 60px;
+    color: #2b5bb2;
+    cursor: pointer;
+}
+
+.landing-back-button:hover {
+    text-decoration: underline;
 }

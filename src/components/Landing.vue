@@ -35,38 +35,41 @@
                             <img src="/static/img/logofull.png">
                             </div>
                         </div>  
-                    </div>                    
+                    </div>
                 </div>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
-            <div v-else-if="form_state === 'interested'" class="section modimo-clear is-fullheight">
+            <div v-else-if="form_state === 'interested'" class="section modimo-clear modimo-landingtitle-container is-fullheight">
+                <span @click="scrollToTop();engage('not engaged')" class="landing-back-button">Retour</span>
                 <div class="container has-text-centered">
                     <div class="columns">
                         <div class="column">
                             <div class="blog-card spring-fever" v-on:click="engage('email', true)">
                                 <div class="title-content">
-                                    <h3>Je suis un professionnel.</h3>
+                                    <h3>Je suis un professionnel</h3>
                                 </div>
                                 <div class="card-info">
-                                    Si vous êtes un professionnel, venez découvrir les avantages que Modimo peut vous apporter dans votre travail.
+                                    Découvrez les avantages que Modimo peut apporter dans votre travail. Centralisez, simplifiez et optimisez toutes les démarches liées à vos résidences.
                                 </div>
                             </div>
                         </div>
                         <div class="column">
                             <div class="blog-card spring-fever" v-on:click="engage('email')">
                                 <div class="title-content">
-                                    <h3>Je suis un particulier.</h3>
+                                    <h3>Je suis un particulier</h3>
                                 </div>
                                 <div class="card-info">
-                                    Si vous êtes un particulier, venez essayer la plateforme Modimo que votre co-propriété est suscéptible d'utiliser dans votre résidence.
+                                    Essayez Modimo, suscéptible d'être utilisée dans votre résidence. Améliorez et simplifiez les rapports que vous entretenez avec vos voisins et les gérants de votre logement
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
-            <div v-else-if="form_state === 'email' && !email_error" class="section is-fullheight-minus-navbar modimo-clear">
+            <div v-else-if="form_state === 'email' && !email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight">
+                <span @click="scrollToTop();engage('interested')" class="landing-back-button">Retour</span>
                 <div class="container ">
                     <div class="column is-6 is-offset-3">
                         <h1 class="title">
@@ -135,6 +138,7 @@
                         </div>
                     </div>
                 </div>
+                <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
             <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
