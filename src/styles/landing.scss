@@ -101,12 +101,6 @@ a {
     }
 }
 
-.modimo-landing-container {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-}
-
 // variables
 $card-height: 200px;
 $h-color:     #2B5BB2;
@@ -149,6 +143,20 @@ body{
   }
 }
 
+.landing-title {
+    margin-bottom: 1rem;
+    color: #2b5bb2;
+    font-size: 52px;
+    font-weight: 600;
+}
+
+.landing-subtitle {
+    color: #2f2f2f;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 1.5rem;
+}
+
 .title-content{
   text-align: center;
   margin: 80px 0 0 0;
@@ -180,3 +188,47 @@ h3{
   transition: bottom .3s, opacity .3s cubic-bezier(.33,.66,.66,1);
 }
 
+.discover-button {
+    background-color: #2b5bb2;
+    color: #fff;
+    border: none;
+}
+
+.discover-button:hover {
+    transform: scale(1.02);
+    color: #fff;
+    border: none;
+}
+
+.signup-button {
+    background-color: #fff;
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+.signup-button:hover {
+    transform: scale(1.02);
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+}
+
+.modimo-landingtitle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modimo-lamndind-down {
+    position: absolute;
+    color: #2b5bb2;
+    bottom: 10px;    
+}
+
+.modimo-landing-container {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    margin-bottom: -25px;
+}

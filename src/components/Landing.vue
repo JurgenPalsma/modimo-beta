@@ -2,7 +2,7 @@
     <div>
         <section class="is-fullheight">
         <!-- If the Api is online, display landing page -->
-        <div v-if="!loading" style="padding-top:52px">
+        <div v-if="!loading">
             <div class="modimo-clear modimo-navbar">
                 <nav class="navbar modimo-dark">
                     <div class="navbar-end" style="justify-content:flex-end;margin-left:auto;align-items: stretch;display: flex;">
@@ -18,17 +18,16 @@
                 </nav>
             </div>
 
-            <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landing-container">
+            <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
                 
                 <div class="container">
                 
-                    <div class="columns ">
+                    <div class="columns has-text-left">
                         <div class="column">
-                            <h1 class="title has-text-left">La résidence 2.0</h1>
-                            <p class="subtitle is-5 has-text-left">Automatisez la gestion de votre résidence.<br> Je ferais le wording un peu plus tard <br> Mais disons que ce texte prendra 3 lignes de longueurs moyennes.</p>
-                            <div class="column is-6">
-                            <a class="button is-large is-fullwidth is-rounded has-text-white glowing" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
-                            </div>
+                            <h1 class="landing-title has-text-left">La résidence 2.0</h1>
+                            <p class="landing-subtitle is-5 has-text-left">Automatisez la gestion de votre résidence.<br> Je ferais le wording un peu plus tard <br> Mais disons que ce texte prendra 3 lignes de longueurs moyennes.</p>
+                            <a class="button is-medium discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
+                            <a class="button is-medium signup-button" v-on:click="scrollToTop();engage('interested')">S'inscrire</a>
                         </div>
 
                         <div class="column is-4">
@@ -36,39 +35,9 @@
                             <img src="/static/img/logofull.png">
                             </div>
                         </div>  
-                    
-                    </div>
-                
-                    <!-- If the Api is online, display landing page 
-
-                    <section>
-                        <iframe src="https://www.youtube.com/embed/N9X0G11SmWA" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
-                    </section>
-                
-                    <section class="margin-vertical">
-                    <div class="column is-12">
-                        <div class="columns is-mobile">
-                                <div class="column">
-                                <img src="/static/img/time.png">
-                                <h1 class="title">Utilitaire</h1>
-                                <p class="subtitle">Réglez rapidement tout vos problèmes administratifs</p>
-                            </div>
-                            <div class="column is-vertical-center">
-                                <img src="/static/img/team.png">
-                                <h1 class="title">Sociale</h1>
-                                <p class="subtitle">Ameliorez ensemble la vie de votre Résidence</p>
-                            </div>
-                            <div class="column is-vertical-center is-hidden-mobile">
-                                <img src="/static/img/responsive.png">
-                                <h1 class="title">Responsive</h1>
-                                <p class="subtitle">Accessible depuis tout type de résolution d'écran!</p>
-                            </div>
-                        </div>
-                    </div>
-                    </section>
-                    -->
-                    
+                    </div>                    
                 </div>
+                <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
             <div v-else-if="form_state === 'interested'" class="section modimo-clear is-fullheight">
                 <div class="container has-text-centered">
@@ -227,6 +196,38 @@
 
             
         </section>
+        <div class="modimo-landing-container">
+            <div class="container">
+                <br/><br/>
+                <section>
+                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" frameborder="0" width="1280" height="420" allow="autoplay; encrypted-media" allowfullscreen class="video-aligned"></iframe>
+                </section>
+                <br/><br/>
+            
+                <section class="margin-vertical">
+                    <div class="column is-12">
+                        <div class="columns is-mobile">
+                                <div class="column">
+                                <img src="/static/img/time.png">
+                                <h1 class="title" style="margin-top: 10px">Utilitaire</h1>
+                                <p class="subtitle" style="margin-top: 10px">Réglez rapidement tout vos problèmes administratifs</p>
+                            </div>
+                            <div class="column is-vertical-center">
+                                <img src="/static/img/team.png">
+                                <h1 class="title" style="margin-top: 10px">Sociale</h1>
+                                <p class="subtitle" style="margin-top: 10px">Ameliorez ensemble la vie de votre Résidence</p>
+                            </div>
+                            <div class="column is-vertical-center is-hidden-mobile">
+                                <img src="/static/img/responsive.png">
+                                <h1 class="title" style="margin-top: 10px">Responsive</h1>
+                                <p class="subtitle" style="margin-top: 10px">Accessible depuis tout type de résolution d'écran!</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <br/><br/><br/>
+            </div>
+        </div>
         <footer class="footer modimo-dark footer-resized">
             <div class="columns is-mobile">
                 <div class="column has-text-centered">
