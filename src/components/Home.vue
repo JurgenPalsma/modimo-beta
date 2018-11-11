@@ -30,7 +30,7 @@
                                         </figure>
                                     </div>
                                     <div class="media-content">
-                                        <p class="is-size-5 has-text-weight-bold has-text-link">{{app.shortname}}</p>
+                                        <p class="is-size-5 has-text-weight-bold modimo-app-title">{{app.shortname}}</p>
                                         <p class="is-size-7 is-italic has-text-grey-dark modimo-app-description">{{app.small_description}}</p>
                                     </div>
                                 </div>
@@ -76,18 +76,16 @@ export default {
             this.$cookies.remove('api_token')
             this.$router.push('/')
         },
-        deleteApp: function (app) {
-            ApplicationService.deleteUserApplication(this.$cookies.get('api_token'), app._id)
-            .then(response => {
-                if (response.data.success) {
-                    let tmp = this.applications.slice();
-                    tmp.slice(tmp.findIndex(a => {a._id == app._id}), 1);
-                    this.applications = tmp;
-                }
-                else {
-                    this.$parent.notification = {type: 'failure', message: "Erreur lors de la suppression de l'application"}
-                }
-            })
+        deleteApp: async function (app) {
+            let response = await ApplicationService.deleteUserApplication(this.$cookies.get('api_token'), app._id)
+            if (response.data.success) {
+                let tmp = this.applications.slice();
+                tmp.splice(tmp.findIndex(a => {a._id == app._id}), 1);
+                this.applications = tmp;
+            }
+            else {
+                this.$parent.notification = {type: 'failure', message: "Erreur lors de la suppression de l'application"}
+            }
         },
         editModeTrue: function() {
             this.editMode = true;
@@ -127,10 +125,14 @@ export default {
 .edit-card:hover {
     background-color: #000;
     border-radius: 3px;
-    opacity: 0.9;
+    opacity: 0.85;
     display: flex;
     color: white;
     cursor: pointer;
+}
+
+.edit-card span:hover {
+    font-weight: bold;
 }
 
 @import '../styles/landing.scss';
