@@ -145,7 +145,7 @@ export default {
                 end: '23:30'
             },
             current_user: {
-                residence: ''
+                residence: {"name": ''}
             }
         }
     },
@@ -154,7 +154,10 @@ export default {
     },
     methods: {
         async load () {
-            this.current_user =  this.$parent.currentUser
+            
+            await this.$parent.getCurrentUser();
+            this.current_user =  this.$parent.currentUser;
+
             const resp = await AnalyticsService.getStats(this.$cookies.get('api_token'), this.daterange)
             if (resp.data.success) {
                 this.n_tickets_open = resp.data.ticket_numbers.tickets_open
