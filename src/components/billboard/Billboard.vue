@@ -15,7 +15,7 @@
           <div v-for="info in thirdFirstInformations" :key="info._id" class="tile">
             <div class="tile is-parent is-vertical">
               <article class="tile is-child box">
-              <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+              <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user.id === info.author_id)" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
                 <p class="content">{{ info.content }}</p>
                 <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
@@ -31,7 +31,7 @@
               <div class="tile is-parent is-vertical" style="margin-top: -20px;">
                 <div v-for="info in twoLeftVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
                   <article class="tile is-child box">
-                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user.id === info.author_id)" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title" @click="idToModal(info)">{{ info.title }}</p>
                     <p class="content">{{ info.content }}</p>
                     <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
@@ -52,7 +52,7 @@
               <div class="tile is-parent is-vertical" style="margin-top: -20px;">
                 <div v-for="info in twoRightVerticalInformations" :key="info._id" class="tile" style="margin-top: 20px;"> 
                   <article class="tile is-child box">
-                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                    <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user.id === info.author_id)" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                     <p class="title" @click="idToModal(info)">{{ info.title }}</p>
                     <p class="content">{{ info.content }}</p>
                     <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
@@ -63,7 +63,7 @@
             </div>
             <div v-if="informations.length >= 7" class="tile is-parent">
               <article class="tile is-child box">
-                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user.id === info.author_id)" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)">{{ wideElement.title }}</p>
                 <div class="content">
                   <p>{{ wideElement.content }}</p>
@@ -77,7 +77,7 @@
           <div v-for="info in twoBottomInformations" :key="info._Id" class="tile" style="margin-top: 20px;"> 
             <div class="tile is-parent">
               <article class="tile is-child box">
-                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
+                <button v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user.id === info.author_id)" style="float: right" class="delete" aria-label="close" @click="deleteInformation(info._id)"></button>
                 <p class="title" @click="idToModal(info)" >{{ info.title }}</p>
                 <p class="content">{{ info.content }}</p>
                 <p class="is-size-7" style="float: left">De : {{info.author_name}}</p>
@@ -188,34 +188,22 @@ export default {
 
     async load() {
       this.current_user = await this.$parent.getCurrentUser();
-      const resp = await BillboardService.getInfos(
-        this.$cookies.get("api_token")
-      );
-      if (resp.data.success) {
-        this.informations = resp.data.infos;
-        this.informationFactory();
-      } else {
-        this.$parent.notification = {
-          type: "failure",
-          message:
-            "Erreur lors de la récupération des informations du mur d'affiche"
-        };
-      }
+      this.getInformations();
     },
 
-    async getAuthorInformation(info) {
-      const resp = await UserService.getUser(
-        this.$cookies.get("api_token"),
-        info.author_id
-      );
-      if (resp.data.success) {
-        return resp.data.user.name;
-      } else {
-        this.$parent.notification = {
-          type: "failure",
-          message: "Erreur lors de la récupération de l'auteur"
-        };
-      }
+    async getInformations() {
+      BillboardService.getInfos(this.$cookies.get("api_token"))
+        .then(resp => {
+          this.informations = resp.data.infos;
+          this.informationFactory();
+        })
+        .catch(() => {
+          this.$parent.notification = {
+            type: "failure",
+            message:
+              "Erreur lors de la récupération des informations du mur d'affiche"
+          };
+        });
     },
 
     deleteInformation: function(id) {
