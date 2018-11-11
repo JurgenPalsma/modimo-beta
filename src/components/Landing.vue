@@ -27,7 +27,7 @@
                             <h1 class="landing-title has-text-left">La résidence 2.0</h1>
                             <p class="landing-subtitle is-5 has-text-left">Automatisez la gestion de votre résidence.<br> Je ferais le wording un peu plus tard <br> Mais disons que ce texte prendra 3 lignes de longueurs moyennes.</p>
                             <a class="button is-medium discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
-                            <a class="button is-medium signup-button" v-on:click="scrollToTop();engage('interested')">S'inscrire</a>
+                            <a class="button is-medium signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
                         </div>
 
                         <div class="column is-4">
