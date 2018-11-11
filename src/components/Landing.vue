@@ -322,7 +322,23 @@ export default {
         async launch_demo () {
             this.loading = true
             let conv_roles = this.role_selected == "Resident" ? ["RESIDENT"] : ["CARETAKER"];
-            let res = DemoService.create_demo(this.firstname, this.lastname, this.email, this.password, conv_roles, this.residence_name)
+            let res = await DemoService.create_demo(this.firstname, this.lastname, this.email, this.password, conv_roles, this.residence_name);
+            console.log(res.data)
+            if (res.data.success) {
+                const auth = await AuthService.authenticate(res.data.user.email, res.data.user.password)
+                if (auth.data.success) {
+                    this.$cookies.set('api_token', auth.data.token)
+                    this.$parent.current_user = res.data.user
+                    this.$parent.api_token = auth.data.token
+                    this.$router.push('home')
+                } else {
+                    this.$parent.notification = {type: 'failure', message: auth.data.message}
+                    this.loading = false
+                }
+            } else {
+                this.email_error = true
+                this.loading = false
+            }
         /* const demo = this.role === 'resi' ? await DemoService.create_resident_demo(this.email) : await DemoService.create_admin_demo(this.email)
             if (demo.data.success) {
                 const auth = await AuthService.authenticate(demo.data.user.email, demo.data.user.password)
