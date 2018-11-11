@@ -1,7 +1,8 @@
 <template>
-    <section class="hero is-fullheight-minus-navbar modimo-dark">
+    <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
             <div class="container">
+                <br/>
                 <div class="tile is-vertical">
                     <div class="tile">
                         <div class="tile  is-parent">

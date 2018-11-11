@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="columns">
                     <div class="column">
-                        <br/><br/>
+                        <br/>
                         <h1 class="title white-title is-1">
                             Modistore
                         </h1>

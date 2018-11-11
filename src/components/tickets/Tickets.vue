@@ -5,9 +5,10 @@
 
 <template>
 <!--Give_UserIdto Component-->
-    <section class="hero is-fullheight-minus-navbar modimo-dark">
+    <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
             <div class="container">
+                <br/>
                 <div class="title has-text-centered white-title">
                     Tickets
                     <a @click="showModalTicketCreation = true" class="super-button">+</a>

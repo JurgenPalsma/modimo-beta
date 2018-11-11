@@ -189,7 +189,8 @@ export default {
     },
 
     async load() {
-      this.current_user = await this.$parent.getCurrentUser();
+      await this.$parent.getCurrentUser();
+      this.current_user =  this.$parent.currentUser;
       const resp = await BillboardService.getInfos(
         this.$cookies.get("api_token")
       );

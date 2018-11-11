@@ -3,7 +3,7 @@
 
     <!-- If the Api is online, display landing page -->
     <div v-if="!loading" style="padding-top:52px">
-        <div class="modimo-clear" style="position:fixed;width: 100%;z-index:1000;top:0">
+        <div class="modimo-clear modimo-navbar">
             <nav class="navbar modimo-dark">
                 <div class="navbar-end" style="justify-content:flex-end;margin-left:auto;align-items: stretch;display: flex;">
                     <span class="navbar-item">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div v-else-if="form_state === 'interested'" class="section modimo-clear is-fullheight-minus-navbar">
+        <div v-else-if="form_state === 'interested'" class="section modimo-clear is-fullheight">
             <div class="container has-text-centered">
                 <div class="columns">
                     <div class="column">
@@ -169,7 +169,7 @@
                     </div>
             </nav>
         </div>
-            <div class="section is-fullheight-minus-navbar is-flex is-horizontal-center is-medium">
+            <div class="section is-fullheight is-flex is-horizontal-center is-medium">
                 <h2 class="section title has-text-centered">
                     Chargement...
                 </h2>

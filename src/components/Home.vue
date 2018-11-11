@@ -2,7 +2,7 @@
     <section class="hero modimo-dark is-fullheight">
         <div class="hero-body">
             <div class="container">
-                <br/><br/>
+                <br/>
                 <h1 class="title white-title is-1">
                     Applications
                 </h1>
@@ -44,14 +44,14 @@ export default {
         }
     },
 
-    created: async function () {
+    created: function () {
         this.load()
     },
 
     methods: {
-        load () {
-            // this.current_user = this.$parent.getCurrentUser()
-            this.current_user = this.$parent.currentUser
+        async load () {
+            await this.$parent.getCurrentUser();
+            this.current_user =  this.$parent.currentUser;
             ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
             .then(response => {
                 this.applications = response.data.applications;
