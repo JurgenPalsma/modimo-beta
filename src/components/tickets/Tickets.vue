@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="column is-11-mobile is-6-desktop">
                                         <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
-                                        <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaires</p>
+                                        <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaire<span v-if="ticket.comments.length > 1">s</span></p>
                                     </div>
                                     <div class="column is-6-mobile is-3-desktop">
                                         <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.updated_at" class="no-bold">{{ dateFormater(ticket.updated_at) }}</time></p>
@@ -115,13 +115,20 @@ export default {
         }
     },
     created () {
+        console.log('crea')
         this.load()
+    },
+    mounted () {
+        console.log('moun')
+        this.showTickets = this.sortTickets(this.index)
     },
     watch: {
         index: function(newIndex) {
+            console.log('wa ind')
             this.showTickets = this.sortTickets(newIndex);
         },
         sortIndex: function(newIndex) {
+            console.log('wa sort')
             this.showTickets = this.sortTickets(newIndex);
         },
         '$parent.currentUser' : function(newCurrentUser) {
@@ -131,11 +138,23 @@ export default {
         }
     },
     methods: {
+        loadDates (ticket) {
+            let date = ticket.updated_at
+            ticket.comments.forEach(function (comment) {
+                console.log('ticket dates loaded')
+                // console.log(date < comment.created_at)
+                if (date < comment.created_at) {
+                    date = comment.created_at
+                }
+            })
+            ticket.last_update_at = date
+        },
         async loadTickets () {
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
                 this.get_tickets_authors_and_comments()
+                console.log('loadTickets')
                 this.showTickets = this.sortTickets(this.index)
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
@@ -161,10 +180,13 @@ export default {
                     ticket.author_name = 'Anonyme'
                 }
                 const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)
+                console.log('comments')
                 if (resp2.data.success) {
                     ticket.comments = resp2.data.comments;
+                    await this.loadDates(ticket)
+                    // console.log(ticket.last_update_at)
                 } else {
-                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du commentaire'}
+                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation des commentaires'}
                 }
 
                 ticket.comments.forEach(async (comment) => {
@@ -177,6 +199,7 @@ export default {
                 })
                 // n = n + 1;
             })
+            // this.showTickets = this.sortTickets(this.index)
         },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
@@ -188,13 +211,20 @@ export default {
         },
 
         sortTickets: function(index) {
+            console.log('lol1')
             let tickets = this.tickets.sort((a, b) => {
-                if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && a.created_at > b.created_at))) ||
+                console.log(a)
+                console.log(b)
+                console.log(a.last_update_at)
+                console.log(b.last_update_at)
+                // console.log(a.last_update_at < b.last_update_at)
+                if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && Date(a.last_update_at) > Date(b.last_update_at)))) ||
                     (a.status !== b.status && a.status === 'open'))
                     return -1;
-                else if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length < b.votes.length) || (this.sortIndex === 1 && a.created_at < b.created_at))) ||
+                else if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length < b.votes.length) || (this.sortIndex === 1 && Date(a.last_update_at) < Date(b.last_update_at)))) ||
                          (a.status !== b.status && a.status === 'closed'))
                     return 1;
+                console.log('test')
                 return 0;
             })
             return tickets.filter(ticket => {
