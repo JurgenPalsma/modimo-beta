@@ -88,22 +88,6 @@ a {
     100% { transform: rotate(360deg); }
 }
 
-@media screen and (max-width: 588px) {
-    .modimo-landing-container {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    .video-aligned {
-        width: 100%;
-        height: 250px
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-}
-
 // variables
 $card-height: 200px;
 $h-color:     #2B5BB2;
@@ -127,7 +111,7 @@ body{
   height: $card-height;
   overflow: hidden;
   border-radius: 10px;
-  box-shadow: 3px 3px 20px rgba(0, 0, 0, .5);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, .3);
   text-align: center;
   
   &.spring-fever{
@@ -146,6 +130,21 @@ body{
   }
 }
 
+.landing-title {
+    margin-bottom: 1rem;
+    color: #2b5bb2;
+    font-size: 46px;
+    line-height: 50px;
+    font-weight: 600;
+}
+
+.landing-subtitle {
+    color: #2f2f2f;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 1.5rem;
+}
+
 .title-content{
   text-align: center;
   margin: 80px 0 0 0;
@@ -155,20 +154,21 @@ body{
   left: 0;
   transition: margin .3s, opacity .3s cubic-bezier(.33,.66,.66,1);
 }
-h3{
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 2px;
+
+h3 {
+  font-size: 26px;
+  font-weight: 600;
   color: $h-color;
   margin-bottom: 0;
 }
+
 .card-info{
   width: 100%;
   position: absolute;
   bottom: 100px;
   left: 0;
-  margin: 0 auto;
-  padding: 0 50px;
+  margin: 0;
+  padding: 0 10px;
   color: $txt-color;
   font-style: 16px;
   line-height: 24px;
@@ -177,3 +177,103 @@ h3{
   transition: bottom .3s, opacity .3s cubic-bezier(.33,.66,.66,1);
 }
 
+.discover-button {
+    background-color: #2b5bb2;
+    color: #fff;
+    border: none;
+}
+
+.discover-button:hover {
+    transform: scale(1.02);
+    color: #fff;
+    border: none;
+}
+
+.signup-button {
+    background-color: #fff;
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+.signup-button:hover {
+    transform: scale(1.02);
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+}
+
+.modimo-landingtitle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modimo-lamndind-down {
+    position: absolute;
+    color: #2b5bb2;
+    bottom: 10px;    
+}
+
+.modimo-landing-container {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    margin-bottom: -25px;
+}
+
+.landing-back-button {
+    position: absolute;
+    top: 60px;
+    color: #2b5bb2;
+    cursor: pointer;
+}
+
+.landing-back-button:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 588px) {
+
+    .landing-title {
+        font-size: 36px;
+        line-height: 38px;
+    }
+    
+    .landing-subtitle {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    
+    .signup-button {
+        margin-left: 0;
+    }
+
+    .video-aligned {
+        width: 100%;
+        height: 250px
+    }
+
+    .title {
+        font-size: 32px !important;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .form-registration {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .pro-part-container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+}

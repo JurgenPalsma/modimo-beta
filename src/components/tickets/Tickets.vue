@@ -5,9 +5,10 @@
 
 <template>
 <!--Give_UserIdto Component-->
-    <section class="hero is-fullheight-minus-navbar modimo-dark">
+    <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
             <div class="container">
+                <br/>
                 <div class="title has-text-centered white-title">
                     Tickets
                     <a @click="showModalTicketCreation = true" class="super-button">+</a>
@@ -130,11 +131,6 @@ export default {
         sortIndex: function(newIndex) {
             console.log('wa sort')
             this.showTickets = this.sortTickets(newIndex);
-        },
-        '$parent.currentUser' : function(newCurrentUser) {
-            // console.log('watcher')
-            // this.current_user = newCurrentUser
-            // this.load();
         }
     },
     methods: {
@@ -161,13 +157,9 @@ export default {
             }
         },
         async load() {
-            let curUser = await UserService.getCurrentUser(this.$cookies.get('api_token'))
-            if (curUser.data && curUser.data.success) {
-                this.current_user = curUser.data.user
-                this.loadTickets()
-            } else {
-                console.log('Could not load current user')
-            }
+            await this.$parent.getCurrentUser();
+            this.current_user =  this.$parent.currentUser;
+            this.loadTickets()
         },
         async get_tickets_authors_and_comments () {
             //console.log(this.$parent)

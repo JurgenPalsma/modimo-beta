@@ -7,7 +7,7 @@
         </iframe>
     </noscript>
 
-    <Nav :current-user="currentUser"/>
+    <Nav/>
     <div class="notification-container">
         <notifications :new_notification="notification"/>
     </div>

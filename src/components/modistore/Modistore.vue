@@ -1,9 +1,10 @@
 <template>
-    <section class="hero modimo-dark is-fullheight-minus-navbar">
+    <section class="hero modimo-dark is-fullheight">
         <div class="hero-body">
             <div class="container">
                 <div class="columns">
                     <div class="column">
+                        <br/>
                         <h1 class="title white-title is-1">
                             Modistore
                         </h1>
@@ -33,7 +34,7 @@
                                         <p class="is-size-7 is-italic has-text-grey-dark modistore-desc">{{app.description}}</p>
                                         <div class="modistore-card-footer">
                                             <span class="modistore-see-more">Voir plus</span>
-                                            <span v-if="app.link && !app.added" class="button modistore-button">Ajouter</span>
+                                            <span v-if="app.link && !app.added" @click.stop.prevent @click="addApp(app)" class="button modistore-button">Ajouter</span>
                                             <span v-else-if="app.link && app.added" class="button modistore-button-disabled" disabled>Ajoutée</span>
                                             <span v-else class="button modistore-button-disabled" disabled>Prochainement</span>
                                         </div>
@@ -69,6 +70,7 @@
 
 <script>
 import ModistoreService from '@/services/ModistoreService'
+import ApplicationService from '@/services/ApplicationService'
 
 export default {
     name: 'modistore',
@@ -105,8 +107,27 @@ export default {
         },
 
         async load () {
-            this.current_user = await this.$parent.getCurrentUser()
+            await this.$parent.getCurrentUser();
+            this.current_user =  this.$parent.currentUser;
             await this.getApps()
+        },
+
+        addApp: function(app) {
+            ApplicationService.addUserApplication(this.$cookies.get('api_token'), app._id)
+            .then(response => {
+                if (response.data.success) {
+                    let tmp = this.applications.slice();
+                    tmp.find(a => a._id === app._id).added = true;
+                    this.applications = tmp;
+                    if (this.applicationsFiltered.length) {
+                        this.applicationsFiltered.find(a => a._id === app._id).added = true;
+                        this.applicationsFiltered = this.applicationsFiltered;
+                    }
+                }
+                else {
+                    this.$parent.notification = {type: 'failure', message: "Erreur lors de la suppression de l'application"}
+                }
+            })
         }
     },
 }

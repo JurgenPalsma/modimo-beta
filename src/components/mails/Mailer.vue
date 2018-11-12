@@ -1,50 +1,52 @@
 <template>
-    <section class="hero is-fullheight-minus-navbar modimo-dark">
+    <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
-            <div class="title has-text-centered white-title">
+            <div class="container">
+                    <br>
+                    <br>
+                <div class="title has-text-centered white-title">
                     Envoi de Mail
                 </div>
-                <br>
-                <br>
-            <div class="container">           
-                <div class="box">
-                    <div class="media-content">
-                        <div class="content">
-                            <div class="field">
-                                <label class="label">Titre</label>
-                                <div class="control">
-                                    <input class="input" type="text" v-model="mail.title">
-                                </div>
-                                </div>
-
+                <div class="container">           
+                    <div class="box">
+                        <div class="media-content">
+                            <div class="content">
                                 <div class="field">
-                                <label class="label">Destinataire</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="email" v-model="mail.to" ref="contactMail">
-                                    <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                    </span>
-                                    <!-- <span class="icon is-small is-right">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                    </span> -->
-                                </div>
-                                </div>
+                                    <label class="label">Titre</label>
+                                    <div class="control">
+                                        <input class="input" type="text" v-model="mail.title">
+                                    </div>
+                                    </div>
 
-                                <div class="field">
-                                <label class="label">Message</label>
-                                <div class="control">
-                                    <textarea class="textarea" placeholder="Votre Texte" v-model="mail.description"></textarea>
-                                </div>
-                                </div>
+                                    <div class="field">
+                                    <label class="label">Destinataire</label>
+                                    <div class="control has-icons-left has-icons-right">
+                                        <input class="input" type="email" v-model="mail.to" ref="contactMail">
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <!-- <span class="icon is-small is-right">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        </span> -->
+                                    </div>
+                                    </div>
 
-                                <div class="field is-grouped">
-                                <div class="control">
-                                    <button @click="createMail()" class="button is-link">Envoyer</button>
-                                </div>
-                                <div class="control">
-                                    <button class="button is-text" @click="$router.push('/home')">Annuler</button>
-                                </div>
-                                </div>
+                                    <div class="field">
+                                    <label class="label">Message</label>
+                                    <div class="control">
+                                        <textarea class="textarea" placeholder="Votre Texte" v-model="mail.description"></textarea>
+                                    </div>
+                                    </div>
+
+                                    <div class="field is-grouped">
+                                    <div class="control">
+                                        <button @click="createMail()" class="button is-link">Envoyer</button>
+                                    </div>
+                                    <div class="control">
+                                        <button class="button is-text" @click="$router.push('/home')">Annuler</button>
+                                    </div>
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,7 +56,9 @@
 </template>
 
 
-<style lang="scss" src="../tickets/scss/Tickets.scss">       
+<style lang="scss">
+@import "../tickets/scss/Tickets.scss";
+@import '../../styles/global.scss';
 </style>
 
 <script>

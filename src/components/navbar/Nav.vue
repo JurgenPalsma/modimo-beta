@@ -1,7 +1,7 @@
 <template>
     <section>
 
-        <nav v-if="$route.name != 'Landing'" class="navbar">
+        <nav v-if="$route.name != 'Landing'" class="navbar modimo-navbar">
 
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
@@ -66,46 +66,40 @@ import Notifications from "../notifications/notifications.vue";
 import ModistoreService from '@/services/ModistoreService'
 
 export default {
-  name: "navbar",
-  data() {
-    return {
-      showNotifModal: false,
-      applications: null
-    };
-  },
+    name: "navbar",
+    data() {
+        return {
+            showNotifModal: false,
+            applications: null,
+            currentUser: null
+        };
+    },
 
-  created: function() {
-    this.load();
-    document.addEventListener("DOMContentLoaded", function() {
-      var $navbarBurgers = Array.prototype.slice.call(
-        document.querySelectorAll(".navbar-burger"),
-        0
-      );
-      if ($navbarBurgers.length > 0) {
-        $navbarBurgers.forEach(function($el) {
-          $el.addEventListener("click", function() {
-            var target = $el.dataset.target;
-            var $target = document.getElementById(target);
-            $el.classList.toggle("is-active");
-            $target.classList.toggle("is-active");
-          });
+    created: function() {
+        this.load();
+        document.addEventListener("DOMContentLoaded", function() {
+        var $navbarBurgers = Array.prototype.slice.call(
+            document.querySelectorAll(".navbar-burger"),
+            0
+        );
+        if ($navbarBurgers.length > 0) {
+            $navbarBurgers.forEach(function($el) {
+            $el.addEventListener("click", function() {
+                var target = $el.dataset.target;
+                var $target = document.getElementById(target);
+                $el.classList.toggle("is-active");
+                $target.classList.toggle("is-active");
+            });
+            });
+        }
         });
-      }
-    });
-  },
+    },
 
     watch: {
         '$parent.currentUser' : function (newCurrentUser) {
             this.currentUser = newCurrentUser
+            this.load();
         },
-        // currentUser: function(newCurrentUser) {
-        //     if (newCurrentUser && this.$cookies.get('api_token')) {
-        //         ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
-        //         .then(response => {
-        //             this.applications = response.data.applications;
-        //         })
-        //     }
-        // }
     },
   methods: {
     async load() {
@@ -125,8 +119,6 @@ export default {
       this.showNotifModal = true;
     }
   },
-
-    props: ['currentUser'],
   components: {
     notif: Notifications
   }
@@ -142,4 +134,5 @@ export default {
     padding: 0.375rem 1rem;
   }
 }
+@import "../../styles/global.scss";
 </style>

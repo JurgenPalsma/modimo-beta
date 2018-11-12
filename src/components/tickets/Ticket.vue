@@ -95,8 +95,6 @@
                 isActive: true
             }
         },
-        watch: {
-        },
         methods: {
             closeTicket: async function (event) {
                 const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
