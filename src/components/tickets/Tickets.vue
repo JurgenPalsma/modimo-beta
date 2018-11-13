@@ -58,7 +58,7 @@
                                         <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaire<span v-if="ticket.comments.length > 1">s</span></p>
                                     </div>
                                     <div class="column is-6-mobile is-3-desktop">
-                                        <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.updated_at" class="no-bold">{{ dateFormater(ticket.updated_at) }}</time></p>
+                                        <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.updated_at" class="no-bold">{{ dateFormater(ticket.last_update_at) }}</time></p>
                                         <p class="bold modimo-content-size is-text-overflow has-text-right">{{ticket.author_name}}</p>
                                     </div>
                                     <div class="column is-3-mobile is-2 has-text-right">
@@ -136,8 +136,9 @@ export default {
     methods: {
         loadDates (ticket) {
             let date = ticket.updated_at
+            //console.log('loadDates')
             ticket.comments.forEach(function (comment) {
-                console.log('ticket dates loaded')
+                //console.log('ticket dates loaded')
                 // console.log(date < comment.created_at)
                 if (date < comment.created_at) {
                     date = comment.created_at
@@ -149,9 +150,9 @@ export default {
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
-                this.get_tickets_authors_and_comments()
-                console.log('loadTickets')
-                this.showTickets = this.sortTickets(this.index)
+                await this.get_tickets_authors_and_comments()
+                //console.log('loadTickets')
+                //this.showTickets = this.sortTickets(this.index)
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
             }
@@ -160,28 +161,28 @@ export default {
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
             this.loadTickets()
+            console.log('end load tickets')
         },
         async get_tickets_authors_and_comments () {
             //console.log(this.$parent)
             // let n = 0;
-            this.tickets.forEach(async (ticket, n) => {
-                const resp = await UserService.getUser(this.$cookies.get('api_token'), ticket.author_id)
+            for (let n = 0; n < this.tickets.length; n++) {
+                const resp = await UserService.getUser(this.$cookies.get('api_token'), this.tickets[n].author_id)
                 if (resp.data.success) {
-                    ticket.author_name = resp.data.user.name;
+                    this.tickets[n].author_name = resp.data.user.name;
                 } else {
-                    ticket.author_name = 'Anonyme'
+                    this.tickets[n].author_name = 'Anonyme'
                 }
-                const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), ticket._id)
-                console.log('comments')
+                const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), this.tickets[n]._id)
                 if (resp2.data.success) {
-                    ticket.comments = resp2.data.comments;
-                    await this.loadDates(ticket)
-                    // console.log(ticket.last_update_at)
+                    this.tickets[n].comments = resp2.data.comments;
+                    this.loadDates(this.tickets[n])
+                    console.log('comments')
+                    //console.log(ticket.last_update_at)
                 } else {
-                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation des commentaires'}
+                    console.log('Erreur lors de la récuperation des commentaires')
                 }
-
-                ticket.comments.forEach(async (comment) => {
+                this.tickets[n].comments.forEach(async (comment) => {
                     const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
                     if (resp.data.success) {
                         comment.author_name = resp.data.user.name;
@@ -189,9 +190,8 @@ export default {
                         this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du commentaire'}
                     }
                 })
-                // n = n + 1;
-            })
-            // this.showTickets = this.sortTickets(this.index)
+            }
+            this.showTickets = this.sortTickets(this.index)
         },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
@@ -205,20 +205,20 @@ export default {
         sortTickets: function(index) {
             console.log('lol1')
             let tickets = this.tickets.sort((a, b) => {
-                console.log(a)
-                console.log(b)
-                console.log(a.last_update_at)
-                console.log(b.last_update_at)
-                // console.log(a.last_update_at < b.last_update_at)
-                if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && Date(a.last_update_at) > Date(b.last_update_at)))) ||
-                    (a.status !== b.status && a.status === 'open'))
+                // if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && a.last_update_at > b.last_update_at))) ||
+                //     (a.status !== b.status && a.status === 'open'))
+                //     return -1;
+                // else if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length < b.votes.length) || (this.sortIndex === 1 && a.last_update_at < b.last_update_at))) ||
+                //          (a.status !== b.status && a.status === 'closed'))
+                //     return 1;
+                // return 0;
+                if (a.status === b.status && ((a.last_update_at > b.last_update_at && this.sortIndex === 1) || (this.sortIndex === 0 && (a.votes.length > b.votes.length || (a.votes.length == b.votes.length && a.last_update_at > b.last_update_at)))) || (a.status !== b.status && a.status === 'open'))
                     return -1;
-                else if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length < b.votes.length) || (this.sortIndex === 1 && Date(a.last_update_at) < Date(b.last_update_at)))) ||
-                         (a.status !== b.status && a.status === 'closed'))
+                else if ((a.status === b.status && (a.last_update_at < b.last_update_at && this.sortIndex === 1) || (this.sortIndex === 0 && a.votes.length < b.votes.length)) || (a.status !== b.status && a.status === 'closed'))
                     return 1;
-                console.log('test')
                 return 0;
             })
+            console.log(tickets)
             return tickets.filter(ticket => {
                 if (index === 0) return ticket.status === 'open'
                 else if (index === 2) return ticket.status === 'closed'
