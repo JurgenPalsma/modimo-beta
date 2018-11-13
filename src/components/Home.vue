@@ -20,6 +20,7 @@
                         <div class="card" style="border-radius: 3px">
                             <span v-if="editMode && app.shortname != 'ModiStore'" class="edit-remove"><i class="fa fa-times"/></span>
                             <div @click.stop.prevent @click="deleteApp(app)" v-if="editMode && app.shortname != 'ModiStore'" class="edit-card">
+                                <span class="edit-remove-confirm"><i class="fa fa-times"/></span>
                                 <span>Supprimer</span>
                             </div>
                             <div class="card-content">
@@ -104,6 +105,14 @@ export default {
 
 .edit-remove {
     color: gray;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 100;
+}
+
+.edit-remove-confirm {
+    color: white;
     position: absolute;
     right: 10px;
     top: 5px;

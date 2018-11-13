@@ -1,9 +1,9 @@
 <template>
-  <section class="hero is-fullheight is-medium modimo-dark is-bold">
-    <div class="hero-body">
+  <section class="hero is-fullheight modimo-dark">
+    <div class="hero-body" style="align-items: center">
       <div class="container">
         <div class="columns is-centered">
-          <article class="card is-rounded">
+          <article class="card" style="border-radius: 3px">
             <div class="card-content">
               <h1 class="title has-text-centered">
                 <img src="/static/img/icons/logo.png" alt="Modimo" width="75">
@@ -31,7 +31,6 @@
                 </div>
                 <p class="control">
                   <button class="button is-primary is-medium is-fullwidth" @click="login">
-                    <i class="fa fa-user"></i>
                     Connexion
                   </button>
                 </p>
