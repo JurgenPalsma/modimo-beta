@@ -34,6 +34,15 @@ $lines-to-show: 4;
     position: relative;
 }
 
+.modistore-button-back {
+    color: #2b5bb2;
+    cursor: pointer;
+}
+
+.modistore-button-back:hover {
+    color: #1b3b77;
+}
+
 .modistore-button {
     background-color: #2b5bb2;
     color: #fff;

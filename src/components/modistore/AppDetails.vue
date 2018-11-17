@@ -10,7 +10,7 @@
                                 
                                 <nav class="level modistore-appdetail-header">
                                     <div class="level-left">
-                                        <p @click="$router.push('/modistore')" class="button modistore-button">Retour</p>
+                                        <p @click="$router.push('/modistore')" class="modistore-button-back">Retour</p>
                                     </div>
                                     <!-- Left side -->
                                     <div class="level-center">

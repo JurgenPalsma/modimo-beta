@@ -10,7 +10,7 @@
                         </h1>
                     </div>
                     <div style="margin-top: auto; position: relative" class="column">
-                        <input class="input modistore-input-search is-info" type="text" placeholder="Rechercher une application"/>
+                        <input class="input modistore-input-search is-info" type="text" v-model="searchContent" placeholder="Rechercher une application"/>
                         <span class="modistore-search-icon"><i class="fa fa-search"/></span>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ export default {
         return {
             current_user: null,
             applications: [],
-            searchContent: '',
+            searchContent: "",
             applicationsFiltered: []
         }
     },
@@ -87,6 +87,12 @@ export default {
         this.load()
     },
 
+    watch: {
+        searchContent: function(newSearch) {
+            console.log(this.search(newSearch));
+            this.applicationsFiltered = this.search(newSearch);
+        }
+    },
     methods: {
         async getApps () {
             const resp = await ModistoreService.getAllApplications(this.$cookies.get('api_token'));
@@ -130,6 +136,16 @@ export default {
                 else {
                     this.$parent.notification = {type: 'failure', message: "Erreur lors de la suppression de l'application"}
                 }
+            })
+        },
+
+        search: function(search) {
+            const lowerSearch = search.toLowerCase();
+            return this.applications.filter((app) => {
+                if (app.name.toLowerCase().search(lowerSearch) != -1 || app.shortname.toLowerCase().search(lowerSearch) != -1 ||
+                    app.small_description.toLowerCase().search(lowerSearch) != -1 || app.description.toLowerCase().search(lowerSearch) != -1)
+                        return true;
+                return false;
             })
         }
     },
