@@ -91,15 +91,18 @@ export default {
         async getApps () {
             const resp = await ModistoreService.getAllApplications(this.$cookies.get('api_token'));
             if (resp.data.sucess) {
-                this.applications = resp.data.applications.sort((a, b) => {
-                    if (a.link === undefined) return 1
-                    if (b.link === undefined) return -1
-                    return 0
-                });
+                this.applications = resp.data.applications;
                 this.applications.splice(this.applications.findIndex(a => a.shortname === "ModiStore"), 1);
                 this.applications.forEach(app => {
                     if (this.current_user.application_list.findIndex(a => a === app._id) != -1)
                         app.added = true;
+                });
+                this.applications = this.applications.sort((a, b) => {
+                    if (a.link === undefined && b.link !== undefined) return 1
+                    if (b.link === undefined && a.link !== undefined) return -1
+                    if (a.added === true && b.added !== true) return 1
+                    if (b.added === true && a.added !== true) return -1
+                    return 0
                 });
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des applications'}
