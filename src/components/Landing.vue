@@ -71,7 +71,7 @@
             <div v-else-if="form_state === 'email' && !email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight form-registration">
                 <div class="container">
                     <br/><br/>
-                    <div class="column is-6 is-offset-3">
+                    <div class="column">
                         <h1 class="title">
                             On y est presque
                         </h1>
@@ -143,7 +143,7 @@
             </div>
 
             <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
-                <div class="container ">
+                <div class="container" style="z-index: 1">
                     <div class="column is-6 is-offset-3">
                         <h1 class="title text-dark">
                             Ooooups
