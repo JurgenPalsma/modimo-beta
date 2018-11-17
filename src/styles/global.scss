@@ -88,3 +88,13 @@ $lines-to-show: 1;
 .is-blue-modimo {
     background-color: #2b5bb2;
 }
+
+@media screen and (max-width: 588px) {
+    .hero.is-fullheight {
+        .hero-body {
+            align-items: flex-start;
+            padding: 1rem;
+            padding-top: 52px;
+        }
+    }
+}

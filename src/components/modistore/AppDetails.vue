@@ -5,7 +5,7 @@
                 <br/>
                 <div class="tile is-vertical">
                     <div class="tile">
-                        <div class="tile  is-parent">
+                        <div class="tile">
                             <article class="tile is-child notification is-white">
                                 
                                 <nav class="level modistore-appdetail-header">
