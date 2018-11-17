@@ -11,6 +11,7 @@
     align-self: center !important;
     border-radius: 5px;
     display: inline-block;
+    max-width: 95%;
 }
 
 .success {
