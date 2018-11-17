@@ -298,7 +298,7 @@ module.exports = function(app, apiRoutes, io) {
 
     apiRoutes.post('/messagerie/:conversation_id/message', function (req, res) {
 
-        if (!req) {
+        if (!req.headers['content']) {
             res.json({success: false, message: "Error: request incomplete."});
         } else {
             // check user access token
@@ -321,7 +321,7 @@ module.exports = function(app, apiRoutes, io) {
                                 conversations.author == auth_user.id) {
                                     Conversation.findByIdAndUpdate(
                                         req.param("conversation_id"),
-                                        {$push: {"messages": {content: req.body.content, timestamp: Date.now(),  author: auth_user.id}}},
+                                        {$push: {"messages": {content: req.headers['content'], timestamp: Date.now(),  author: auth_user.id}}},
                                         {safe: true, upsert: true, new : true},
                                         function(err, model) {
                                             console.log(err);
