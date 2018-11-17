@@ -298,7 +298,7 @@ module.exports = function(app, apiRoutes, io) {
 
     apiRoutes.post('/messagerie/:conversation_id/message', function (req, res) {
 
-        if (!req.headers.content || !req.headers['x-access-token']) {
+        if (!req.headers.content) {
             res.json({success: false, message: "Error: request incomplete. Need: req.headers.content && header.x-access-token"});
         } else {
             // check user access token
