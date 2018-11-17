@@ -33,7 +33,7 @@
                                     <div class="content">
                                         <p class="is-size-7 is-italic has-text-grey-dark modistore-desc">{{app.description}}</p>
                                         <div class="modistore-card-footer">
-                                            <span class="modistore-see-more">Voir plus</span>
+                                            <span class="button modistore-see-more">Voir plus</span>
                                             <span v-if="app.link && !app.added" @click.stop.prevent @click="addApp(app)" class="button modistore-button">Ajouter</span>
                                             <span v-else-if="app.link && app.added" class="button modistore-button-disabled" disabled>Ajoutée</span>
                                             <span v-else class="button modistore-button-disabled" disabled>Prochainement</span>

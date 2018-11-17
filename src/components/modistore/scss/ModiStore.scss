@@ -5,7 +5,7 @@
 }
 
 .modistore-card {
-    height: 230px;
+    height: 240px;
 }
 
 $font-size: .75rem;
@@ -27,7 +27,9 @@ $lines-to-show: 4;
 }
 
 .modistore-card-footer {
-    height: 30px;
+    border-top: 1px solid #f2f2f2;
+    padding-top: 10px;
+    height: 47px;
     text-align: right;
     position: relative;
 }
@@ -52,11 +54,11 @@ $lines-to-show: 4;
 .modistore-see-more {
     position: absolute;
     left: 0;
-    top: 8px;
-    font-size: 14px;
+    bottom: 0;
     vertical-align: middle;
     display: inline-block;
     color: dimgrey;
+    align-self: right;
 }
 
 .modistore-see-more:hover {
