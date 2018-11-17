@@ -58,8 +58,10 @@ export default {
     created: function () {
         this.getConversations();
     },
-
     watch: {
+        'conversations': function(newConv) {
+            this.currentConv = newConv[0]
+        }
     },
     methods: {
         async getConversations () {
@@ -75,8 +77,7 @@ export default {
         },
 
         sendMessage () {
-            let res = MessagingService.postMessage(this.$cookies.get('api_token', this.currentConv.threadId, this.message));
-            console.log(res);
+            let res = MessagingService.postMessage(this.$cookies.get('api_token'), this.currentConv.threadId, this.message);
             this.getConversations();
         }
     },

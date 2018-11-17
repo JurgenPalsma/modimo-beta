@@ -35,8 +35,13 @@ export default {
         })
     },
 
-    postMessage (token, thread, content) {
-        let url = '/api/messagerie/'+ thread + '/message'
-        console.log(url)
+    postMessage (token, threadId, content) {
+        let url = '/api/messagerie/' + threadId + '/message'
+        return Api().post(url, {}, {
+            headers: {
+                'x-access-token': token,
+                'content': content 
+            }
+        })
     }
 }
