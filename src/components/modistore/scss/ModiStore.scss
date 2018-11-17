@@ -114,3 +114,10 @@ $lines-to-show: 4;
     bottom: 18px;
     left: 23px;
 }
+
+@media screen and (max-width: 588px) {
+    .content figure {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
