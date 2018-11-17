@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="columns is-multiline is-mobile">
-                    <div v-for="app in (applicationsFiltered.length ? applicationsFiltered : applications)" :key="app._id" class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
+                    <div v-for="app in (searchContent.length ? applicationsFiltered : applications)" :key="app._id" class="column is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
                         <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
                             <div class="card modistore-card" style="border-radius: 3px">
                                 <div class="card-content modistore-card">

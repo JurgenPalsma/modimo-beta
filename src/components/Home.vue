@@ -81,7 +81,7 @@ export default {
             let response = await ApplicationService.deleteUserApplication(this.$cookies.get('api_token'), app._id)
             if (response.data.success) {
                 let tmp = this.applications.slice();
-                tmp.splice(tmp.findIndex(a => {a._id == app._id}), 1);
+                tmp.splice(tmp.findIndex(a => (a._id === app._id)), 1);
                 this.applications = tmp;
             }
             else {
