@@ -15,8 +15,10 @@
                         <h2 class="title white-title is-4">
                             Conversations
                         </h2>
-                        <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
-                            {{conv.name}}
+                        <div class="row">
+                            <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-one-quarter-widescreen is-one-third-desktop is-full-mobile is-half-tablet"> 
+                                {{conv.name}}
+                            </div>
                         </div>
                     </div>
                     <div class="column">
