@@ -5,6 +5,7 @@ const Notif         = require('../functions/notifications');
 const Lead          = require('../models/lead');
 const ticketList    = require('../config/demo_tickets')
 const mailer        = require('../functions/mailer')
+const Conversation  = require('../models/messagerie/conversation');
 
 let create_lead = function(role, email) {
     lead = new Lead({
@@ -15,39 +16,6 @@ let create_lead = function(role, email) {
 
     if ((lead.save()).hasWriteError) return ({success: false, message: "Db not writable"})
     else return({success: true});
-}
-
-const welcome_messages  = require('../config/welcome_messages');
-let init_messaging = function (user, resi) {
-    // get user's caretaker's ID first
-    User.findOne({
-        _id: resi.caretaker_id,
-    }, function (err, caretaker) {
-        if (err) return res.json({success: false, message: 'Error from db'});
-        if (!caretaker) {
-            return res.json({success: false, message: 'Caretaker' + resi.caretaker_id + 'not found.'})
-        } else if (caretaker) {
-            let conv_participants = [];
-            conv_participants.push(user._id);
-            conv_participants.push(caretaker._id);
-
-            let messages = [];
-            messages.push({content: welcome_messages.caretaker_welcome_FR,
-                timestamp: Date.now(),
-                author: caretaker._id});
-
-            // Create conversation with caretaker
-            let conversation = new Conversation({
-                with: conv_participants,
-                messages: messages,
-                author: user._id
-            });
-            // Save conv to db
-            conversation.save(function (err) {
-                if (err) return res.json({success: false, err: err}); 
-            });
-        }
-    });
 }
 
 module.exports = function(app, apiRoutes) {
@@ -135,7 +103,35 @@ module.exports = function(app, apiRoutes) {
         }
     }
 
-    
+    const welcome_messages  = require('../config/welcome_messages');
+    function init_messaging (user, resi) {
+        // get user's caretaker's ID first
+            let writeError = false
+            let conv_participants = [];
+            conv_participants.push(user._id);
+            conv_participants.push(resi.caretaker_id);
+
+            let messages = [];
+            messages.push({content: welcome_messages.caretaker_welcome_FR,
+                timestamp: Date.now(),
+                author: resi.caretaker_id});
+
+            // Create conversation with caretaker
+            let conversation = new Conversation({
+                with: conv_participants,
+                messages: messages,
+                author: user._id
+            });
+            // Save conv to db
+            if ((conversation.save()).hasWriteError) {
+                writeError = true
+                return ({success: false, message: "Db not writable"})
+            }
+            if (!writeError) {
+                //Notif.createTicket("Un premier ticket est apparu", user._id, user.name, ticket.id, ticket.residence_id);
+                return({success: true});
+            }
+    }
 
     apiRoutes.post('/demo', function(req, res) {
         
@@ -176,8 +172,9 @@ module.exports = function(app, apiRoutes) {
                 if (!ticket_r.success) return res.json(ticket_r)
                  
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
-                if (req.body.roles == ['RESIDENT']) {
-                    messagingInitialisation = init_messaging(user, resi);
+                if (req.body.roles.includes(['RESIDENT'])) {
+                    let messagingInitialisation = init_messaging(user, resi);
+                    console.log(messagingInitialisation)
                     if (!messagingInitialisation.success) 
                         return res.json(messagingInitialisation);
                 } 
