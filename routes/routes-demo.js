@@ -17,6 +17,39 @@ let create_lead = function(role, email) {
     else return({success: true});
 }
 
+const welcome_messages  = require('../config/welcome_messages');
+let init_messaging = function (user, resi) {
+    // get user's caretaker's ID first
+    User.findOne({
+        _id: resi.caretaker_id,
+    }, function (err, caretaker) {
+        if (err) return res.json({success: false, message: 'Error from db'});
+        if (!caretaker) {
+            return res.json({success: false, message: 'Caretaker' + resi.caretaker_id + 'not found.'})
+        } else if (caretaker) {
+            let conv_participants = [];
+            conv_participants.push(user._id);
+            conv_participants.push(caretaker._id);
+
+            let messages = [];
+            messages.push({content: welcome_messages.caretaker_welcome_FR,
+                timestamp: Date.now(),
+                author: caretaker._id});
+
+            // Create conversation with caretaker
+            let conversation = new Conversation({
+                with: conv_participants,
+                messages: messages,
+                author: user._id
+            });
+            // Save conv to db
+            conversation.save(function (err) {
+                if (err) return res.json({success: false, err: err}); 
+            });
+        }
+    });
+}
+
 module.exports = function(app, apiRoutes) {
 
     let create_demo_res = function(residence_name="Une résidence démo", user_is_caretaker=false) {
@@ -141,8 +174,10 @@ module.exports = function(app, apiRoutes) {
             else {
                 let ticket_r = fill_demo_tickets(user, resi.residence._id, resi.caretaker._id)
                 if (!ticket_r.success) return res.json(ticket_r)
-                
+                 
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
+                if (req.body.roles == ['RESIDENT']) messagingInitialisation = init_messaging(user, resi);
+                if (!messagingInitialisation.success) return res.json(messagingInitialisation);
                 if (!lead_r.success) return res.json(lead_r)
                 if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='Bienvenue dans la résidence 2.0!', sub={'name': user.name}, templateId= '84068877-9d3c-4d8b-bf5d-0ccda1894db0'))
                     return res.json({success: true, message: "User registered", user: user})
