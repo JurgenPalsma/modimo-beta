@@ -172,10 +172,14 @@ module.exports = function(app, apiRoutes) {
             else {
                 let ticket_r = fill_demo_tickets(user, resi.residence._id, resi.caretaker._id)
                 if (!ticket_r.success) return res.json(ticket_r)
-                 
+                 console.log("On est la")
+                 console.log(req.body.roles)
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
-                if (req.body.roles.includes(['RESIDENT'])) {
+                if (req.body.roles.includes('RESIDENT')) {
+                    console.log("On est ici aussi")
+
                     let messagingInitialisation = init_messaging(user, resi.residence);
+                    console.log(messagingInitialisation)
                     if (!messagingInitialisation.success) 
                         return res.json(messagingInitialisation);
                 } 
