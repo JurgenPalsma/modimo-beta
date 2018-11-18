@@ -105,6 +105,8 @@ module.exports = function(app, apiRoutes) {
 
     const welcome_messages  = require('../config/welcome_messages');
     function init_messaging (user, resi) {
+        console.log(resi)
+        console.log(user)
         // get user's caretaker's ID first
             let writeError = false
             let conv_participants = [];
@@ -173,8 +175,7 @@ module.exports = function(app, apiRoutes) {
                  
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
                 if (req.body.roles.includes(['RESIDENT'])) {
-                    let messagingInitialisation = init_messaging(user, resi);
-                    console.log(messagingInitialisation)
+                    let messagingInitialisation = init_messaging(user, resi.residence);
                     if (!messagingInitialisation.success) 
                         return res.json(messagingInitialisation);
                 } 
