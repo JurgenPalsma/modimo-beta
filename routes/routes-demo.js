@@ -176,8 +176,11 @@ module.exports = function(app, apiRoutes) {
                 if (!ticket_r.success) return res.json(ticket_r)
                  
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
-                if (req.body.roles == ['RESIDENT']) messagingInitialisation = init_messaging(user, resi);
-                if (!messagingInitialisation.success) return res.json(messagingInitialisation);
+                if (req.body.roles == ['RESIDENT']) {
+                    messagingInitialisation = init_messaging(user, resi);
+                    if (!messagingInitialisation.success) 
+                        return res.json(messagingInitialisation);
+                } 
                 if (!lead_r.success) return res.json(lead_r)
                 if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='Bienvenue dans la résidence 2.0!', sub={'name': user.name}, templateId= '84068877-9d3c-4d8b-bf5d-0ccda1894db0'))
                     return res.json({success: true, message: "User registered", user: user})
