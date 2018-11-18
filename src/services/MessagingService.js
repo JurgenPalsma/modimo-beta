@@ -10,7 +10,6 @@ export default {
             }
         })
         let me = await UserService.getCurrentUser(token)
-        console.log(res)
         let conversations = []
         for (let i = 0; i < res.data.conversations.length; i++){
             conversations.push(res.data.conversations[i])

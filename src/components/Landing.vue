@@ -324,7 +324,6 @@ export default {
             this.loading = true
             let conv_roles = this.role_selected == "Resident" ? ["RESIDENT"] : ["CARETAKER"];
             let res = await DemoService.create_demo(this.firstname, this.lastname, this.email, this.password, conv_roles, this.residence_name);
-            console.log(res.data)
             if (res.data.success) {
                 const auth = await AuthService.authenticate(res.data.user.email, res.data.user.password)
                 if (auth.data.success) {

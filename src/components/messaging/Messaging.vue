@@ -19,16 +19,25 @@
                             {{conv.name}}
                         </div>
                     </div>
-                    <div class="column ">
+                    <div class="column">
                         <h2 class="title white-title is-4">
                             Messages
                         </h2>
-                        <div v-for="message in currentConv.messages" :key="message._id" class="column card"> 
-                            {{message.content}}
+                        <div>
+                            <div v-for="message in currentConv.messages" :key="message._id" class="card rows">
+                                <div class="columns" v-if="message.author == $parent.currentUser._id">
+                                    <div class="column card">  {{message.content}} </div>
+                                    <div class="column card is-2"> {{message.author == $parent.currentUser._id ? 'Vous' : currentConv.name }} </div> 
+                                </div>
+                                <div class="columns" v-else>
+                                    <div class="column card is-2"> {{message.author == $parent.currentUser._id ? 'Vous' : currentConv.name }} </div> 
+                                    <div class="column card">  {{message.content}} </div>
+                                </div>
+                            </div>
                         </div>
                         <br/>
                         <div class="field">
-                            <label class="label">Message</label>
+                            <label class="label">New message</label>
                             <div class=" control">
                                 <textarea class="textarea" v-model="message" placeholder="Enter your message"></textarea>
                             </div>
@@ -56,7 +65,6 @@ export default {
     },
 
     created: function () {
-        console.log("Salut")
         this.$parent.getCurrentUser()
         this.getConversations();
     },
@@ -80,6 +88,7 @@ export default {
 
         sendMessage () {
             let res = MessagingService.postMessage(this.$cookies.get('api_token'), this.currentConv.threadId, this.message);
+            this.message = ""
             this.getConversations();
         }
     },
@@ -90,8 +99,9 @@ export default {
 
         conversationListUpdateChannel: function(){
             this.conversations = [];
+            this.getConversations();
         }
-    },  
+    },
 }
 
 </script>
