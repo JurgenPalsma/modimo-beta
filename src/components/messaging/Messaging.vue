@@ -56,6 +56,8 @@ export default {
     },
 
     created: function () {
+        console.log("Salut")
+        this.$parent.getCurrentUser()
         this.getConversations();
     },
     watch: {
