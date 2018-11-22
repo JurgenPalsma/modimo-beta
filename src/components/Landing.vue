@@ -19,7 +19,7 @@
             </div>
 
             <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
-                
+                <div class="modimo-background"/>
                 <div class="container">
                     <br/><br/>
                     <div class="columns has-text-left">
@@ -30,7 +30,7 @@
                             <a class="button signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
                         </div>
 
-                        <div class="column is-4">
+                        <div class="column is-4" style="background-color: rgba(255,255,255,0.95); border-radius: 8px;">
                             <br/>
                             <img src="/static/img/logofull.png">
                         </div>  
