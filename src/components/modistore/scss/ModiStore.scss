@@ -5,7 +5,7 @@
 }
 
 .modistore-card {
-    height: 230px;
+    height: 240px;
 }
 
 $font-size: .75rem;
@@ -27,9 +27,20 @@ $lines-to-show: 4;
 }
 
 .modistore-card-footer {
-    height: 30px;
+    border-top: 1px solid #f2f2f2;
+    padding-top: 10px;
+    height: 47px;
     text-align: right;
     position: relative;
+}
+
+.modistore-button-back {
+    color: #2b5bb2;
+    cursor: pointer;
+}
+
+.modistore-button-back:hover {
+    color: #1b3b77;
 }
 
 .modistore-button {
@@ -52,11 +63,11 @@ $lines-to-show: 4;
 .modistore-see-more {
     position: absolute;
     left: 0;
-    top: 8px;
-    font-size: 14px;
+    bottom: 0;
     vertical-align: middle;
     display: inline-block;
     color: dimgrey;
+    align-self: right;
 }
 
 .modistore-see-more:hover {
@@ -102,4 +113,11 @@ $lines-to-show: 4;
     position: absolute;
     bottom: 18px;
     left: 23px;
+}
+
+@media screen and (max-width: 588px) {
+    .content figure {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

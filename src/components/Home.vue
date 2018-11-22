@@ -16,7 +16,7 @@
                 </div>
                 
                 <div class="columns is-multiline is-mobile">
-                    <router-link v-for="app in applications" :key="app._id" :to="app.link" style="position: relative" class="column is-12-mobile is-6-tablet is-3-desktop">
+                    <router-link v-for="app in applications" :key="app._id" :to="app.link" style="position: relative" class="column is-12-mobile is-6-tablet is-4-desktop is-3-widescreen">
                         <div class="card" style="border-radius: 3px">
                             <span v-if="editMode && app.shortname != 'ModiStore'" class="edit-remove"><i class="fa fa-times"/></span>
                             <div @click.stop.prevent @click="deleteApp(app)" v-if="editMode && app.shortname != 'ModiStore'" class="edit-card">
@@ -81,7 +81,7 @@ export default {
             let response = await ApplicationService.deleteUserApplication(this.$cookies.get('api_token'), app._id)
             if (response.data.success) {
                 let tmp = this.applications.slice();
-                tmp.splice(tmp.findIndex(a => {a._id == app._id}), 1);
+                tmp.splice(tmp.findIndex(a => (a._id === app._id)), 1);
                 this.applications = tmp;
             }
             else {

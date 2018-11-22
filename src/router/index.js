@@ -10,6 +10,7 @@ import StoreAppDetails from '@/components/modistore/AppDetails'
 import Billboard from '@/components/billboard/Billboard'
 //  import MailCreate from '@/components/Mails/mailCreate.vue'
 import Analytics from '@/components/analytics/Analytics'
+import Messaging from '@/components/messaging/Messaging'
 
 Vue.use(Router)
 
@@ -57,6 +58,11 @@ export default new Router({
             path: '/analytics',
             name: 'Analytics',
             component: Analytics
+        },
+        {
+            path: '/messaging',
+            name: 'Messaging',
+            component: Messaging
         },
         {
             path: '/billboard',

@@ -71,7 +71,7 @@
             <div v-else-if="form_state === 'email' && !email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight form-registration">
                 <div class="container">
                     <br/><br/>
-                    <div class="column is-6 is-offset-3">
+                    <div class="column">
                         <h1 class="title">
                             On y est presque
                         </h1>
@@ -143,7 +143,7 @@
             </div>
 
             <div v-else-if="form_state === 'email' && email_error" class="section is-large modimo-clear">
-                <div class="container ">
+                <div class="container" style="z-index: 1">
                     <div class="column is-6 is-offset-3">
                         <h1 class="title text-dark">
                             Ooooups
@@ -234,13 +234,13 @@
             </div>
         </div>
         <footer class="footer modimo-dark footer-resized">
-            <div class="columns is-mobile">
-                <div class="column has-text-centered">
+            <div class="columns">
+                <div class="column has-text-centered is-full-mobile">
                     <a @click="contactModal()">
                     <p class="strong">Nous Contacter</p>
                     </a>
                 </div>
-                <div class="column has-text-centered">
+                <div class="column has-text-centered is-full-mobile">
                     <p class="strong">Réseaux sociaux:</p>
                     <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook-square' }"/>
                     <a href="https://www.facebook.com/ModimoFR/" class="white">Notre Facebook</a>
@@ -324,7 +324,6 @@ export default {
             this.loading = true
             let conv_roles = this.role_selected == "Resident" ? ["RESIDENT"] : ["CARETAKER"];
             let res = await DemoService.create_demo(this.firstname, this.lastname, this.email, this.password, conv_roles, this.residence_name);
-            console.log(res.data)
             if (res.data.success) {
                 const auth = await AuthService.authenticate(res.data.user.email, res.data.user.password)
                 if (auth.data.success) {
