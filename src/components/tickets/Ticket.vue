@@ -31,6 +31,9 @@
                                 <span v-else>Modifié le </span>
                                 {{dateFormater(ticket.updated_at)}}
                                 <span v-if="this.current_user._id == this.ticket.author_id && this.ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
+                                <br>
+                                <a v-on:click="likeTicket">J'aime</a> · 
+                                <a v-on:click="likeTicket">J'aime pas</a>
                             </small>
                         </div>
                         <article class="media">
@@ -101,14 +104,14 @@
                 if (resp.data.success) {
                     this.ticket.status = "closed"
                     console.log('successss')
+                    // this.$parent.loadTickets();
+                    // this.$parent.showTickets = this.$parent.sortTickets();
+                    this.closeModal()
                 }
                 else {
                     console.log('CLOSE TICKET failed :')
                     console.log(resp.data.message)
                 }
-                this.$parent.showTickets = this.$parent.sortTickets(this.$parent.index);
-
-                this.$emit('close_modal')
             },
             commentTicket: async function (event) {
                 var date = new Date();
@@ -122,6 +125,8 @@
                 this.text_comment = ''
                 if (resp.data.success) {
                     console.log('successss')
+                    //this.$parent.loadDates(this.ticket)
+                    // this.$parent.loadTickets();
                 }
                 else {
                     console.log(resp.data.message)
@@ -155,6 +160,8 @@
             return (date)
             },
             closeModal() {
+                console.log('close')
+                this.$parent.loadTickets();
                 if (this.$refs.modif_ticket_button) {
                     this.$refs.space_modif_ticket.style = 'display: none;'
                     this.$refs.display_ticket.style = 'display: block;'
