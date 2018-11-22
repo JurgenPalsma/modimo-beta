@@ -8,6 +8,18 @@
     height: 240px;
 }
 
+.inline {
+    display: inline-block;
+}
+
+.rate-input {
+    width: 65px;
+}
+
+.comment {
+	margin-left : 2em;
+}
+
 $font-size: .75rem;
 $line-height: 1.5;
 $lines-to-show: 4;
