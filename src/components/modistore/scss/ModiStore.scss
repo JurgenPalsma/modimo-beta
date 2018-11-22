@@ -127,6 +127,34 @@ $lines-to-show: 4;
     left: 23px;
 }
 
+.modistore-labels-container {
+    background-color: white;
+    min-height: 240px;
+    padding: 1.5rem;
+    border-radius: 3px;
+    text-align: center;
+    .button {
+        width: 100% !important;
+        margin-bottom: 10px;
+        justify-content: flex-start;
+    }
+}
+
+.modistore-label {
+    height: 50px;
+    margin: 0 10px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.modistore-label-title {
+    color: #3273dc;
+    font-weight: 700!important;
+    text-align: center;
+    font-size: 1.25rem;
+    padding-bottom: 1.5rem;
+}
+
 @media screen and (max-width: 588px) {
     .content figure {
         margin-left: 0;
