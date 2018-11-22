@@ -54,6 +54,28 @@
                                         <p>
                                             {{app.description}}
                                         </p>
+                                        
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="subtitle">Avis</h3>
+                                        <article class="media">
+                                            <div class="media-content comment">
+                                                <div v-for="rate in app_rates" :key="rate._id" >
+                                                    <article class="media">
+                                                    <p>
+                                                        <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
+                                                        {{rate.comment}}
+                                                        <br>
+                                                    </p>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <div class="field">
+                                            <p class="control">
+                                                <input v-model="text_comment" class="textarea" @keyup.enter="addRate" rows="1" placeholder="Rédiger un avis...">
+                                            </p>
+                                        </div>                            
                                     </div>
                                 
                                 </div>
@@ -68,12 +90,17 @@
 
 <script>
 import moment from "moment";
+import RateService from '@/services/RateService';
+
 
     export default {
         props: ['application'],
         name: 'StoreAppDetails',
         data () {
             return {
+                current_user: null,
+                text_comment: '',
+                app_rates: [],
                 app: {
                     name: "Nom de l'app",
                     shortname: "app",
@@ -92,6 +119,7 @@ import moment from "moment";
         },
         created() {
             if (this.application) {
+                this.load(),
                 this.app.name = this.application.shortname
                 this.app.rate_average = Number(this.application.rate_average.toFixed())
                 this.app.updated_at = this.application.updated_at
@@ -109,6 +137,34 @@ import moment from "moment";
             dateFormater(unFormatedDate) {
                 var date = moment(String(unFormatedDate)).format("MM/DD/YYYY");
                 return date;
+            },
+
+            async getRates() {
+                const resp = await RateService.getRates(this.$cookies.get('api_token'), this.application._id);
+                if (resp.data.sucess) {
+                    this.app_rates = resp.data.rates
+                } else
+                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des avis'}
+            },
+
+            async load() {
+                await this.$parent.getCurrentUser();
+                this.current_user =  this.$parent.currentUser;
+                await this.getRates();
+            },
+            addRate: async function () {
+                this.app_rates.push({
+                    'author_name' : this.current_user.name,
+                    'comment': this.text_comment,
+                })
+                const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, 5, "")
+                this.text_comment = ''
+                if (resp.data.success) {
+                    console.log('success')
+                }
+                else {
+                    console.log(resp.data.message)
+                }
             }
         },
     }
