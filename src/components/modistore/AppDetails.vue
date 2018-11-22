@@ -58,22 +58,40 @@
                                     </div>
                                     <div class="content">
                                         <h3 class="subtitle">Avis</h3>
-                                        <article class="media">
+                                        <div class="media">
                                             <div class="media-content comment">
                                                 <div v-for="rate in app_rates" :key="rate._id" >
                                                     <article class="media">
-                                                    <p>
-                                                        <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
-                                                        {{rate.comment}}
-                                                        <br>
-                                                    </p>
+                                                        <div class="content">
+                                                            <p>
+                                                                <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
+                                                                    <i v-for="i in rate.stars" :key="i" class="fas fa-star has-text-info"></i>
+                                                                    <i v-for="j in 5 - rate.stars" :key="j + app.rate_average"  class="fas fa-star"></i>
+                                                                <br>
+                                                                <span>{{rate.comment}}</span>
+                                                                <br>
+                                                                <br>                     
+                                                            </p>
+                                                        
+                                                        </div>
                                                     </article>
                                                 </div>
                                             </div>
-                                        </article>
+                                        </div>
                                         <div class="field">
                                             <p class="control">
-                                                <input v-model="text_comment" class="textarea" @keyup.enter="addRate" rows="1" placeholder="Rédiger un avis...">
+                                                <input v-model="text_comment" class="textarea" rows="1" placeholder="Rédiger un avis...">
+                                            </p>
+                                        </div>
+                                        <span class="inline">Donner une note: </span>
+                                        <div class="field rate-input inline">
+                                            <p class="control">
+                                                <input type="number" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="control is-pulled-right">
+                                                <button ref="send_comment" class="button" @click="addRate">Envoyer</button>
                                             </p>
                                         </div>                            
                                     </div>
@@ -100,6 +118,7 @@ import RateService from '@/services/RateService';
             return {
                 current_user: null,
                 text_comment: '',
+                rate_input: -1,
                 app_rates: [],
                 app: {
                     name: "Nom de l'app",
@@ -153,18 +172,25 @@ import RateService from '@/services/RateService';
                 await this.getRates();
             },
             addRate: async function () {
-                this.app_rates.push({
-                    'author_name' : this.current_user.name,
-                    'comment': this.text_comment,
-                })
-                const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, 5, "")
-                this.text_comment = ''
-                if (resp.data.success) {
-                    console.log('success')
+                if (this.rate_input >= 0 && this.rate_input <= 5)
+                {
+                    this.app_rates.push({
+                        'author_name' : this.current_user.name,
+                        'comment': this.text_comment,
+                        'stars': this.rate_input
+                    })
+                    const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
+                    this.text_comment = ''
+                    this.rate_input = -1
+                    if (resp.data.success) {
+                        console.log('success')
+                    }
+                    else {
+                        console.log(resp.data.message)
+                    }
                 }
-                else {
-                    console.log(resp.data.message)
-                }
+                else
+                    this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
             }
         },
     }
