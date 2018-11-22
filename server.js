@@ -52,6 +52,7 @@ require('./routes/routes-residences')(app, apiRoutes);
 require('./routes/routes-application')(app, apiRoutes, io);
 require('./routes/routes-comments')(app, apiRoutes);
 require('./routes/routes-notification')(app, apiRoutes, io);
+require('./routes/routes-messagerie')(app, apiRoutes, io);
 require('./routes/routes-mailer')(app, apiRoutes);
 require('./routes/routes-reporting')(app, apiRoutes);
 require('./routes/routes-informations')(app, apiRoutes);

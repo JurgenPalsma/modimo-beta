@@ -5,7 +5,7 @@ const Conversation      = require('../models/messagerie/conversation');
 
 /*          Modimo API - Messagerie              */
 
-module.exports = function(app, io, apiRoutes) {
+module.exports = function(app, apiRoutes, io) {
 
     /*---- Contact management ----*/
 
@@ -33,7 +33,6 @@ module.exports = function(app, io, apiRoutes) {
                         if (!user) {
                             return res.json({success: false, message: 'Add failed. User does not exist'});
                         } else if (user) {
-
                             // Check if contact exists
                             Contact.findOne({
                                 name: user.name,
@@ -43,14 +42,12 @@ module.exports = function(app, io, apiRoutes) {
                                 if (contact) {
                                     res.json({success: false, message: 'Add failed. Contact already exists'});
                                 } else if (!contact) {
-
                                     // Create contact
                                     let contact = new Contact({
                                         name: user.name,
                                         uid: user._id,
                                         of: auth_user._id,
                                     });
-
                                     // Save contact to db
                                     contact.save(function (err) {
                                         if (err) throw err;
@@ -62,32 +59,6 @@ module.exports = function(app, io, apiRoutes) {
                     })
                 }
             });
-        }
-    });
-
-    apiRoutes.delete('/messagerie/conversation', function (req, res) {
-
-        if (!req.body.id || !req.headers['x-access-token']) {
-            return res.json({success: false, message: "Error: request incomplete"});
-        } else {
-            User.findOne({
-                token: req.headers['x-access-token'],
-            }, function (err, user) {
-                if (err) return res.json({success: false, message: 'Error from db'});
-                if (!user) {
-                    return res.json({success: false, message: 'Bad token'});
-                } else if (user) {
-                    Conversation.remove({
-                        _id: req.body.id }, function(err) {
-                        if (!err) {
-                            return res.json({success: true})}
-                        else {
-                            return res.json({success: false, message: "Error from db"})
-                        }
-                    });
-
-                }
-            })
         }
     });
 
@@ -118,13 +89,9 @@ module.exports = function(app, io, apiRoutes) {
         }
     });
 
-
     // route to get list of contacts
-    apiRoutes.get('/messagerie/contact', function (req, res) {
+    apiRoutes.get('/messagerie/contacts', function (req, res) {
 
-        // check if request is valid
-        // params:
-        //          NaN
         User.findOne({
             token: req.headers['x-access-token'],
         }, function (err, user) {
@@ -151,6 +118,10 @@ module.exports = function(app, io, apiRoutes) {
 
     /*---- Conv management ----*/
 
+    function addUserToConversation(user_id, conversation_id) {
+
+    }
+
     apiRoutes.post('/messagerie/conversation', function (req, res) { // TODO make sure that there are no duplicates
 
         // check if request is valid
@@ -159,8 +130,7 @@ module.exports = function(app, io, apiRoutes) {
         if ((!req.body.users) || !req.headers['x-access-token']) {
             return res.json({success: false, message: "Error: request incomplete. Need: body.users ; header.x-access-token"});
         } else {
-            let users = req.body.users
-
+            let users = JSON.parse(req.body.users)
             // check user access token
             User.findOne({
                 token: req.headers['x-access-token'],
@@ -169,14 +139,13 @@ module.exports = function(app, io, apiRoutes) {
                 if (!auth_user) {
                     return res.json({success: false, message: 'User not found.'})
                 } else if (auth_user) {
-
                     User.find(
                     {_id: { $in: users }}, function (err, checked_users) {
-                        if (err) return res.json({success: false, message: 'Error from db'});
-                        if (!checked_users) {
+                        if (err) return res.json({success: false, message: 'Error from db', err: err});
+                        if (!checked_users || checked_users.length == 0) {
                             return res.json({success: false, message: 'User not found.'})
                         } else if (checked_users) {
-                            for (let i = 0; i <users.length; i++ ){
+                            for (let i = 0; i < users.length; i++ ){
                                 if (checked_users[i].residence != auth_user.residence) {
                                     return res.json({success: false, message: 'User not in residence'});
                                 }
@@ -184,7 +153,6 @@ module.exports = function(app, io, apiRoutes) {
 
                             // add yourself to the conversation
                             users.push(auth_user.id);
-
                             // Create conversation
                             let conversation = new Conversation({
                                 with: users,
@@ -196,7 +164,6 @@ module.exports = function(app, io, apiRoutes) {
                             conversation.save(function (err) {
                                 if (err) return res.json({success: false});
                                 // return conversation
-                                console.log(conversation);
                                 io.emit('conversationListUpdateChannel')
                                 res.json({success: true, conversation: conversation});
                             });
@@ -301,12 +268,38 @@ module.exports = function(app, io, apiRoutes) {
         }
     });
 
+    apiRoutes.delete('/messagerie/conversation', function (req, res) {
+
+        if (!req.body.id || !req.headers['x-access-token']) {
+            return res.json({success: false, message: "Error: request incomplete"});
+        } else {
+            User.findOne({
+                token: req.headers['x-access-token'],
+            }, function (err, user) {
+                if (err) return res.json({success: false, message: 'Error from db'});
+                if (!user) {
+                    return res.json({success: false, message: 'Bad token'});
+                } else if (user) {
+                    Conversation.remove({
+                        _id: req.body.id }, function(err) {
+                        if (!err) {
+                            return res.json({success: true})}
+                        else {
+                            return res.json({success: false, message: "Error from db"})
+                        }
+                    });
+
+                }
+            })
+        }
+    });
+
     /*---- Message management ----*/
 
     apiRoutes.post('/messagerie/:conversation_id/message', function (req, res) {
 
-        if (!req.body.content || !req.headers['x-access-token']) {
-            res.json({success: false, message: "Error: request incomplete. Need: header.x-access-token"});
+        if (!req.headers['content']) {
+            res.json({success: false, message: "Error: request incomplete."});
         } else {
             // check user access token
             User.findOne({
@@ -328,7 +321,7 @@ module.exports = function(app, io, apiRoutes) {
                                 conversations.author == auth_user.id) {
                                     Conversation.findByIdAndUpdate(
                                         req.param("conversation_id"),
-                                        {$push: {"messages": {content: req.body.content, timestamp: Date.now(),  author: auth_user.id}}},
+                                        {$push: {"messages": {content: req.headers['content'], timestamp: Date.now(),  author: auth_user.id}}},
                                         {safe: true, upsert: true, new : true},
                                         function(err, model) {
                                             console.log(err);

@@ -1,5 +1,9 @@
-const Lead          = require('../models/lead');
+const Lead              = require('../models/lead');
+const User              = require('../models/user');
+const Residence         = require('../models/residence');
+const Conversation  	= require('../models/messagerie/conversation');
 const welcome_messages  = require('../config/welcome_messages');
+const mailer       	 	= require('../functions/mailer')
 
 module.exports = function(app) {
 

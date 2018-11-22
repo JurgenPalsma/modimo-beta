@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 
 module.exports = mongoose.model('Info', new Schema({
     author_id: String,
+    author_name: String,
     title: String,
     content: String,
     created_at: Date,

@@ -4,6 +4,8 @@ const Ticket        = require('../models/tickets/ticket');
 const Notif         = require('../functions/notifications');
 const Lead          = require('../models/lead');
 const ticketList    = require('../config/demo_tickets')
+const mailer        = require('../functions/mailer')
+const Conversation  = require('../models/messagerie/conversation');
 
 let create_lead = function(role, email) {
     lead = new Lead({
@@ -18,7 +20,7 @@ let create_lead = function(role, email) {
 
 module.exports = function(app, apiRoutes) {
 
-    let create_demo_res = function(user_is_caretaker=false) {
+    let create_demo_res = function(residence_name="Une résidence démo", user_is_caretaker=false) {
         // TODO: Parametrize all this with config files
         let default_app_ids = [
             "5a774ac0734d1d3bd58cefc7",
@@ -30,13 +32,13 @@ module.exports = function(app, apiRoutes) {
 
         let caretaker = new User({
             name: c_name,
-            password: "super secret",
+            password: "super secret password",
             application_list: default_app_ids,
             roles: ["CARETAKER", "ADMIN"]
         });
 
         let residence = new Residence({
-            name: "Une résidence démo",
+            name: residence_name,
             caretaker_id: caretaker._id
         });
 
@@ -100,6 +102,92 @@ module.exports = function(app, apiRoutes) {
             return({success: true});
         }
     }
+
+    const welcome_messages  = require('../config/welcome_messages');
+    function init_messaging (user, resi) {
+        console.log(resi)
+        console.log(user)
+        // get user's caretaker's ID first
+            let writeError = false
+            let conv_participants = [];
+            conv_participants.push(user._id);
+            conv_participants.push(resi.caretaker_id);
+
+            let messages = [];
+            messages.push({content: welcome_messages.caretaker_welcome_FR,
+                timestamp: Date.now(),
+                author: resi.caretaker_id});
+
+            // Create conversation with caretaker
+            let conversation = new Conversation({
+                with: conv_participants,
+                messages: messages,
+                author: user._id
+            });
+            // Save conv to db
+            if ((conversation.save()).hasWriteError) {
+                writeError = true
+                return ({success: false, message: "Db not writable"})
+            }
+            if (!writeError) {
+                //Notif.createTicket("Un premier ticket est apparu", user._id, user.name, ticket.id, ticket.residence_id);
+                return({success: true});
+            }
+    }
+
+    apiRoutes.post('/demo', function(req, res) {
+        
+        // Check email
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(String(req.body.email).toLowerCase())) { return res.json({success: false, message: 'bad email'});}
+
+        // Check params
+        if (!req.body.email ||
+            !req.body.residenceName  ||
+            !req.body.firstname ||
+            !req.body.lastname ||
+            !req.body.password ||
+            !req.body.roles  )
+            return res.json({success:false, message:'Bad params, need: (req.body.email && req.body.residenceName && req.body.firstname && req.body.lastname && req.body.password && req.body.roles)'})
+
+        // Create demo residence
+        resi = create_demo_res(name=req.body.residenceName)
+        if (resi.success == false) return res.json(resi)
+        
+        // create user
+        let user = new User({
+            name: (req.body.firstname + ' ' + req.body.lastname),
+            first_name : req.body.firstname,
+            last_name : req.body.lastname,
+            password: req.body.password,
+            email: req.body.email,
+            residence: resi.residence._id, // TODO check if res exists
+            roles: req.body.roles,
+            application_list: resi.residence.default_app_ids,
+        });
+
+        // save the user
+        user.save(function(err) {
+            if (err) throw err;
+            else {
+                let ticket_r = fill_demo_tickets(user, resi.residence._id, resi.caretaker._id)
+                if (!ticket_r.success) return res.json(ticket_r)
+                let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
+                if (req.body.roles.includes('RESIDENT')) {
+                    let messagingInitialisation = init_messaging(user, resi.residence);
+                    if (!messagingInitialisation.success) 
+                        return res.json(messagingInitialisation);
+                } 
+                if (!lead_r.success) return res.json(lead_r)
+                if (mailer.sendSyncTemplatedSGEmail(to=user.email, subject='Bienvenue dans la résidence 2.0!', sub={'name': user.name}, templateId= '84068877-9d3c-4d8b-bf5d-0ccda1894db0'))
+                    return res.json({success: true, message: "User registered", user: user})
+                else
+                    return res.json({success: false, message: "Registration mail not sent"});
+            }
+        });
+    });
+
+
 
     apiRoutes.post('/demo/resident', function(req, res) {
         

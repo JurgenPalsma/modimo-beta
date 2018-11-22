@@ -25,6 +25,7 @@ module.exports = function (app, apiRoutes) {
                 else {
                     let info = new Info({
                         author_id: user._id,
+                        author_name: user.name,
                         info_type: 'info',
                         title: req.body.title,
                         content: req.body.content,
