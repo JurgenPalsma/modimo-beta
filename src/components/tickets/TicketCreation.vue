@@ -44,7 +44,6 @@ export default {
         }
     },
     methods: {
-            
         postTicket: function () {
             TicketService.postTicket(this.$cookies.get('api_token'), this.title, this.content)
             .then(response => {
