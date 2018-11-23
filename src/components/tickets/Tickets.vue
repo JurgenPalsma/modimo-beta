@@ -4,7 +4,6 @@
 </style>
 
 <template>
-<!--Give_UserIdto Component-->
     <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
             <div class="container">
@@ -47,12 +46,6 @@
                         <div class="modimo-tile">
                             <a @click="idToModal(ticket)" style="color: #4a4a4a">
                                 <div class="columns is-vcentered is-mobile is-multiline" style="margin:0">
-                                    <!-- <div class="column is-1-mobile is-hidden"> -->
-                                        <!-- <div id="ticket-status" class="icon-status has-text-centered">
-                                            <i v-if="ticket.status === 'open'" class="fas fa-bell fa-2x"></i>
-                                            <i v-else-if="ticket.status === 'closed'" class="fas fa-lock fa-2x"></i>
-                                        </div> -->
-                                    <!-- </div> -->
                                     <div class="column is-hidden-mobile is-1 has-text-centered">
                                         <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
                                         <span v-else-if="ticket.status === 'closed'" class="bold circle-processDown">Fermé</span>
@@ -95,8 +88,6 @@ export default {
     name: 'Ticket',
     data () {
         return {
-            //  Maybe not the type but data?
-            // currentTicket: '',
             current_user: '',
             tickets: [],
             showTickets: [],
@@ -116,7 +107,6 @@ export default {
             dropdownVisible: false,
             sortBy: ['Le plus important', 'Le plus récent'],
             sortIndex: 0
-            //  not the type, empty data
         }
     },
     created () {

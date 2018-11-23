@@ -11,7 +11,6 @@
                             <br>
                             <br>
                             <span ref="display_ticket">{{ticket.content}}</span>
-                            <!--ICI LE CHAMP QUI APPARAIT POUR LA MODIF DU MESSAGE-->
                             <div ref="space_modif_ticket" class="media-content" v-bind:style="{display: 'none'}">
                                 <div class="field">
                                     <p class="control">
@@ -53,7 +52,6 @@
                             </div>
                         </article>
                     </div>
-                    <!--</article>-->
                     <article class="media">
                         <div v-if="ticket.status != 'closed'" class="media-content">
                             <div class="field">
@@ -76,7 +74,6 @@
                         </div>
                     </article>
                 </div>
-                <!--</div>-->
             </div>
         </div>
     </section>
@@ -88,12 +85,10 @@
     import TicketService from '@/services/TicketService'
     import moment from 'moment'
     export default {
-        // name: 'ticket',
         props: ['ticket', 'current_user'],
         data () {
             return {
                 text_comment: '',
-                //current_user: null,
                 isNone: 'none;',
                 isActive: true
             }
@@ -103,8 +98,6 @@
                 const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
                 if (resp.data.success) {
                     this.ticket.status = "closed"
-                    // this.$parent.loadTickets();
-                    // this.$parent.showTickets = this.$parent.sortTickets();
                     this.closeModal()
                 }
                 else {
@@ -116,8 +109,6 @@
                 const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
                 if (resp.data.success) {
                     this.ticket.votes.push(this.current_user._id)
-                    // this.$parent.loadTickets();
-                    // this.$parent.showTickets = this.$parent.sortTickets();
                 }
                 else {
                     console.log('CLOSE TICKET failed :')
