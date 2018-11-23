@@ -27,7 +27,7 @@
                                 <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
                                     <div class="card modistore-card" style="border-radius: 3px">
                                         <div class="card-content modistore-card">
-                                            <div class="media is-vertical-center">
+                                            <div class="media is-vertical-align">
                                                 <div class="media-left">
                                                     <figure class="image is-64x64">
                                                     <img :src="app.mini_logo" :alt="app.name">
@@ -54,7 +54,7 @@
                             <div v-if="applications && applications.length > 0" class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet"> 
                                 <div class="card" style="border-radius: 3px; opacity: 0.5">
                                     <div class="card-content modistore-card">
-                                        <div class="media is-vertical-center">
+                                        <div class="media is-vertical-align">
                                             <div class="media-left">
                                                 <figure class="image is-64x64">
                                                 <img src="/static/img/comingsoon.png" alt="Analytics">
