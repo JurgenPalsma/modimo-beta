@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="modal is-active">
-            <div class="my-modal-background modal-background" style="opacity:50%;" v-on:click="closeModal"></div>
+            <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
             <div class="modal-content">
                 <div v-if="ticket" class="box">
                     <button class="delete is-pulled-right" aria-label="close" v-on:click="closeModal"></button>
@@ -32,13 +32,12 @@
                                 {{dateFormater(ticket.updated_at)}}
                                 <span v-if="this.current_user._id == this.ticket.author_id && this.ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
                                 <br>
-                                <a v-on:click="likeTicket">J'aime</a> · 
-                                <a v-on:click="likeTicket">J'aime pas</a>
+                                <a v-if="ticket.status == 'open' && ticket.author_id != current_user._id"><span v-on:click="likeTicket" v-if="ticket.votes.indexOf(current_user._id) == -1">Prioriser</span><span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}
                             </small>
                         </div>
                         <article class="media">
                             <div class="media-content comment">
-                                <div v-for="comment in ticket.comments" :key="comment._id" >
+                                <div v-for="comment in ticket.comments" :key="comment._id">
                                     <article class="media">
                                     <p>
                                         <strong class="modimo-color">{{comment.author_name}}&nbsp;</strong>
@@ -77,6 +76,7 @@
                         </div>
                     </article>
                 </div>
+                <!--</div>-->
             </div>
         </div>
     </section>
@@ -113,7 +113,35 @@
                     console.log(resp.data.message)
                 }
             },
+            likeTicket: async function (event) {
+                const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
+                if (resp.data.success) {
+                    console.log('successss')
+                    this.ticket.votes.push(this.current_user._id)
+                    // this.$parent.loadTickets();
+                    // this.$parent.showTickets = this.$parent.sortTickets();
+                }
+                else {
+                    console.log('CLOSE TICKET failed :')
+                    console.log(resp.data.message)
+                }
+            },
+            unlikeTicket: async function (event) {
+                const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
+                if (resp.data.success) {
+                    console.log('successss')
+                    this.ticket.votes.splice(this.current_user._id, 1)
+                    // this.$parent.loadTickets();
+                    // this.$parent.showTickets = this.$parent.sortTickets();
+                }
+                else {
+                    console.log('CLOSE TICKET failed :')
+                    console.log(resp.data.message)
+                }
+            },
             commentTicket: async function (event) {
+                if (this.text_comment == "")
+                    return
                 var date = new Date();
                 this.ticket.comments.push({
                     'author_name' : this.current_user.name,

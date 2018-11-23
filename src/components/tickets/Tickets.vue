@@ -47,25 +47,29 @@
                         <div class="modimo-tile">
                             <a @click="idToModal(ticket)" style="color: #4a4a4a">
                                 <div class="columns is-vcentered is-mobile is-multiline" style="margin:0">
-                                    <div class="column is-2-mobile is-1">
-                                        <div id="ticket-status" class="icon-status has-text-centered">
+                                    <!-- <div class="column is-1-mobile is-hidden"> -->
+                                        <!-- <div id="ticket-status" class="icon-status has-text-centered">
                                             <i v-if="ticket.status === 'open'" class="fas fa-bell fa-2x"></i>
                                             <i v-else-if="ticket.status === 'closed'" class="fas fa-lock fa-2x"></i>
-                                        </div>
+                                        </div> -->
+                                    <!-- </div> -->
+                                    <div class="column is-hidden-mobile is-1 has-text-centered">
+                                        <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
+                                        <span v-else-if="ticket.status === 'closed'" class="bold circle-processDown">Fermé</span>
                                     </div>
-                                    <div class="column is-11-mobile is-6-desktop">
+                                    <div class="column is-11-mobile is-9-desktop">
                                         <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
-                                        <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaire<span v-if="ticket.comments.length > 1">s</span></p>
+                                        <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaire<span v-if="ticket.comments.length > 1">s</span> · &nbsp;&nbsp;<i class="far fa-thumbs-up"/> {{ticket.votes.length}}</p>
                                     </div>
-                                    <div class="column is-6-mobile is-3-desktop">
+                                    <div class="column is-6-mobile is-2-desktop">
                                         <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.updated_at" class="no-bold">{{ dateFormater(ticket.last_update_at) }}</time></p>
                                         <p class="bold modimo-content-size is-text-overflow has-text-right">{{ticket.author_name}}</p>
                                     </div>
-                                    <div class="column is-3-mobile is-2 has-text-right">
+                                    <div class="column is-hidden-desktop is-hidden-tablet is-3-mobile has-text-right">
                                         <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
                                         <span v-else-if="ticket.status === 'closed'" class="bold circle-processDown">Fermé</span>
-                                        <p class="bold"><i class="far fa-thumbs-up"/> {{ ticket.votes.length}}</p>
                                     </div>
+
                                 </div>
                             </a>
                             <ticket :ticket="currentTicket"  :current_user="current_user"  v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
