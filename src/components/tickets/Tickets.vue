@@ -173,9 +173,9 @@ export default {
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
                 //this.loadTickets()
+                this.tickets.push(ticket);
                 this.sortTickets()
                 this.loadDates()
-                // this.tickets.push(ticket);
                 this.showTickets = this.sortTickets();
                 this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
             }
