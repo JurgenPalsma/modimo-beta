@@ -234,6 +234,17 @@ h3 {
     text-decoration: underline;
 }
 
+.modimo-background {
+    background-image: url("/static/img/city.jpg");
+    height: 100%;
+    width: 50%;
+    right: 0;
+    position: absolute;
+    background-size:cover;
+    opacity: 0.4;
+    // z-index: 10000;
+}
+
 @media screen and (max-width: 588px) {
 
     .landing-title {

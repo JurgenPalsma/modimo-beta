@@ -131,9 +131,9 @@ export default {
     // route research applications corresponding with a name of research
     getAppsBySearchName(user_token, name) {
         return Api().get('/api/applications/applications', {
-            'name': name,
             headers: {
                 'x-access-token': user_token,  
+                'name': name,
             }
         })
     },
@@ -147,6 +147,16 @@ export default {
         })
     },
 
+    // route to get all labels name
+    getAllAppsByLabel(user_token, labelName) {
+        return Api().get('/api/applications/applications/', {
+            headers: {
+                'x-access-token': user_token,
+                'name': labelName
+            }
+        })
+    },
+    
     // route to post an application rates from an application_id
     postApplicationRateByAppID(user_token, objRate) {
         return Api().post('/api/applications/rates', {}, {
