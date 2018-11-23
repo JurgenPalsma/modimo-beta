@@ -1,14 +1,37 @@
 <style lang="scss">
+@import './style/panneauAdmin.scss';
 @import '../../styles/global.scss';
 </style>
 <template>
-  <div class="columns is-multiline">
-      <div v-for="user in users" :key="user._id" class="column modimo-tiny-padding is-12">
-          <div class="modimo-tile">
-            <p class="bold modimo-content-size is-text-overflow">par <span class="no-bold">{{user.name}}</span></p>
-          </div>
-      </div>
-  </div>
+<section class="hero modimo-dark is-fullheight-minus-navbar">
+    <div class="container">
+        <aside class="menu">
+            <a @click="showModalUserCreation = true" class="super-button">+</a>
+            <p class="title has-text-centered white-title">
+                Liste des utilisateurs
+            </p>
+            <div style="margin-top:50px; margin-left:250px;">
+                <div v-for="user in users" :key="user._id">
+                    <ul class="menu-list">
+                        <li>
+                            <div class="columns">
+                                <div class="column">
+                                {{user.name}}
+                                </div>
+                                  <div class="column" style="margin-left:40px;">
+                                    <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
+                                    </a>
+                                  </div>
+                            </div>
+                            <hr style="width: 70%;">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <userCreation :info="selectedInformation" v-show="showModalUserCreation" @close_modal="closeModalUserCreation"></userCreation>
+</section>
 </template>
 <script>
 import UserService from '@/services/UserService'
@@ -20,6 +43,7 @@ export default {
     return {
       users: [],
       currentUser: {},
+      selectedInformation: undefined,
       showModalUserCreation: false,
     }
   },
@@ -29,6 +53,9 @@ export default {
   mounted: function () {
       this.load()
   },
+  components: {
+      'userCreation': userCreation
+  },
   methods: {
     closeModalUserCreation: function(user) {
         if (user) {
@@ -37,9 +64,15 @@ export default {
         }
         this.showModalUserCreation = false;
     },
-
+    deleteUser: function(user_id) {
+      if (confirm("Êtes vous sûr de vouloir supprimer ce résident?")) {
+        const resp = UserService.deleteUser(this.$cookies.get('api_token'), user_id);
+        } else {}
+      this.load();
+    },
     async load () {
         this.current_user = await this.$parent.getCurrentUser()
+        this.selectedInformation = this.current_user;
         const resp = await UserService.getUsers(this.$cookies.get('api_token'), this.current_user.residence._id)
         if (resp.data.success) {
             this.users = resp.data.users;

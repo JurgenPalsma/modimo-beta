@@ -25,12 +25,12 @@
                     <div class="field">
                         <label class="label">Role</label>
                         <div class="control">
-                            <textarea class="textarea" v-model="name" placeholder="Role de l'utilisateur"></textarea>
+                            <textarea class="textarea" v-model="role" placeholder="Role de l'utilisateur"></textarea>
                         </div>
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success create-ticket-button" @click="postUser">Créer</button>
+                    <button class="button is-success create-ticket-button" @click="postUser(info.residence._id)">Créer</button>
                     <button class="button" @click="$emit('close_modal')">Annuler</button>
                 </footer>
             </div>
@@ -43,18 +43,19 @@ import UserService from '@/services/UserService'
 
 export default {
     name: 'userCreation',
+    props: ["info"],
     data () {
         return {
             email: '',
             name: '',
-            roles: [],
+            role: '',
             currentUser: {},
             isActive: true
         }
     },
     methods: {
-        postUser: function () {
-            UserService.createUserFromAdmin(this.$cookies.get('api_token'), this.email, this.name, this.$parent.getCurrentUser().residence._id, this.roles)
+        postUser: function (residence_id) {
+            UserService.createUserFromAdmin(this.$cookies.get('api_token'), this.email, this.name, residence_id, this.role)
             .then(response => {
                 if (!response.data.success)
                     this.$parent.$parent.notification = {type: 'failure', message: "Un champ est manquant"}
