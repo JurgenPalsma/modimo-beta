@@ -175,7 +175,7 @@ export default {
                 //this.loadTickets()
                 console.log(ticket)
                 this.loadDates(ticket)
-                ticket.author_name = this.current_user.name
+                ticket.author_name = this.$parent.current_user.name
                 this.tickets.push(ticket);
                 this.showTickets = this.sortTickets();
                 this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
