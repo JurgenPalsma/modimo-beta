@@ -39,50 +39,6 @@ module.exports = function(app, apiRoutes, io) {
             });
     });
 
-    // route to upvote/downvote
-    // apiRoutes.post('/tickets/vote', function(req, res) {
-
-    //     if (!req.body.ticket_id)
-    //         res.json({success: false, message: 'Error: request incomplete'});
-    //     else
-    //         User.findOne({token: req.headers['x-access-token']}, function (err, user) {
-    //             if (err) throw err;
-    //             else if (!user)
-    //                 res.json({success: false, message: 'Bad auth token'});
-    //             else {
-    //                 Ticket.findOne({
-    //                     _id: req.body.ticket_id
-    //                 }, function (err, ticket) {
-    //                     if (err) return res.json({success: false, message: 'Error from db'})
-    //                     else if (!ticket) return res.json({success: false, message: 'Ticket not found'})
-    //                     else {
-    //                         let updated_votes = ticket.votes
-    //                         if (updated_votes.indexOf(user._id) > -1) {
-    //                             for (var i=updated_votes.length-1; i>=0; i--) {
-    //                                 if (String(updated_votes[i]) === String(user._id)) {
-    //                                     updated_votes.splice(i, 1);
-    //                                 }
-    //                             }
-    //                         }
-    //                         else {
-    //                             updated_votes.push(user._id)
-    //                         }
-    //                         Ticket.update({ _id: ticket.id }, {
-    //                                 votes: updated_votes
-    //                             }, function(err) {
-    //                                 if (err) res.json({success: false, message: 'Ticket update Failed'})
-    //                                 else res.json({success: true, message: 'Ticket update success', ticket: ticket})
-    //                         });
-    //                     }
-
-    //                 });
-    //             }
-    //         });
-    // });
-
-
-
-
     // route to get ticket with specified id
     apiRoutes.get('/tickets/ticket', function(req, res) {
         if (!req.headers['ticket_id'])
