@@ -96,7 +96,7 @@ module.exports = function(app, apiRoutes) {
             // return an error
             return res.status(403).send({
                 success: false,
-                message: 'No token provided.'
+                message: 'No token provided lol.'
             });
 
         }

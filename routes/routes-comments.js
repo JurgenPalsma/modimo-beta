@@ -18,9 +18,8 @@ module.exports = function(app, apiRoutes) {
             if (err) return res.json({success: false, message: 'Error from db'});
             if (!user)
                 res.json({success: false, message: 'User not found.'});
-            else if (!req.body.parent_id || !req.body.content) {
-                console.log(req.body.content);
-                return res.json({success: false, message: 'Informations missing'});
+            else if (!req.body.parent_id || !req.body.parent_name || !req.body.content) {
+                return res.json({success: false, message: 'Informations missing' + ' ' + req.body.parent_name + ' ' + req.body.parent_id + ' ' + req.body.content});
             }
             else {
                 if (!getParent(req.body.parent_name))
@@ -33,16 +32,28 @@ module.exports = function(app, apiRoutes) {
                         return res.json({success: false, message: 'Parent not found'});
                     else if (req.body.content.length)
                     {
+                        const date = new Date();
                         let comment = new Comment({
                             content: req.body.content,
                             author_id: user._id,
                             parent_id: parent._id,
-                            created_at: new Date(),
-                            updated_at: new Date()
+                            created_at: date,
+                            updated_at: date
                         });
-                        comment.save(function(err) {
+                        comment.save(function(err, room) {
                             if (err) res.json({success: false, message: err.message});
-                            else res.json({success: true});
+                            else {
+                                Ticket.update({
+                                    _id : room.parent_id
+                                },
+                                {$push: {comments: {_id : room._id}}}, function (err) {
+                                    if (err) {
+                                        res.json({success: false, message: 'Ticket update Failed'})
+                                    }
+                                    else
+                                        res.json({success: true, message: 'Ticket update success'})
+                                })
+                            }
                         });
                     }
                 });
@@ -52,7 +63,7 @@ module.exports = function(app, apiRoutes) {
 
 // route to get comments with parent id
     apiRoutes.get('/comments/comments', function(req, res) {
-        if (!req.headers.parent_id || !req.headers.parent_name)
+        if (!req.headers.parent_id)
             return res.json({success: false, message: 'Error: request incomplete'});
         User.findOne({
             token: req.headers['x-access-token'],
@@ -63,7 +74,6 @@ module.exports = function(app, apiRoutes) {
             else {
                 Comment.find({
                     parent_id: req.headers.parent_id,
-                    parent_name: req.headers.parent_name
                 }, function (err, comments) {
                     if (err) return res.json({success: false, message: 'Error from db'});
                     if (!comments)
