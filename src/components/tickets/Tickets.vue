@@ -120,30 +120,20 @@ export default {
         }
     },
     created () {
-        // console.log('crea')
         this.load()
-    },
-    mounted () {
-        // console.log('moun')
-        // this.showTickets = this.sortTickets(this.index)
     },
     watch: {
         index: function(newIndex) {
-            // console.log('wa ind')
             this.showTickets = this.sortTickets();
         },
         sortIndex: function(newIndex) {
-            // console.log('wa sort')
             this.showTickets = this.sortTickets();
         }
     },
     methods: {
         loadDates (ticket) {
             let date = ticket.updated_at
-            //console.log('loadDates')
             ticket.comments.forEach(function (comment) {
-                //console.log('ticket dates loaded')
-                // console.log(date < comment.created_at)
                 if (date < comment.created_at) {
                     date = comment.created_at
                 }
@@ -151,10 +141,8 @@ export default {
             ticket.last_update_at = date
         },
         async loadTickets () {
-            console.log('load_begin')
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
-                console.log('load_success')
                 this.tickets = resp.data.tickets
                 await this.get_tickets_authors_and_comments()
             } else {

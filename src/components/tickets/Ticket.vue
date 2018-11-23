@@ -103,7 +103,6 @@
                 const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
                 if (resp.data.success) {
                     this.ticket.status = "closed"
-                    console.log('successss')
                     // this.$parent.loadTickets();
                     // this.$parent.showTickets = this.$parent.sortTickets();
                     this.closeModal()
@@ -116,7 +115,6 @@
             likeTicket: async function (event) {
                 const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
                 if (resp.data.success) {
-                    console.log('successss')
                     this.ticket.votes.push(this.current_user._id)
                     // this.$parent.loadTickets();
                     // this.$parent.showTickets = this.$parent.sortTickets();
@@ -129,13 +127,10 @@
             unlikeTicket: async function (event) {
                 const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
                 if (resp.data.success) {
-                    console.log('successss')
                     this.ticket.votes.splice(this.current_user._id, 1)
-                    // this.$parent.loadTickets();
-                    // this.$parent.showTickets = this.$parent.sortTickets();
                 }
                 else {
-                    console.log('CLOSE TICKET failed :')
+                    console.log('LIKE TICKET failed :')
                     console.log(resp.data.message)
                 }
             },
@@ -152,9 +147,6 @@
                 const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
                 this.text_comment = ''
                 if (resp.data.success) {
-                    console.log('successss')
-                    //this.$parent.loadDates(this.ticket)
-                    // this.$parent.loadTickets();
                 }
                 else {
                     console.log(resp.data.message)
@@ -170,7 +162,6 @@
                 this.$refs.modif_ticket_button.style = 'display: none;'
             },
             modifTicket: async function (event) {
-                console.log(this.$refs.text_modif_ticket.value)
                 this.ticket.content = this.$refs.text_modif_ticket.value
                 this.ticket.updated_at = new Date()
                 const rest = await TicketService.updateTicket(this.$cookies.get('api_token'), this.ticket._id, this.$refs.text_modif_ticket.value)
@@ -188,7 +179,6 @@
             return (date)
             },
             closeModal() {
-                console.log('close')
                 this.$parent.loadTickets();
                 if (this.$refs.modif_ticket_button) {
                     this.$refs.space_modif_ticket.style = 'display: none;'
