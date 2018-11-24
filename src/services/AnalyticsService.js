@@ -16,7 +16,6 @@ export default {
                 'to': to
             }
         })
-        console.log(res.data)
         if (res.data.success) {
             res.data.chart_tickets = await addTicketCloserToTicketList(token, res.data.caretaker_numbers.tickets)
             res.data.tickets_created_per_day = addDatetoTicketList(res.data.ticket_numbers.tickets_created_per_day)
@@ -45,24 +44,47 @@ function addDatetoTicketList (tickets) {
     return tArray
 }
 
-function formatTimeHours (avg) {
-    // TODO: format string so we dont get weird floats for time avg but get "jour, mois, etc"
-    if (avg && avg.toFixed(1) !== 0) {
-        return avg.toFixed(1) + 'h'
-    } else {
-        return '<1h'
+function timeToString (time) {
+    if (!time)
+        return ""
+    if (time.day) {
+        return time.day + " jours"
+    } else if (time.hour) {
+        return time.hour + " heures"
     }
+    return "< 1h";
+}
+
+function convertMS( milliseconds ) {
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        seconds: seconds
+    };
 }
 
 function formatTicketTime (avg, short, long) {
     /* Fix à l'arrache */
-    let data = { 'avg_ticket_time': formatTimeHours(avg),
+    let data = { 'avg_ticket_time': timeToString(avg),
     'shortest_ticket': short,
     'longest_ticket': long,
     }
+    let s = new Date(short.resolution_time)
+    let l = new Date(long.resolution_time)
+    console.log(s.getTime())
+    console.log(l.getTime())
     if (short && long) {
-        data.shortest_ticket_time = formatTimeHours(short.resolution_time)
-        data.longest_ticket_time = formatTimeHours(long.resolution_time)
+        data.shortest_ticket_time = timeToString(convertMS(s))
+        data.longest_ticket_time = timeToString(convertMS(l))
     }
     return data
 }
