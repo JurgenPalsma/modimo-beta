@@ -9,9 +9,8 @@
 .thread-container {
   border-radius: 3px;
   background-color: whitesmoke;
-  min-height: 200px;
   margin-bottom: 10px;
-  max-height: 500px;
+  height: calc(100vh - 117px);
   padding: 10px;
   overflow: auto;
   bottom: 0;
@@ -66,7 +65,7 @@
 
 .input-message {
   width: 100%;
-  height: 100%;
+  height: 36px;
   border-radius: 3px;
   border: none;
   padding: 0 20px;
@@ -74,4 +73,32 @@
 
 .input-message::placeholder {
   color: lightgray;
+}
+
+.modimo-messages {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  padding-top: 62px;
+  padding-right: 10px;
+  border-radius: 0;
+  width: 50vw;
+}
+
+@media screen and (max-width: 768px) {
+  .modimo-messages {
+    position: absolute;
+    width: 100%;
+    padding-right: 0;
+    padding-top: 90px;
+  }
+
+  .thread-container {
+    height: calc(100vh - 117px - 80px);
+  }
+
+  .modimo-conversations {
+    padding-top: calc(100vh - 117px - 37px);
+  }
 }
