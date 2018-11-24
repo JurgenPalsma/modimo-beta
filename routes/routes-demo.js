@@ -82,7 +82,9 @@ module.exports = function(app, apiRoutes) {
         }
 
         ticketList.forEach(function (dticket) {
-            let closed_by = dticket.status == 'closed' ? caretaker_id : ''
+            let closed_by = dticket.status == 'closed' ? 
+                            caretakers[Math.floor(Math.random() * (caretakers.length + 1))] 
+                            : ''
             let ticket = new Ticket({
                 author_id: caretakers[Math.floor(Math.random()*caretakers.length)],
                 title: dticket.title,
@@ -107,8 +109,6 @@ module.exports = function(app, apiRoutes) {
 
     const welcome_messages  = require('../config/welcome_messages');
     function init_messaging (user, resi) {
-        console.log(resi)
-        console.log(user)
         // get user's caretaker's ID first
             let writeError = false
             let conv_participants = [];
