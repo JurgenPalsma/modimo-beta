@@ -83,7 +83,7 @@ module.exports = function(app, apiRoutes, io) {
                     else if ((user.roles.includes('CARETAKER') || user.roles.include('ROOT') || user.roles.includes('ADMIN'))) {
                         if (req.body.status == 'closed') {
                             Ticket.update({
-                                _id: ticket.id}, {status:req.body.status, closed_by: user._id}, function(err) {
+                                _id: ticket.id}, {status:req.body.status, closed_by: user._id, resolution_time: Math.abs(new Date() - ticket.created_at)}, function(err) {
                                 if (!err) {
                                     res.json({success: true, message: 'Ticket update success'})
                                 }

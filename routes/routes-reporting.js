@@ -1,7 +1,25 @@
 const User = require('../models/user');
 const Ticket = require('../models/tickets/ticket');
 const Reporting = require('../models/reporting');
+
 module.exports = function(app, apiRoutes) {
+    
+    function convertMS( milliseconds ) {
+        var day, hour, minute, seconds;
+        seconds = Math.floor(milliseconds / 1000);
+        minute = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        hour = Math.floor(minute / 60);
+        minute = minute % 60;
+        day = Math.floor(hour / 24);
+        hour = hour % 24;
+        return {
+            day: day,
+            hour: hour,
+            minute: minute,
+            seconds: seconds
+        };
+    }
 
     apiRoutes.get('/reporting/reporting', function(req, res) {     
         User.findOne({token: req.headers['x-access-token']
@@ -143,7 +161,6 @@ module.exports = function(app, apiRoutes) {
                                 tickets_numbers.longest_ticket = ticket
                             }
                         })
-    
                         // ---  Parse tickets 
                         tickets.map(function(ticket) {
                             if (ticket.status === "closed") { // if ticket is closed
@@ -151,8 +168,10 @@ module.exports = function(app, apiRoutes) {
                                 
                                 // completion time 
                                 resolution_times.push(ticket.resolution_time) // add ticket time to avg
-                                if (tickets_numbers.shortest_ticket.resolution_time > ticket.resolution_time) tickets_numbers.shortest_ticket = ticket
-                                else if (tickets_numbers.longest_ticket < ticket.resolution_time) tickets_numbers.longest_ticket = ticket
+                                if (tickets_numbers.shortest_ticket.resolution_time > ticket.resolution_time) 
+                                    tickets_numbers.shortest_ticket = ticket
+                                else if (tickets_numbers.longest_ticket.resolution_time < ticket.resolution_time) 
+                                    tickets_numbers.longest_ticket = ticket
                                 
                                 // Add ticket to caretaker's number of tickets closed
                                 if (!ct_exists(caretaker_numbers.tickets, ticket.closed_by))
@@ -168,10 +187,12 @@ module.exports = function(app, apiRoutes) {
                             if (!tc_date_exists(tickets_numbers.tickets_created_per_day, t_date_f))
                                 tickets_numbers.tickets_created_per_day.push({date: t_date_f, amount:1})
                         })
-                    
-                        const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
-    
-                        tickets_numbers.avg_resolution_time = arrAvg(resolution_times)
+                        
+                        let timesum = 0;
+                        for (let i = 0; i < resolution_times.length; i++) {
+                            timesum += resolution_times[i].getTime()
+                        }
+                        tickets_numbers.avg_resolution_time = convertMS(timesum / resolution_times.length)
                         
                         return res.json({success: true,
                             ticket_numbers : tickets_numbers,

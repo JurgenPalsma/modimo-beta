@@ -93,7 +93,8 @@ module.exports = function(app, apiRoutes) {
                 updated_at: new Date(dticket.updated_at.$date),
                 residence_id: res_id,
                 status: dticket.status,
-                closed_by: closed_by
+                closed_by: closed_by,
+                resolution_time: Math.abs(new Date(dticket.created_at.$date) - new Date(dticket.updated_at.$date))
             });
             if ((ticket.save()).hasWriteError) {
                 writeError = true

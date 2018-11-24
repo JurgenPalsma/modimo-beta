@@ -16,4 +16,5 @@ module.exports = mongoose.model('Ticket', new Schema({
     },
     closed_by: String,
     residence_id: String,
+    resolution_time: Date,
 }));
