@@ -73,6 +73,50 @@ module.exports = [
             ]
     },
     {
+        'title': 'Alarme incendie defectueuse',
+        'content': 'Une alarme incendie sonne au deuxieme de temps en temps au mileu de la nuit. Vous pourriez jeter un coup d\'oeil svp?',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-06-25T04:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-06-26T21:22:02.257Z'
+        },
+    },
+    {
+        'title': 'Moquette humide',
+        'content': 'Une fuite touche la moquette de l\espace commun du rdc. Peut être une fuite? A verifier urgemment.',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-06-25T09:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-08-26T218:22:02.257Z'
+        },
+    },
+    {
+        'title': 'Toilettes communes bouchées',
+        'content': 'Les wc de mon etage sont sans cesse bouchées.',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-06-25T09:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-12-26T218:22:02.257Z'
+        },
+    },
+    {
+        'title': 'Deco pour l\'entree',
+        'content': 'Un peu de deco ne ferait pas de mal, j\'aimerais bien plus de deco dans le hall! Mon fils dessine tres bien et pourrait vous faire une esquisse pour l\entrée',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-04-25T09:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-04-26T09:34:28.337Z'
+        },
+    },
+    {
         'title': 'Dégradation parking',
         'content': 'Le parking sous terrain à été victime de tagueur la nuit dernière, il faudrait effacer ces graffitis qui sont, pour certains violents',
         'status': 'closed',
