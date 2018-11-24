@@ -11,7 +11,8 @@
                     </div>
                 </div>
                 <div class="columns is-multiline is-mobile">
-                    <div class="column is-6-tablet is-12-mobile">
+                    <div class="column is-6-tablet is-12-mobile" style="position: relative">
+                        <a @click="showModalTicketCreation = true" class="super-button" style="top: -50px;right: 10px">+</a>
                         <div class="modimo-conversations">
                             <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-full" style="border-radius: 3px; position: relative; cursor: pointer; margin-bottom: 10px"> 
                                 <h1 style="font-weight: bold;">{{conv.name}}</h1>
