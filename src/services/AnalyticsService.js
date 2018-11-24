@@ -16,6 +16,7 @@ export default {
                 'to': to
             }
         })
+        console.log(res.data)
         if (res.data.success) {
             res.data.chart_tickets = await addTicketCloserToTicketList(token, res.data.caretaker_numbers.tickets)
             res.data.tickets_created_per_day = addDatetoTicketList(res.data.ticket_numbers.tickets_created_per_day)
