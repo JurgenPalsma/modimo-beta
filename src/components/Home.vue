@@ -24,7 +24,7 @@
                                 <span>Supprimer</span>
                             </div>
                             <div class="card-content">
-                                <div class="media is-vertical-center">
+                                <div class="media is-vertical-align">
                                     <div class="media-left">
                                         <figure class="image is-64x64">
                                             <img :src="app.mini_logo" :alt="app.shortname">
