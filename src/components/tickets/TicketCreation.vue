@@ -44,14 +44,17 @@ export default {
         }
     },
     methods: {
-            
         postTicket: function () {
             TicketService.postTicket(this.$cookies.get('api_token'), this.title, this.content)
             .then(response => {
                 if (!response.data.success || !response.data.ticket)
                     this.$parent.$parent.notification = {type: 'failure', message: "Un champ est manquant"}
                 else
+                {
+                    this.title = ""
+                    this.content = ""
                     this.$emit('close_modal', response.data.ticket);
+                }
             })
         }
 

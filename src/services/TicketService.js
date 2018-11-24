@@ -56,5 +56,15 @@ export default {
                 'x-access-token': token
             }
         })
+    },
+    likeTicket (token, id, status) {
+        return Api().patch('/api/tickets/ticket/vote', 
+        {
+            'ticket_id': id
+        }, {
+            headers: {
+                'x-access-token': token
+            }
+        })
     }
 }

@@ -30,12 +30,6 @@
                             </div>
                             <div class="tile is-vertical is-parent">
                                 <article class="tile is-child notification is-white">
-                                <p class="title modimo-title">{{n_tickets_pending}}</p>
-                                <p class="subtitle">Tickets en attente</p>
-                                </article>
-                            </div>
-                            <div class="tile is-vertical is-parent">
-                                <article class="tile is-child notification is-white">
                                 <p class="title modimo-title">{{n_tickets_closed}}</p>
                                 <p class="subtitle">Tickets fermés</p>
                                 </article>
