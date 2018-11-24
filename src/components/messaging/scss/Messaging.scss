@@ -1,0 +1,65 @@
+.conv-date {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  color: gray;
+  font-size: 12px;
+}
+
+.thread-container {
+  border-radius: 3px;
+  background-color: whitesmoke;
+  min-height: 200px;
+  margin-bottom: 10px;
+  max-height: 500px;
+  padding: 10px;
+  overflow: auto;
+  bottom: 0;
+}
+.conversation-title {
+  text-align: center;
+  color: #2b5bb2;
+}
+.input-bar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+.message-block-yours {
+  margin: 2px 0;
+  text-align: right;
+}
+.message-block {
+  margin: 2px 0;
+  text-align: left;
+  display: block;
+  width: auto;
+}
+.message {
+  background-color: white;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: #2b5bb2;
+  font-size: 14px;
+  line-height: 16px;
+  box-sizing: border-box;
+  max-width: 400px;
+  word-wrap: break-word;
+}
+.message-yours {
+  background-color: #2b5bb2;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  line-height: 16px;
+  box-sizing: border-box;
+  max-width: 400px;
+}
