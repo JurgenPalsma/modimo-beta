@@ -34,23 +34,15 @@
                                 </div>
                                 <span v-if="currentConv && !currentConv.messages.length">{{ $t("messagerie.thread.no_messages") }}</span>
                             </div>
-                            <div v-if="currentConv" class="row">
-                                <div class="is-12 is-sm-8">
-                                    <input class="full-width" @keyup.enter="addMessage()" v-model="newMessage" :placeholder="Envoyer">
+                            <div v-if="currentConv" class="columns">
+                                <div class="column is-12-mobile is-8-tablet">
+                                    <input class="input-message" @keyup.enter="sendMessage()" v-model="message" placeholder="Message">
                                 </div>
-                                <div class="is-12 is-sm-4">
-                                    <button class="full-width" v-on:click="addMessage()">Envoyer</button>
+                                <div class="column is-12-mobile is-4-tablet">
+                                    <div class="button" style="width: 100%" @click="sendMessage()">Envoyer</div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <br/>
-                        <div class="field">
-                            <label class="label">New message</label>
-                            <div class=" control">
-                                <textarea class="textarea" v-model="message" placeholder="Enter your message"></textarea>
-                            </div>
-                            <button class="button is-success" @click="sendMessage">Send</button>
-                        </div>    -->
                     </div>
                 </div>
             </div>
