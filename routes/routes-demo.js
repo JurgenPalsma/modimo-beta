@@ -82,6 +82,7 @@ module.exports = function(app, apiRoutes) {
         }
 
         ticketList.forEach(function (dticket) {
+            let closed_by = dticket.status == 'closed' ? caretaker_id : ''
             let ticket = new Ticket({
                 author_id: caretakers[Math.floor(Math.random()*caretakers.length)],
                 title: dticket.title,
@@ -89,7 +90,8 @@ module.exports = function(app, apiRoutes) {
                 created_at: new Date(dticket.created_at.$date),
                 updated_at: new Date(dticket.updated_at.$date),
                 residence_id: res_id,
-                status: dticket.status
+                status: dticket.status,
+                closed_by: closed_by
             });
             if ((ticket.save()).hasWriteError) {
                 writeError = true

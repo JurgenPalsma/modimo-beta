@@ -154,6 +154,7 @@ module.exports = function(app, apiRoutes) {
                                 if (tickets_numbers.shortest_ticket.resolution_time > ticket.resolution_time) tickets_numbers.shortest_ticket = ticket
                                 else if (tickets_numbers.longest_ticket < ticket.resolution_time) tickets_numbers.longest_ticket = ticket
                                 
+                                console.log(ticket.closed_by)
                                 // Add ticket to caretaker's number of tickets closed
                                 if (!ct_exists(caretaker_numbers.tickets, ticket.closed_by))
                                     caretaker_numbers.tickets.push({_id: ticket.closed_by, tickets_closed:1})     

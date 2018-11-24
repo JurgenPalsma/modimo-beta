@@ -80,15 +80,27 @@ module.exports = function(app, apiRoutes, io) {
                     if (err) return res.json({success: false, message: 'Error from db'})
                     if (!ticket)
                         return res.json({success: false, message: 'Ticket not found'})
-                    else if ((user.roles.includes('CARETAKER') || user.roles.include('ROOT') || user.roles.includes('ADMIN')))
-                        Ticket.update({
-                            _id: ticket.id}, {status:req.body.status}, function(err) {
-                            if (!err) {
-                                res.json({success: true, message: 'Ticket update success'})
-                            }
-                            else
-                                res.json({success: false, message: 'Ticket update Failed'})
-                        });
+                    else if ((user.roles.includes('CARETAKER') || user.roles.include('ROOT') || user.roles.includes('ADMIN'))) {
+                        if (req.body.status == 'closed') {
+                            Ticket.update({
+                                _id: ticket.id}, {status:req.body.status, closed_by: user._id}, function(err) {
+                                if (!err) {
+                                    res.json({success: true, message: 'Ticket update success'})
+                                }
+                                else
+                                    res.json({success: false, message: 'Ticket update Failed'})
+                            });
+                        } else {
+                            Ticket.update({
+                                _id: ticket.id}, {status:req.body.status}, function(err) {
+                                if (!err) {
+                                    res.json({success: true, message: 'Ticket update success'})
+                                }
+                                else
+                                    res.json({success: false, message: 'Ticket update Failed'})
+                            });
+                        }
+                    }
                     else return res.json({success: false, message: 'You must be CARETAKER or ADMIN to edit it'})
                 });
             }

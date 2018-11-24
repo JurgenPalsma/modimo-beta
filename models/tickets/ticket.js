@@ -14,5 +14,6 @@ module.exports = mongoose.model('Ticket', new Schema({
         type: String,
         enum: Object.values(ticketStatus),
     },
+    closed_by: String,
     residence_id: String,
 }));
