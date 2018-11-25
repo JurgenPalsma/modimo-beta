@@ -18,7 +18,7 @@ let create_lead = function(role, email) {
     else return({success: true});
 }
 
-module.exports = function(app, apiRoutes) {
+module.exports = function(app, apiRoutes, io) {
 
     let create_demo_res = function(residence_name="Une résidence démo", user_is_caretaker=false) {
         // TODO: Parametrize all this with config files
@@ -26,7 +26,8 @@ module.exports = function(app, apiRoutes) {
             "5a774ac0734d1d3bd58cefc7",
             "5a773f8f919a502dbb340f60",
             "5a774052919a502dbb340f65",
-            "5a77410f919a502dbb340f6b"
+            "5a77410f919a502dbb340f6b",
+            "5be84e2ebb6ba100146302a1"
         ]
         let c_name = user_is_caretaker ? "Vous" : "Adrien le gardien"
 
@@ -80,6 +81,7 @@ module.exports = function(app, apiRoutes) {
             c = gen_caretaker(res_id)
             caretakers.push(c._id)
         }
+//        this.createTicket = function(ticketName, actorId, actorName, ticketId, residenceId, io){
 
         ticketList.forEach(function (dticket) {
             let closed_by = dticket.status == 'closed' ? 
@@ -100,6 +102,7 @@ module.exports = function(app, apiRoutes) {
                 writeError = true
                 return ({success: false, message: "Db not writable"})
             }
+            Notif.createTicket(ticket.name, ticket.author_id, "Un gardien", ticket._id, ticket.residence_id, io)
         });
     
         if (!writeError) {

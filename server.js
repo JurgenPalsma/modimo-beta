@@ -44,7 +44,7 @@ app.use(session({ secret: 'this-is-a-secret-token', cookie: { secure: false, htt
 require('./routes/routes-public')(app);
 const apiRoutes = express.Router();
 app.use('/api', apiRoutes);
-require('./routes/routes-demo')(app, apiRoutes);
+require('./routes/routes-demo')(app, apiRoutes, io);
 require('./routes/routes-auth')(app, apiRoutes);
 require('./routes/routes-users')(app, apiRoutes);
 require('./routes/routes-tickets')(app, apiRoutes, io);
