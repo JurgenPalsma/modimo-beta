@@ -1,5 +1,6 @@
 import Api from '@/services/Api'
 import ResidenceService from '@/services/ResidenceService'
+import NotificationService from '@/services/NotificationService'
 
 export default {
     getUser (token, id) {
@@ -23,7 +24,12 @@ export default {
         if (!resi.data.success) {
             return {}
         }
+        let notifs = await NotificationService.getNotifications(token)
+        if (!notifs.data.success){
+          return {}
+        }
         res.data.user.residence = resi.data.residence
+        res.data.user.notifs = notifs.data.notifs
         return res
     },
 

@@ -114,7 +114,6 @@ export default {
     methods: {
         async load() {
             this.current_user = await this.$parent.getCurrentUser()
-            //this.selectedInformation = this.current_user;
         },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
@@ -126,9 +125,7 @@ export default {
           this.showMailerModal = true
         },
         notifModal: function () {
-          console.log("click on notif");
-          console.log(this.current_user);
-          this.selectedInformation = this.current_user;
+          this.selectedInformation = this.current_user.notifs;
           this.showNotifModal = true
         }
     },

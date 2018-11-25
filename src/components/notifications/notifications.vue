@@ -11,8 +11,9 @@
                             <br>
                             <br>
                             <div class="field">
-                                <label class="label" v-model="info.notifs.title"></label>
-                                </div>
+                                <label class="label">{{info.title}}</label>
+                                <hr>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,6 +34,9 @@ export default {
   },
   methods: {
 
+  },
+  created: function () {
+    console.log("info = " + this.info);
   }
 }
 </script>
