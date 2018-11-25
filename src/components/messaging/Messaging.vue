@@ -6,18 +6,18 @@
                     <div class="column">
                         <br/>
                         <h1 class="title white-title is-1">
-                            Messaging
+                            Messages
                         </h1>
                     </div>
                 </div>
                 <div class="columns is-multiline is-mobile">
                     <div class="column is-6-tablet is-12-mobile" style="position: relative">
-                        <a @click="showModalTicketCreation = true" class="super-button" style="top: -50px;right: 10px">+</a>
                         <div class="modimo-conversations">
+                            <input class="input-add-contact" @keyup.enter="addContact()" v-model="contact" placeholder="Rechercher un contact">
                             <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-full" style="border-radius: 3px; position: relative; cursor: pointer; margin-bottom: 10px"> 
                                 <h1 style="font-weight: bold;">{{conv.name}}</h1>
                                 <p class="conv-date">{{dateFormater(new Date(conv.messages[conv.messages.length - 1].timestamp).toString())}}</p>
-                                <p>{{conv.messages[conv.messages.length - 1].author == $parent.currentUser._id ? 'Vous' : conv.name }}: {{conv.messages[conv.messages.length - 1].content}}</p>
+                                <p class="conv-last-message">{{conv.messages[conv.messages.length - 1].content}}</p>
                             </div>
                         </div>
                     </div>
@@ -63,6 +63,7 @@ export default {
     created: function () {
         this.$parent.getCurrentUser()
         this.getConversations();
+        this.getAllContacts();
     },
     watch: {
         'conversations': function(newConv) {
@@ -95,11 +96,16 @@ export default {
             this.message = ""
             this.getConversations();
         },
-        dateFormater(unFormatedDate) {
-        var date = moment(String(unFormatedDate)).format("DD MMMM YYYY, h:mm:ss");
-        return date;
-        }
 
+        async getAllContacts() {
+            let resp = await MessagingService.getAllContacts(this.$cookies.get('api_token'));
+            console.log(resp);
+        },
+
+        dateFormater(unFormatedDate) {
+            var date = moment(String(unFormatedDate)).format("DD/MM/YYYY, HH:mm");
+            return date;
+        }
     },
     sockets:{
         connect: function(){

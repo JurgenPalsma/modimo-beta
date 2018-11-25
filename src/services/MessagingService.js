@@ -42,5 +42,13 @@ export default {
                 'content': content 
             }
         })
+    },
+
+    getAllContacts (token) {
+        return Api().get('/api/messagerie/contacts', {
+            headers: {
+                'x-access-token': token
+            }
+        })
     }
 }
