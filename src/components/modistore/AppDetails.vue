@@ -65,8 +65,9 @@
                                                         <div class="content">
                                                             <p>
                                                                 <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
-                                                                    <i v-for="i in rate.stars" :key="'A' + i" class="fas fa-star has-text-info"></i>
-                                                                    <i v-for="j in 5 - rate.stars" :key="'B' + j"  class="fas fa-star"></i>
+                                                                    <i v-for="j in 5" :key="'B' + j"  class="fas fa-star"
+                                                                         v-bind:class="{ 'has-text-info': j <= rate.stars}">
+                                                                    </i>
                                                                 <br>
                                                                 <span>{{rate.comment}}</span>
                                                                 <br>
