@@ -15,7 +15,7 @@
                         <div class="modimo-conversations">
                             <input class="input-add-contact" @keyup.enter="addContact()" v-model="contact" placeholder="Rechercher un contact">
                             <div class="modimo-conversations-container">
-                                <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-full" style="border-radius: 3px; position: relative; cursor: pointer; margin-bottom: 10px"> 
+                                <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-full" style="border-radius: 3px; position: relative; cursor: pointer; margin-bottom: 10px; height: auto"> 
                                     <h1 style="font-weight: bold;">{{conv.name}}</h1>
                                     <p class="conv-date">{{dateFormater(new Date(conv.messages[conv.messages.length - 1].timestamp).toString())}}</p>
                                     <p class="conv-last-message">{{conv.messages[conv.messages.length - 1].content}}</p>
