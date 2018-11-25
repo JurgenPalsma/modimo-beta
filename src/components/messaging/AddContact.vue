@@ -63,5 +63,6 @@ export default {
 </script>
 
 <style lang="scss">
-
+@import './scss/Messaging.scss';
+@import '../../styles/global.scss';
 </style>

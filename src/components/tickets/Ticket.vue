@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="modal is-active">
-            <div class="my-modal-background modal-background" style="opacity:50%;" v-on:click="closeModal"></div>
+            <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
             <div class="modal-content">
                 <div v-if="ticket" class="box">
                     <button class="delete is-pulled-right" aria-label="close" v-on:click="closeModal"></button>
@@ -11,7 +11,6 @@
                             <br>
                             <br>
                             <span ref="display_ticket">{{ticket.content}}</span>
-                            <!--ICI LE CHAMP QUI APPARAIT POUR LA MODIF DU MESSAGE-->
                             <div ref="space_modif_ticket" class="media-content" v-bind:style="{display: 'none'}">
                                 <div class="field">
                                     <p class="control">
@@ -31,11 +30,13 @@
                                 <span v-else>Modifié le </span>
                                 {{dateFormater(ticket.updated_at)}}
                                 <span v-if="this.current_user._id == this.ticket.author_id && this.ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
+                                <br>
+                                <a v-if="ticket.status == 'open' && ticket.author_id != current_user._id"><span v-on:click="likeTicket" v-if="ticket.votes.indexOf(current_user._id) == -1">Prioriser</span><span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}
                             </small>
                         </div>
                         <article class="media">
                             <div class="media-content comment">
-                                <div v-for="comment in ticket.comments" :key="comment._id" >
+                                <div v-for="comment in ticket.comments" :key="comment._id">
                                     <article class="media">
                                     <p>
                                         <strong class="modimo-color">{{comment.author_name}}&nbsp;</strong>
@@ -51,7 +52,6 @@
                             </div>
                         </article>
                     </div>
-                    <!--</article>-->
                     <article class="media">
                         <div v-if="ticket.status != 'closed'" class="media-content">
                             <div class="field">
@@ -85,12 +85,10 @@
     import TicketService from '@/services/TicketService'
     import moment from 'moment'
     export default {
-        // name: 'ticket',
         props: ['ticket', 'current_user'],
         data () {
             return {
                 text_comment: '',
-                //current_user: null,
                 isNone: 'none;',
                 isActive: true
             }
@@ -100,17 +98,36 @@
                 const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
                 if (resp.data.success) {
                     this.ticket.status = "closed"
-                    console.log('successss')
+                    this.closeModal()
                 }
                 else {
                     console.log('CLOSE TICKET failed :')
                     console.log(resp.data.message)
                 }
-                this.$parent.showTickets = this.$parent.sortTickets(this.$parent.index);
-
-                this.$emit('close_modal')
+            },
+            likeTicket: async function (event) {
+                const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
+                if (resp.data.success) {
+                    this.ticket.votes.push(this.current_user._id)
+                }
+                else {
+                    console.log('CLOSE TICKET failed :')
+                    console.log(resp.data.message)
+                }
+            },
+            unlikeTicket: async function (event) {
+                const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
+                if (resp.data.success) {
+                    this.ticket.votes.splice(this.current_user._id, 1)
+                }
+                else {
+                    console.log('LIKE TICKET failed :')
+                    console.log(resp.data.message)
+                }
             },
             commentTicket: async function (event) {
+                if (this.text_comment == "")
+                    return
                 var date = new Date();
                 this.ticket.comments.push({
                     'author_name' : this.current_user.name,
@@ -121,7 +138,6 @@
                 const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
                 this.text_comment = ''
                 if (resp.data.success) {
-                    console.log('successss')
                 }
                 else {
                     console.log(resp.data.message)
@@ -137,7 +153,6 @@
                 this.$refs.modif_ticket_button.style = 'display: none;'
             },
             modifTicket: async function (event) {
-                console.log(this.$refs.text_modif_ticket.value)
                 this.ticket.content = this.$refs.text_modif_ticket.value
                 this.ticket.updated_at = new Date()
                 const rest = await TicketService.updateTicket(this.$cookies.get('api_token'), this.ticket._id, this.$refs.text_modif_ticket.value)
@@ -155,6 +170,7 @@
             return (date)
             },
             closeModal() {
+                this.$parent.loadTickets();
                 if (this.$refs.modif_ticket_button) {
                     this.$refs.space_modif_ticket.style = 'display: none;'
                     this.$refs.display_ticket.style = 'display: block;'

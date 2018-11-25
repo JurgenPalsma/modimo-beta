@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
 .notification-container {
     position: fixed;
-    top: 0;
+    top: 52px;
     width: 100vw;
     text-align: center;
     z-index: 1000000000;
