@@ -67,7 +67,6 @@ export default {
         updateNotification: function() {
             var tmp = this.notifications
 
-            console.log(this.notifications.length);
             clearTimeout(this.timeout)
             if (tmp && tmp.length) {
                 this.showNotif(tmp)

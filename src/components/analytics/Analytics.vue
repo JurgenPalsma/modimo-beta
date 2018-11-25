@@ -167,7 +167,7 @@ export default {
             if (this.$cookies.get("firstTimeAnalytics")) {
                 this.first_time_modal = false;
             } else {
-                console.log("No cookie")
+                console.warn("No cookie")
                 this.$cookies.set("firstTimeAnalytics", true)
                 this.first_time_modal = true;
             }

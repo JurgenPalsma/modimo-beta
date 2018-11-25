@@ -125,8 +125,7 @@ export default {
     };
   },
 
-  mounted: function() {
-    console.log("je passe");
+  created: function() {
     this.load();
   },
 

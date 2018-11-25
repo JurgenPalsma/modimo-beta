@@ -178,10 +178,13 @@ import RateService from '@/services/RateService';
                     this.text_comment = ''
                     this.rate_input = null
                     if (resp.data.success) {
+<<<<<<< HEAD
                         this.app_rates.push(resp.data.rate)
+=======
+>>>>>>> 191819e205d4889547ee2266336024518b2ac72d
                     }
                     else {
-                        console.log(resp.data.message)
+                        console.warn(resp.data.message)
                     }
                 }
                 else
