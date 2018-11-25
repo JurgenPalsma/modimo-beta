@@ -31,6 +31,13 @@ $cta-color: #2b5bb2;
 }
 
 .is-vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.is-vertical-align {
     align-items: center;
     text-align: center;
 }
@@ -48,12 +55,10 @@ $cta-color: #2b5bb2;
 }
 
 .video-aligned {
-
-    margin-top: 20px;
-    margin-bottom: 10px;
-    width: 75%;
+    width: 100%;
+    height: 400px;
 }
-
+   
 .inline {
     display: inline-block;
 }
@@ -88,22 +93,6 @@ a {
     100% { transform: rotate(360deg); }
 }
 
-@media screen and (max-width: 588px) {
-    .modimo-landing-container {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    .video-aligned {
-        width: 100%;
-        height: 250px
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-}
-
 // variables
 $card-height: 200px;
 $h-color:     #2B5BB2;
@@ -127,7 +116,7 @@ body{
   height: $card-height;
   overflow: hidden;
   border-radius: 10px;
-  box-shadow: 3px 3px 20px rgba(0, 0, 0, .5);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, .3);
   text-align: center;
   
   &.spring-fever{
@@ -146,6 +135,22 @@ body{
   }
 }
 
+.landing-title {
+    margin-bottom: 1.5rem;
+    color: #2b5bb2;
+    font-size: 46px;
+    line-height: 50px;
+    font-weight: 600;
+    align-self: center;
+}
+
+.landing-subtitle {
+    color: #2f2f2f;
+    font-size: 16px;
+    line-height: 2rem;
+    margin-bottom: 2rem;
+}
+
 .title-content{
   text-align: center;
   margin: 80px 0 0 0;
@@ -155,20 +160,21 @@ body{
   left: 0;
   transition: margin .3s, opacity .3s cubic-bezier(.33,.66,.66,1);
 }
-h3{
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 2px;
+
+h3 {
+  font-size: 26px;
+  font-weight: 600;
   color: $h-color;
   margin-bottom: 0;
 }
+
 .card-info{
   width: 100%;
   position: absolute;
   bottom: 100px;
   left: 0;
-  margin: 0 auto;
-  padding: 0 50px;
+  margin: 0;
+  padding: 0 10px;
   color: $txt-color;
   font-style: 16px;
   line-height: 24px;
@@ -177,3 +183,132 @@ h3{
   transition: bottom .3s, opacity .3s cubic-bezier(.33,.66,.66,1);
 }
 
+.discover-button {
+    background-color: #2b5bb2;
+    color: #fff;
+    border: none;
+}
+
+.discover-button:hover {
+    transform: scale(1.02);
+    color: #fff;
+    border: none;
+}
+
+.signup-button {
+    background-color: #fff;
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+.signup-button:hover {
+    transform: scale(1.02);
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+}
+
+.modimo-landingtitle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.modimo-lamndind-down {
+    position: absolute;
+    color: #2b5bb2;
+    bottom: 10px;    
+}
+
+.modimo-landing-container {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    margin-bottom: -25px;
+}
+
+.landing-back-button {
+    position: absolute;
+    top: 60px;
+    color: #2b5bb2;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.landing-back-button:hover {
+    text-decoration: underline;
+}
+
+.modimo-background {
+    background-image: url("/static/img/city.jpg");
+    height: 100%;
+    width: 50%;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-size:cover;
+    opacity: 0.4;
+}
+
+.modimo-img-container {
+    background-color: rgba(255,255,255,0.95);
+    border-radius: 8px;
+    padding: 40px;
+    margin-left: .75rem;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .modimo-background {
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+    }
+}
+
+@media screen and (max-width: 588px) {
+
+    .landing-title {
+        font-size: 36px;
+        line-height: 38px;
+    }
+    
+    .landing-subtitle {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    
+    .signup-button {
+        margin-left: 0;
+    }
+
+    .video-aligned {
+        width: 100%;
+        height: 250px
+    }
+
+    .title {
+        font-size: 32px !important;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .form-registration {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .pro-part-container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+}

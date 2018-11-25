@@ -1,8 +1,163 @@
-.inline-block {
+
+.is-vertical-align {
+    align-items: center;
+    text-align: center;
+}
+
+.modistore-card {
+    height: 240px;
+}
+
+.inline {
     display: inline-block;
 }
 
-.is-vertical-center {
-    align-items: center;
+.rate-input {
+    width: 65px;
+}
+
+.comment {
+	margin-left : 2em;
+}
+
+$font-size: .75rem;
+$line-height: 1.5;
+$lines-to-show: 4;
+  
+.modistore-desc {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: $font-size*$line-height*$lines-to-show;
+    margin: 0 auto;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modistore-card-footer {
+    border-top: 1px solid #f2f2f2;
+    padding-top: 10px;
+    height: 47px;
+    text-align: right;
+    position: relative;
+}
+
+.modistore-button-back {
+    color: #2b5bb2;
+    cursor: pointer;
+}
+
+.modistore-button-back:hover {
+    color: #1b3b77;
+}
+
+.modistore-button {
+    background-color: #2b5bb2;
+    color: #fff;
+    text-decoration: none;
+}
+
+.modistore-button:hover {
+    background-color: #fff;
+    color: #2b5bb2;
+    border: 1px solid #2b5bb2;
+}
+
+.modistore-button-open {
+    // background-color: lightgray;
+    color: dimgray;
+}
+
+.modistore-see-more {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    vertical-align: middle;
+    display: inline-block;
+    color: dimgrey;
+    align-self: right;
+}
+
+.modistore-see-more:hover {
+    text-decoration: underline;
+}
+
+.modistore-app-name {
+    width: 100%;
+}
+
+.modistore-appdetail-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.modistore-app-logo-container {
+    overflow: hidden;
+    line-height: 0;
+}
+
+.modistore-app-img {
+    position: absolute;
+}
+
+.modistore-app-mac-top2 {
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.modistore-input-search {
+    background-color: #142b39;
+    border-color: #2b68d7;
+    color: white;
+    padding-left: 36px;
+}
+
+.modistore-input-search::placeholder {
+    color: gray;
+}
+
+.modistore-search-icon {
+    position: absolute;
+    bottom: 18px;
+    left: 23px;
+}
+
+.modistore-labels-container {
+    background-color: white;
+    min-height: 240px;
+    padding: 1.5rem;
+    border-radius: 3px;
     text-align: center;
+    .button {
+        width: 100% !important;
+        margin-bottom: 10px;
+        justify-content: flex-start;
+    }
+}
+
+.modistore-label {
+    height: 50px;
+    margin: 0 10px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.modistore-label-title {
+    color: #3273dc;
+    font-weight: 700!important;
+    text-align: center;
+    font-size: 1.25rem;
+    padding-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 588px) {
+    .content figure {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

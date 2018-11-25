@@ -18,11 +18,14 @@ export default {
             }
         })
     },
-    updateTicket (token, id) {
-        return Api().patch('/api/tickets/ticket', {
+    updateTicket (token, id, content) {
+        return Api().patch('/api/tickets/ticket', 
+        {
+            'ticket_id': id,
+            'content': content
+        }, {
             headers: {
-                'x-access-token': token,
-                'ticket_id': id
+                'x-access-token': token
             }
         })
     },
@@ -40,6 +43,27 @@ export default {
                 'x-access-token': token,
                 'title': title,
                 'content': content
+            }
+        })
+    },
+    closeTicket (token, id, status) {
+        return Api().patch('/api/tickets/ticket/avancement', 
+        {
+            'ticket_id': id,
+            'status': status
+        }, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+    },
+    likeTicket (token, id, status) {
+        return Api().patch('/api/tickets/ticket/vote', 
+        {
+            'ticket_id': id
+        }, {
+            headers: {
+                'x-access-token': token
             }
         })
     }

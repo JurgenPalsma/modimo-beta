@@ -7,7 +7,7 @@
         </iframe>
     </noscript>
 
-    <Nav> </Nav>
+    <Nav/>
     <div class="notification-container">
         <notifications :new_notification="notification"/>
     </div>
@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
 .notification-container {
     position: fixed;
-    top: 0;
+    top: 52px;
     width: 100vw;
     text-align: center;
     z-index: 1000000000;
@@ -40,29 +40,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 export default {
-
     name: 'app',
+    data() {
+        return {
+            currentUser: {},
+            notification: undefined
+        }
+    },
     created: function () {
         window.dataLayer = window.dataLayer || []
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date())
         gtag('config', 'UA-116703749-1')
-    },
-
-    mounted () {
         if (this.$cookies.get('api_token')) {
             if (!this.currentUser) {
-                this.currentUser = this.getCurrentUser()
+                this.getCurrentUser()
             }
         } else if (this.$route.name !== 'Login') {
             this.$router.push('/')
-        }
-    },
-    
-    data() {
-        return {
-            currentUser: {},
-            notification: undefined
         }
     },
 
@@ -72,10 +67,9 @@ export default {
             if (curUser.data && curUser.data.success) {
                 ga('set', 'dimension1', curUser.data.user.residence._id);
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
-                return curUser.data.user
+                this.currentUser = curUser.data.user
             } else {
-                console.log('Could not load current user')
-                return {}
+                console.warn('Could not load current user')
             }
         }
     },

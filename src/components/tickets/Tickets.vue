@@ -4,10 +4,10 @@
 </style>
 
 <template>
-<!--Give_UserIdto Component-->
-    <section class="hero is-fullheight-minus-navbar modimo-dark">
+    <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
             <div class="container">
+                <br/>
                 <div class="title has-text-centered white-title">
                     Tickets
                     <a @click="showModalTicketCreation = true" class="super-button">+</a>
@@ -46,27 +46,26 @@
                         <div class="modimo-tile">
                             <a @click="idToModal(ticket)" style="color: #4a4a4a">
                                 <div class="columns is-vcentered is-mobile is-multiline" style="margin:0">
-                                    <div class="column is-2-mobile is-1-desktop">
-                                        <div id="ticket-status" class="has-text-centered icon-status">
-                                            <i v-if="ticket.status === 'open'" class="fas fa-bell fa-2x"></i>
-                                            <i v-else-if="ticket.status === 'closed'" class="fas fa-lock fa-2x"></i>
-                                        </div>
-                                    </div>
-                                    <div class="column is-8-mobile is-4-desktop">
-                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
-                                    </div>
-                                    <div class="column is-8-mobile is-4-desktop">
-                                        <p class="bold modimo-content-size is-text-overflow">Créé le <time :datetime="ticket.created_at" class="no-bold">{{ dateFormater(ticket.created_at) }}</time></p>
-                                        <p class="bold modimo-content-size is-text-overflow">par <span class="no-bold">{{ticket.author_id}}</span></p>
-                                    </div>
-                                    <div class="column is-4-mobile is-3-desktop has-text-right">
+                                    <div class="column is-hidden-mobile is-1 has-text-centered">
                                         <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
                                         <span v-else-if="ticket.status === 'closed'" class="bold circle-processDown">Fermé</span>
-                                        <p class="bold"><i class="far fa-thumbs-up"/> {{ ticket.votes.length}}</p>
                                     </div>
+                                    <div class="column is-11-mobile is-9-desktop">
+                                        <p class="bold modimo-color modimo-title-size is-text-overflow has-text-centered-mobile"> {{ ticket.title }} </p>
+                                        <p class="has-text-centered-mobile"> {{ticket.comments.length}} commentaire<span v-if="ticket.comments.length > 1">s</span> · &nbsp;&nbsp;<i class="far fa-thumbs-up"/> {{ticket.votes.length}}</p>
+                                    </div>
+                                    <div class="column is-6-mobile is-2-desktop">
+                                        <p class="bold modimo-content-size is-text-overflow has-text-right"><time :datetime="ticket.updated_at" class="no-bold">{{ dateFormater(ticket.last_update_at) }}</time></p>
+                                        <p class="bold modimo-content-size is-text-overflow has-text-right">{{ticket.author_name}}</p>
+                                    </div>
+                                    <div class="column is-hidden-desktop is-hidden-tablet is-3-mobile has-text-right">
+                                        <span v-if="ticket.status === 'open'" class="bold circle-processUp">Ouvert</span>
+                                        <span v-else-if="ticket.status === 'closed'" class="bold circle-processDown">Fermé</span>
+                                    </div>
+
                                 </div>
                             </a>
-                            <ticket :ticket="currentTicket" v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
+                            <ticket :ticket="currentTicket"  :current_user="current_user"  v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
                         </div>
                     </div>
                 </div>
@@ -81,12 +80,15 @@ import moment from 'moment'
 import ticket from './Ticket.vue'
 import ticketCreation from './TicketCreation.vue'
 import TicketService from '@/services/TicketService'
+import CommentsService from '@/services/CommentService'
+import UserService from '@/services/UserService'
+
 
 export default {
     name: 'Ticket',
     data () {
         return {
-            //  Maybe not the type but data?
+            current_user: '',
             tickets: [],
             showTickets: [],
             showModalTicket: false,
@@ -105,53 +107,92 @@ export default {
             dropdownVisible: false,
             sortBy: ['Le plus important', 'Le plus récent'],
             sortIndex: 0
-            //  not the type, empty data
         }
     },
-    mounted: function () {
-        this.load() //  plusieurs fonctions appelées-> composant monté load la data
+    created () {
+        this.load()
     },
-
     watch: {
         index: function(newIndex) {
-            this.showTickets = this.sortTickets(newIndex);
+            this.showTickets = this.sortTickets();
         },
         sortIndex: function(newIndex) {
-            this.showTickets = this.sortTickets(this.index);
+            this.showTickets = this.sortTickets();
         }
     },
     methods: {
-        closeModalTicketCreation: function(ticket) {
-            if (ticket) {
-                this.tickets.push(ticket);
-                this.showTickets = this.sortTickets(this.index);
-                this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
-            }
-            this.showModalTicketCreation = false;
+        loadDates (ticket) {
+            let date = ticket.updated_at
+            ticket.comments.forEach(function (comment) {
+                if (date < comment.created_at) {
+                    date = comment.created_at
+                }
+            })
+            ticket.last_update_at = date
         },
-        async load () {
-            this.current_user = await this.$parent.getCurrentUser()
+        async loadTickets () {
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
-                this.showTickets = this.sortTickets(this.index)
+                await this.get_tickets_authors_and_comments()
             } else {
                 this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
             }
         },
-        sortTickets: function(index) {
+        async load() {
+            await this.$parent.getCurrentUser();
+            this.current_user =  this.$parent.currentUser;
+            this.loadTickets()
+        },
+        async get_tickets_authors_and_comments () {
+            for (let n = 0; n < this.tickets.length; n++) {
+                const resp = await UserService.getUser(this.$cookies.get('api_token'), this.tickets[n].author_id)
+                if (resp.data.success) {
+                    this.tickets[n].author_name = resp.data.user.name;
+                } else {
+                    this.tickets[n].author_name = 'Anonyme'
+                }
+                const resp2 = await CommentsService.getComments(this.$cookies.get('api_token'), this.tickets[n]._id)
+                if (resp2.data.success) {
+                    this.tickets[n].comments = resp2.data.comments;
+                    this.loadDates(this.tickets[n])
+                } else {
+                    console.warn('Erreur lors de la récuperation des commentaires')
+                }
+                this.tickets[n].comments.forEach(async (comment) => {
+                    const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
+                    if (resp.data.success) {
+                        comment.author_name = resp.data.user.name;
+                    } else {
+                        this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du commentaire'}
+                    }
+                })
+            }
+            this.showTickets = this.sortTickets()
+        },
+        closeModalTicketCreation: function(ticket) {
+            if (ticket) {
+                this.load()
+                //this.loadDates(ticket)
+                //ticket.author_name = this.current_user.name
+                //this.tickets.push(ticket);
+                //this.showTickets = this.sortTickets();
+                this.$parent.notification = {type: 'success', message: 'Ticket créé avec succès !'}
+            }
+            this.showModalTicketCreation = false;
+        },
+
+        sortTickets: function() {
             let tickets = this.tickets.sort((a, b) => {
-                if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length > b.votes.length) || (this.sortIndex === 1 && a.created_at > b.created_at))) ||
-                    (a.status !== b.status && a.status === 'open'))
+                if (a.status === b.status && ((a.last_update_at > b.last_update_at && this.sortIndex === 1) || (this.sortIndex === 0 && (a.votes.length > b.votes.length || (a.votes.length == b.votes.length && a.last_update_at > b.last_update_at)))) || (a.status !== b.status && a.status === 'open'))
                     return -1;
-                else if ((a.status === b.status && ((this.sortIndex === 0 && a.votes.length < b.votes.length) || (this.sortIndex === 1 && a.created_at < b.created_at))) ||
-                         (a.status !== b.status && a.status === 'closed'))
+                else if ((a.status === b.status && (a.last_update_at < b.last_update_at && this.sortIndex === 1) || (this.sortIndex === 0 && a.votes.length < b.votes.length)) || (a.status !== b.status && a.status === 'closed'))
                     return 1;
                 return 0;
             })
             return tickets.filter(ticket => {
-                if (index === 0) return ticket.status === 'open'
-                else if (index === 2) return ticket.status === 'closed'
+                if (this.index === 0) return ticket.status === 'open'
+                else if (this.index === 2) return ticket.status === 'closed'
                 else return true
             })
         },

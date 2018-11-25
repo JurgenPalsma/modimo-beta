@@ -3,6 +3,14 @@ $color_validate: green;
 
 /** Basic **/
 
+a {
+	color: #2b5bb2
+}
+
+a:hover{
+	color: black
+}
+
 .title {
 	font-size: 40px;
 }
@@ -74,7 +82,8 @@ $color_validate: green;
 }
 
 .my-modal-background {
-	background-color: rgba(10,10,10,.6);
+	// color : black;
+	background-color: rgba(10,10,10,.2);
 }
 /** Advancement **/
 
@@ -186,3 +195,11 @@ $color_validate: green;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+// @media screen and (min-width: 769px){
+// .modal-card, .modal-content {
+//     margin: 0 auto;
+//     max-height: calc(100vh - 120px);
+//     width: 640px;
+// }
+// }

@@ -1,7 +1,7 @@
 <template>
     <section>
 
-        <nav v-if="$route.name != 'Landing'" class="navbar">
+        <nav v-if="$route.name != 'Landing'" class="navbar modimo-navbar">
 
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
@@ -19,31 +19,20 @@
             <div id="navMenubd-example" class="navbar-menu">
                 <div v-if="$route.name != 'Home' && $route.name != 'Login'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link" href="/home">Apps</a>
-                        <div class="navbar-dropdown ">
-                            <a class="navbar-item " href="/tickets">Tickets</a>
-                            <a class="navbar-item" href="/analytics">Statistiques</a>
+                        <a class="navbar-link" href="/home" style="text-align: center;">Apps</a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" v-for="app in applications" :key="app._id" :href="app.link">{{app.shortname}}</a>
+                            <!-- <a class="navbar-item" href="/analytics">Statistiques</a>
+                            <a class="navbar-item" href="/billboard">Mur d'affiche</a> -->
                         </div>
                     </div>
                 </div>
 
                 <div v-if="$route.name != 'Login'" class="navbar-end">
-                    <div @userdata="load()" v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))" class="navbar-item">
+                    <div @userdata="load()" v-if="currentUser && currentUser.roles && (currentUser.roles.includes('ROOT') || currentUser.roles.includes('CARETAKER') || currentUser.roles.includes('ADMIN'))" class="navbar-item">
                         <div class="field is-grouped">
-                            <p class="control" @click='mailerModal()'>
-                                <a class="button">
-                                <span class="icon">
-                                    <i class="fa fa-envelope"></i>
-                                </span>
-                                <span>Envoyer un mail</span>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="navbar-item">
-                        <div class="field is-grouped">
-                            <p class="control" @click="notifModal()">
-                                <a class="button">
+                            <p class="control" style="width: 100%" @click="notifModal()">
+                                <a class="button" style="width: 100%">
                                 <span class="icon">
                                     <i class="fa fa-bell"></i>
                                 </span>
@@ -54,12 +43,12 @@
                     </div>
                     <div class="navbar-item">
                         <div class="field is-grouped">
-                            <p class="control" @click="logout">
-                                <a class="button">
+                            <p class="control" style="width: 100%" @click="logout">
+                                <a class="button" style="width: 100%">
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                                <span>Déconnection</span>
+                                <span>Déconnexion</span>
                                 </a>
                             </p>
                         </div>
@@ -67,74 +56,75 @@
                 </div>
             </div>
         </nav>
-        <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
         <notif :info="selectedInformation" v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
     </section>
 </template>
 
 <script>
-import AuthService from '@/services/AuthService'
-import Mailer from '../mails/Mailer.vue'
-import Notifications from '../notifications/notifications.vue'
+import AuthService from "@/services/AuthService";
+import Notifications from "../notifications/notifications.vue";
+import ModistoreService from '@/services/ModistoreService'
 
 export default {
-    name: 'navbar',
-    data () {
+    name: "navbar",
+    data() {
         return {
-            showMailerModal: false,
             showNotifModal: false,
-            current_user: null,
+            applications: null,
+            currentUser: null,
             selectedInformation: undefined
-        }
+        };
     },
 
-    created: function () {
-  },
-
-  updated: function () {
-      this.load();
-  },
-
-    mounted () {
-        this.load()
-        document.addEventListener('DOMContentLoaded', function () {
-            var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
-            if ($navbarBurgers.length > 0) {
-                $navbarBurgers.forEach(function ($el) {
-                    $el.addEventListener('click', function () {
-                        var target = $el.dataset.target
-                        var $target = document.getElementById(target)
-                        $el.classList.toggle('is-active')
-                        $target.classList.toggle('is-active')
-                    })
-                })
-            }
+    created: function() {
+        this.load();
+        document.addEventListener("DOMContentLoaded", function() {
+        var $navbarBurgers = Array.prototype.slice.call(
+            document.querySelectorAll(".navbar-burger"),
+            0
+        );
+        if ($navbarBurgers.length > 0) {
+            $navbarBurgers.forEach(function($el) {
+            $el.addEventListener("click", function() {
+                var target = $el.dataset.target;
+                var $target = document.getElementById(target);
+                $el.classList.toggle("is-active");
+                $target.classList.toggle("is-active");
+            });
+            });
+        }
         });
     },
-    methods: {
-        async load() {
-            this.current_user = await this.$parent.getCurrentUser()
-        },
-        logout: function () {
-            AuthService.logout(this.$cookies.get('api_token'))
-            this.$cookies.remove('api_token')
-            this.$router.push('/')
-        },
 
-        mailerModal: function () {
-          this.showMailerModal = true
+    watch: {
+        '$parent.currentUser' : function (newCurrentUser) {
+            this.currentUser = newCurrentUser
+            this.load();
         },
-        notifModal: function () {
-          this.selectedInformation = this.current_user.notifs;
-          this.showNotifModal = true
-        }
     },
-    components: {
-        'mailer': Mailer,
-        'notif': Notifications
-    }
+  methods: {
+    async load() {
+        ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
+        .then(response => {
+            this.applications = response.data.applications;
+        })
+    },
+    logout: function() {
+      AuthService.logout(this.$cookies.get("api_token"));
+      this.$cookies.remove("api_token");
+      this.$router.push("/");
+      this.$parent.currentUser = null;
+    },
 
-}
+    notifModal: function() {
+      this.selectedInformation = this.current_user.notifs;
+      this.showNotifModal = true;
+    }
+  },
+  components: {
+    notif: Notifications
+  }
+};
 </script>
 
 <style lang="scss">
@@ -143,7 +133,15 @@ export default {
 
   .is-mega-menu-title {
     margin-bottom: 0;
-    padding: .375rem 1rem;
+    padding: 0.375rem 1rem;
   }
 }
+
+@media screen and (max-width: 588px) {
+    .navbar-link {
+        padding: .5rem .75rem;
+    }
+}
+
+@import "../../styles/global.scss";
 </style>

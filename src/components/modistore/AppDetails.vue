@@ -1,28 +1,27 @@
 <template>
-    <section class="hero is-fullheight-minus-navbar modimo-dark">
+    <section class="hero is-fullheight modimo-dark">
         <div class="hero-body">
             <div class="container">
+                <br/>
                 <div class="tile is-vertical">
                     <div class="tile">
-                        <div class="tile  is-parent">
+                        <div class="tile">
                             <article class="tile is-child notification is-white">
                                 
-                                <nav class="level">
+                                <nav class="level modistore-appdetail-header">
                                     <div class="level-left">
-                                        <router-link to="/modistore">
-                                        <p class="level-item"><a class="button is-info"><span class="icon is-small"><i class="fa fa-angle-left"></i></span></a></p>
-                                        </router-link>
-                                        <div class="level-item">
-                                        <p class="title is-3">
-                                            <strong>{{app.name}}</strong>
-                                        </p>
-                                        </div>
+                                        <p @click="$router.push('/modistore')" class="modistore-button-back">Retour</p>
                                     </div>
                                     <!-- Left side -->
-                                    <div class="level-right">
-                                        
+                                    <div class="level-center">
+                                        <div class="level-item has-text-center">
+                                            <p class="title is-3">
+                                                <strong>{{app.name}}</strong>
+                                            </p>
+                                        </div>
                                     </div>
-                                     <!-- Right side -->
+                                        
+                                    <!-- Right side -->
                                     <div class="level-right">
                                         <p class="level-item">
                                             <i v-for="i in app.rate_average" :key="i" class="fas fa-star has-text-info"></i>
@@ -34,7 +33,12 @@
                                 <div >
                                     <div class="content card-image">
                                         <figure class="image">
-                                            <img :src="app.logo" alt="Placeholder image">
+                                            <div class="modistore-app-logo-container">
+                                                <img :src="app.logo" class="modistore-app-img" alt="Placeholder image">
+                                                <img src="../../../static/img/imac-top.png" class="modistore-app-mac-top"/>
+                                                <img src="../../../static/img/imac-top.png" class="modistore-app-mac-top2"/>
+                                            </div>
+                                            <img src="../../../static/img/imac-base.png" class="modistore-app-mac-base"/>
                                         </figure>
                                         <p class="has-text-centered has-text-grey-light"> {{app.small_description}} </p>
                                     </div>
@@ -50,6 +54,47 @@
                                         <p>
                                             {{app.description}}
                                         </p>
+                                        
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="subtitle">Avis</h3>
+                                        <div class="media">
+                                            <div class="media-content comment">
+                                                <div v-for="rate in app_rates" :key="rate._id" >
+                                                    <article class="media">
+                                                        <div class="content">
+                                                            <p>
+                                                                <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
+                                                                    <i v-for="j in 5" :key="'B' + j"  class="fas fa-star"
+                                                                         v-bind:class="{ 'has-text-info': j <= rate.stars}">
+                                                                    </i>
+                                                                <br>
+                                                                <span>{{rate.comment}}</span>
+                                                                <br>
+                                                                <br>                     
+                                                            </p>
+                                                        
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <p class="control">
+                                                <input v-model="text_comment" class="textarea" rows="1" placeholder="Rédiger un avis...">
+                                            </p>
+                                        </div>
+                                        <span class="inline">Donner une note: </span>
+                                        <div class="field rate-input inline">
+                                            <p class="control">
+                                                <input type="number" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="control is-pulled-right">
+                                                <button ref="send_comment" class="button" @click="addRate">Envoyer</button>
+                                            </p>
+                                        </div>                            
                                     </div>
                                 
                                 </div>
@@ -64,12 +109,18 @@
 
 <script>
 import moment from "moment";
+import RateService from '@/services/RateService';
+
 
     export default {
         props: ['application'],
         name: 'StoreAppDetails',
         data () {
             return {
+                current_user: null,
+                text_comment: '',
+                rate_input: null,
+                app_rates: [],
                 app: {
                     name: "Nom de l'app",
                     shortname: "app",
@@ -86,8 +137,9 @@ import moment from "moment";
                 }
             }
         },
-        mounted() {
+        created() {
             if (this.application) {
+                this.load(),
                 this.app.name = this.application.shortname
                 this.app.rate_average = Number(this.application.rate_average.toFixed())
                 this.app.updated_at = this.application.updated_at
@@ -98,19 +150,50 @@ import moment from "moment";
 
 
             } else {
-                console.log("no props passed")
+                this.$router.push('/modistore');
             }
         }, 
         methods: {
             dateFormater(unFormatedDate) {
                 var date = moment(String(unFormatedDate)).format("MM/DD/YYYY");
                 return date;
+            },
+
+            async getRates() {
+                const resp = await RateService.getRates(this.$cookies.get('api_token'), this.application._id);
+                if (resp.data.sucess) {
+                    this.app_rates = resp.data.rates
+                } else
+                    this.$parent.notification = {type: 'failure', message: resp.data.message}
+            },
+
+            async load() {
+                await this.$parent.getCurrentUser();
+                this.current_user =  this.$parent.currentUser;
+                await this.getRates();
+            },
+            addRate: async function () {
+                if (this.rate_input != null && this.rate_input >= 0 && this.rate_input <= 5)
+                {
+                    const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
+                    this.text_comment = ''
+                    this.rate_input = null
+                    if (resp.data.success) {
+                        this.app_rates.push(resp.data.rate)
+                    }
+                    else {
+                        console.warn(resp.data.message)
+                    }
+                }
+                else
+                    this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
             }
         },
     }
 </script>
 <style lang="scss"> 
 @import '../../styles/global.scss';
+@import './scss/ModiStore.scss';
 
 .is-horizontal-center {
 	justify-content: center;
