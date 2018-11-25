@@ -622,8 +622,6 @@ module.exports = function(app, apiRoutes, io) {
                     application_id: req.headers.application_id
                 }, function (err, rates) {
                     if (err) return res.json({sucess: false, message: 'Error from db'});
-                    if (rates.length == 0)
-                        return res.json({sucess: false, message: 'Rates not found'});
                     else
                         return res.json({sucess: true, rates: rates});
                 });
