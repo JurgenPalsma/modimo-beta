@@ -65,8 +65,8 @@
                                                         <div class="content">
                                                             <p>
                                                                 <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
-                                                                    <i v-for="i in rate.stars" :key="i" class="fas fa-star has-text-info"></i>
-                                                                    <i v-for="j in 5 - rate.stars" :key="j + app.rate_average"  class="fas fa-star"></i>
+                                                                    <i v-for="i in rate.stars" :key="'A' + i" class="fas fa-star has-text-info"></i>
+                                                                    <i v-for="j in 5 - rate.stars" :key="'B' + j"  class="fas fa-star"></i>
                                                                 <br>
                                                                 <span>{{rate.comment}}</span>
                                                                 <br>
@@ -163,7 +163,7 @@ import RateService from '@/services/RateService';
                 if (resp.data.sucess) {
                     this.app_rates = resp.data.rates
                 } else
-                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des avis'}
+                    this.$parent.notification = {type: 'failure', message: resp.data.message}
             },
 
             async load() {
@@ -174,16 +174,11 @@ import RateService from '@/services/RateService';
             addRate: async function () {
                 if (this.rate_input != null && this.rate_input >= 0 && this.rate_input <= 5)
                 {
-                    this.app_rates.push({
-                        'author_name' : this.current_user.name,
-                        'comment': this.text_comment,
-                        'stars': this.rate_input
-                    })
                     const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
                     this.text_comment = ''
                     this.rate_input = null
                     if (resp.data.success) {
-                        console.log('success')
+                        this.app_rates.push(resp.data.rate)
                     }
                     else {
                         console.log(resp.data.message)
