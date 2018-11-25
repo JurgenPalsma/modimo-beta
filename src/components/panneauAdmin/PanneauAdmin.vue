@@ -8,7 +8,7 @@
         <aside class="menu">
             <a @click="showModalUserCreation = true" class="super-button">+</a>
             <p class="title has-text-centered white-title">
-                Liste des utilisateurs
+                Liste des résidents
             </p>
             <div style="margin-top:50px; margin-left:250px;">
                 <div v-for="user in users" :key="user._id">
@@ -16,7 +16,7 @@
                         <li>
                             <div class="columns">
                                 <div class="column">
-                                {{user.name}}
+                                {{user.name}} - {{user.email}}
                                 </div>
                                   <div class="column" style="margin-left:40px;">
                                     <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>

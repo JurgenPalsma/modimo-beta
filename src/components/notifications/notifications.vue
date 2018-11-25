@@ -7,11 +7,19 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size ">Notifications</strong>
+                          <div v-if="info.length === 0">
+                            <strong class="modimo-color modimo-size ">Vous n'avez pas de notification</strong>
+                          </div>
+                          <div v-if="info.length === 1">
+                            <strong class="modimo-color modimo-size ">Vous avez une nouvelle notification</strong>
+                          </div>
+                          <div v-if="info.length > 2">
+                            <strong class="modimo-color modimo-size ">Vous avez {{info.length}} notifications</strong>
+                          </div>
                             <br>
                             <br>
-                            <div class="field">
-                                <label class="label">{{info.title}}</label>
+                            <div class="field" v-for="inf in info">
+                                <label style="is-right" class="label">{{inf.title}}</label>
                                 <hr>
                             </div>
                         </div>
@@ -36,7 +44,6 @@ export default {
 
   },
   created: function () {
-    console.log("info = " + this.info);
   }
 }
 </script>
