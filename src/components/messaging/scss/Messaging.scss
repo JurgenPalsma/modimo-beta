@@ -28,7 +28,7 @@ $lines-to-show: 1;
   border-radius: 3px;
   background-color: whitesmoke;
   margin-bottom: 10px;
-  height: calc(100vh - 117px);
+  height: calc(100vh - 248px);
   padding: 10px;
   overflow: auto;
   bottom: 0;
@@ -46,11 +46,11 @@ $lines-to-show: 1;
   padding: 10px;
 }
 .message-block-yours {
-  margin: 2px 0;
+  margin: 5px 0;
   text-align: right;
 }
 .message-block {
-  margin: 2px 0;
+  margin: 5px 0;
   text-align: left;
   display: block;
   width: auto;
@@ -108,23 +108,25 @@ $lines-to-show: 1;
 
 
 .modimo-messages {
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
-  height: 100vh;
-  padding-top: 62px;
-  padding-right: 10px;
-  border-radius: 0;
-  width: 50vw;
+  height: calc(100vh - 100px);
+  padding-top: 102px;
+  width: 50%;
+}
+
+.modimo-conversations-container {
+  height: calc(100vh - 247px);
+  overflow-y: scroll;
+  padding: 0 10px;
+  overflow: -moz-scrollbars-vertical;
 }
 
 @media screen and (max-width: 768px) {
   .modimo-messages {
-    position: absolute;
     width: 100%;
-    padding-right: 0;
     padding-top: 90px;
-    height: calc(100vh - 52px);
   }
 
   .thread-container {
