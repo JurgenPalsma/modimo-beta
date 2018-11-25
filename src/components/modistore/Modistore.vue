@@ -43,7 +43,7 @@
                                                 <div class="modistore-card-footer">
                                                     <span class="button modistore-see-more">Voir plus</span>
                                                     <span v-if="app.link && !app.added" @click.stop.prevent @click="addApp(app)" class="button modistore-button">Ajouter</span>
-                                                    <span v-else-if="app.link && app.added" class="button modistore-button-disabled" disabled>Ajoutée</span>
+                                                    <span v-else-if="app.link && app.added" @click.stop.prevent @click="$router.push(app.link)" class="button modistore-button-open">Ouvrir</span>
                                                     <span v-else class="button modistore-button-disabled" disabled>À venir</span>
                                                 </div>
                                             </div>
