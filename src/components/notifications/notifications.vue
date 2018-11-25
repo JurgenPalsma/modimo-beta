@@ -11,7 +11,7 @@
                             <br>
                             <br>
                             <div class="field">
-                                <label class="label" >{{info.notifications.title}}</label>
+                                <label class="label" v-model="info.notifs.title"></label>
                                 </div>
                         </div>
                     </div>
@@ -21,18 +21,14 @@
     </section>
 </template>
 
-
 <style lang="scss" src="../tickets/scss/Tickets.scss">
 </style>
 
 <script>
-//import NotificationService from '@/services/NotificationService'
-
 export default {
   props: ["info"],
   data () {
     return {
-      currentUser: {}
     }
   },
   methods: {
