@@ -1,6 +1,7 @@
 const User          = require('../models/user');
 const Application = require('../models/applications/application');
 const Residence     = require('../models/residence');
+const Notif         = require('../functions/notifications');
 const welcome_messages  = require('../config/welcome_messages');
 const mailer      = require('../functions/mailer')
 
@@ -11,19 +12,26 @@ module.exports = function(app, apiRoutes) {
 
 // get current user
 apiRoutes.get('/current-user', function(req, res) {
-
     User.findOne({token: req.headers['x-access-token']}, function(err, user) {
         if (err) return res.json({success: false, message: 'Error from db'});
         if (!user)
             res.json({success: false, message: 'User not found'})
-        else
-            res.json({success: true, user: user});
+        else {
+          Notif.getNotif(user.id, false, function(err, notifications){
+            if (err) {
+              return res.json({success: true, user: user});
+            }
+            else {
+              res.json({success: true, user: user, notifs: notifications});
+            }
+          })       
+        }
     });
 });
 
 apiRoutes.post('/admin_register_user', function(req, res) {
     if ((req.body.name || (req.body.firstname && req.body.lastname))
-        && req.body.email 
+        && req.body.email
         && req.body.residence_id
         && req.body.roles) {
             User.findOne({token: req.headers['x-access-token']}, function (err, user) {
@@ -32,8 +40,8 @@ apiRoutes.post('/admin_register_user', function(req, res) {
                     res.json({success: false, message: 'User not authorised'});
                 else {
                     // Check user roles
-                    // Check email 
-                    // Create user 
+                    // Check email
+                    // Create user
                     // Send email
                     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     if (!re.test(String(req.body.email).toLowerCase())) {return res.json({success: false, message: 'bad param: email'});}
@@ -44,7 +52,7 @@ apiRoutes.post('/admin_register_user', function(req, res) {
                         if (user) {
                             return res.json({success: false, message: 'User already exists'});
                         } else {
-                            
+
                             // check if resi exists
                             Residence.findOne({
                                 _id: req.body.residence_id,
@@ -77,7 +85,7 @@ apiRoutes.post('/admin_register_user', function(req, res) {
                                     // save the user
                                     user.save(function(err) {
                                         if (err) throw err;
-            
+
                                         // get user's caretaker's ID first
                                         User.findOne({
                                             _id: residence.caretaker_id,
@@ -97,7 +105,7 @@ apiRoutes.post('/admin_register_user', function(req, res) {
                             });
                         }});
 
-                   
+
                 }
             });
     }
@@ -135,9 +143,9 @@ apiRoutes.patch('/user', function(req, res) {
                 else if (!user) return res.json({success: false, message: 'User not found'});
                 else if (user._id != u._id.$oid && !user.roles.includes("ADMIN")) return res.json({success: false, message: 'You can only edit your own user'});
                 else {
-                    u = JSON.parse(req.body.user);                    
+                    u = JSON.parse(req.body.user);
                     User.update({_id: u._id}, {
-                            name: u.name, 
+                            name: u.name,
                             email: u.email,
                             appartment: u.appartment,
                             spammable: u.spammable
@@ -203,7 +211,7 @@ apiRoutes.patch('/user/application/add', function(req, res) {
         User.findOne({token: req.headers['x-access-token']}, function(err, currentUser) {
             if (err) return res.json({success: false, message: 'Error from db'});
             if (!currentUser || !req.headers.residence_id) res.json({success: false, message: 'Bad params', currentUser : req.headers.residenceId})
-            else { 
+            else {
                 let params = {residence: req.headers.residence_id};
                 User.find(params, function (err, users) {
                     if (err) return res.json({success: false, message: 'Error from db, check your residence ID'});
@@ -244,4 +252,3 @@ apiRoutes.patch('/user/application/add', function(req, res) {
         });
     });
 };
-
