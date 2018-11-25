@@ -68,12 +68,13 @@
             </div>
         </nav>
         <mailer v-show="showMailerModal" @close_modal="showMailerModal = false"></mailer>
-        <notif v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
+        <notif :info="selectedInformation" v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
     </section>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService'
+import NotificationService from '@/services/NotificationService'
 import Mailer from '../mails/Mailer.vue'
 import Notifications from '../notifications/notifications.vue'
 
@@ -83,7 +84,9 @@ export default {
         return {
             showMailerModal: false,
             showNotifModal: false,
-            current_user: null
+            current_user: null,
+            selectedInformation: undefined,
+            notifs: [],
         }
     },
 
@@ -113,6 +116,12 @@ export default {
     methods: {
         async load() {
             this.current_user = await this.$parent.getCurrentUser()
+            const resp = await NotificationService.getNotifications(this.$cookies.get('api_token'));
+            if (resp.data.success) {
+                this.notifs = resp.data.notifications
+            } else {
+                this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
+            }
         },
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))

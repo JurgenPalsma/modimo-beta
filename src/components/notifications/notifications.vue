@@ -11,7 +11,7 @@
                             <br>
                             <br>
                             <div class="field">
-                                <label class="label" v-model="notif.title">Titre</label>
+                                <label class="label" >{{info.notifications.title}}</label>
                                 </div>
                         </div>
                     </div>
@@ -29,22 +29,14 @@
 //import NotificationService from '@/services/NotificationService'
 
 export default {
+  props: ["info"],
   data () {
     return {
-      notif: {
-        title: "",
-        actorName: "",
-      },
       currentUser: {}
     }
   },
-
-  created: function () {
-  },
-
   methods: {
 
-      //GETNOTIF
   }
 }
 </script>
