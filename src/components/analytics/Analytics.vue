@@ -79,7 +79,7 @@
                                     <p class="title">Ticket le plus lent</p>
                                     <br/>
                                     <p class="subtitle">{{longest_ticket.title}}</p>
-                                                                        <br/>
+                                    <br/>
                                     <div class="content modimo-title">
                                         
                                     Résolu après: {{longest_ticket_time}}
@@ -99,6 +99,7 @@
                     </div>
                 
                 </div>   
+                <firstTimeModal v-show="first_time_modal" @close_modal="closeModal"></firstTimeModal>
             </div>    
         </div>
     </section>
@@ -108,6 +109,7 @@
 
 import AnalyticsService from '@/services/AnalyticsService'
 import DatePicker from 'vue2-datepicker'
+import firstTimeModal from '@/components/analytics/FirstTimeModal'
 
 export default {
     name: 'Analytics',
@@ -115,6 +117,7 @@ export default {
     data () {
         return {
             loading: false,
+            first_time_modal: false,
 
             /* Stats data */
             n_tickets_open: 0,
@@ -154,7 +157,24 @@ export default {
         this.load()
     },
     methods: {
+
+        closeModal() {
+            this.$cookies.set("firstTimeAnalytics", true)
+            this.first_time_modal = false;
+        },
+        
+        firstVisit() {
+            if (this.$cookies.get("firstTimeAnalytics")) {
+                this.first_time_modal = false;
+            } else {
+                console.log("No cookie")
+                this.$cookies.set("firstTimeAnalytics", true)
+                this.first_time_modal = true;
+            }
+        },
+
         async load () {
+            this.firstVisit()
             this.loading = true;
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
@@ -183,7 +203,8 @@ export default {
         }
     },
     components: {
-        DatePicker
+        DatePicker,
+        firstTimeModal
     }
 }
 </script>
