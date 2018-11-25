@@ -118,7 +118,7 @@ import RateService from '@/services/RateService';
             return {
                 current_user: null,
                 text_comment: '',
-                rate_input: -1,
+                rate_input: null,
                 app_rates: [],
                 app: {
                     name: "Nom de l'app",
@@ -172,7 +172,7 @@ import RateService from '@/services/RateService';
                 await this.getRates();
             },
             addRate: async function () {
-                if (this.rate_input >= 0 && this.rate_input <= 5)
+                if (this.rate_input != null && this.rate_input >= 0 && this.rate_input <= 5)
                 {
                     this.app_rates.push({
                         'author_name' : this.current_user.name,
@@ -181,7 +181,7 @@ import RateService from '@/services/RateService';
                     })
                     const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
                     this.text_comment = ''
-                    this.rate_input = -1
+                    this.rate_input = null
                     if (resp.data.success) {
                         console.log('success')
                     }
