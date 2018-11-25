@@ -101,8 +101,7 @@
                     this.closeModal()
                 }
                 else {
-                    console.log('CLOSE TICKET failed :')
-                    console.log(resp.data.message)
+                    console.warn('CLOSE TICKET failed :', resp.data.message)
                 }
             },
             likeTicket: async function (event) {
@@ -111,8 +110,7 @@
                     this.ticket.votes.push(this.current_user._id)
                 }
                 else {
-                    console.log('CLOSE TICKET failed :')
-                    console.log(resp.data.message)
+                    console.warn('CLOSE TICKET failed :', resp.data.message)
                 }
             },
             unlikeTicket: async function (event) {

@@ -183,10 +183,9 @@ import RateService from '@/services/RateService';
                     this.text_comment = ''
                     this.rate_input = -1
                     if (resp.data.success) {
-                        console.log('success')
                     }
                     else {
-                        console.log(resp.data.message)
+                        console.warn(resp.data.message)
                     }
                 }
                 else

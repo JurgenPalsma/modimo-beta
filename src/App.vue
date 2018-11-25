@@ -69,7 +69,7 @@ export default {
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
                 this.currentUser = curUser.data.user
             } else {
-                console.log('Could not load current user')
+                console.warn('Could not load current user')
             }
         }
     },

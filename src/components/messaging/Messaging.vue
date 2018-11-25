@@ -101,7 +101,6 @@ export default {
 
         async getAllContacts() {
             let resp = await MessagingService.getAllContacts(this.$cookies.get('api_token'));
-            console.log(resp);
         },
 
         dateFormater(unFormatedDate) {
