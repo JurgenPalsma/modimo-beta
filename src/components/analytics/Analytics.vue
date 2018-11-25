@@ -16,75 +16,86 @@
 
                             <div class="tile is-vertical is-parent">
                                 <article class="tile is-child notification is-white">
-                                <p class="title is-1">{{current_user.residence.name}}</p>
+                                <p class="title">Rapport d'utilisation de la résidence "{{current_user.residence.name}}"</p>
                                 </article>
                             </div>
                         </div>
-
-                        <div class="tile">
-                            <div class="tile is-vertical is-parent">
-                                <article class="tile is-child notification is-white">
-                                <p class="title modimo-title">{{n_tickets_open}}</p>
-                                <p class="subtitle">Tickets ouverts</p>
-                                </article>
-                            </div>
-                            <div class="tile is-vertical is-parent">
-                                <article class="tile is-child notification is-white">
-                                <p class="title modimo-title">{{n_tickets_closed}}</p>
-                                <p class="subtitle">Tickets fermés</p>
-                                </article>
-                            </div>
-                        </div>
-
-                        <div class="tile">
-                        <div class="tile is-parent is-vertical">
-                            <article class="tile is-child notification is-white">
-                            <p class="title">Tickets créés par date</p>
-                            <figure class="image">
-                                <area-chart :data="tickets_created_per_day" :library="{animation: { easing: 'easeOutQuad' }}"></area-chart>
-                            </figure>
-                            </article>
-                            <article class="tile is-child notification is-white">
-                            <p class="title">Statistiques</p>
-                            </article>
-                        </div>
-                        <div class="tile is-parent">
-                            <article class="tile is-child notification is-white">
-                            <p class="title">Performances du Gardien</p>
-                            <p class="subtitle">Cette charte montre qui a fermé le plus de ticket</p>
-                            <figure class="image">
-                                <pie-chart :messages="{empty: 'Pas de tickets fermés a ce jour'}" :data="chart_tickets" :library="{animation: { easing: 'easeOutQuad' }}"></pie-chart>
-                            </figure>
-                            </article>
-                        </div>
-                        </div>
-                        <div class="tile" v-if="shortest_ticket && longest_ticket">
-                            <div class="tile is-vertical is-parent">
-                                <article class="tile is-child notification is-white">
-                                <p class="title">Ticket le plus rapide</p>
-                                <p class="subtitle">{{shortest_ticket.title}}</p>
-                                <div class="content modimo-title">
-                                Résolu en seulement: {{shortest_ticket_time}}
+                        <div v-if="!this.loading">
+                            <div class="tile">
+                                <div class="tile is-vertical is-parent">
+                                    <article class="tile is-child notification is-white">
+                                    <p class="title modimo-title">{{n_tickets_open}}</p>
+                                    <p class="subtitle">Tickets ouverts</p>
+                                    </article>
                                 </div>
-                                </article>
-                            </div>
-                            <div class="tile is-vertical is-parent">
-                                <article class="tile is-child notification is-white">
-                                <p class="title modimo-title">{{avg_ticket_time}}</p>
-                                <p class="subtitle">Temps de résolution moyen par ticket</p>
-                                </article>
-                            </div>
-                            <div class="tile is-vertical is-parent">
-                                <article class="tile is-child notification is-white">
-                                <p class="title">Ticket le plus lent</p>
-                                <p class="subtitle">{{longest_ticket.title}}</p>
-                                <div class="content modimo-title">
-                                Résolu après: {{longest_ticket_time}}
+                                <div class="tile is-vertical is-parent">
+                                    <article class="tile is-child notification is-white">
+                                    <p class="title modimo-title">{{n_tickets_closed}}</p>
+                                    <p class="subtitle">Tickets fermés</p>
+                                    </article>
                                 </div>
+                            </div>
+
+                            <div class="tile">
+                            <div class="tile is-parent is-vertical">
+                                <article class="tile is-child notification is-white">
+                                <p class="title">Tickets créés par date</p>
+                                <figure class="image">
+                                    <area-chart :data="tickets_created_per_day" :library="{animation: { easing: 'easeOutQuad' }}"></area-chart>
+                                </figure>
                                 </article>
+                            </div>
+                            <div class="tile is-parent">
+                                <article class="tile is-child notification is-white">
+                                <p class="title">Performances du Gardien</p>
+                                <p class="subtitle">Cette charte montre qui a fermé le plus de ticket</p>
+                                <figure class="image">
+                                    <pie-chart :messages="{empty: 'Pas de tickets fermés a ce jour'}" :data="chart_tickets" :library="{animation: { easing: 'easeOutQuad' }}"></pie-chart>
+                                </figure>
+                                </article>
+                            </div>
+                            </div>
+                            <div class="tile" v-if="shortest_ticket && longest_ticket">
+                                <div class="tile is-vertical is-parent">
+                                    <article class="tile is-child notification is-white">
+                                    <p class="title">Ticket le plus rapide</p>
+                                    <br/>
+                                    <p class="subtitle">{{shortest_ticket.title}}</p>
+                                    <div class="content modimo-title">
+                                    Résolu en seulement: {{shortest_ticket_time}}
+                                    </div>
+                                    </article>
+                                </div>
+                                <div class="tile is-vertical is-parent">
+                                    <article class="tile is-child notification is-white">
+                                    <p class="title">Ticket moyen</p>
+                                    <p class="title modimo-title">{{avg_ticket_time}}</p>
+                                    <br/>
+                                    <p class="subtitle">Temps de résolution moyen par ticket</p>
+                                    </article>
+                                </div>
+                                <div class="tile is-vertical is-parent">
+                                    <article class="tile is-child notification is-white">
+                                    <p class="title">Ticket le plus lent</p>
+                                    <br/>
+                                    <p class="subtitle">{{longest_ticket.title}}</p>
+                                                                        <br/>
+                                    <div class="content modimo-title">
+                                        
+                                    Résolu après: {{longest_ticket_time}}
+                                    </div>
+                                    </article>
+                                </div>
                             </div>
                         </div>
 
+                        <div v-else>
+                            <div class="tile is-parent">
+                                <article class="tile is-fullheight is-child notification has-text-centered is-white">
+                                    <p class="title">Chargement des données...</p>
+                                </article>
+                            </div>
+                        </div>
                     </div>
                 
                 </div>   
@@ -103,6 +114,8 @@ export default {
 
     data () {
         return {
+            loading: false,
+
             /* Stats data */
             n_tickets_open: 0,
             n_tickets_pending: 0,
@@ -142,11 +155,12 @@ export default {
     },
     methods: {
         async load () {
+            this.loading = true;
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
-
             const resp = await AnalyticsService.getStats(this.$cookies.get('api_token'), this.daterange)
             if (resp.data.success) {
+                this.loading = false;
                 this.n_tickets_open = resp.data.ticket_numbers.tickets_open
                 this.n_tickets_pending = resp.data.ticket_numbers.tickets_pending
                 this.n_tickets_closed = resp.data.ticket_numbers.tickets_closed
@@ -158,7 +172,8 @@ export default {
                 this.longest_ticket = resp.data.ticket_times.longest_ticket
                 this.longest_ticket_time = resp.data.ticket_times.longest_ticket_time
             } else {
-                this.$parent.notification = {type: 'failure', message: 'Erreur lors du chargement des données'}
+                this.$parent.notification = {type: 'failure', message: 'Pas de tickets dans cette plage de date'}
+                this.daterange = []
             }
         }
     },
@@ -175,4 +190,7 @@ export default {
 
 <style lang="scss">
 @import '../../styles/global.scss';
+.is-loader {
+    animation: spin 1s linear infinite;
+}
 </style>

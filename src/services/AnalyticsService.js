@@ -80,8 +80,6 @@ function formatTicketTime (avg, short, long) {
     }
     let s = new Date(short.resolution_time)
     let l = new Date(long.resolution_time)
-    console.log(s.getTime())
-    console.log(l.getTime())
     if (short && long) {
         data.shortest_ticket_time = timeToString(convertMS(s))
         data.longest_ticket_time = timeToString(convertMS(l))
