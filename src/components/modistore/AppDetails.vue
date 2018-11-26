@@ -87,7 +87,7 @@
                                         <span class="inline">Donner une note: </span>
                                         <div class="field rate-input inline">
                                             <p class="control">
-                                                <input type="number" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
+                                                <input type="number" min="0" max="5" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
                                             </p>
                                         </div>
                                         <div class="field">
