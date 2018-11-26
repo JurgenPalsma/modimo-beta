@@ -30,14 +30,12 @@ export default {
         })
     },
     
-    deleteRate (token, application_id, rate_id) {
-        return Api().delete('/api/applications/rates',
-        {
-            'application_id': application_id,
-            'rate_id': rate_id
-        }, {
+    deleteRate(user_token, objRate) {
+        return Api().delete('/api/applications/rates', {
             headers: {
-                'x-access-token': token
+                'x-access-token': user_token,
+                'application_id': objRate.application_id,
+                'rate_id': objRate._id 
             }
         })
     },

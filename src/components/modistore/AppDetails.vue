@@ -242,9 +242,8 @@ import RateService from '@/services/RateService';
                     this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
             },
             deleteRate: async function (rate) {
-                const resp = await RateService.deleteRate(this.$cookies.get('api_token'), this.application._id, rate._id);
-                if (resp.data.sucess) {
-                    console.warn(resp.data)
+                const resp = await RateService.deleteRate(this.$cookies.get('api_token'), rate);
+                if (resp.data.success) {
                     await this.getRates();
                 } else
                     this.$parent.notification = {type: 'failure', message: resp.data.message}
