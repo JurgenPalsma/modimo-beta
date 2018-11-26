@@ -595,7 +595,7 @@ module.exports = function(app, apiRoutes, io) {
                                             }
                                         });
                                 }
-                                res.json({success: true, message: 'Rate update success'})
+                                res.json({success: true, rate: rate})
                             }
                             else
                                 res.json({success: false, message: 'Rate update Failed'})
