@@ -15,6 +15,33 @@ export default {
         })
     },
 
+    updateRate (token, rate_id, comment, stars, quote) {
+        return Api().patch('/api/applications/rates', 
+        {
+            'rate_id': rate_id,
+            'stars': stars,
+            'comment': comment,           
+            'quote': quote,
+            
+        }, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+    },
+    
+    deleteRate (token, application_id, rate_id) {
+        return Api().delete('/api/applications/rates',
+        {
+            'application_id': application_id,
+            'rate_id': rate_id
+        }, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+    },
+
     getRates (token, application_id) {
         return Api().get('/api/applications/rates',
         {
