@@ -119,8 +119,7 @@
                     this.ticket.votes.splice(this.current_user._id, 1)
                 }
                 else {
-                    console.log('LIKE TICKET failed :')
-                    console.log(resp.data.message)
+                    console.warn('LIKE TICKET failed :', resp.data.message)
                 }
             },
             commentTicket: async function (event) {

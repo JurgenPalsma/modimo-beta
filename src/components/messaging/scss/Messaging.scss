@@ -123,6 +123,20 @@ $lines-to-show: 1;
   overflow: -moz-scrollbars-vertical;
 }
 
+.modimo-contact-search {
+  position: absolute;
+  background-color: white;
+  color: black;
+  top: 50px;
+  width: calc(100% - 24px);
+  padding: 10px 0;
+  border-radius: 3px;
+}
+
+.modimo-conctact-choose:hover {
+  background-color: whitesmoke;
+}
+
 @media screen and (max-width: 768px) {
   .modimo-messages {
     width: 100%;

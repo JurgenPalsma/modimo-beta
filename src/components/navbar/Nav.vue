@@ -21,9 +21,7 @@
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="/home" style="text-align: center;">Apps</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" v-for="app in applications" :key="app._id" :href="app.link">{{app.shortname}}</a>
-                            <!-- <a class="navbar-item" href="/analytics">Statistiques</a>
-                            <a class="navbar-item" href="/billboard">Mur d'affiche</a> -->
+                            <a class="navbar-item" v-for="app in applications" :key="app._id" :href="'/' + app.link">{{app.shortname}}</a>
                         </div>
                     </div>
                 </div>

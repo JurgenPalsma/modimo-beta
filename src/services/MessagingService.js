@@ -26,8 +26,7 @@ export default {
     },
 
     postConversation (token, withUser) {
-        return Api().post('/api/messagerie/conversation', {}, {
-            'users': [withUser],
+        return Api().post('/api/messagerie/conversation', {'users': [withUser]}, {
             headers: {
                 'x-access-token': token    
             }
@@ -40,6 +39,15 @@ export default {
             headers: {
                 'x-access-token': token,
                 'content': content 
+            }
+        })
+    },
+
+    getContacts (token) {
+        let url = '/api/messagerie/contacts';
+        return Api().get(url, {
+            headers: {
+                'x-access-token': token
             }
         })
     }
