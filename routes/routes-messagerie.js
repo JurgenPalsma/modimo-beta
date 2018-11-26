@@ -90,31 +90,49 @@ module.exports = function(app, apiRoutes, io) {
     });
 
     // route to get list of contacts
-    apiRoutes.get('/messagerie/contacts', function (req, res) {
+    // apiRoutes.get('/messagerie/contacts', function (req, res) {
 
+    //     User.findOne({
+    //         token: req.headers['x-access-token'],
+    //     }, function (err, user) {
+    //         if (err) return res.json({success: false, message: 'Error from DB'});
+    //         if (!user) {
+    //             res.json({success: false, message: 'User not found.'});
+    //         } else if (user) {
+    //             Contact.find({
+    //                 of: user.id,
+    //             }, function (err, contacts) {
+    //                 if (err) throw err;
+    //                 if (contacts.length == 0) {
+    //                     res.json({success: false, message: 'Error: user has no contact'});
+    //                 } else if (contacts) {
+    //                     res.json({
+    //                         success: true,
+    //                         contacts: contacts,
+    //                     });
+    //                 }
+    //             })
+    //         }
+    //     });
+    // });
+
+    // route to get all available contacts
+    apiRoutes.get('/messagerie/contacts', function (req, res) {
         User.findOne({
             token: req.headers['x-access-token'],
         }, function (err, user) {
-            if (err) return res.json({success: false, message: 'Error from db'});
-            if (!user) {
-                res.json({success: false, message: 'User not found.'});
-            } else if (user) {
-                Contact.find({
-                    of: user.id,
-                }, function (err, contacts) {
-                    if (err) throw err;
-                    if (contacts.length == 0) {
-                        res.json({success: false, message: 'Error: user has no contact'});
-                    } else if (contacts) {
-                        res.json({
-                            success: true,
-                            contacts: contacts,
-                        });
-                    }
+            if (err) return res.json({success: false, message: 'Error from DB'});
+            if (!user) return res.json({success: false, message: 'User not found'});
+            else if (user) {
+                User.find({
+                    residence: user.residence
+                }, function(err, contacts) {
+                    if (err) return res.json({success: false, message: 'Error from DB'});
+                    res.json({success: true, contacts: contacts});
                 })
             }
-        });
-    });
+        })
+    })
 
     /*---- Conv management ----*/
 
