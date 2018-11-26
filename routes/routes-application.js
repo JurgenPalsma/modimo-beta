@@ -509,7 +509,7 @@ module.exports = function(app, apiRoutes, io) {
 
     // route to delete a rates in application with rate_id and application_id
     apiRoutes.delete('/applications/rates', function(req, res) {
-        if (!req.body.rate_id || !req.body.application_id)
+        if (!req.headers.rate_id || !req.headers.application_id)
             return res.json({success: false, message: 'Error: request incomplete'});
         User.findOne({
             token: req.headers['x-access-token'],
@@ -519,7 +519,7 @@ module.exports = function(app, apiRoutes, io) {
                 return res.json({success: false, message: 'User not found.'});
             else {
                 Rates.findOne({
-                    _id: req.body.rate_id
+                    _id: req.headers.rate_id
                 }, function (err, rate) {
                     if (err) return res.json({success: false, message: 'Error from db'})
                     if (!rate)
@@ -529,12 +529,12 @@ module.exports = function(app, apiRoutes, io) {
                             _id: rate._id}, function(err) {
                             if (!err) {
                                 Application.findOne({
-                                    _id: req.body.application_id},
+                                    _id: req.headers.application_id},
                                     function(err, application) {
                                         if (err) return res.json({success: false, message: 'Application not found'});
                                         else {
                                             Application.update({
-                                                _id: req.body.application_id},
+                                                _id: req.headers.application_id},
                                                 {rate_average: ((application.rate_average * application.rate_count) - rate.stars) / ((application.rate_count - 1) || 1),
                                                 $inc: {rate_count: -1}
                                                 },function (err) {
