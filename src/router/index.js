@@ -67,6 +67,7 @@ export default new Router({
             name: 'PanneauAdministration',
             component: PanneauAdmin
         },
+        {
             path: '/messaging',
             name: 'Messaging',
             component: Messaging
