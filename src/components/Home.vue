@@ -14,7 +14,6 @@
                         <span v-else class="modimo-home-edit" @click="editModeTrue">Modifier</span>
                     </div>
                 </div>
-                
                 <div class="columns is-multiline is-mobile">
                     <router-link v-for="app in applications" :key="app._id" :to="app.link" style="position: relative" class="column is-12-mobile is-6-tablet is-4-desktop is-3-widescreen">
                         <div class="card" style="border-radius: 3px">
@@ -23,6 +22,27 @@
                                 <span class="edit-remove-confirm"><i class="fa fa-times"/></span>
                                 <span>Supprimer</span>
                             </div>
+                        </div>
+                    </router-link>
+                    <router-link to="/panneauAdmin" class="column is-one-quarter-desktop">
+                        <div class="card" style="border-radius: 3px">
+                            <div class="card-content">
+                                <div class="media is-vertical-center">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                    <img src="/static/img/panneauAdmin.jpg" alt="PanneauAdmin">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="is-size-5 has-text-weight-bold has-text-link">Panneau Administration</p>
+                                    <p class="is-size-7 is-italic has-text-grey-dark">Gerer votre résidence</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
+                    <router-link v-if="current_user && (current_user.roles.includes('ADMIN') || current_user.roles.includes('ROOT') )" to="/analytics" class="column is-one-quarter-desktop">
+                        <div class="card" style="border-radius: 3px">
                             <div class="card-content">
                                 <div class="media is-vertical-align">
                                     <div class="media-left">
