@@ -69,7 +69,6 @@ export default {
             contactsFiltered: []
         }
     },
-
     created: function () {
         this.$parent.getCurrentUser()
         this.getConversations();
@@ -157,13 +156,12 @@ export default {
             }
         }
     },
-    sockets:{
+    sockets: {
         connect: function() {
             console.log('socket connected')
         },
-
-        conversationListUpdateChannel: function(){
-            this.conversations = [];
+        messageChannel: function(){
+            console.log("socket ok")
             this.getConversations();
         }
     },
