@@ -148,7 +148,7 @@ module.exports = function(app, apiRoutes, io) {
         if ((!req.body.users) || !req.headers['x-access-token']) {
             return res.json({success: false, message: "Error: request incomplete. Need: body.users ; header.x-access-token"});
         } else {
-            let users = JSON.parse(req.body.users)
+            let users = req.body.users
             // check user access token
             User.findOne({
                 token: req.headers['x-access-token'],
