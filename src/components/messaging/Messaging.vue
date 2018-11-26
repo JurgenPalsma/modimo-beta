@@ -93,14 +93,19 @@ export default {
             this.currentConv = conversation;
         },
 
-        sendMessage () {
-            let res = MessagingService.postMessage(this.$cookies.get('api_token'), this.currentConv.threadId, this.message);
-            this.message = ""
-            this.getConversations();
+        async sendMessage () {
+            let res = await MessagingService.postMessage(this.$cookies.get('api_token'), this.currentConv.threadId, this.message);
+            if (res.data.success) {
+                this.message = ""
+                this.getConversations();
+            }
+            else {
+                this.$parent.notification = {type: 'failure', message: "Votre message n'a pas pu être envoyé."}
+            }
         },
 
         async getAllContacts() {
-            let resp = await MessagingService.getAllContacts(this.$cookies.get('api_token'));
+            // let resp = await MessagingService.getAllContacts(this.$cookies.get('api_token'));
         },
 
         dateFormater(unFormatedDate) {

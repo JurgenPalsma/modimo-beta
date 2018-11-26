@@ -7,18 +7,18 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                          <div v-if="info.length === 0">
+                          <div v-if="!info || info.length === 0">
                             <strong class="modimo-color modimo-size ">Vous n'avez pas de notification</strong>
                           </div>
-                          <div v-if="info.length === 1">
+                          <div v-else-if="info.length === 1">
                             <strong class="modimo-color modimo-size ">Vous avez une nouvelle notification</strong>
                           </div>
-                          <div v-if="info.length > 2">
+                          <div v-else>
                             <strong class="modimo-color modimo-size ">Vous avez {{info.length}} notifications</strong>
                           </div>
                             <br>
                             <br>
-                            <div class="field" v-for="inf in info">
+                            <div class="field" v-for="inf in info" :key="inf._id">
                                 <label style="is-right" class="label">{{inf.title}}</label>
                                 <hr>
                             </div>
