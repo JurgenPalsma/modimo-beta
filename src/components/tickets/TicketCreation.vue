@@ -20,7 +20,7 @@
                         <div class="control">
                             <textarea class="textarea" v-model="content" placeholder="Message du ticket..."></textarea>
                         </div>
-                    </div>                
+                    </div>
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success create-ticket-button" @click="postTicket">Créer</button>

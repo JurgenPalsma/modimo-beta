@@ -56,7 +56,7 @@
                 </div>
             </div>
         </nav>
-        <notif v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
+        <notif :info="selectedInformation" v-show="showNotifModal" @close_modal="showNotifModal = false"></notif>
     </section>
 </template>
 
@@ -71,7 +71,8 @@ export default {
         return {
             showNotifModal: false,
             applications: null,
-            currentUser: null
+            currentUser: null,
+            selectedInformation: undefined
         };
     },
 
@@ -116,6 +117,7 @@ export default {
     },
 
     notifModal: function() {
+      this.selectedInformation = this.current_user.notifs;
       this.showNotifModal = true;
     }
   },

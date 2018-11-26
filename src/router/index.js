@@ -7,7 +7,10 @@ import Tickets from '@/components/tickets/Tickets'
 import Mailer from '@/components/mails/Mailer'
 import Modistore from '@/components/modistore/Modistore'
 import StoreAppDetails from '@/components/modistore/AppDetails'
+
+import PanneauAdmin from '@/components/panneauAdmin/PanneauAdmin'
 import Billboard from '@/components/billboard/Billboard'
+
 //  import MailCreate from '@/components/Mails/mailCreate.vue'
 import Analytics from '@/components/analytics/Analytics'
 import Messaging from '@/components/messaging/Messaging'
@@ -60,6 +63,10 @@ export default new Router({
             component: Analytics
         },
         {
+            path: '/panneauAdmin',
+            name: 'PanneauAdministration',
+            component: PanneauAdmin
+        },
             path: '/messaging',
             name: 'Messaging',
             component: Messaging
