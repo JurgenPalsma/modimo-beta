@@ -173,12 +173,8 @@ export default {
         },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
-<<<<<<< HEAD
                 this.loadTickets()
                 //console.log(ticket)
-=======
-                this.load()
->>>>>>> 00e57ba01e429139f78f0d42d7b9e7d31309d688
                 //this.loadDates(ticket)
                 //ticket.author_name = this.current_user.name
                 //this.tickets.push(ticket);

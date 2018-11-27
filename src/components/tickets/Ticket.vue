@@ -174,12 +174,7 @@
                     this.ticket.votes.push(this.current_user._id)
                 }
                 else {
-<<<<<<< HEAD
-                    console.log('LIKE TICKET failed :')
-                    console.log(resp.data.message)
-=======
                     console.warn('CLOSE TICKET failed :', resp.data.message)
->>>>>>> 00e57ba01e429139f78f0d42d7b9e7d31309d688
                 }
             },
             unlikeTicket: async function (event) {
