@@ -165,8 +165,7 @@
                     this.closeModal()
                 }
                 else {
-                    console.log('CLOSE TICKET failed :')
-                    console.log(resp.data.message)
+                    console.warn('CLOSE TICKET failed :', resp.data.message)
                 }
             },
             likeTicket: async function (event) {
@@ -175,8 +174,12 @@
                     this.ticket.votes.push(this.current_user._id)
                 }
                 else {
+<<<<<<< HEAD
                     console.log('LIKE TICKET failed :')
                     console.log(resp.data.message)
+=======
+                    console.warn('CLOSE TICKET failed :', resp.data.message)
+>>>>>>> 00e57ba01e429139f78f0d42d7b9e7d31309d688
                 }
             },
             unlikeTicket: async function (event) {
@@ -185,8 +188,7 @@
                     this.ticket.votes.splice(this.current_user._id, 1)
                 }
                 else {
-                    console.log('LIKE TICKET failed :')
-                    console.log(resp.data.message)
+                    console.warn('LIKE TICKET failed :', resp.data.message)
                 }
             },
             commentTicket: async function (event) {

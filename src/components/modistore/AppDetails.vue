@@ -61,38 +61,63 @@
                                         <div class="media">
                                             <div class="media-content comment">
                                                 <div v-for="rate in app_rates" :key="rate._id" >
-                                                    <article class="media">
+                                                    <article v-if="edited_rate_id != null && edited_rate_id != rate._id" class="media">
                                                         <div class="content">
                                                             <p>
                                                                 <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
-                                                                    <i v-for="i in rate.stars" :key="i" class="fas fa-star has-text-info"></i>
-                                                                    <i v-for="j in 5 - rate.stars" :key="j + app.rate_average"  class="fas fa-star"></i>
+                                                                    <i v-for="j in 5" :key="'B' + j"  class="fas fa-star"
+                                                                         v-bind:class="{ 'has-text-info': j <= rate.stars}">
+                                                                    </i>
                                                                 <br>
                                                                 <span>{{rate.comment}}</span>
+                                                                <span v-if="current_user._id == rate.author_id"> · <a v-on:click="activeModifRate(rate)">Modifier l'avis</a></span>
+                                                                <span v-if="current_user._id == rate.author_id"> · <a v-on:click="deleteRate(rate)">Supprimer l'avis</a></span>
                                                                 <br>
                                                                 <br>                     
                                                             </p>
-                                                        
+                                                            
                                                         </div>
+
                                                     </article>
+                                                    <div v-if="edited_rate_id != null && edited_rate_id == rate._id">
+                                                        <div class="field">
+                                                            <p class="control">
+                                                                <input v-model="text_comment_modif" class="textarea" rows="1" placeholder="Rédiger un avis...">
+                                                            </p>
+                                                        </div>
+                                                        <span class="inline">Donner une note: </span>
+                                                        <div class="field rate-input inline">
+                                                            <p class="control">
+                                                                <input type="number" min="0" max="5" v-model="rate_input_modif" class="textarea" rows="1" placeholder="0-5">
+                                                            </p>
+                                                        </div>
+                                                        <div class="field">
+                                                            <p class="control is-pulled-right">
+                                                                <button ref="send_comment" class="button" @click="cancelModifRate">Annuler</button>
+                                                                <button ref="send_comment" class="button" @click="modifRate">Modifier</button>
+                                                            </p>
+                                                        </div>                   
+                                                    </div>             
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="field">
-                                            <p class="control">
-                                                <input v-model="text_comment" class="textarea" rows="1" placeholder="Rédiger un avis...">
-                                            </p>
-                                        </div>
-                                        <span class="inline">Donner une note: </span>
-                                        <div class="field rate-input inline">
-                                            <p class="control">
-                                                <input type="number" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
-                                            </p>
-                                        </div>
-                                        <div class="field">
-                                            <p class="control is-pulled-right">
-                                                <button ref="send_comment" class="button" @click="addRate">Envoyer</button>
-                                            </p>
+                                        <div v-if="edited_rate_id != null && edited_rate_id == ''">
+                                            <div class="field">
+                                                <p class="control">
+                                                    <input v-model="text_comment" class="textarea" rows="1" placeholder="Rédiger un avis...">
+                                                </p>
+                                            </div>
+                                            <span class="inline">Donner une note: </span>
+                                            <div class="field rate-input inline">
+                                                <p class="control">
+                                                    <input type="number" min="0" max="5" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
+                                                </p>
+                                            </div>
+                                            <div class="field">
+                                                <p class="control is-pulled-right">
+                                                    <button ref="send_comment" class="button" @click="addRate">Envoyer</button>
+                                                </p>
+                                            </div>
                                         </div>                            
                                     </div>
                                 
@@ -118,7 +143,10 @@ import RateService from '@/services/RateService';
             return {
                 current_user: null,
                 text_comment: '',
-                rate_input: -1,
+                rate_input: null,
+                edited_rate_id: '',
+                text_comment_modif: '',
+                rate_input_modif: null,
                 app_rates: [],
                 app: {
                     name: "Nom de l'app",
@@ -163,7 +191,7 @@ import RateService from '@/services/RateService';
                 if (resp.data.sucess) {
                     this.app_rates = resp.data.rates
                 } else
-                    this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des avis'}
+                    this.$parent.notification = {type: 'failure', message: resp.data.message}
             },
 
             async load() {
@@ -172,25 +200,73 @@ import RateService from '@/services/RateService';
                 await this.getRates();
             },
             addRate: async function () {
-                if (this.rate_input >= 0 && this.rate_input <= 5)
+                var hasPushedRate = this.app_rates.findIndex(rate => rate.author_id === this.current_user._id);
+                if (hasPushedRate != -1)
+                    this.$parent.notification = {type: 'failure', message: "Il semble que vous ayez deja laissé un avis"}
+                else
                 {
-                    this.app_rates.push({
-                        'author_name' : this.current_user.name,
-                        'comment': this.text_comment,
-                        'stars': this.rate_input
-                    })
-                    const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
-                    this.text_comment = ''
-                    this.rate_input = -1
-                    if (resp.data.success) {
-                        console.log('success')
+                    if (this.rate_input != null && this.rate_input != '' && this.rate_input >= 0 && this.rate_input <= 5)
+                    {
+                        if (this.text_comment == null || this.text_comment == '')
+                            this.$parent.notification = {type: 'failure', message: "Veuillez renseigner un avis"}
+                        else {
+                            const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
+                            this.text_comment = ''
+                            this.rate_input = null
+                            if (resp.data.success) {
+                                this.app_rates.push(resp.data.rate)
+                            }
+                            else {
+                                console.warn(resp.data.message)
+                            }
+                        }
                     }
+                    else
+                        this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
+    
+                }
+             },
+
+            activeModifRate: function (rate) {
+                this.edited_rate_id = rate._id
+                this.text_comment_modif = rate.comment 
+                this.rate_input_modif = rate.stars
+            },
+
+            modifRate: async function () {
+                if (this.rate_input_modif != null && this.rate_input_modif != '' && this.rate_input_modif >= 0 && this.rate_input <= 5)
+                {
+                    if (this.text_comment_modif == null || this.text_comment_modif == '')
+                            this.$parent.notification = {type: 'failure', message: "Veuillez renseigner un avis"}
                     else {
-                        console.log(resp.data.message)
+                        const resp = await RateService.updateRate(this.$cookies.get('api_token'), this.edited_rate_id, this.text_comment_modif, this.rate_input_modif, "ok")
+                        this.text_comment_modif = ''
+                        this.rate_input_modif = null
+                        if (resp.data.success) {
+                            await this.getRates();
+                            this.edited_rate_id = ''
+                            this.text_comment_modif = ''
+                            this.rate_input_modif = null
+                        }
+                        else {
+                            console.warn(resp.data.message)
+                        }
                     }
                 }
                 else
                     this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
+            },
+            deleteRate: async function (rate) {
+                const resp = await RateService.deleteRate(this.$cookies.get('api_token'), rate);
+                if (resp.data.success) {
+                    await this.getRates();
+                } else
+                    this.$parent.notification = {type: 'failure', message: resp.data.message}
+            },
+            cancelModifRate: function () {
+                this.edited_rate_id = ''
+                this.text_comment_modif = ''
+                this.rate_input_modif = null
             }
         },
     }

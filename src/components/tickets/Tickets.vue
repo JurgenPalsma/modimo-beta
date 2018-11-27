@@ -158,7 +158,7 @@ export default {
                     this.tickets[n].comments = resp2.data.comments;
                     this.loadDates(this.tickets[n])
                 } else {
-                    console.log('Erreur lors de la récuperation des commentaires')
+                    console.warn('Erreur lors de la récuperation des commentaires')
                 }
                 this.tickets[n].comments.forEach(async (comment) => {
                     const resp = await UserService.getUser(this.$cookies.get('api_token'), comment.author_id)
@@ -173,8 +173,12 @@ export default {
         },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
+<<<<<<< HEAD
                 this.loadTickets()
                 //console.log(ticket)
+=======
+                this.load()
+>>>>>>> 00e57ba01e429139f78f0d42d7b9e7d31309d688
                 //this.loadDates(ticket)
                 //ticket.author_name = this.current_user.name
                 //this.tickets.push(ticket);

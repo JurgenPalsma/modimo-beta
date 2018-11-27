@@ -1,5 +1,5 @@
 <template>
-    <div v-if="notification" class="notification-block" :class="notification.type">
+    <div v-if="notification" @click="updateNotification()" class="notification-block" :class="notification.type">
         <p class="notificaiton-text">{{notification.message}}</p>
     </div>
 </template>
@@ -7,11 +7,12 @@
 <style lang="scss" scoped>
 .notification-block {
     padding: 7px 20px;
-    margin-top: 60px;
+    margin-top: 10px;
     align-self: center !important;
     border-radius: 5px;
     display: inline-block;
     max-width: 95%;
+    cursor: pointer;
 }
 
 .success {

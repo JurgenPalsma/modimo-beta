@@ -1,5 +1,5 @@
 
-.is-vertical-center {
+.is-vertical-align {
     align-items: center;
     text-align: center;
 }
@@ -67,8 +67,8 @@ $lines-to-show: 4;
     border: 1px solid #2b5bb2;
 }
 
-.modistore-button-disabled {
-    background-color: lightgray;
+.modistore-button-open {
+    // background-color: lightgray;
     color: dimgray;
 }
 

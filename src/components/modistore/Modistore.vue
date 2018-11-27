@@ -27,7 +27,7 @@
                                 <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
                                     <div class="card modistore-card" style="border-radius: 3px">
                                         <div class="card-content modistore-card">
-                                            <div class="media is-vertical-center">
+                                            <div class="media is-vertical-align">
                                                 <div class="media-left">
                                                     <figure class="image is-64x64">
                                                     <img :src="app.mini_logo" :alt="app.name">
@@ -43,7 +43,7 @@
                                                 <div class="modistore-card-footer">
                                                     <span class="button modistore-see-more">Voir plus</span>
                                                     <span v-if="app.link && !app.added" @click.stop.prevent @click="addApp(app)" class="button modistore-button">Ajouter</span>
-                                                    <span v-else-if="app.link && app.added" class="button modistore-button-disabled" disabled>Ajoutée</span>
+                                                    <span v-else-if="app.link && app.added" @click.stop.prevent @click="$router.push(app.link)" class="button modistore-button-open">Ouvrir</span>
                                                     <span v-else class="button modistore-button-disabled" disabled>À venir</span>
                                                 </div>
                                             </div>
@@ -54,7 +54,7 @@
                             <div v-if="applications && applications.length > 0" class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet"> 
                                 <div class="card" style="border-radius: 3px; opacity: 0.5">
                                     <div class="card-content modistore-card">
-                                        <div class="media is-vertical-center">
+                                        <div class="media is-vertical-align">
                                             <div class="media-left">
                                                 <figure class="image is-64x64">
                                                 <img src="/static/img/comingsoon.png" alt="Analytics">

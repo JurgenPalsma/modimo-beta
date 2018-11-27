@@ -9,7 +9,8 @@ export default {
             'with': withUser
             }
         })
-        let me = await UserService.getCurrentUser(token)
+        let respUser = await UserService.getCurrentUser(token)
+        const me = respUser.data.user;
         let conversations = []
         for (let i = 0; i < res.data.conversations.length; i++){
             conversations.push(res.data.conversations[i])
@@ -18,7 +19,8 @@ export default {
             //assign a name and an ID
             for (let j = 0; j < conversations[i].with.length; j++) {
                 let u = await UserService.getUser(token, conversations[i].with[j]);
-                conversations[i].name = u.data.user["name"]
+                if (me.name != u.data.user.name)
+                    conversations[i].name = u.data.user["name"]
             }
             conversations[i].threadId = conversations[i]._id;
         }
@@ -26,8 +28,7 @@ export default {
     },
 
     postConversation (token, withUser) {
-        return Api().post('/api/messagerie/conversation', {}, {
-            'users': [withUser],
+        return Api().post('/api/messagerie/conversation', {'users': [withUser]}, {
             headers: {
                 'x-access-token': token    
             }
@@ -40,6 +41,15 @@ export default {
             headers: {
                 'x-access-token': token,
                 'content': content 
+            }
+        })
+    },
+
+    getContacts (token) {
+        let url = '/api/messagerie/contacts';
+        return Api().get(url, {
+            headers: {
+                'x-access-token': token
             }
         })
     }

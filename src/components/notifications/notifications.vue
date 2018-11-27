@@ -7,12 +7,21 @@
                     <button class="delete is-pulled-right" aria-label="close" @click="$emit('close_modal')"></button>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="modimo-color modimo-size ">Notifications</strong>
+                          <div v-if="!info || info.length === 0">
+                            <strong class="modimo-color modimo-size ">Vous n'avez pas de notification</strong>
+                          </div>
+                          <div v-else-if="info.length === 1">
+                            <strong class="modimo-color modimo-size ">Vous avez une nouvelle notification</strong>
+                          </div>
+                          <div v-else>
+                            <strong class="modimo-color modimo-size ">Vous avez {{info.length}} notifications</strong>
+                          </div>
                             <br>
                             <br>
-                            <div class="field">
-                                <label class="label" v-model="notif.title">Titre</label>
-                                </div>
+                            <div class="field" v-for="inf in info" :key="inf._id">
+                                <label style="is-right" class="label">{{inf.title}}</label>
+                                <hr>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -21,30 +30,20 @@
     </section>
 </template>
 
-
 <style lang="scss" src="../tickets/scss/Tickets.scss">
 </style>
 
 <script>
-//import NotificationService from '@/services/NotificationService'
-
 export default {
+  props: ["info"],
   data () {
     return {
-      notif: {
-        title: "",
-        actorName: "",
-      },
-      currentUser: {}
     }
   },
-
-  created: function () {
-  },
-
   methods: {
 
-      //GETNOTIF
+  },
+  created: function () {
   }
 }
 </script>

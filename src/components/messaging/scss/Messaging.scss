@@ -1,0 +1,153 @@
+.conv-date {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  color: gray;
+  font-size: 12px;
+}
+
+$font-size: .75rem;
+$line-height: 1.5;
+$lines-to-show: 1;
+  
+.conv-last-message {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: $font-size*$line-height*$lines-to-show;
+    margin: 0 auto;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.thread-container {
+  border-radius: 3px;
+  background-color: whitesmoke;
+  margin-bottom: 10px;
+  height: calc(100vh - 248px);
+  padding: 10px;
+  overflow: auto;
+  bottom: 0;
+}
+.conversation-title {
+  text-align: center;
+  color: #2b5bb2;
+}
+.input-bar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+.message-block-yours {
+  margin: 5px 0;
+  text-align: right;
+}
+.message-block {
+  margin: 5px 0;
+  text-align: left;
+  display: block;
+  width: auto;
+}
+.message {
+  background-color: white;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: #2b5bb2;
+  font-size: 14px;
+  line-height: 16px;
+  box-sizing: border-box;
+  max-width: 400px;
+  word-wrap: break-word;
+}
+.message-yours {
+  background-color: #2b5bb2;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  line-height: 16px;
+  box-sizing: border-box;
+  max-width: 400px;
+}
+
+.input-message {
+  width: 100%;
+  height: 36px;
+  border-radius: 3px;
+  border: none;
+  padding: 0 10px;
+}
+
+.input-message::placeholder {
+  color: lightgray;
+}
+
+.input-add-contact {
+  width: 100%;
+  height: 36px;
+  border-radius: 3px;
+  border: none;
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+.input-add-contact::placeholder {
+  color: lightgray;
+}
+
+
+.modimo-messages {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: calc(100vh - 100px);
+  padding-top: 102px;
+  width: 50%;
+}
+
+.modimo-conversations-container {
+  height: calc(100vh - 247px);
+  overflow-y: scroll;
+  padding: 0 10px;
+  overflow: -moz-scrollbars-vertical;
+}
+
+.modimo-contact-search {
+  position: absolute;
+  background-color: white;
+  color: black;
+  top: 50px;
+  width: calc(100% - 24px);
+  padding: 10px 0;
+  border-radius: 3px;
+}
+
+.modimo-conctact-choose:hover {
+  background-color: whitesmoke;
+}
+
+@media screen and (max-width: 768px) {
+  .modimo-messages {
+    width: 100%;
+    padding-top: 90px;
+  }
+
+  .thread-container {
+    height: calc(100vh - 117px - 80px);
+  }
+
+  .modimo-conversations {
+    padding-top: calc(100vh - 117px - 37px);
+  }
+}

@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
 .notification-container {
     position: fixed;
-    top: 0;
+    top: 52px;
     width: 100vw;
     text-align: center;
     z-index: 1000000000;
@@ -69,7 +69,7 @@ export default {
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
                 this.currentUser = curUser.data.user
             } else {
-                console.log('Could not load current user')
+                console.warn('Could not load current user')
             }
         }
     },

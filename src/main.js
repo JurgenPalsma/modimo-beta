@@ -11,6 +11,8 @@ import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 library.add(faEnvelope)
 library.add(faFacebookSquare)
 
+
+
 // Analytics
 Vue.use(VueAnalytics, {
     id: 'UA-116703749-3',
@@ -26,6 +28,13 @@ import VueChartkick from 'vue-chartkick'
 import Chart from 'chart.js'
 
 Vue.use(VueChartkick, {adapter: Chart})
+
+import VueSocketIO from 'vue-socket.io';
+
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'https://modimo-beta-api.herokuapp.com/'
+}))
 
 /* eslint-disable no-new */
 new Vue({

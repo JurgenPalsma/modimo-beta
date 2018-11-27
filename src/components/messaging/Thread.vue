@@ -85,15 +85,7 @@
                 newMessage: "" // input for message to be sent
             }
         },
-        sockets:{
-            connect: function(){
-                console.log('socket connected')
-            },
-            messageChannel: function(){
-                this.getMessages();
-                this.getMessages();
-            }
-        },
+ 
         watch: {
             'threadId': function(newThreadId) {
                 if (newThreadId)

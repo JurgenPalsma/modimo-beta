@@ -173,10 +173,10 @@ export default {
     // route to delete a rates in application with rate_id and application_id
     deleteRateinApp(user_token, objRate) {
         return Api().delete('/api/applications/rates', {
-            'application_id': objRate.application_id,
-            'rate_id': objRate.rate_id,
             headers: {
-                'x-access-token': user_token,    
+                'x-access-token': user_token,
+                'application_id': objRate.application_id,
+                'rate_id': objRate.rate_id 
             }
         })
     },
