@@ -75,7 +75,10 @@ export default {
     },
     watch: {
         'conversations': function(newConv) {
-            this.currentConv = newConv[0]
+            newConv.forEach(conv => {
+                if (conv._id === this.currentConv._id)
+                    this.currentConv = conv;
+            })
             this.$nextTick(() => {
                 let objDiv = document.getElementById("thread-content");
                 objDiv.scrollTop = 100000;
@@ -93,21 +96,38 @@ export default {
         async getConversations () {
             const resp = await MessagingService.getConversations(this.$cookies.get('api_token'));
             if (resp) {
-                this.conversations = resp;
-                this.currentConv = this.conversations[0];
+                this.conversations = resp.sort((convA, convB) => {
+                    if (convA.messages[convA.messages.length - 1].timestamp < convB.messages[convB.messages.length - 1].timestamp)
+                        return 1;
+                    else if (convB.messages[convB.messages.length - 1].timestamp > convA.messages[convA.messages.length - 1].timestamp)
+                        return -1;
+                    return 0;
+                });
+                this.conversations.forEach(conv => {
+                    if (conv._id === this.currentConv._id) {
+                        this.currentConv = conv;
+                        this.$nextTick(() => {
+                            let objDiv = document.getElementById("thread-content");
+                            objDiv.scrollTop = 100000;
+                        });
+                    }
+                })
                 this.getAllContacts();
             }
         },
 
         switchToConversation (conversation) {
             this.currentConv = conversation;
+            this.$nextTick(() => {
+                let objDiv = document.getElementById("thread-content");
+                objDiv.scrollTop = 100000;
+            });
         },
 
         async sendMessage () {
             let res = await MessagingService.postMessage(this.$cookies.get('api_token'), this.currentConv.threadId, this.message);
             if (res.data.success) {
-                this.message = ""
-                this.getConversations();
+                this.message = "";
             }
             else {
                 this.$parent.notification = {type: 'failure', message: "Votre message n'a pas pu être envoyé."}
