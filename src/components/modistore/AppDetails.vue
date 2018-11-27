@@ -200,21 +200,28 @@ import RateService from '@/services/RateService';
                 await this.getRates();
             },
             addRate: async function () {
-                if (this.rate_input != null && this.rate_input >= 0 && this.rate_input <= 5)
-                {
-                    const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
-                    this.text_comment = ''
-                    this.rate_input = null
-                    if (resp.data.success) {
-                        this.app_rates.push(resp.data.rate)
-                    }
-                    else {
-                        console.warn(resp.data.message)
-                    }
-                }
+                var hasPushedRate = this.app_rates.findIndex(rate => rate.author_id === this.current_user._id);
+                if (hasPushedRate != -1)
+                    this.$parent.notification = {type: 'failure', message: "Il semble que vous ayez deja laissé un avis"}
                 else
-                    this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
-            },
+                {
+                    if (this.rate_input != null && this.rate_input >= 0 && this.rate_input <= 5)
+                    {
+                        const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
+                        this.text_comment = ''
+                        this.rate_input = null
+                        if (resp.data.success) {
+                            this.app_rates.push(resp.data.rate)
+                        }
+                        else {
+                            console.warn(resp.data.message)
+                        }
+                    }
+                    else
+                        this.$parent.notification = {type: 'failure', message: "Veuillez renseigner une note de 0 à 5"}
+    
+                }
+             },
 
             activeModifRate: function (rate) {
                 this.edited_rate_id = rate._id
