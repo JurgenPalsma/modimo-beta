@@ -239,7 +239,7 @@
         <footer class="footer modimo-dark footer-resized">
             <div class="columns">
                 <div class="column has-text-centered is-full-mobile">
-                    <a @click="contactModal()">
+                    <a class="white" @click="contactModal()">
                     <p class="strong">Nous Contacter</p>
                     </a>
                 </div>
