@@ -11,6 +11,10 @@ a:hover{
 	color: black
 }
 
+.content_ticket{
+	font-size : 25px;
+}
+
 .title {
 	font-size: 40px;
 }
@@ -45,9 +49,16 @@ a:hover{
 	padding: .4rem;
 }
 
+
+@media screen and (max-width: 769px) {// tablet
+	.modimo-title-size {
+		font-size: 28px;
+	}
+}
+
 @media screen and (min-width: 769px) {// tablet
 	.modimo-title-size {
-		font-size: 18px;
+		font-size: 20px;
 	}
 
 	.modimo-content-size {
@@ -79,10 +90,13 @@ a:hover{
 
 .comment {
 	margin-left : 2em;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	border-bottom: #C8C8C8 1px solid;
 }
 
 .my-modal-background {
-	color : black;
+	// color : black;
 	//background-color: rgba(10,10,10,.6);
 
 }
@@ -120,54 +134,54 @@ a:hover{
 	color: white;
 }
 
-.super-button:hover {
-	color: #2b5bb2;
-}
+// .super-button:hover {
+// 	color: #2b5bb2;
+// }
 
-.super-button:after {
-	position: absolute !important;
-	content: "";
-	width: 48px;
-	height: 48px;
-	display: block;
-	position: relative;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	right: -1px;
-	top: -1px;
-	background-color: white;
-	visibility: hidden;
-	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-	opacity: 0;
-	-moz-transition: all 0.4s ease;
-	-o-transition: all 0.4s ease;
-	-webkit-transition: all 0.4s ease;
-	transition: all 0.4s ease;
-	opacity: 1\9;
-	visibility: visible\9;
-	display: none\9;
-	-moz-transform: scale(0.5, 0.5);
-	-ms-transform: scale(0.5, 0.5);
-	-webkit-transform: scale(0.5, 0.5);
-	transform: scale(0.5, 0.5);
-	z-index: -1;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	-webkit-transition: all 0.2s ease;
-	transition: all 0.2s ease;
-}
+// .super-button:after {
+// 	position: absolute !important;
+// 	content: "";
+// 	width: 48px;
+// 	height: 48px;
+// 	display: block;
+// 	position: relative;
+// 	-moz-border-radius: 50%;
+// 	-webkit-border-radius: 50%;
+// 	border-radius: 50%;
+// 	right: -1px;
+// 	top: -1px;
+// 	background-color: white;
+// 	visibility: hidden;
+// 	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+// 	opacity: 0;
+// 	-moz-transition: all 0.4s ease;
+// 	-o-transition: all 0.4s ease;
+// 	-webkit-transition: all 0.4s ease;
+// 	transition: all 0.4s ease;
+// 	opacity: 1\9;
+// 	visibility: visible\9;
+// 	display: none\9;
+// 	-moz-transform: scale(0.5, 0.5);
+// 	-ms-transform: scale(0.5, 0.5);
+// 	-webkit-transform: scale(0.5, 0.5);
+// 	transform: scale(0.5, 0.5);
+// 	z-index: -1;
+// 	-moz-transition: all 0.2s ease;
+// 	-o-transition: all 0.2s ease;
+// 	-webkit-transition: all 0.2s ease;
+// 	transition: all 0.2s ease;
+// }
 
-.super-button:hover:after {
-	visibility: visible;
-	filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-	opacity: 1;
-	display: block\9;
-	-moz-transform: scale(1, 1);
-	-ms-transform: scale(1, 1);
-	-webkit-transform: scale(1, 1);
-	transform: scale(1, 1);
-}
+// .super-button:hover:after {
+// 	visibility: visible;
+// 	filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+// 	opacity: 1;
+// 	display: block\9;
+// 	-moz-transform: scale(1, 1);
+// 	-ms-transform: scale(1, 1);
+// 	-webkit-transform: scale(1, 1);
+// 	transform: scale(1, 1);
+// }
 
 .dropdown {
   width: 100%;
@@ -198,9 +212,9 @@ a:hover{
 }
 
 // @media screen and (min-width: 769px){
-// .modal-card, .modal-content {
-//     margin: 0 auto;
-//     max-height: calc(100vh - 120px);
-//     width: 640px;
-// }
-// }
+.modal-card, .modal-content {
+    // margin: 0 auto;
+    max-height: calc(100vh - 150px);
+    // width: 640px;
+}
+//}

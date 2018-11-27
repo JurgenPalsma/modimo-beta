@@ -131,12 +131,13 @@ export default {
             ticket.last_update_at = date
         },
         async loadTickets () {
+            console.log('loadtickets')
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
                 await this.get_tickets_authors_and_comments()
             } else {
-                this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récupération des tickets'}
+                console.log('Erreur lors de la récupération des tickets')
             }
         },
         async load() {
@@ -164,7 +165,7 @@ export default {
                     if (resp.data.success) {
                         comment.author_name = resp.data.user.name;
                     } else {
-                        this.$parent.notification = {type: 'failure', message: 'Erreur lors de la récuperation du nom de l\'auteur du commentaire'}
+                        console.log('Erreur lors de la récuperation du nom de l\'auteur du commentaire')
                     }
                 })
             }
@@ -172,7 +173,7 @@ export default {
         },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
-                this.load()
+                this.loadTickets()
                 //console.log(ticket)
                 //this.loadDates(ticket)
                 //ticket.author_name = this.current_user.name

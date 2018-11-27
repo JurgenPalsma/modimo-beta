@@ -2,6 +2,70 @@
     <section>
         <div class="modal is-active">
             <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title modimo-color is-text-overflow" style="font-size: ">{{ticket.author_name}} - {{ticket.title}}</p>
+                    <button class="delete" v-on:click="closeModal" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body" style="color : black;">
+                    <span class="content_ticket" ref="display_ticket">{{ticket.content}}</span>
+                    <div ref="space_modif_ticket" v-bind:style="{display: 'none'}">
+                        <div class="field">
+                            <p class="control">
+                                <textarea ref="text_modif_ticket" v-bind:value="ticket.content" class="textarea" rows="2"></textarea>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control is-pulled-right">
+                                <button class="button" v-on:click="cancelModifTicket">Annuler</button>&nbsp;
+                                <button class="button" v-on:click="modifTicket">Modifier</button>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <small class="small-text">
+                        <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
+                        <span v-else>Modifié le </span>
+                        {{dateFormater(ticket.updated_at)}}
+                        <span v-if="this.current_user._id == this.ticket.author_id && this.ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
+                        <span style="text-align : right; float : right;"><a v-if="ticket.status == 'open' && ticket.author_id != current_user._id"><span v-on:click="likeTicket" v-if="ticket.votes.indexOf(current_user._id) == -1">Prioriser</span><span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}</span>
+                    </small>
+                    <div v-for="comment in ticket.comments" :key="comment._id" class="comment">
+                        <!-- <article class="media"> -->
+                        <p>
+                            <strong class="modimo-color">{{comment.author_name}}&nbsp;</strong>
+                            {{comment.content}}
+                            <br>
+                            <small class="small-text">
+                                <span v-if="comment.updated_at === comment.created_at">Créé le </span>
+                                <span v-else>Modifié le </span>{{dateFormater(comment.updated_at)}}
+                            </small>
+                        </p>
+                        <!-- </article> -->
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <div v-if="ticket.status != 'closed'" style="width : 100%;">
+                        <div class="field">
+                            <input v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire...">
+                        </div>
+                        <div class="field">
+                            <p class="control is-pulled-right">
+                                <span v-if="current_user && current_user.roles.includes('CARETAKER')">
+                                    <button class="button is-warning" @click="closeTicket">Clôturer</button>
+                                    <button class="button is-warning" @click="commentAndClose">Envoyer et Clôturer</button>
+                                </span>
+                                <button ref="send_comment" class="button" @click="commentTicket">Envoyer</button>
+                            </p>
+                        </div>
+                    </div>
+                    <span v-else style="width:100%" class="bold circle-processDown is-pulled-right">Fermé</span>
+                </footer>
+            </div>
+        </div>
+        <!-- <div class="modal is-active">
+            <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
             <div class="modal-content">
                 <div v-if="ticket" class="box">
                     <button class="delete is-pulled-right" aria-label="close" v-on:click="closeModal"></button>
@@ -75,7 +139,7 @@
                     </article>
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
 </template>
 
@@ -111,7 +175,7 @@
                     this.ticket.votes.push(this.current_user._id)
                 }
                 else {
-                    console.log('CLOSE TICKET failed :')
+                    console.log('LIKE TICKET failed :')
                     console.log(resp.data.message)
                 }
             },
@@ -173,7 +237,7 @@
                 this.$parent.loadTickets();
                 if (this.$refs.modif_ticket_button) {
                     this.$refs.space_modif_ticket.style = 'display: none;'
-                    this.$refs.display_ticket.style = 'display: block;'
+                    this.$refs.display_ticket.style = 'block;'
                     this.$refs.modif_ticket_button.style = 'display: inline;'
                 }
                 this.$emit('close_modal')
