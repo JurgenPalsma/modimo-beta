@@ -97,9 +97,11 @@ export default {
             const resp = await MessagingService.getConversations(this.$cookies.get('api_token'));
             if (resp) {
                 this.conversations = resp.sort((convA, convB) => {
-                    if (convA.messages[convA.messages.length - 1].timestamp < convB.messages[convB.messages.length - 1].timestamp)
+                    if (convA.messages.length == 0) return -1;
+                    if (convB.messages.length == 0) return 1;
+                    if (convA.messages.length == 0 || convA.messages[convA.messages.length - 1].timestamp < convB.messages[convB.messages.length - 1].timestamp)
                         return 1;
-                    else if (convB.messages[convB.messages.length - 1].timestamp > convA.messages[convA.messages.length - 1].timestamp)
+                    else if (convB.messages.length == 0 || convB.messages[convB.messages.length - 1].timestamp < convA.messages[convA.messages.length - 1].timestamp)
                         return -1;
                     return 0;
                 });
@@ -167,9 +169,11 @@ export default {
         },
 
         async addContact(contact) {
+            this.contact = "";
+            this.contactsFiltered = [];
             let resp = await MessagingService.postConversation(this.$cookies.get('api_token'), contact._id)
             if (resp.data.success) {
-                this.conversations.push({...resp.data.conversation, name: contact.name, threadId: resp.data.conversation._id});
+                this.getConversations();
             }
             else {
                 this.$parent.notification = {type: 'failure', message: "Erreur lors de l'ajout du contact."}

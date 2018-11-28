@@ -148,6 +148,10 @@ $lines-to-show: 1;
   }
 
   .modimo-conversations {
-    padding-top: calc(100vh - 117px - 37px);
+    padding-top: calc(100vh - 117px - 18px);
+  }
+
+  .modimo-contact-search {
+    top: calc(100vh - 85px);
   }
 }

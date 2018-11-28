@@ -21,19 +21,21 @@
             <div class="tile is-parent is-vertical">
               <article class="tile is-child box">
                 <button
-                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))"
+                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                   style="float: right"
                   class="delete"
                   aria-label="close"
                   @click="deleteInformation(info._id)"
                 ></button>
-                <p class="title" @click="idToModal(info)">{{ info.title }}</p>
-                <p class="content">{{ info.content }}</p>
-                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                <p
-                  class="is-size-7 has-text-grey-light"
-                  style="float: right"
-                >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                <div @click="idToModal(info)">
+                  <p class="title">{{ info.title }}</p>
+                  <p class="content">{{ info.content }}</p>
+                  <p class="is-size-7" style="float: left">{{info.author_name}}</p>
+                  <p
+                    class="is-size-7 has-text-grey-light"
+                    style="float: right"
+                  >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                </div>
               </article>
             </div>
           </div>
@@ -51,19 +53,21 @@
                 >
                   <article class="tile is-child box">
                     <button
-                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))"
+                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                       style="float: right"
                       class="delete"
                       aria-label="close"
                       @click="deleteInformation(info._id)"
                     ></button>
-                    <p class="title" @click="idToModal(info)">{{ info.title }}</p>
-                    <p class="content">{{ info.content }}</p>
-                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                    <p
-                      class="is-size-7 has-text-grey-light"
-                      style="float: right"
-                    >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                    <div @click="idToModal(info)">
+                      <p class="title">{{ info.title }}</p>
+                      <p class="content">{{ info.content }}</p>
+                      <p class="is-size-7" style="float: left;">{{info.author_name}}</p>
+                      <p
+                        class="is-size-7 has-text-grey-light"
+                        style="float: right"
+                      >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                    </div>
                   </article>
                 </div>
               </div>
@@ -93,35 +97,42 @@
                 >
                   <article class="tile is-child box">
                     <button
-                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))"
+                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                       style="float: right"
                       class="delete"
                       aria-label="close"
                       @click="deleteInformation(info._id)"
                     ></button>
-                    <p class="title" @click="idToModal(info)">{{ info.title }}</p>
-                    <p class="content">{{ info.content }}</p>
-                    <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                    <p
-                      class="is-size-7 has-text-grey-light"
-                      style="float: right"
-                    >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                    <div @click="idToModal(info)">
+                      <p class="title">{{ info.title }}</p>
+                      <p class="content">{{ info.content }}</p>
+                      <p class="is-size-7" style="float: left">{{info.author_name}}</p>
+                      <p
+                        class="is-size-7 has-text-grey-light"
+                        style="float: right"
+                      >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                    </div>
                   </article>
                 </div>
               </div>
             </div>
-            <div v-if="informations.length >= 7" class="tile is-parent">
+            <div v-if="informations.length >= 8" class="tile is-parent">
               <article class="tile is-child box">
                 <button
-                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))"
+                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === wideElement.author_id)"
                   style="float: right"
                   class="delete"
                   aria-label="close"
                   @click="deleteInformation(info._id)"
                 ></button>
-                <p class="title" @click="idToModal(info)">{{ wideElement.title }}</p>
-                <div class="content">
-                  <p>{{ wideElement.content }}</p>
+                <div @click="idToModal(info)">
+                  <p class="title">{{ wideElement.title }}</p>
+                  <p class="content">{{ wideElement.content }}</p>
+                  <p class="is-size-7" style="float: left">{{wideElement.author_name}}</p>
+                  <p
+                    class="is-size-7 has-text-grey-light"
+                    style="float: right"
+                  >Mis à jour le : {{dateFormater(wideElement.updated_at)}}</p>
                 </div>
               </article>
             </div>
@@ -131,26 +142,28 @@
         <div class="tile is-ancestor">
           <div
             v-for="info in twoBottomInformations"
-            :key="info._Id"
+            :key="info._id"
             class="tile"
             style="margin-top: 20px;"
           >
             <div class="tile is-parent">
               <article class="tile is-child box">
                 <button
-                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))"
+                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                   style="float: right"
                   class="delete"
                   aria-label="close"
                   @click="deleteInformation(info._id)"
                 ></button>
-                <p class="title" @click="idToModal(info)">{{ info.title }}</p>
-                <p class="content">{{ info.content }}</p>
-                <!-- <p class="is-size-7" style="float: left">{{info.author_id}}</p> -->
-                <p
-                  class="is-size-7 has-text-grey-light"
-                  style="float: right"
-                >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                <div @click="idToModal(info)">
+                  <p class="title">{{ info.title }}</p>
+                  <p class="content">{{ info.content }}</p>
+                  <p class="is-size-7" style="float: left">{{info.author_name}}</p>
+                  <p
+                    class="is-size-7 has-text-grey-light"
+                    style="float: right"
+                  >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
+                </div>
               </article>
             </div>
           </div>
@@ -185,7 +198,7 @@ export default {
       current_user: null,
 
       informations: [],
-      selectedInformation: undefined,
+      selectedInformation: {},
 
       // Front Element
       thirdElementTmp: [],
@@ -258,8 +271,17 @@ export default {
     },
 
     idToModal: function(info) {
-      this.selectedInformation = info;
-      this.showModalBillboardModification = true;
+      if (
+        this.current_user &&
+        this.current_user.roles &&
+        (this.current_user.roles.includes("ROOT") ||
+          this.current_user.roles.includes("CARETAKER") ||
+          this.current_user.roles.includes("ADMIN") ||
+          this.current_user._id === info.author_id)
+      ) {
+        this.selectedInformation = info;
+        this.showModalBillboardModification = true;
+      }
     },
 
     async load() {
