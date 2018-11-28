@@ -88,7 +88,7 @@
                                                         <span class="inline">Donner une note: </span>
                                                         <div class="field rate-input inline">
                                                             <p class="control">
-                                                                <input type="number" min v-model="rate_input_modif" class="textarea" rows="1" placeholder="0-5">
+                                                                <input type="number" min="0" max="5" v-model="rate_input_modif" class="textarea" rows="1" placeholder="0-5">
                                                             </p>
                                                         </div>
                                                         <div class="field">
@@ -110,7 +110,7 @@
                                             <span class="inline">Donner une note: </span>
                                             <div class="field rate-input inline">
                                                 <p class="control">
-                                                    <input type="number" min v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
+                                                    <input type="number" min="0" max="5" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
                                                 </p>
                                             </div>
                                             <div class="field">
@@ -205,16 +205,20 @@ import RateService from '@/services/RateService';
                     this.$parent.notification = {type: 'failure', message: "Il semble que vous ayez deja laissé un avis"}
                 else
                 {
-                    if (this.rate_input != null && this.rate_input >= 0 && this.rate_input <= 5)
+                    if (this.rate_input != null && this.rate_input != '' && this.rate_input >= 0 && this.rate_input <= 5)
                     {
-                        const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
-                        this.text_comment = ''
-                        this.rate_input = null
-                        if (resp.data.success) {
-                            this.app_rates.push(resp.data.rate)
-                        }
+                        if (this.text_comment == null || this.text_comment == '')
+                            this.$parent.notification = {type: 'failure', message: "Veuillez renseigner un avis"}
                         else {
-                            console.warn(resp.data.message)
+                            const resp = await RateService.postRate(this.$cookies.get('api_token'), this.application._id, this.text_comment, this.rate_input, "ok")
+                            this.text_comment = ''
+                            this.rate_input = null
+                            if (resp.data.success) {
+                                this.app_rates.push(resp.data.rate)
+                            }
+                            else {
+                                console.warn(resp.data.message)
+                            }
                         }
                     }
                     else
@@ -230,19 +234,23 @@ import RateService from '@/services/RateService';
             },
 
             modifRate: async function () {
-                if (this.rate_input_modif != null && this.rate_input_modif >= 0 && this.rate_input <= 5)
+                if (this.rate_input_modif != null && this.rate_input_modif != '' && this.rate_input_modif >= 0 && this.rate_input <= 5)
                 {
-                    const resp = await RateService.updateRate(this.$cookies.get('api_token'), this.edited_rate_id, this.text_comment_modif, this.rate_input_modif, "ok")
-                    this.text_comment_modif = ''
-                    this.rate_input_modif = null
-                    if (resp.data.success) {
-                        await this.getRates();
-                        this.edited_rate_id = ''
+                    if (this.text_comment_modif == null || this.text_comment_modif == '')
+                            this.$parent.notification = {type: 'failure', message: "Veuillez renseigner un avis"}
+                    else {
+                        const resp = await RateService.updateRate(this.$cookies.get('api_token'), this.edited_rate_id, this.text_comment_modif, this.rate_input_modif, "ok")
                         this.text_comment_modif = ''
                         this.rate_input_modif = null
-                    }
-                    else {
-                        console.warn(resp.data.message)
+                        if (resp.data.success) {
+                            await this.getRates();
+                            this.edited_rate_id = ''
+                            this.text_comment_modif = ''
+                            this.rate_input_modif = null
+                        }
+                        else {
+                            console.warn(resp.data.message)
+                        }
                     }
                 }
                 else
