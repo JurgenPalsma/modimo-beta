@@ -3,11 +3,11 @@
         <div class="modal is-active">
             <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
             <div class="modal-card">
-                <header class="modal-card-head">
+                <header v-if="ticket" class="modal-card-head">
                     <p class="modal-card-title modimo-color is-text-overflow" style="font-size: ">{{ticket.author_name}} - {{ticket.title}}</p>
                     <button class="delete" v-on:click="closeModal" aria-label="close"></button>
                 </header>
-                <section class="modal-card-body" style="color : black;">
+                <section v-if="ticket"  class="modal-card-body" style="color : black;">
                     <span class="content_ticket" ref="display_ticket">{{ticket.content}}</span>
                     <div ref="space_modif_ticket" v-bind:style="{display: 'none'}">
                         <div class="field">
@@ -24,12 +24,15 @@
                         </div>
                     </div>
                     <br>
-                    <small class="small-text">
+                    <small v-if="ticket" class="small-text">
                         <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
                         <span v-else>Modifié le </span>
                         {{dateFormater(ticket.updated_at)}}
-                        <span v-if="this.current_user._id == this.ticket.author_id && this.ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
-                        <span style="text-align : right; float : right;"><a v-if="ticket.status == 'open' && ticket.author_id != current_user._id"><span v-on:click="likeTicket" v-if="ticket.votes.indexOf(current_user._id) == -1">Prioriser</span><span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}</span>
+                        <span v-if="current_user._id == ticket.author_id && ticket.status == 'open'"> · <a ref="modif_ticket_button" v-on:click="activeModifTicket">Modifier le ticket</a></span>
+                        <span style="text-align : right; float : right;">
+                            <a v-if="ticket.status == 'open' && ticket.author_id != current_user._id">
+                                <span v-on:click="likeTicket" v-if="ticket.votes.indexOf(current_user._id) == -1">Prioriser</span>
+                                <span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}</span>
                     </small>
                     <div v-for="comment in ticket.comments" :key="comment._id" class="comment">
                         <!-- <article class="media"> -->
@@ -45,7 +48,7 @@
                         <!-- </article> -->
                     </div>
                 </section>
-                <footer class="modal-card-foot">
+                <footer v-if="ticket" class="modal-card-foot">
                     <div v-if="ticket.status != 'closed'" style="width : 100%;">
                         <div class="field">
                             <input v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire...">
@@ -152,9 +155,12 @@
         props: ['ticket', 'current_user'],
         data () {
             return {
+                //author_name: '',
                 text_comment: '',
                 isNone: 'none;',
-                isActive: true
+                isActive: true,
+                //ticket: {},
+                //comment: {}
             }
         },
         methods: {

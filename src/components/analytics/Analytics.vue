@@ -178,7 +178,6 @@ export default {
             this.loading = true;
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
-            console.log(this.current_user);
             const resp = await AnalyticsService.getStats(this.$cookies.get('api_token'), this.daterange)
             if (resp.data.success) {
                 this.loading = false;
