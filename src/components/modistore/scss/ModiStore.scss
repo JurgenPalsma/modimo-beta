@@ -12,11 +12,21 @@
     display: inline-block;
 }
 
-.rate-input {
-    width: 65px;
+.pad-bot {
+    padding-bottom: 0.75em;
 }
 
-.comment {
+.mar-top {
+    margin-top: 0.75em;
+}
+
+
+.rate-input {
+    width: 65px;
+    margin-left: 10px;
+}
+
+.rates {
 	margin-left : 2em;
 }
 
