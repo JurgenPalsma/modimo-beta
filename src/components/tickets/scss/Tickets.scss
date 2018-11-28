@@ -3,13 +3,13 @@ $color_validate: green;
 
 /** Basic **/
 
-a {
-	color: #2b5bb2
-}
+// a {
+// 	color: #2b5bb2
+// }
 
-a:hover{
-	color: black
-}
+// a:hover{
+// 	color: black
+// }
 
 .content_ticket{
 	font-size : 25px;
@@ -90,15 +90,15 @@ a:hover{
 
 .comment {
 	margin-left : 2em;
-	padding-top: 7px;
-	padding-bottom: 7px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 	border-bottom: #C8C8C8 1px solid;
 }
 
-// .my-modal-background {
-// 	// color : black;
-// 	//background-color: rgba(10,10,10,.2);
-// }
+.my-modal-background {
+	color : black;
+	background-color: rgba(10,10,10,.2);
+}
 /** Advancement **/
 
 .circle-processDown {
@@ -117,21 +117,21 @@ a:hover{
 
 /** super-button **/
 
-.super-button {
-	width: 50px;
-	height: 50px;
-	line-height: 40px;
-	position: absolute;
-	right: 0;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	border: 2px solid white;
-	text-align: center;
-	display: inline-block;
-	z-index: 10;
-	color: white;
-}
+// .super-button {
+// 	width: 50px;
+// 	height: 50px;
+// 	line-height: 40px;
+// 	position: absolute;
+// 	right: 0;
+// 	-moz-border-radius: 50%;
+// 	-webkit-border-radius: 50%;
+// 	border-radius: 50%;
+// 	border: 2px solid white;
+// 	text-align: center;
+// 	display: inline-block;
+// 	z-index: 10;
+// 	color: white;
+// }
 
 // .super-button:hover {
 // 	color: #2b5bb2;
