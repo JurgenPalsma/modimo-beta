@@ -82,16 +82,19 @@ export default {
   methods: {
 
       createMail: function() {
-        if (!this.mail.title || !this.mail.description || !this.mail.to)
-          return alert("Un champ est manquant?");
+        if (!this.mail.title || !this.mail.description || !this.mail.to 
+        || this.mail.title == '' || this.mail.description == '' || this.mail.to == '')
+          return this.$parent.notification = {type: 'failure', message: "Un champ est manquant?"}
         MailService.postMail(this.$cookies.get('api_token'), this.mail.title, this.mail.description, this.mail.to)
         .then(response => {
                 if (!response.data.success)
-                    this.$parent.$parent.notification = {type: 'failure', message: "Echec de l'envoi"}
+                    this.$parent.notification = {type: 'failure', message: "Echec de l'envoi"}
                 else
                 {
-                    this.$parent.$parent.notification = {type: 'success', message: "Email Envoyé"}
-                    this.$emit('close_modal');
+                    this.$parent.notification = {type: 'success', message: "Email Envoyé"}
+                    this.mail.to = ''
+                    this.mail.title = ''
+                    this.mail.description = ''
                 }
             });
     }
