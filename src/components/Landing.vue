@@ -21,22 +21,22 @@
             <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
                 <div class="modimo-background"/>
                 <div class="container" style="padding-right: 0; width: 100%; max-width: 100%">
-                    <br/><br/>
+                    <br/>
                     <div class="columns has-text-left">
                         <div class="column is-6 is-vertical-center">
                             <h1 class="landing-title">La résidence 2.0</h1>
-                            <p class="landing-subtitle is-5 has-text-left">• Automatisez la gestion de votre résidence.<br>• Je ferais le wording un peu plus tard <br>• Mais disons que ce texte prendra 3 lignes de longueurs moyennes.</p>
+                            <br/>
+                            <p class="landing-subtitle is-5 has-text-left">• Centralisez les ressources et le travail de votre résidence,<br/><br/>• Améliorez les rapports et la communication avec vos résidents,<br/><br/>• Simplifiez les démarches des résidents et le travail des agents.</p>
                             <div style="align-self: center">
                                 <a class="button discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                                 <a class="button signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
                             </div>
                         </div>
-
                         <div class="column is-6 is-centered">
                             <div class="modimo-img-container">
                                 <img src="/static/img/logofull.png">
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
