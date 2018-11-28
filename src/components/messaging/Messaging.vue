@@ -99,7 +99,7 @@ export default {
                 this.conversations = resp.sort((convA, convB) => {
                     if (convA.messages[convA.messages.length - 1].timestamp < convB.messages[convB.messages.length - 1].timestamp)
                         return 1;
-                    else if (convB.messages[convB.messages.length - 1].timestamp > convA.messages[convA.messages.length - 1].timestamp)
+                    else if (convB.messages[convB.messages.length - 1].timestamp < convA.messages[convA.messages.length - 1].timestamp)
                         return -1;
                     return 0;
                 });
