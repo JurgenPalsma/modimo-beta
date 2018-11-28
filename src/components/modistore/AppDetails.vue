@@ -59,64 +59,80 @@
                                     <div class="content">
                                         <h3 class="subtitle">Avis</h3>
                                         <div class="media">
-                                            <div class="media-content comment">
+                                            <div class="media-content rates">
                                                 <div v-for="rate in app_rates" :key="rate._id" >
-                                                    <article v-if="edited_rate_id != null && edited_rate_id != rate._id" class="media">
-                                                        <div class="content">
+                                                    <article v-if="edited_rate_id != null && edited_rate_id != rate._id" class="media pad-bot">
+                                                        <div class="media-content">
                                                             <p>
                                                                 <strong class="modimo-color">{{rate.author_name}}&nbsp;</strong>
                                                                     <i v-for="j in 5" :key="'B' + j"  class="fas fa-star"
-                                                                         v-bind:class="{ 'has-text-info': j <= rate.stars}">
+                                                                            v-bind:class="{ 'has-text-info': j <= rate.stars}">
                                                                     </i>
                                                                 <br>
                                                                 <span>{{rate.comment}}</span>
                                                                 <span v-if="current_user._id == rate.author_id"> · <a v-on:click="activeModifRate(rate)">Modifier l'avis</a></span>
                                                                 <span v-if="current_user._id == rate.author_id"> · <a v-on:click="deleteRate(rate)">Supprimer l'avis</a></span>
-                                                                <br>
-                                                                <br>                     
+                                                                <br>                    
                                                             </p>
                                                             
                                                         </div>
 
                                                     </article>
-                                                    <div v-if="edited_rate_id != null && edited_rate_id == rate._id">
-                                                        <div class="field">
-                                                            <p class="control">
-                                                                <input v-model="text_comment_modif" class="textarea" rows="1" placeholder="Rédiger un avis...">
-                                                            </p>
+                                                    <article v-if="edited_rate_id != null && edited_rate_id == rate._id" class="media pad-bot">
+                                                        <div class="media-content">
+                                                            <div class="field">
+                                                                <p class="control">
+                                                                    <textarea v-model="text_comment_modif" class="textarea" rows="3" placeholder="Rédiger un avis..."/>
+                                                                </p>
+                                                            </div>
+                                                            <nav class="level is-mobile">
+                                                                <div class="level-left">
+                                                                    <span class="inline">Note: </span>
+                                                                    <div class="field rate-input inline">
+                                                                        <p class="control">
+                                                                            <input type="number" min="0" max="5" v-model="rate_input_modif" class="textarea" rows="1" placeholder="0-5">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="level-right">
+                                                                    <div class="field">
+                                                                        <p class="control is-pulled-right">
+                                                                            <button ref="send_comment" class="button" @click="cancelModifRate">Annuler</button>
+                                                                            <button ref="send_comment" class="button" @click="modifRate">Modifier</button>
+                                                                        </p>
+                                                                    </div>  
+                                                                </div>
+                                                            </nav> 
                                                         </div>
-                                                        <span class="inline">Donner une note: </span>
-                                                        <div class="field rate-input inline">
-                                                            <p class="control">
-                                                                <input type="number" min="0" max="5" v-model="rate_input_modif" class="textarea" rows="1" placeholder="0-5">
-                                                            </p>
-                                                        </div>
-                                                        <div class="field">
-                                                            <p class="control is-pulled-right">
-                                                                <button ref="send_comment" class="button" @click="cancelModifRate">Annuler</button>
-                                                                <button ref="send_comment" class="button" @click="modifRate">Modifier</button>
-                                                            </p>
-                                                        </div>                   
-                                                    </div>             
+                                                                        
+                                                    </article>             
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="edited_rate_id != null && edited_rate_id == ''">
-                                            <div class="field">
-                                                <p class="control">
-                                                    <input v-model="text_comment" class="textarea" rows="1" placeholder="Rédiger un avis...">
-                                                </p>
-                                            </div>
-                                            <span class="inline">Donner une note: </span>
-                                            <div class="field rate-input inline">
-                                                <p class="control">
-                                                    <input type="number" min="0" max="5" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
-                                                </p>
-                                            </div>
-                                            <div class="field">
-                                                <p class="control is-pulled-right">
-                                                    <button ref="send_comment" class="button" @click="addRate">Envoyer</button>
-                                                </p>
+                                        <div v-if="edited_rate_id != null && edited_rate_id == ''" class="mar-top">
+                                            <div class="media-content">
+                                                <div class="field">
+                                                    <p class="control">
+                                                        <textarea v-model="text_comment" class="textarea" rows="3" placeholder="Rédiger un avis..." />
+                                                    </p>
+                                                </div>
+                                                <nav class="level is-mobile">
+                                                    <div class="level-left">
+                                                        <span class="inline">Donner une note: </span>
+                                                        <div class="field rate-input inline">
+                                                            <p class="control">
+                                                                <input type="number" min="0" max="5" v-model="rate_input" class="textarea" rows="1" placeholder="0-5">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="level-right">
+                                                        <div class="field">
+                                                            <p class="control is-pulled-right">
+                                                                <button ref="send_comment" class="button" @click="addRate">Envoyer</button>
+                                                            </p>
+                                                        </div>  
+                                                    </div>
+                                                </nav>
                                             </div>
                                         </div>                            
                                     </div>
