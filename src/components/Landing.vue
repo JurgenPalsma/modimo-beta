@@ -210,14 +210,11 @@
         </section>
         <div class="modimo-landing-container">
                 <!-- <br/><br/> -->
-                <section>
-                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
-                </section>
             <div class="container">
                 <br/><br/>
             
                 <section class="margin-vertical">
-                    <div class="column is-12">
+                    <div class="column is-12 is-fullheight">
                         <div class="rows is-mobile">
                                 <div class="row columns">
                                     <div class="column is-2">
@@ -249,6 +246,9 @@
                         </div>
                     </div>
                 </section>
+                <section class="is-fullheight">
+                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
+                </section>  
                 <br/><br/><br/>
             </div>
         </div>
