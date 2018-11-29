@@ -24,7 +24,7 @@ apiRoutes.get('/current-user', function(req, res) {
             else {
               res.json({success: true, user: user, notifs: notifications});
             }
-          })       
+          })
         }
     });
 });
@@ -230,7 +230,7 @@ apiRoutes.patch('/user/application/add', function(req, res) {
             if (err) return res.json({success: false, message: 'Error from db'});
             else if (!currentUser || (!req.headers.user_id ))
                 return res.json({success: false, message: 'Bad params'});
-            else if (!currentUser.roles.includes("ROOT") || !currentUser.roles.includes("ADMIN"))
+            else if (!currentUser.roles.includes("ROOT") || !currentUser.roles.includes("ADMIN") || !currentUser.roles.includes("CARETAKER"))
                 return res.json({success: false, message: 'Access denied'});
             else {
                 User.findOne({
