@@ -35,7 +35,7 @@
             <div class="columns is-multiline is-mobile">
               <div
                 v-for="app in (searchContent.length ? applicationsFiltered : applications)"
-                v-if="(app.admin && current_user.roles.includes('ADMIN')) || !app.admin"
+                v-if="(app.admin && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))) || !app.admin"
                 :key="app._id"
                 class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet"
               >
