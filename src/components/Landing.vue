@@ -210,33 +210,45 @@
         </section>
         <div class="modimo-landing-container">
                 <!-- <br/><br/> -->
-                <section>
-                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
-                </section>
             <div class="container">
                 <br/><br/>
             
                 <section class="margin-vertical">
-                    <div class="column is-12">
-                        <div class="columns is-mobile">
-                                <div class="column">
-                                <img src="/static/img/time.png">
-                                <h1 class="title" style="margin-top: 10px">Utilitaire</h1>
-                                <p class="subtitle" style="margin-top: 10px">Régler rapidement tout vos problèmes administratifs lié à votre résidence, simplement et rapidement.</p>
-                            </div>
-                            <div class="column is-vertical-align">
-                                <img src="/static/img/team.png">
-                                <h1 class="title" style="margin-top: 10px">Sociale</h1>
-                                <p class="subtitle" style="margin-top: 10px">Ameliorer la vie de votre Résidence devient un jeu d'enfant avec Modimo.</p>
-                            </div>
-                            <div class="column is-vertical-align is-hidden-mobile">
-                                <img src="/static/img/responsive.png">
-                                <h1 class="title" style="margin-top: 10px">Responsive</h1>
-                                <p class="subtitle" style="margin-top: 10px">Accessible depuis tout type d'appareil très rapidement et facilement.</p>
-                            </div>
+                    <div class="column is-12 is-fullheight">
+                        <div class="rows is-mobile">
+                                <div class="row columns">
+                                    <div class="column is-2">
+                                    <img src="/static/img/responsive.png">
+                                    </div>
+                                    <div class="column has-text-left">
+                                    <h1 class="title" style="margin-top: 10px">Toute votre residence à portée de main</h1>
+                                    <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
+                                    </div>
+                                </div>
+                                <div class="row columns">
+                                    <div class="column is-2">
+                                    <img src="/static/img/time.png">
+                                    </div>
+                                    <div class="column has-text-left">
+                                    <h1 class="title" style="margin-top: 10px">Accelerez la resolution des petits tracas</h1>
+                                    <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
+                                    </div>
+                                </div>
+                                <div class="row columns">
+                                    <div class="column is-2">
+                                    <img src="/static/img/team.png">
+                                    </div>
+                                    <div class="column has-text-left">
+                                    <h1 class="title" style="margin-top: 10px">Reconciliez vous avec votre entourage</h1>
+                                    <p class="subtitle" style="margin-top: 10px">Plusieures applis sont a votre disposition pour faciliter la communication entre voisins</p>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </section>
+                <section class="is-fullheight">
+                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
+                </section>  
                 <br/><br/><br/>
             </div>
         </div>
