@@ -149,7 +149,6 @@ body{
     font-size: 16px;
     line-height: 2rem;
     margin-bottom: 2rem;
-    padding-left: 30px;
 }
 
 .title-content{
@@ -243,14 +242,25 @@ h3 {
 }
 
 .modimo-background {
-    background-image: url("/static/img/city.jpg");
     height: 100%;
     width: 50%;
     right: 0;
     bottom: 0;
     position: absolute;
     background-size:cover;
-    opacity: 0.4;
+    // opacity: 0.4;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modimo-background-img {
+    max-height: 80%;
+    max-width: 50%;
+    height: auto;
+    width: auto;
+    margin-top: 52px;
 }
 
 .modimo-img-container {
@@ -267,9 +277,9 @@ h3 {
         height: 50%;
         bottom: 0;
     }
-    
-    .landing-subtitle {
-        padding-top: 0;
+
+    .modimo-background-img {
+        display: none;
     }
 }
 
