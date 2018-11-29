@@ -19,7 +19,7 @@
                             <br>
                             <br>
                             <div class="field" v-for="inf in info" :key="inf._id">
-                                <label style="is-right" class="label">{{inf.title}}</label>
+                                <label style="is-right" class="label">Le ticket {{inf.title}} à été créé par {{inf.actor_name}}, le {{dateFormater(inf.created_at)}}</label>
                                 <hr>
                             </div>
                         </div>
@@ -34,6 +34,8 @@
 </style>
 
 <script>
+import moment from "moment";
+
 export default {
   props: ["info"],
   data () {
@@ -41,7 +43,10 @@ export default {
     }
   },
   methods: {
-
+    dateFormater(unFormatedDate) {
+      var date = moment(String(unFormatedDate)).format("DD/MM/YYYY à h:mm");
+      return date;
+    }
   },
   created: function () {
   }
