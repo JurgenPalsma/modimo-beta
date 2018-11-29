@@ -24,12 +24,14 @@
                     <br/>
                     <div class="columns has-text-left">
                         <div class="column is-6 is-vertical-center">
-                            <h1 class="landing-title">La résidence 2.0</h1>
+                            <h1 class="landing-title">Un room service dans votre propre appartement</h1>
                             <br/>
-                            <p class="landing-subtitle is-5 has-text-left">• Centraliser les ressources et le travail de votre résidence,<br/><br/>• Améliorer les rapports et la communication avec vos résidents,<br/><br/>• Simplifier les démarches des résidents et le travail des agents.</p>
+                            <p class="landing-subtitle is-5 has-text-left">
+                                Nous travaillons dur pour vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence. 
+                                Cliquez sur "Decouvrir Modimo" pour essayer notre beta <b>gratuitement</b>!
+                            </p>
                             <div style="align-self: center">
-                                <a class="button discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
-                                <a class="button signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
+                                <a class="button is-large discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                             </div>
                         </div>
                         <div class="column is-6 is-centered">
