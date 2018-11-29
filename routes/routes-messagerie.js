@@ -288,7 +288,7 @@ module.exports = function(app, apiRoutes, io) {
 
     apiRoutes.delete('/messagerie/conversation', function (req, res) {
 
-        if (!req.headers.convId || !req.headers['x-access-token']) {
+        if (!req.headers['convId'] || !req.headers['x-access-token']) {
             return res.json({success: false, message: "Error: request incomplete"});
         } else {
             User.findOne({
