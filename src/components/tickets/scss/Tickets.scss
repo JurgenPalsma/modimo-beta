@@ -13,6 +13,7 @@ $color_validate: green;
 
 .content_ticket{
 	font-size : 25px;
+	//padding-top: 100px;
 }
 
 .title {
@@ -96,7 +97,12 @@ $color_validate: green;
 }
 
 .my-modal-background {
-	background-color: rgba(10,10,10,.1);
+	background-color: rgba(0, 0, 0, 0.1);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 /** Advancement **/
 
@@ -116,70 +122,74 @@ $color_validate: green;
 
 /** super-button **/
 
-// .super-button {
-// 	width: 50px;
-// 	height: 50px;
-// 	line-height: 40px;
-// 	position: absolute;
-// 	right: 0;
-// 	-moz-border-radius: 50%;
-// 	-webkit-border-radius: 50%;
-// 	border-radius: 50%;
-// 	border: 2px solid white;
-// 	text-align: center;
-// 	display: inline-block;
-// 	z-index: 10;
-// 	color: white;
-// }
+.super-button {
+	width: 50px;
+	height: 50px;
+	line-height: 40px;
+	position: absolute;
+	right: 0;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	border: 2px solid white;
+	text-align: center;
+	display: inline-block;
+	z-index: 10;
+	color: white;
+}
 
-// .super-button:hover {
-// 	color: #2b5bb2;
-// }
+.super-button:hover {
+	color: #2b5bb2;
+}
 
-// .super-button:after {
-// 	position: absolute !important;
-// 	content: "";
-// 	width: 48px;
-// 	height: 48px;
-// 	display: block;
-// 	position: relative;
-// 	-moz-border-radius: 50%;
-// 	-webkit-border-radius: 50%;
-// 	border-radius: 50%;
-// 	right: -1px;
-// 	top: -1px;
-// 	background-color: white;
-// 	visibility: hidden;
-// 	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-// 	opacity: 0;
-// 	-moz-transition: all 0.4s ease;
-// 	-o-transition: all 0.4s ease;
-// 	-webkit-transition: all 0.4s ease;
-// 	transition: all 0.4s ease;
-// 	opacity: 1\9;
-// 	visibility: visible\9;
-// 	display: none\9;
-// 	-moz-transform: scale(0.5, 0.5);
-// 	-ms-transform: scale(0.5, 0.5);
-// 	-webkit-transform: scale(0.5, 0.5);
-// 	transform: scale(0.5, 0.5);
-// 	z-index: -1;
-// 	-moz-transition: all 0.2s ease;
-// 	-o-transition: all 0.2s ease;
-// 	-webkit-transition: all 0.2s ease;
-// 	transition: all 0.2s ease;
-// }
+.super-button:after {
+	position: absolute !important;
+	content: "";
+	width: 48px;
+	height: 48px;
+	display: block;
+	position: relative;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	right: -1px;
+	top: -1px;
+	background-color: white;
+	visibility: hidden;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	opacity: 0;
+	-moz-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	-webkit-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	opacity: 1\9;
+	visibility: visible\9;
+	display: none\9;
+	-moz-transform: scale(0.5, 0.5);
+	-ms-transform: scale(0.5, 0.5);
+	-webkit-transform: scale(0.5, 0.5);
+	transform: scale(0.5, 0.5);
+	z-index: -1;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	-webkit-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
 
-// .super-button:hover:after {
-// 	visibility: visible;
-// 	filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-// 	opacity: 1;
-// 	display: block\9;
-// 	-moz-transform: scale(1, 1);
-// 	-ms-transform: scale(1, 1);
-// 	-webkit-transform: scale(1, 1);
-// 	transform: scale(1, 1);
-// }
+.super-button:hover:after {
+	visibility: visible;
+	filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+	opacity: 1;
+	display: block\9;
+	-moz-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-webkit-transform: scale(1, 1);
+	transform: scale(1, 1);
+}
+
+.modal-card-head {
+	display : inline;
+}
 
 .dropdown {
   width: 100%;
