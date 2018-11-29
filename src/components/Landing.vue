@@ -50,20 +50,22 @@
                         <div class="column is-full-mobile">
                             <div class="blog-card spring-fever" v-on:click="engage('email', true)">
                                 <div class="title-content">
-                                    <h3>Je suis un professionnel </h3>
+                                    <h3>Je suis gerant de résidence </h3>
                                 </div>
                                 <div class="card-info">
-                                    Découvrer les avantages que Modimo peut apporter dans votre travail de gérant ou de syndic. Centraliser, simplifier et optimiser toutes les démarches liées à vos résidences.
+                                    Proprietaire ou gerant de residence, hotels, ou logements pros,
+                                    vous aurez accès à un outil de gestion de votre bien, qui centralisera les communications avec vos clients et vous donnera une vue d'ensemble sur vos residents, travaux et tâches.
                                 </div>
                             </div>
                         </div>
                         <div class="column">
                             <div class="blog-card spring-fever" v-on:click="engage('email')">
                                 <div class="title-content">
-                                    <h3>Je suis un particulier</h3>
+                                    <h3>Je suis un résident</h3>
                                 </div>
                                 <div class="card-info">
-                                    Essayer Modimo, et si cela vous plaît faites le nous savoir. La solution serait susceptible d'être utilisée dans votre résidence. Simplifier les rapports que vous entretenez avec vos voisins et les gérants de votre logement.
+                                    J'habite ou loge dans une résidence, un hotel, une colloc,...
+                                    en tant que résident, vous pouvez via notre appli rapporter des problemes au sein de votre résidence ou discuter avec vos voisins!
                                 </div>
                             </div>
                         </div>
