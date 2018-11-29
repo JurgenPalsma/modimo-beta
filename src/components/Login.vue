@@ -60,7 +60,7 @@ export default {
                 this.$cookies.set('api_token', auth.data.token)
                 this.$router.push('home')
             } else {
-                this.$parent.notification = {type: 'failure', message: auth.data.message}
+                this.$parent.notification = {type: 'failure', message: "Email ou mot de passe incorrect."}
             }
         }
     }

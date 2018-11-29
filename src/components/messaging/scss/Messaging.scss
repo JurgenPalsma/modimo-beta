@@ -137,6 +137,31 @@ $lines-to-show: 1;
   background-color: whitesmoke;
 }
 
+.conv-caretaker {
+  position: absolute;
+  right: .75rem;
+  top: calc(.75rem + 10px);
+  color: green;
+  font-weight: bold;
+}
+
+.conv-resident {
+  position: absolute;
+  right: .75rem;
+  top: calc(.75rem + 10px);
+  color: #2b5bb2;
+}
+
+.suppr-conv {
+  margin-top: 10px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.suppr-conv:hover {
+  color: blue;
+}
+
 @media screen and (max-width: 768px) {
   .modimo-messages {
     width: 100%;

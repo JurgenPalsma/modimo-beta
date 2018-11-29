@@ -52,5 +52,15 @@ export default {
                 'x-access-token': token
             }
         })
+    },
+
+    removeConversation (token, convId) {
+        let url = '/api/messagerie/conversation';
+        return Api().delete(url, {
+            headers: {
+                'x-access-token': token,
+                "conv_id": convId,
+            }
+        }, )
     }
 }

@@ -19,12 +19,15 @@
                                     <h1 style="font-weight: bold;">{{conv.name}}</h1>
                                     <p class="conv-date">{{conv.messages.length ? dateFormater(new Date(conv.messages[conv.messages.length - 1].timestamp).toString()) : ""}}</p>
                                     <p class="conv-last-message">{{conv.messages.length ? conv.messages[conv.messages.length - 1].content : "Aucun message"}}</p>
+                                    <p @click.stop.prevent @click="removeConv(conv)" class="suppr-conv">Supprimer</p>
                                 </div>
                             </div>
                             <div v-if="contactsFiltered && contactsFiltered.length" class="modimo-contact-search">
                                 <div v-for="contact in contactsFiltered" :key="contact._id" @click="addContact(contact)" class="column modimo-conctact-choose is-full" style="border-radius: 3px; position: relative; cursor: pointer; height: auto"> 
                                     <h1 style="font-weight: bold;">{{contact.name}}</h1>
                                     <p class="conv-last-message">{{contact.email}}</p>
+                                    <span v-if="!contact.roles || contact.roles.length === 0" class="conv-resident">Résident</span>
+                                    <span v-else class="conv-caretaker">Gardien</span>
                                 </div>
                             </div>
                         </div>
@@ -75,8 +78,8 @@ export default {
     },
     watch: {
         'conversations': function(newConv) {
-            newConv.forEach(conv => {
-                if (conv._id === this.currentConv._id)
+            newConv.forEach((conv, i) => {
+                if ((this.currentConv._id === undefined && i === 0) || conv._id === this.currentConv._id)
                     this.currentConv = conv;
             })
             this.$nextTick(() => {
@@ -177,6 +180,13 @@ export default {
             }
             else {
                 this.$parent.notification = {type: 'failure', message: "Erreur lors de l'ajout du contact."}
+            }
+        },
+
+        async removeConv(conv) {
+            let resp = await MessagingService.removeConversation(this.$cookies.get('api_token'), conv._id);
+            if (resp.data.success) {
+                this.conversations.splice(this.conversations.findIndex(element => conv._id === element._id), 1)
             }
         }
     },

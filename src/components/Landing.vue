@@ -19,7 +19,9 @@
             </div>
 
             <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
-                <div class="modimo-background"/>
+                <div class="modimo-background">
+                    <img src="/static/img/modimophone.png" class="modimo-background-img"/>
+                </div>
                 <div class="container" style="padding-right: 0; width: 100%; max-width: 100%">
                     <br/>
                     <div class="columns has-text-left">
@@ -35,9 +37,9 @@
                             </div>
                         </div>
                         <div class="column is-6 is-centered">
-                            <div class="modimo-img-container">
+                            <!-- <div class="modimo-img-container">
                                 <img src="/static/img/logofull.png">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -225,6 +227,8 @@
                                     <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
                                     </div>
                                 </div>
+                                <br/>
+                                <br/>
                                 <div class="row columns">
                                     <div class="column is-2">
                                     <img src="/static/img/time.png">
@@ -234,6 +238,8 @@
                                     <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
                                     </div>
                                 </div>
+                                <br/>
+                                <br/>
                                 <div class="row columns">
                                     <div class="column is-2">
                                     <img src="/static/img/team.png">
