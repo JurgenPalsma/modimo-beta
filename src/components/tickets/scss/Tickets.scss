@@ -13,6 +13,7 @@ $color_validate: green;
 
 .content_ticket{
 	font-size : 25px;
+	//padding-top: 100px;
 }
 
 .title {
@@ -96,7 +97,12 @@ $color_validate: green;
 }
 
 .my-modal-background {
-	background-color: rgba(10,10,10,.1);
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 /** Advancement **/
 
@@ -179,6 +185,10 @@ $color_validate: green;
 	-ms-transform: scale(1, 1);
 	-webkit-transform: scale(1, 1);
 	transform: scale(1, 1);
+}
+
+.modal-card-head {
+	display : inline;
 }
 
 .dropdown {

@@ -115,7 +115,7 @@ export default {
     },
 
     notifModal: function() {
-      this.selectedInformation = this.current_user.notifs;
+      this.selectedInformation = this.currentUser.notifs;
       this.showNotifModal = true;
     }
   },

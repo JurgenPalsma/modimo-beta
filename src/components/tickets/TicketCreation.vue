@@ -1,11 +1,13 @@
 <template>
     <section>
         <div class="modal is-active">
-            <div class="modal-background" @click="$emit('close_modal')"></div>
+            <div class="my-modal-background" @click="$emit('close_modal')"></div>
                 <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Nouveau Ticket</p>
-                    <button class="delete" aria-label="close" @click="$emit('close_modal')"></button>
+                    <div style="display:flex;">
+                        <p class="modal-card-title">Nouveau Ticket</p>
+                        <button class="delete" aria-label="close" @click="$emit('close_modal')"></button>
+                    </div>
                 </header>
                 <section class="modal-card-body">
                     <div class="field">

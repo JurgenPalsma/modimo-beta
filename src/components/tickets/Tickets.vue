@@ -65,9 +65,9 @@
 
                                 </div>
                             </a>
-                            <ticket :ticket="currentTicket"  :current_user="current_user"  v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
                         </div>
                     </div>
+                    <ticket :ticket="currentTicket"  :current_user="current_user"  v-show="showModalTicket" @close_modal="showModalTicket = false"></ticket>
                 </div>
                 <ticketCreation v-show="showModalTicketCreation" @close_modal="closeModalTicketCreation"></ticketCreation>
             </div>
