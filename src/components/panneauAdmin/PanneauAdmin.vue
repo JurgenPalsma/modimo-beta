@@ -4,9 +4,11 @@
 </style>
 <template>
 <section class="hero modimo-dark is-fullheight">
-    <div class="container">
-        <aside class="menu">
-            <a @click="showModalUserCreation = true" class="super-button">+</a>
+
+        <aside style="margin-top:70px;" class="menu">
+            <span v-if="currentUser && currentUser.roles && currentUser.roles.includes('CARETAKER')">
+              <a @click="showModalUserCreation = true" class="super-button" style="margin-right: 50px; font-size: 40px;">+</a>
+            </span>
             <p class="title has-text-centered white-title">
                 Liste des résidents
             </p>
@@ -19,7 +21,7 @@
                                 {{user.name}} - {{user.email}}
                                 </div>
                                     <div class="column" style="margin-left:40px;">
-                                        <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
+                                        <a v-if="currentUser && currentUser.roles && currentUser.roles.includes('CARETAKER')" class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
                                     </div>
                             </div>
                             <hr style="width: 70%;">
@@ -28,7 +30,6 @@
                 </div>
             </div>
         </aside>
-    </div>
     <userCreation :info="selectedInformation" v-show="showModalUserCreation" @close_modal="closeModalUserCreation"></userCreation>
 </section>
 </template>

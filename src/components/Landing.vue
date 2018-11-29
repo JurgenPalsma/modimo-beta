@@ -24,12 +24,14 @@
                     <br/>
                     <div class="columns has-text-left">
                         <div class="column is-6 is-vertical-center">
-                            <h1 class="landing-title">La résidence 2.0</h1>
+                            <h1 class="landing-title">Un room service dans votre propre appartement</h1>
                             <br/>
-                            <p class="landing-subtitle is-5 has-text-left">• Centraliser les ressources et le travail de votre résidence,<br/><br/>• Améliorer les rapports et la communication avec vos résidents,<br/><br/>• Simplifier les démarches des résidents et le travail des agents.</p>
+                            <p class="landing-subtitle is-5 has-text-left">
+                                Nous travaillons dur pour vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence. 
+                                Cliquez sur "Decouvrir Modimo" pour essayer notre beta <b>gratuitement</b>!
+                            </p>
                             <div style="align-self: center">
-                                <a class="button discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
-                                <a class="button signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
+                                <a class="button is-large discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                             </div>
                         </div>
                         <div class="column is-6 is-centered">
@@ -48,20 +50,22 @@
                         <div class="column is-full-mobile">
                             <div class="blog-card spring-fever" v-on:click="engage('email', true)">
                                 <div class="title-content">
-                                    <h3>Je suis un professionnel </h3>
+                                    <h3>Je suis gerant de résidence </h3>
                                 </div>
                                 <div class="card-info">
-                                    Découvrer les avantages que Modimo peut apporter dans votre travail de gérant ou de syndic. Centraliser, simplifier et optimiser toutes les démarches liées à vos résidences.
+                                    Proprietaire ou gerant de residence, hotels, ou logements pros,
+                                    vous aurez accès à un outil de gestion de votre bien, qui centralisera les communications avec vos clients et vous donnera une vue d'ensemble sur vos residents, travaux et tâches.
                                 </div>
                             </div>
                         </div>
                         <div class="column">
                             <div class="blog-card spring-fever" v-on:click="engage('email')">
                                 <div class="title-content">
-                                    <h3>Je suis un particulier</h3>
+                                    <h3>Je suis un résident</h3>
                                 </div>
                                 <div class="card-info">
-                                    Essayer Modimo, et si cela vous plaît faites le nous savoir. La solution serait susceptible d'être utilisée dans votre résidence. Simplifier les rapports que vous entretenez avec vos voisins et les gérants de votre logement.
+                                    J'habite ou loge dans une résidence, un hotel, une colloc,...
+                                    en tant que résident, vous pouvez via notre appli rapporter des problemes au sein de votre résidence ou discuter avec vos voisins!
                                 </div>
                             </div>
                         </div>
@@ -206,33 +210,45 @@
         </section>
         <div class="modimo-landing-container">
                 <!-- <br/><br/> -->
-                <section>
-                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
-                </section>
             <div class="container">
                 <br/><br/>
             
                 <section class="margin-vertical">
-                    <div class="column is-12">
-                        <div class="columns is-mobile">
-                                <div class="column">
-                                <img src="/static/img/time.png">
-                                <h1 class="title" style="margin-top: 10px">Utilitaire</h1>
-                                <p class="subtitle" style="margin-top: 10px">Régler rapidement tout vos problèmes administratifs lié à votre résidence, simplement et rapidement.</p>
-                            </div>
-                            <div class="column is-vertical-align">
-                                <img src="/static/img/team.png">
-                                <h1 class="title" style="margin-top: 10px">Sociale</h1>
-                                <p class="subtitle" style="margin-top: 10px">Ameliorer la vie de votre Résidence devient un jeu d'enfant avec Modimo.</p>
-                            </div>
-                            <div class="column is-vertical-align is-hidden-mobile">
-                                <img src="/static/img/responsive.png">
-                                <h1 class="title" style="margin-top: 10px">Responsive</h1>
-                                <p class="subtitle" style="margin-top: 10px">Accessible depuis tout type d'appareil très rapidement et facilement.</p>
-                            </div>
+                    <div class="column is-12 is-fullheight">
+                        <div class="rows is-mobile">
+                                <div class="row columns">
+                                    <div class="column is-2">
+                                    <img src="/static/img/responsive.png">
+                                    </div>
+                                    <div class="column has-text-left">
+                                    <h1 class="title" style="margin-top: 10px">Toute votre residence à portée de main</h1>
+                                    <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
+                                    </div>
+                                </div>
+                                <div class="row columns">
+                                    <div class="column is-2">
+                                    <img src="/static/img/time.png">
+                                    </div>
+                                    <div class="column has-text-left">
+                                    <h1 class="title" style="margin-top: 10px">Accelerez la resolution des petits tracas</h1>
+                                    <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
+                                    </div>
+                                </div>
+                                <div class="row columns">
+                                    <div class="column is-2">
+                                    <img src="/static/img/team.png">
+                                    </div>
+                                    <div class="column has-text-left">
+                                    <h1 class="title" style="margin-top: 10px">Reconciliez vous avec votre entourage</h1>
+                                    <p class="subtitle" style="margin-top: 10px">Plusieures applis sont a votre disposition pour faciliter la communication entre voisins</p>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </section>
+                <section class="is-fullheight">
+                    <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
+                </section>  
                 <br/><br/><br/>
             </div>
         </div>

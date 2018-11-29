@@ -21,13 +21,6 @@
                             <textarea class="textarea" v-model="name" placeholder="Nom du résident"></textarea>
                         </div>
                     </div>
-
-                    <div class="field">
-                        <label class="label">Rôle</label>
-                        <div class="control">
-                            <textarea class="textarea" v-model="role" placeholder="Role"></textarea>
-                        </div>
-                    </div>
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success create-ticket-button" @click="postUser(info.residence._id)">Créer</button>
@@ -48,13 +41,17 @@ export default {
         return {
             email: '',
             name: '',
-            role: '',
+            role: 'RESIDENT',
             currentUser: {},
             isActive: true
         }
     },
     methods: {
         postUser: function (residence_id) {
+          if (!this.email || !this.name){
+            alert("Veuillez remplir les champs manquants");
+          }
+          else {
             UserService.createUserFromAdmin(this.$cookies.get('api_token'), this.email, this.name, residence_id, this.role)
             .then(response => {
                 if (!response.data.success)
@@ -62,6 +59,7 @@ export default {
                 else
                     this.$emit('close_modal', response.data.user);
             })
+          }
         }
     }
 }
