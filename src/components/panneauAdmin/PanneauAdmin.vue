@@ -4,9 +4,9 @@
 </style>
 <template>
 <section class="hero modimo-dark is-fullheight-minus-navbar">
-    <div class="container">
-        <aside class="menu">
-            <a @click="showModalUserCreation = true" class="super-button">+</a>
+
+        <aside style="margin-top:70px;" class="menu">
+            <a @click="showModalUserCreation = true" class="super-button" style="margin-right: 50px; font-size: 40px;">+</a>
             <p class="title has-text-centered white-title">
                 Liste des résidents
             </p>
@@ -28,7 +28,6 @@
                 </div>
             </div>
         </aside>
-    </div>
     <userCreation :info="selectedInformation" v-show="showModalUserCreation" @close_modal="closeModalUserCreation"></userCreation>
 </section>
 </template>
