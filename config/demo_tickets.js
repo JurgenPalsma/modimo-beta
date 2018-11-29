@@ -84,6 +84,39 @@ module.exports = [
         },
     },
     {
+        'title': 'Un chat errant',
+        'content': 'Un chat errant traine dans le couloir de temps en temps. Je pense que ma voisine le nourrit, ca n\'est pas une bonne idée.',
+        'status': 'open',
+        'created_at': {
+            '$date': '2018-08-25T04:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-08-25T04:34:28.337Z'
+        },
+    },
+    {
+        'title': 'Encore une fuite!',
+        'content': 'Ca coule sans arret juste en face des escaliers au troisieme juste a coté de la prise ca deviens dangereux!!! Faites qq chose....',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-07-07T04:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-07-09T12:22:02.257Z'
+        },
+    },
+    {
+        'title': 'Prises pas a la norme',
+        'content': 'Il faut remplacer les prises dans limmeuble pour que tout soit a la norme svp. Je suis electricien, je m\'y connais bien.',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-07-07T04:34:28.337Z'
+        },
+        'updated_at': {
+            '$date': '2018-07-09T12:22:02.257Z'
+        },
+    },
+    {
         'title': 'Moquette humide',
         'content': 'Une fuite touche la moquette de l\espace commun du rdc. Peut être une fuite? A verifier urgemment.',
         'status': 'closed',
@@ -132,12 +165,34 @@ module.exports = [
                 'author_id': 'oji23oijzea3',
                 'content': 'J\'ai rencontré le gardien ce matin qui m\'a dit qu\'il allait s\'en occuper au plus vite.',
                 'created_at': {
-                    '$date': '2018-07-15T10:17:57.447Z'
+                    '$date': '2018-07-15T09:17:57.447Z'
                 },
                 'updated_at': {
-                    '$date': '2018-07-15T10:17:57.447Z'
+                    '$date': '2018-07-15T12:17:57.447Z'
                 }
             }
         ]
+    },
+    {
+        'title': 'Interdit de jouer au foot',
+        'content': 'Chers tous, veuillez rappeler a vos enfants que l\'on ne joue pas au foot dans le couloir comme au boulot.',
+        'status': 'closed',
+        'created_at': {
+            '$date': '2018-07-05T09:42:42.427Z'
+        },
+        'updated_at': {
+            '$date': '2018-07-07T09:42:42.427Z'
+        }
+    },
+    {
+        'title': 'Trappe d\'aeration defectuese',
+        'content': 'On a un gros courant d\'air dans le salon depuis que la trappe de secours est bloquée dans le dernier etage. Merci de la debloquer et la garder FERMEE',
+        'status': 'open',
+        'created_at': {
+            '$date': '2018-07-05T09:42:42.427Z'
+        },
+        'updated_at': {
+            '$date': '2018-12-05T09:42:42.427Z'
+        }
     }
 ];

@@ -60,7 +60,7 @@ module.exports = function(app, apiRoutes, io) {
     }
 
     let gen_caretaker = function(residence_id) {
-        c_names = ['Jean', 'Adrienne', 'Murielle', 'François', 'Thibaut']
+        c_names = ['Adrienne', 'Murielle', 'Vivienne', 'Nolwenn','Sebastien', 'Emilien', 'Gastien', 'Vivien', 'Julien', 'Lucien', 'Felicien', 'Alain', 'Germain']
         c_name = c_names[Math.floor(Math.random()*c_names.length)]
         let caretaker = new User({
             name: c_name,
@@ -96,6 +96,7 @@ module.exports = function(app, apiRoutes, io) {
                 updated_at: new Date(dticket.updated_at.$date),
                 residence_id: res_id,
                 status: dticket.status,
+                comments: dticket.comments,
                 closed_by: closed_by,
                 resolution_time: Math.abs(new Date(dticket.created_at.$date) - new Date(dticket.updated_at.$date))
             });
@@ -114,6 +115,7 @@ module.exports = function(app, apiRoutes, io) {
 
     const welcome_messages  = require('../config/welcome_messages');
     function init_messaging (user, resi) {
+
         // get user's caretaker's ID first
             let writeError = false
             let conv_participants = [];
@@ -136,6 +138,7 @@ module.exports = function(app, apiRoutes, io) {
                 writeError = true
                 return ({success: false, message: "Db not writable"})
             }
+
             if (!writeError) {
                 //Notif.createTicket("Un premier ticket est apparu", user._id, user.name, ticket.id, ticket.residence_id);
                 return({success: true});
@@ -143,7 +146,6 @@ module.exports = function(app, apiRoutes, io) {
     }
 
     apiRoutes.post('/demo', function(req, res) {
-        
         // Check email
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(String(req.body.email).toLowerCase())) { return res.json({success: false, message: 'bad email'});}
@@ -184,6 +186,7 @@ module.exports = function(app, apiRoutes, io) {
                 if (!ticket_r.success) return res.json(ticket_r)
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
                 if (req.body.roles.includes('RESIDENT')) {
+                    console.log("YES")
                     let messagingInitialisation = init_messaging(user, resi.residence);
                     if (!messagingInitialisation.success) 
                         return res.json(messagingInitialisation);
