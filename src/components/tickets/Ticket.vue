@@ -35,7 +35,7 @@
                                 <span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}</span>
                     </small>
                 </header>
-                <section v-if="ticket"  class="modal-card-body" style="color : black;">
+                <section v-if="ticket && ticket.comments && ticket.comments.length != 0"  class="modal-card-body" style="color : black;">
                     <!-- <span class="content_ticket" ref="display_ticket">{{ticket.content}}</span> -->
                     <div v-for="comment in ticket.comments" :key="comment._id" class="comment">
                         <!-- <article class="media"> -->
@@ -189,7 +189,7 @@
             unlikeTicket: async function (event) {
                 const resp = await TicketService.likeTicket(this.$cookies.get('api_token'), this.ticket._id)
                 if (resp.data.success) {
-                    this.ticket.votes.splice(this.current_user._id, 1)
+                    this.ticket.votes.splice(this.ticket.votes.indexOf(this.current_user._id), 1)
                 }
                 else {
                     console.warn('LIKE TICKET failed :', resp.data.message)
