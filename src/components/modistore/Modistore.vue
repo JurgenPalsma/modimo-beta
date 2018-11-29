@@ -57,7 +57,7 @@
                       <div class="content">
                         <p
                           class="is-size-7 is-italic has-text-grey-dark modistore-desc"
-                        >{{app.description}}</p>
+                        >{{app.small_description}}</p>
                         <div class="modistore-card-footer">
                           <span class="button modistore-see-more">Voir plus</span>
                           <span
