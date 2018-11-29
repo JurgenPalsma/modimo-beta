@@ -13,7 +13,7 @@
           <p
             style="font-size:80%; margin-top:10px;"
             v-if="informations.length === 0"
-          >Aucune information disponnible</p>
+          >Aucune information disponible</p>
         </div>
 
         <div class="tile is-ancestor">

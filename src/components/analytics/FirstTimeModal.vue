@@ -15,7 +15,7 @@
                     <div class="field">
                         <label class="label">
                             <p> Cette page recense des statistiques sur vos perfomances pour l'application "Tickets". </p>
-                            <p> Nous allons ajouter des statistiques au fur et a mesure. N'hésitez pas a nous faire un retour sur les statistiques vous aimeriez voir!</p>
+                            <p> Nous allons ajouter des statistiques au fur et a mesure. N'hésitez pas a nous faire un retour sur les statistiques vous aimeriez voir !</p>
                         </label>
                     </div>
                 </section>

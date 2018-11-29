@@ -26,7 +26,7 @@
                         <div class="column is-6 is-vertical-center">
                             <h1 class="landing-title">La résidence 2.0</h1>
                             <br/>
-                            <p class="landing-subtitle is-5 has-text-left">• Centralisez les ressources et le travail de votre résidence,<br/><br/>• Améliorez les rapports et la communication avec vos résidents,<br/><br/>• Simplifiez les démarches des résidents et le travail des agents.</p>
+                            <p class="landing-subtitle is-5 has-text-left">• Centraliser les ressources et le travail de votre résidence,<br/><br/>• Améliorer les rapports et la communication avec vos résidents,<br/><br/>• Simplifier les démarches des résidents et le travail des agents.</p>
                             <div style="align-self: center">
                                 <a class="button discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                                 <a class="button signup-button" v-on:click="scrollToTop();engage('email')">S'inscrire</a>
@@ -48,10 +48,10 @@
                         <div class="column is-full-mobile">
                             <div class="blog-card spring-fever" v-on:click="engage('email', true)">
                                 <div class="title-content">
-                                    <h3>Je suis un professionnel</h3>
+                                    <h3>Je suis un professionnel </h3>
                                 </div>
                                 <div class="card-info">
-                                    Découvrez les avantages que Modimo peut apporter dans votre travail. Centralisez, simplifiez et optimisez toutes les démarches liées à vos résidences.
+                                    Découvrer les avantages que Modimo peut apporter dans votre travail de gérant ou de syndic. Centraliser, simplifier et optimiser toutes les démarches liées à vos résidences.
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                     <h3>Je suis un particulier</h3>
                                 </div>
                                 <div class="card-info">
-                                    Essayez Modimo, suscéptible d'être utilisée dans votre résidence. Améliorez et simplifiez les rapports que vous entretenez avec vos voisins et les gérants de votre logement
+                                    Essayer Modimo, et si cela vous plaît faites le nous savoir. La solution serait susceptible d'être utilisée dans votre résidence. Simplifier les rapports que vous entretenez avec vos voisins et les gérants de votre logement.
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                             On y est presque
                         </h1>
                         <h2 class="subtitle .text-dark">
-                            Merci de remplir ce formulaire pour avoir une démo sur-mesure:
+                            Merci de remplir ce formulaire pour avoir une démonstration sur-mesure:
                         </h2>
 
                         <div class="box">
@@ -111,7 +111,7 @@
                             <div v-if="this.role === 'resi'" class="field">
                                 <p class="select control is-expanded" style="width: 100%">
                                     <select v-model="role_selected" style="width: 100%">
-                                        <option>Resident</option>
+                                        <option>Résident</option>
                                         <option>Gardien ou gestionnaire de résidence</option>
                                     </select>
                                 </p>
@@ -120,7 +120,7 @@
                                 <p class="select control is-expanded" style="width: 100%">
                                     <select v-model="role_selected" style="width: 100%">
                                         <option>Gardien ou gestionnaire de résidence</option>
-                                        <option>Resident</option>
+                                        <option>Résident</option>
                                     </select>
                                 </p>
                             </div>
@@ -152,7 +152,7 @@
                             Ooooups
                         </h1>
                         <h2 class="subtitle text-dark">
-                            Votre email est invalide. Veuillez renseigner une vraie adresse email.
+                            Votre email est invalide. Veuiller renseigner une vraie adresse email.
                         </h2>
 
                         <div class="box">
@@ -184,7 +184,7 @@
                                         <span class="icon">
                                             <i class="fa fa-key"></i>
                                         </span>
-                                        <span>Connection</span>
+                                        <span>Connexion</span>
                                     </a>
                                 </span>
                             </div>
@@ -218,17 +218,17 @@
                                 <div class="column">
                                 <img src="/static/img/time.png">
                                 <h1 class="title" style="margin-top: 10px">Utilitaire</h1>
-                                <p class="subtitle" style="margin-top: 10px">Réglez rapidement tout vos problèmes administratifs</p>
+                                <p class="subtitle" style="margin-top: 10px">Régler rapidement tout vos problèmes administratifs lié à votre résidence, simplement et rapidement.</p>
                             </div>
                             <div class="column is-vertical-align">
                                 <img src="/static/img/team.png">
                                 <h1 class="title" style="margin-top: 10px">Sociale</h1>
-                                <p class="subtitle" style="margin-top: 10px">Ameliorez ensemble la vie de votre Résidence</p>
+                                <p class="subtitle" style="margin-top: 10px">Ameliorer la vie de votre Résidence devient un jeu d'enfant avec Modimo.</p>
                             </div>
                             <div class="column is-vertical-align is-hidden-mobile">
                                 <img src="/static/img/responsive.png">
                                 <h1 class="title" style="margin-top: 10px">Responsive</h1>
-                                <p class="subtitle" style="margin-top: 10px">Accessible depuis tout type de résolution d'écran!</p>
+                                <p class="subtitle" style="margin-top: 10px">Accessible depuis tout type d'appareil très rapidement et facilement.</p>
                             </div>
                         </div>
                     </div>

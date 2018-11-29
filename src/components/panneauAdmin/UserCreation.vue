@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Role</label>
+                        <label class="label">Rôle</label>
                         <div class="control">
                             <textarea class="textarea" v-model="role" placeholder="Role"></textarea>
                         </div>

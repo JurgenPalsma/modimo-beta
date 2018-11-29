@@ -7,7 +7,7 @@
                         <div class="tile">
                             <div class="tile is-vertical is-parent">
                                 <article class="tile is-child notification is-white">
-                                    <p class="title">Sélectionnez la plage de dates:</p>
+                                    <p class="title">Sélectionner la plage de dates :</p>
                                     <div class="content">
                                         <date-picker v-model="daterange" lang='fr' range :shortcuts="shortcuts"></date-picker>
                                     </div>
@@ -16,7 +16,7 @@
 
                             <div class="tile is-vertical is-parent">
                                 <article class="tile is-child notification is-white">
-                                <p class="title">Rapport d'utilisation de la résidence "{{current_user.residence.name}}"</p>
+                                <p class="title">Rapport d'utilisation de votre résidence "{{current_user.residence.name}}"</p>
                                 </article>
                             </div>
                         </div>

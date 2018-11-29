@@ -8,7 +8,7 @@
                     <div class="media-content">
                         <div class="content">
                           <div v-if="!info || info.length === 0">
-                            <strong class="modimo-color modimo-size ">Vous n'avez pas de notification</strong>
+                            <strong class="modimo-color modimo-size ">Vous n'avez pas de notifications</strong>
                           </div>
                           <div v-else-if="info.length === 1">
                             <strong class="modimo-color modimo-size ">Vous avez une nouvelle notification</strong>
