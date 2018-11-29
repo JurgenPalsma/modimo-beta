@@ -26,9 +26,10 @@ module.exports = function(app, apiRoutes, io) {
             "5a774ac0734d1d3bd58cefc7",
             "5a773f8f919a502dbb340f60",
             "5a774052919a502dbb340f65",
-            "5a77410f919a502dbb340f6b",
-            "5be84e2ebb6ba100146302a1"
+            "5a77410f919a502dbb340f6b"
         ]
+        if (user_is_caretaker)
+            default_app_ids.push("5be84e2ebb6ba100146302a1");
         let c_name = user_is_caretaker ? "Vous" : "Adrien le gardien"
 
         let caretaker = new User({
@@ -157,7 +158,10 @@ module.exports = function(app, apiRoutes, io) {
             return res.json({success:false, message:'Bad params, need: (req.body.email && req.body.residenceName && req.body.firstname && req.body.lastname && req.body.password && req.body.roles)'})
 
         // Create demo residence
-        resi = create_demo_res(name=req.body.residenceName)
+        if (req.body.roles.includes("RESIDENT"))
+            resi = create_demo_res(name=req.body.residenceName)
+        else
+            resi = create_demo_res(name=req.body.residenceName, true)
         if (resi.success == false) return res.json(resi)
         
         // create user
