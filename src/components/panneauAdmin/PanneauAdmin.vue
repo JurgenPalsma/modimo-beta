@@ -20,11 +20,9 @@
                                 <div class="column">
                                 {{user.name}} - {{user.email}}
                                 </div>
-                                  <span v-if="currentUser && currentUser.roles && currentUser.roles.includes('CARETAKER')">
                                     <div class="column" style="margin-left:40px;">
-                                        <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
+                                        <a v-if="currentUser && currentUser.roles && currentUser.roles.includes('CARETAKER')" class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
                                     </div>
-                                  </span>
                             </div>
                             <hr style="width: 70%;">
                         </li>
