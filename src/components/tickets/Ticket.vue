@@ -1,13 +1,13 @@
 <template>
     <section>
         <div class="modal is-active">
-            <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
+            <div class="my-modal-background" v-on:click="closeModal"></div>
             <div class="modal-card">
-                <header v-if="ticket" class="modal-card-head">
-                    <p class="modal-card-title modimo-color is-text-overflow" style="font-size: ">{{ticket.author_name}} - {{ticket.title}}</p>
-                    <button class="delete" v-on:click="closeModal" aria-label="close"></button>
-                </header>
-                <section v-if="ticket"  class="modal-card-body" style="color : black;">
+                <header v-if="ticket" class="modal-card-head" style="color : black;">
+                    <div style="display: flex;">
+                        <p class="modal-card-title modimo-color is-text-overflow" style="padding-bottom : 7px; margin-bottom: 7px; border-bottom : 1px solid #dbdbdb;">{{ticket.author_name}} - {{ticket.title}}</p>
+                        <button class="delete" v-on:click="closeModal" aria-label="close"></button>
+                    </div>
                     <span class="content_ticket" ref="display_ticket">{{ticket.content}}</span>
                     <div ref="space_modif_ticket" v-bind:style="{display: 'none'}">
                         <div class="field">
@@ -23,8 +23,8 @@
                             <br>
                         </div>
                     </div>
-                    <br>
                     <small v-if="ticket" class="small-text">
+                        <br>
                         <span v-if="ticket.updated_at === ticket.created_at">Créé le </span>
                         <span v-else>Modifié le </span>
                         {{dateFormater(ticket.updated_at)}}
@@ -34,6 +34,9 @@
                                 <span v-on:click="likeTicket" v-if="ticket.votes.indexOf(current_user._id) == -1">Prioriser</span>
                                 <span v-on:click="unlikeTicket" v-else>Ne plus prioriser</span> · </a><i class="far fa-thumbs-up"/> {{ticket.votes.length}}</span>
                     </small>
+                </header>
+                <section v-if="ticket"  class="modal-card-body" style="color : black;">
+                    <!-- <span class="content_ticket" ref="display_ticket">{{ticket.content}}</span> -->
                     <div v-for="comment in ticket.comments" :key="comment._id" class="comment">
                         <!-- <article class="media"> -->
                         <p>
