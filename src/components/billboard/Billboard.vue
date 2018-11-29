@@ -123,9 +123,9 @@
                   style="float: right"
                   class="delete"
                   aria-label="close"
-                  @click="deleteInformation(info._id)"
+                  @click="deleteInformation(wideElement._id)"
                 ></button>
-                <div @click="idToModal(info)">
+                <div @click="idToModal(wideElement)">
                   <p class="title">{{ wideElement.title }}</p>
                   <p class="content">{{ wideElement.content }}</p>
                   <p class="is-size-7" style="float: left">{{wideElement.author_name}}</p>
