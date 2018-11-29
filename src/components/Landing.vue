@@ -51,7 +51,7 @@
                                     <h3>Je suis un professionnel</h3>
                                 </div>
                                 <div class="card-info">
-                                    Découvrez les avantages que Modimo peut apporter dans votre travail. Centralisez, simplifiez et optimisez toutes les démarches liées à vos résidences.
+                                    Découvrez les avantages que Modimo peut apporter dans votre travail de gérant ou de syndic. Centralisez, simplifiez et optimisez toutes les démarches liées à vos résidences.
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                     <h3>Je suis un particulier</h3>
                                 </div>
                                 <div class="card-info">
-                                    Essayez Modimo, suscéptible d'être utilisée dans votre résidence. Améliorez et simplifiez les rapports que vous entretenez avec vos voisins et les gérants de votre logement
+                                    Essayez Modimo, et si cela vous plaît faites le nous savoir. La solution serait susceptible d'être utilisée dans votre résidence. Simplifiez les rapports que vous entretenez avec vos voisins et les gérants de votre logement.
                                 </div>
                             </div>
                         </div>
