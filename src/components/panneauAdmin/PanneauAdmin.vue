@@ -3,7 +3,7 @@
 @import '../../styles/global.scss';
 </style>
 <template>
-<section class="hero modimo-dark is-fullheight-minus-navbar">
+<section class="hero modimo-dark is-fullheight">
     <div class="container">
         <aside class="menu">
             <a @click="showModalUserCreation = true" class="super-button">+</a>
