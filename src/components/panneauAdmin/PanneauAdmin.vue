@@ -6,7 +6,9 @@
 <section class="hero modimo-dark is-fullheight-minus-navbar">
 
         <aside style="margin-top:70px;" class="menu">
-            <a @click="showModalUserCreation = true" class="super-button" style="margin-right: 50px; font-size: 40px;">+</a>
+            <span v-if="current_user && current_user.roles.includes('CARETAKER')">
+              <a @click="showModalUserCreation = true" class="super-button" style="margin-right: 50px; font-size: 40px;">+</a>
+            </span>
             <p class="title has-text-centered white-title">
                 Liste des résidents
             </p>
@@ -18,9 +20,11 @@
                                 <div class="column">
                                 {{user.name}} - {{user.email}}
                                 </div>
+                                  <span v-if="current_user && current_user.roles.includes('CARETAKER')">
                                     <div class="column" style="margin-left:40px;">
                                         <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
                                     </div>
+                                  </span>
                             </div>
                             <hr style="width: 70%;">
                         </li>
@@ -71,6 +75,7 @@ export default {
     async load () {
         await this.$parent.getCurrentUser();
         this.currentUser =  this.$parent.currentUser;
+        console.log(this.currentUser.roles);
         this.selectedInformation = this.currentUser;
         const resp = await UserService.getUsers(this.$cookies.get('api_token'), this.currentUser.residence._id)
         if (resp.data.success) {
