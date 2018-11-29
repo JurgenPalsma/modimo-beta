@@ -70,10 +70,12 @@ export default {
       this.load();
     },
     async load () {
-        this.current_user = await this.$parent.getCurrentUser()
-        this.selectedInformation = this.current_user;
-        const resp = await UserService.getUsers(this.$cookies.get('api_token'), this.current_user.residence._id)
+        await this.$parent.getCurrentUser();
+        this.currentUser =  this.$parent.currentUser;
+        this.selectedInformation = this.currentUser;
+        const resp = await UserService.getUsers(this.$cookies.get('api_token'), this.currentUser.residence._id)
         if (resp.data.success) {
+          console.log(resp.data);
             this.users = resp.data.users;
         } else {
             this.$parent.notification = {type: 'failure', message: 'Erreur lors du chargement des données'}
