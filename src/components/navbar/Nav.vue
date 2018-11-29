@@ -19,7 +19,7 @@
             <div id="navMenubd-example" class="navbar-menu">
                 <div v-if="$route.name != 'Home' && $route.name != 'Login'" class="navbar-start">
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link" href="/home" style="text-align: center;">Apps</a>
+                        <a class="navbar-link" href="/home" style="text-align: center;">Applications</a>
                         <div class="navbar-dropdown">
                             <a class="navbar-item" v-for="app in applications" :key="app._id" :href="'/' + app.link">{{app.shortname}}</a>
                         </div>

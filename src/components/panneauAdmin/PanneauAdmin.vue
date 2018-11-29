@@ -18,10 +18,9 @@
                                 <div class="column">
                                 {{user.name}} - {{user.email}}
                                 </div>
-                                  <div class="column" style="margin-left:40px;">
-                                    <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
-                                    </a>
-                                  </div>
+                                    <div class="column" style="margin-left:40px;">
+                                        <a class="button is-danger is-rounded" style="width: 35%;" @click="deleteUser(user._id)">Supprimer</a>
+                                    </div>
                             </div>
                             <hr style="width: 70%;">
                         </li>

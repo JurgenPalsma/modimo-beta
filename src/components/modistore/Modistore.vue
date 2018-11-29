@@ -100,7 +100,7 @@
                     <div class="content">
                       <p
                         class="is-size-7 is-italic has-text-grey-dark"
-                      >Pleins d'applications à venir !</p>
+                      >Plein d'applications à venir !</p>
                     </div>
                   </div>
                 </div>
