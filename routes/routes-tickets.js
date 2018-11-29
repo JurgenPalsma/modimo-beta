@@ -10,7 +10,6 @@ module.exports = function(app, apiRoutes, io) {
 
 // route to add a ticket
     apiRoutes.post('/tickets/ticket', function(req, res) {
-
         if (!req.headers.title || !req.headers.content)
             res.json({success: false, message: 'Error: request incomplete'});
         else
@@ -31,7 +30,7 @@ module.exports = function(app, apiRoutes, io) {
                     residence_id: user.residence,
                     });
                     ticket.save(function(err) {
-                    Notif.createTicket(req.body.title, user._id, user.name, ticket.id, ticket.residence_id, io);
+                    Notif.createTicket(req.headers.title, user._id, user.name, ticket.id, ticket.residence_id, io);
                     if (err) res.json({success: false, message: err.message});
                     else res.json({success: true, ticket: ticket});
                     });
