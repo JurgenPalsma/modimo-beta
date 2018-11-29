@@ -6,6 +6,28 @@
   background-color: white;
 }
 
+/** super-button **/
+
+.super-button {
+	width: 50px;
+	height: 50px;
+	line-height: 40px;
+	position: absolute;
+	right: 0;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	border: 2px solid white;
+	text-align: center;
+	display: inline-block;
+	z-index: 10;
+	color: white;
+}
+
+.super-button:hover {
+	color: #2b5bb2;
+}
+
 .super-button:after {
 	position: absolute !important;
 	content: "";
