@@ -27,7 +27,7 @@
                 </div>
 
                 <div v-if="$route.name != 'Login'" class="navbar-end">
-                    <div @userdata="load()" v-if="currentUser && currentUser.roles && (currentUser.roles.includes('ROOT') || currentUser.roles.includes('CARETAKER') || currentUser.roles.includes('ADMIN'))" class="navbar-item">
+                    <div @userdata="load()" class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control" style="width: 100%" @click="notifModal()">
                                 <a class="button" style="width: 100%">
@@ -116,6 +116,7 @@ export default {
 
     notifModal: function() {
       this.selectedInformation = this.currentUser.notifs;
+      console.log(this.currentUser);
       this.showNotifModal = true;
     }
   },

@@ -3,7 +3,7 @@
 @import '../../styles/global.scss';
 </style>
 <template>
-<section class="hero modimo-dark is-fullheight-minus-navbar">
+<section class="hero modimo-dark is-fullheight">
 
         <aside style="margin-top:70px;" class="menu">
             <span v-if="currentUser && currentUser.roles && currentUser.roles.includes('CARETAKER')">

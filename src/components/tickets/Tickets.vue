@@ -5,7 +5,7 @@
 
 <template>
     <section class="hero is-fullheight modimo-dark">
-        <div class="hero-body">
+        <div class="hero-body" style="display: block;">
             <div class="container">
                 <br/>
                 <div class="title has-text-centered white-title">
