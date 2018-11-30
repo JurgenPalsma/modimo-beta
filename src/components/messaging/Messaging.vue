@@ -1,5 +1,5 @@
 <template>
-    <section class="hero modimo-dark is-fullheight">
+    <section @click="contact = ''" class="hero modimo-dark is-fullheight">
         <div class="hero-body">
             <div class="container">
                 <div class="columns">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="columns is-multiline is-mobile">
                     <div class="column is-6-tablet is-12-mobile" style="position: relative">
-                        <div class="modimo-conversations">
+                        <div @click.stop.prevent class="modimo-conversations">
                             <input class="input-add-contact" v-model="contact" placeholder="Rechercher un contact">
                             <div class="modimo-conversations-container">
                                 <div v-for="conv in conversations" :key="conv._id" @click="switchToConversation(conv)" class="column card is-full" style="border-radius: 3px; position: relative; cursor: pointer; margin-bottom: 10px; height: auto"> 
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modimo-messages">
+                    <div @click.stop.prevent class="modimo-messages">
                         <div>
                             <div id="thread-content" class="thread-container">
                                 <div v-for="message in currentConv.messages" :key="message.timestamp" :class="message.author != $parent.currentUser._id ? 'message-block' : 'message-block-yours'" >
