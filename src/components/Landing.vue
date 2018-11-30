@@ -110,23 +110,14 @@
                                 </p>
                             </div>
 
-                            <div v-if="this.role === 'resi'" class="field">
+                            <div class="field">
                                 <p class="select control is-expanded" style="width: 100%">
                                     <select v-model="role_selected" style="width: 100%">
-                                        <option>Résident</option>
-                                        <option>Gardien ou gestionnaire de résidence</option>
+                                        <option value="Résident">Je suis résident</option>
+                                        <option value="Gardien ou gestionnaire de résidence">Je suis Gardien ou gestionnaire de résidence</option>
                                     </select>
                                 </p>
                             </div>
-                            <div v-else class="field">
-                                <p class="select control is-expanded" style="width: 100%">
-                                    <select v-model="role_selected" style="width: 100%">
-                                        <option>Gardien ou gestionnaire de résidence</option>
-                                        <option>Résident</option>
-                                    </select>
-                                </p>
-                            </div>
-
                             <div class="field is-grouped">    
                                 <p class="control has-icons-left is-expanded">
                                     <input class="input" v-model="email" type="email" placeholder="Email">
@@ -290,7 +281,7 @@ export default {
             lastname: '',
             password: '',
             role: 'resi',
-            role_selected: '',
+            role_selected: 'Résident',
             residence_name: '',
             email: '',
             email_error: false,
@@ -336,7 +327,10 @@ export default {
                 // Launch heroku dyno if api is offline by pinging it
                 this.ping_api()
             }
-            if (admin) this.role = 'admin'
+            if (admin) 
+                this.role_selected = "Gardien ou gestionnaire de résidence"
+            else
+                this.role_selected = "Résident"
         },
         async ping_api () {
             const response = await AuthService.ping()
