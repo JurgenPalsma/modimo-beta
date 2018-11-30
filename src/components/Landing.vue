@@ -34,7 +34,7 @@
                                 <a class="button is-large discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                             </div>
                         </div>
-                        <div class="column is-6 is-centered" style="text-align:center">
+                        <div class="column is-6 is-vertical-center" style="align-items: center;text-align: center">
                             <img src="/static/img/modimophone.png" class="modimo-background-img"/>
                         </div>
                     </div>
@@ -211,44 +211,47 @@
             <div class="container">
                 <br/><br/>
             
-                <section class="margin-vertical">
-                    <div class="column is-12 is-fullheight">
+                <section>
+                    <div class="column is-12">
                         <div class="rows is-mobile">
-                                <div class="row columns">
-                                    <div class="column is-2">
-                                    <img src="/static/img/responsive.png">
-                                    </div>
-                                    <div class="column has-text-left">
-                                    <h1 class="title" style="margin-top: 10px">Toute votre residence à portée de main</h1>
-                                    <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
-                                    </div>
+                            <br/>
+                            <div class="row columns">
+                                <div class="column is-2">
+                                <img src="/static/img/responsive.png">
                                 </div>
-                                <br/>
-                                <br/>
-                                <div class="row columns">
-                                    <div class="column is-2">
-                                    <img src="/static/img/time.png">
-                                    </div>
-                                    <div class="column has-text-left">
-                                    <h1 class="title" style="margin-top: 10px">Accelerez la resolution des petits tracas</h1>
-                                    <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
-                                    </div>
+                                <div class="column has-text-left">
+                                <h1 class="title" style="margin-top: 10px">Toute votre residence à portée de main</h1>
+                                <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
                                 </div>
-                                <br/>
-                                <br/>
-                                <div class="row columns">
-                                    <div class="column is-2">
-                                    <img src="/static/img/team.png">
-                                    </div>
-                                    <div class="column has-text-left">
-                                    <h1 class="title" style="margin-top: 10px">Reconciliez vous avec votre entourage</h1>
-                                    <p class="subtitle" style="margin-top: 10px">Plusieures applis sont a votre disposition pour faciliter la communication entre voisins</p>
-                                    </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row columns">
+                                <div class="column is-2">
+                                <img src="/static/img/time.png">
                                 </div>
+                                <div class="column has-text-left">
+                                <h1 class="title" style="margin-top: 10px">Accelerez la resolution des petits tracas</h1>
+                                <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row columns">
+                                <div class="column is-2">
+                                <img src="/static/img/team.png">
+                                </div>
+                                <div class="column has-text-left">
+                                <h1 class="title" style="margin-top: 10px">Reconciliez vous avec votre entourage</h1>
+                                <p class="subtitle" style="margin-top: 10px">Plusieures applis sont a votre disposition pour faciliter la communication entre voisins</p>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
                         </div>
                     </div>
                 </section>
-                <section class="is-fullheight">
+                <section>
                     <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
                 </section>  
                 <br/><br/><br/>
