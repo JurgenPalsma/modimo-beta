@@ -117,7 +117,7 @@ $lines-to-show: 1;
 }
 
 .modimo-conversations-container {
-  height: calc(100vh - 247px);
+  max-height: calc(100vh - 247px);
   overflow-y: scroll;
   padding: 0 10px;
   overflow: -moz-scrollbars-vertical;
