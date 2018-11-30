@@ -1,6 +1,7 @@
 <template>
     <section class="hero modimo-dark is-fullheight">
         <div class="hero-body">
+
             <div class="container">
                 <br/>
                 <div class="columns">
@@ -39,6 +40,8 @@
                         </div>
                     </router-link>
                 </div>
+                            <firstTimeModal v-show="first_time_modal" @close_modal="closeModal"></firstTimeModal>
+
             </div>
         </div>
     </section>
@@ -48,6 +51,7 @@
 import AuthService from '@/services/AuthService'
 import ModistoreService from '@/services/ModistoreService'
 import ApplicationService from '@/services/ApplicationService'
+import firstTimeModal from '@/components/analytics/FirstTimeModal'
 
 export default {
     name: 'home',
@@ -55,7 +59,8 @@ export default {
         return {
             current_user: null,
             applications: [],
-            editMode: false
+            editMode: false,
+            first_time_modal: false,
         }
     },
 
@@ -65,6 +70,7 @@ export default {
 
     methods: {
         async load () {
+            this.firstVisit()
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
             ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
@@ -72,6 +78,20 @@ export default {
                 this.applications = response.data.applications;
             })
         },
+        closeModal() {
+            this.$cookies.set("firstTimeHome", true)
+            this.first_time_modal = false;
+        },
+        firstVisit() {
+            if (this.$cookies.get("firstTimeHome")) {
+                this.first_time_modal = false;
+            } else {
+                console.warn("No cookie")
+                this.$cookies.set("firstTimeHome", true)
+                this.first_time_modal = true;
+            }
+        },
+
         logout: function () {
             AuthService.logout(this.$cookies.get('api_token'))
             this.$cookies.remove('api_token')
@@ -94,6 +114,9 @@ export default {
         editModeFalse: function() {
             this.editMode = false;
         }
+    },
+    components: {
+        firstTimeModal
     }
 }
 </script>

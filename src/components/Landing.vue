@@ -19,14 +19,12 @@
             </div>
 
             <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
-                <div class="modimo-background">
-                    <img src="/static/img/modimophone.png" class="modimo-background-img"/>
-                </div>
+                <div class="modimo-background"/>
                 <div class="container" style="padding-right: 0; width: 100%; max-width: 100%">
                     <br/>
                     <div class="columns has-text-left">
                         <div class="column is-6 is-vertical-center">
-                            <h1 class="landing-title">Un room service dans votre propre appartement</h1>
+                            <h1 class="landing-title">Un room service dans votre appartement</h1>
                             <br/>
                             <p class="landing-subtitle is-5 has-text-left">
                                 Nous travaillons dur pour vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence. 
@@ -36,10 +34,8 @@
                                 <a class="button is-large discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                             </div>
                         </div>
-                        <div class="column is-6 is-centered">
-                            <!-- <div class="modimo-img-container">
-                                <img src="/static/img/logofull.png">
-                            </div> -->
+                        <div class="column is-6 is-vertical-center" style="align-items: center;text-align: center">
+                            <img src="/static/img/modimophone.png" class="modimo-background-img"/>
                         </div>
                     </div>
                 </div>
@@ -114,23 +110,14 @@
                                 </p>
                             </div>
 
-                            <div v-if="this.role === 'resi'" class="field">
+                            <div class="field">
                                 <p class="select control is-expanded" style="width: 100%">
                                     <select v-model="role_selected" style="width: 100%">
-                                        <option>Résident</option>
-                                        <option>Gardien ou gestionnaire de résidence</option>
+                                        <option value="Résident">Je suis résident</option>
+                                        <option value="Gardien ou gestionnaire de résidence">Je suis Gardien ou gestionnaire de résidence</option>
                                     </select>
                                 </p>
                             </div>
-                            <div v-else class="field">
-                                <p class="select control is-expanded" style="width: 100%">
-                                    <select v-model="role_selected" style="width: 100%">
-                                        <option>Gardien ou gestionnaire de résidence</option>
-                                        <option>Résident</option>
-                                    </select>
-                                </p>
-                            </div>
-
                             <div class="field is-grouped">    
                                 <p class="control has-icons-left is-expanded">
                                     <input class="input" v-model="email" type="email" placeholder="Email">
@@ -215,44 +202,47 @@
             <div class="container">
                 <br/><br/>
             
-                <section class="margin-vertical">
-                    <div class="column is-12 is-fullheight">
+                <section>
+                    <div class="column is-12">
                         <div class="rows is-mobile">
-                                <div class="row columns">
-                                    <div class="column is-2">
-                                    <img src="/static/img/responsive.png">
-                                    </div>
-                                    <div class="column has-text-left">
-                                    <h1 class="title" style="margin-top: 10px">Toute votre residence à portée de main</h1>
-                                    <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
-                                    </div>
+                            <br/>
+                            <div class="row columns">
+                                <div class="column is-2">
+                                <img src="/static/img/responsive.png">
                                 </div>
-                                <br/>
-                                <br/>
-                                <div class="row columns">
-                                    <div class="column is-2">
-                                    <img src="/static/img/time.png">
-                                    </div>
-                                    <div class="column has-text-left">
-                                    <h1 class="title" style="margin-top: 10px">Accelerez la resolution des petits tracas</h1>
-                                    <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
-                                    </div>
+                                <div class="column has-text-left">
+                                <h1 class="title" style="margin-top: 10px">Toute votre residence à portée de main</h1>
+                                <p class="subtitle" style="margin-top: 10px">Centralisez vos requètes, vos factures, vos taches liées à votre chez-vous dans votre smartphone</p>
                                 </div>
-                                <br/>
-                                <br/>
-                                <div class="row columns">
-                                    <div class="column is-2">
-                                    <img src="/static/img/team.png">
-                                    </div>
-                                    <div class="column has-text-left">
-                                    <h1 class="title" style="margin-top: 10px">Reconciliez vous avec votre entourage</h1>
-                                    <p class="subtitle" style="margin-top: 10px">Plusieures applis sont a votre disposition pour faciliter la communication entre voisins</p>
-                                    </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row columns">
+                                <div class="column is-2">
+                                <img src="/static/img/time.png">
                                 </div>
+                                <div class="column has-text-left">
+                                <h1 class="title" style="margin-top: 10px">Accelerez la resolution des petits tracas</h1>
+                                <p class="subtitle" style="margin-top: 10px">En suivant les requetes et problèmes des espaces communs de la résidence.</p>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row columns">
+                                <div class="column is-2">
+                                <img src="/static/img/team.png">
+                                </div>
+                                <div class="column has-text-left">
+                                <h1 class="title" style="margin-top: 10px">Reconciliez vous avec votre entourage</h1>
+                                <p class="subtitle" style="margin-top: 10px">Plusieures applis sont a votre disposition pour faciliter la communication entre voisins</p>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
                         </div>
                     </div>
                 </section>
-                <section class="is-fullheight">
+                <section>
                     <iframe src="https://www.youtube.com/embed/S7A77ClZKcQ" width="100%" height="100%" scrolling="auto" marginwidth="1" style="border-width: 3pt;" frameborder="1" allowfullscreen class="video-aligned"></iframe>
                 </section>  
                 <br/><br/><br/>
@@ -291,7 +281,7 @@ export default {
             lastname: '',
             password: '',
             role: 'resi',
-            role_selected: '',
+            role_selected: 'Résident',
             residence_name: '',
             email: '',
             email_error: false,
@@ -337,7 +327,10 @@ export default {
                 // Launch heroku dyno if api is offline by pinging it
                 this.ping_api()
             }
-            if (admin) this.role = 'admin'
+            if (admin) 
+                this.role_selected = "Gardien ou gestionnaire de résidence"
+            else
+                this.role_selected = "Résident"
         },
         async ping_api () {
             const response = await AuthService.ping()
@@ -347,7 +340,7 @@ export default {
         },
         async launch_demo () {
             this.loading = true
-            let conv_roles = this.role_selected == "Resident" ? ["RESIDENT"] : ["CARETAKER"];
+            let conv_roles = this.role_selected == "Résident" ? ["RESIDENT"] : ["CARETAKER"];
             let res = await DemoService.create_demo(this.firstname, this.lastname, this.email, this.password, conv_roles, this.residence_name);
             if (res.data.success) {
                 const auth = await AuthService.authenticate(res.data.user.email, res.data.user.password)

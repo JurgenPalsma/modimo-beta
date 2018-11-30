@@ -15,7 +15,7 @@
                                     <!-- Left side -->
                                     <div class="level-center">
                                         <div class="level-item has-text-center">
-                                            <p class="title is-3">
+                                            <p class="title is-3" style="margin-bottom: 10px">
                                                 <strong>{{app.name}}</strong>
                                             </p>
                                         </div>
