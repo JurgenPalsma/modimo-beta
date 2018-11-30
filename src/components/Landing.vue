@@ -24,7 +24,7 @@
                     <br/>
                     <div class="columns has-text-left">
                         <div class="column is-6 is-vertical-center">
-                            <h1 class="landing-title">Un room service dans votre propre appartement</h1>
+                            <h1 class="landing-title">Un room service dans votre appartement</h1>
                             <br/>
                             <p class="landing-subtitle is-5 has-text-left">
                                 Nous travaillons dur pour vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence. 
