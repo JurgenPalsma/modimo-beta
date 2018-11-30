@@ -27,15 +27,18 @@
                   aria-label="close"
                   @click="deleteInformation(info._id)"
                 ></button>
-                <div @click="idToModal(info)">
+                <div
+                  @click="idToModal(info)"
+                  style="height: calc(100% - 20px); margin-bottom: 10px"
+                >
                   <p class="title">{{ info.title }}</p>
                   <p class="content">{{ info.content }}</p>
-                  <p class="is-size-7" style="float: left">{{info.author_name}}</p>
-                  <p
-                    class="is-size-7 has-text-grey-light"
-                    style="float: right"
-                  >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                 </div>
+                <p class="is-size-7" style="float: left">{{info.author_name}}</p>
+                <p
+                  class="is-size-7 has-text-grey-light"
+                  style="float: right"
+                >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
           </div>
@@ -59,15 +62,18 @@
                       aria-label="close"
                       @click="deleteInformation(info._id)"
                     ></button>
-                    <div @click="idToModal(info)">
+                    <div
+                      @click="idToModal(info)"
+                      style="height: calc(100% - 20px); margin-bottom: 10px"
+                    >
                       <p class="title">{{ info.title }}</p>
                       <p class="content">{{ info.content }}</p>
-                      <p class="is-size-7" style="float: left;">{{info.author_name}}</p>
-                      <p
-                        class="is-size-7 has-text-grey-light"
-                        style="float: right"
-                      >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                     </div>
+                    <p class="is-size-7" style="float: left;">{{info.author_name}}</p>
+                    <p
+                      class="is-size-7 has-text-grey-light"
+                      style="float: right"
+                    >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
               </div>
@@ -103,15 +109,18 @@
                       aria-label="close"
                       @click="deleteInformation(info._id)"
                     ></button>
-                    <div @click="idToModal(info)">
+                    <div
+                      @click="idToModal(info)"
+                      style="height: calc(100% - 20px); margin-bottom: 10px"
+                    >
                       <p class="title">{{ info.title }}</p>
                       <p class="content">{{ info.content }}</p>
-                      <p class="is-size-7" style="float: left">{{info.author_name}}</p>
-                      <p
-                        class="is-size-7 has-text-grey-light"
-                        style="float: right"
-                      >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                     </div>
+                    <p class="is-size-7" style="float: left">{{info.author_name}}</p>
+                    <p
+                      class="is-size-7 has-text-grey-light"
+                      style="float: right"
+                    >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                   </article>
                 </div>
               </div>
@@ -125,15 +134,18 @@
                   aria-label="close"
                   @click="deleteInformation(wideElement._id)"
                 ></button>
-                <div @click="idToModal(wideElement)">
+                <div
+                  @click="idToModal(wideElement)"
+                  style="height: calc(100% - 20px); margin-bottom: 10px"
+                >
                   <p class="title">{{ wideElement.title }}</p>
                   <p class="content">{{ wideElement.content }}</p>
-                  <p class="is-size-7" style="float: left">{{wideElement.author_name}}</p>
-                  <p
-                    class="is-size-7 has-text-grey-light"
-                    style="float: right"
-                  >Mis à jour le : {{dateFormater(wideElement.updated_at)}}</p>
                 </div>
+                <p class="is-size-7" style="float: left">{{wideElement.author_name}}</p>
+                <p
+                  class="is-size-7 has-text-grey-light"
+                  style="float: right"
+                >Mis à jour le : {{dateFormater(wideElement.updated_at)}}</p>
               </article>
             </div>
           </div>
@@ -155,15 +167,18 @@
                   aria-label="close"
                   @click="deleteInformation(info._id)"
                 ></button>
-                <div @click="idToModal(info)">
+                <div
+                  @click="idToModal(info)"
+                  style="height: calc(100% - 20px); margin-bottom: 10px"
+                >
                   <p class="title">{{ info.title }}</p>
                   <p class="content">{{ info.content }}</p>
-                  <p class="is-size-7" style="float: left">{{info.author_name}}</p>
-                  <p
-                    class="is-size-7 has-text-grey-light"
-                    style="float: right"
-                  >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
                 </div>
+                <p class="is-size-7" style="float: left">{{info.author_name}}</p>
+                <p
+                  class="is-size-7 has-text-grey-light"
+                  style="float: right"
+                >Mis à jour le : {{dateFormater(info.updated_at)}}</p>
               </article>
             </div>
           </div>
