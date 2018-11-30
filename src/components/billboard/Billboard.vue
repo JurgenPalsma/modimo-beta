@@ -197,7 +197,6 @@ export default {
       showModalBillboardModification: false,
       current_user: null,
 
-      unSortedInformations: [],
       informations: [],
       selectedInformation: {},
 
@@ -292,8 +291,8 @@ export default {
         this.$cookies.get("api_token")
       );
       if (resp.data.success) {
-        this.unSortedInformations = resp.data.infos;
-        this.informations = this.unSortedInformations.reverse();
+        this.informations = resp.data.infos;
+        this.informations.reverse();
         this.informationFactory();
       } else {
         this.$parent.notification = {
