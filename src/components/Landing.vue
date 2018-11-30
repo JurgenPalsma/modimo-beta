@@ -19,9 +19,7 @@
             </div>
 
             <div v-if="form_state === 'not engaged'" class="is-fullheight section modimo-clear modimo-landingtitle-container has-text-centered">
-                <div class="modimo-background">
-                    <img src="/static/img/modimophone.png" class="modimo-background-img"/>
-                </div>
+                <div class="modimo-background"/>
                 <div class="container" style="padding-right: 0; width: 100%; max-width: 100%">
                     <br/>
                     <div class="columns has-text-left">
@@ -36,10 +34,8 @@
                                 <a class="button is-large discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
                             </div>
                         </div>
-                        <div class="column is-6 is-centered">
-                            <!-- <div class="modimo-img-container">
-                                <img src="/static/img/logofull.png">
-                            </div> -->
+                        <div class="column is-6 is-centered" style="text-align:center">
+                            <img src="/static/img/modimophone.png" class="modimo-background-img"/>
                         </div>
                     </div>
                 </div>

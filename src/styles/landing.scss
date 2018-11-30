@@ -243,13 +243,15 @@ h3 {
 
 .modimo-background {
     height: 100%;
-    width: 50%;
+    width: 100%;
     right: 0;
     bottom: 0;
     position: absolute;
-    background-size:cover;
-    // opacity: 0.4;
-    overflow: hidden;
+    background-image: url("/static/img/logo.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: bottom !important;
+    opacity: .04;
+    // overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -272,11 +274,11 @@ h3 {
 }
 
 @media screen and (max-width: 768px) {
-    .modimo-background {
-        width: 100%;
-        height: 50%;
-        bottom: 0;
-    }
+    // .modimo-background {
+    //     width: 100%;
+    //     height: 50%;
+    //     bottom: 0;
+    // }
 
     .modimo-background-img {
         display: none;
