@@ -19,6 +19,8 @@ const welcome_messages  = require('./config/welcome_messages');
 // Declare server
 const app = express()
 
+console.log(process.env.DB_URL)
+
 // Config server
 app.use(bodyParser.json())
 app.use(cors({ credentials: true, origin: true }))
