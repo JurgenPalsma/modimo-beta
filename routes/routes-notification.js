@@ -13,7 +13,6 @@ module.exports = function(app, apiRoutes, io) {
 //---------------------------------------POST NOTIFICATION----------------------------------------------------------
 
 apiRoutes.post('/notifications/notification', function(req, res) {
-      console.log(req.body)
       if (!req.body.title || !req.body.subject_id || !req.body.link || !req.body.type || !req.body.action)
         return res.json({success: false, message: 'Error: request incomplete'});
       else

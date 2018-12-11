@@ -186,7 +186,6 @@ module.exports = function(app, apiRoutes, io) {
                 if (!ticket_r.success) return res.json(ticket_r)
                 let lead_r = req.body.roles == ['RESIDENT'] ? create_lead('RESIDENT', req.body.email) : create_lead('ADMIN', req.body.email);
                 if (req.body.roles.includes('RESIDENT')) {
-                    console.log("YES")
                     let messagingInitialisation = init_messaging(user, resi.residence);
                     if (!messagingInitialisation.success) 
                         return res.json(messagingInitialisation);

@@ -342,7 +342,6 @@ module.exports = function(app, apiRoutes, io) {
                                         {$push: {"messages": {content: req.headers['content'], timestamp: Date.now(),  author: auth_user.id}}},
                                         {safe: true, upsert: true, new : true},
                                         function(err, model) {
-                                            console.log(err);
                                         }
                                     );
                                     io.emit('messageChannel')

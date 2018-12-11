@@ -19,7 +19,6 @@ const welcome_messages  = require('./config/welcome_messages');
 // Declare server
 const app = express()
 
-console.log(process.env.DB_URL)
 
 // Config server
 app.use(bodyParser.json())
@@ -31,9 +30,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io').listen(server)
 
 io.on('connection', function(socket){
-    console.log('a user connected to the socket');
     socket.on('disconnect', function(){
-        console.log('user disconnected');
     });
 });
 

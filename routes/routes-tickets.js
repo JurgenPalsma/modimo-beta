@@ -162,7 +162,6 @@ module.exports = function(app, apiRoutes, io) {
                         var found = nvotes.find(function(id) {
                             return id == user._id;
                         })
-                        console.log(user._id);
                         if (nvotes.indexOf(user._id) == -1)
                         {
                             nvotes.push(user._id)
