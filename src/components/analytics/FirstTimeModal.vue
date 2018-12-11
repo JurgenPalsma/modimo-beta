@@ -4,8 +4,10 @@
             <div class="modal-background" @click="$emit('close_modal')"></div>
                 <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Bienvenue</p>
-                    <button class="delete" aria-label="close" @click="$emit('close_modal')"></button>
+                    <div style="display: flex">
+                        <p class="modal-card-title">Bonjour <span class="modal-card-title" style="color: #2b5bb2">{{$parent.$parent.currentUser ? $parent.$parent.currentUser.name.substr(0, $parent.$parent.currentUser.name.search(' ')) : ""}}</span></p>
+                        <button class="delete" aria-label="close" @click="$emit('close_modal')"></button>
+                    </div>
                 </header>
                 <section class="modal-card-body">
                     <div>
