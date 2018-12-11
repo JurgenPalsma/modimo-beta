@@ -6,7 +6,7 @@
             <div class="navbar-brand">
                 <a class="navbar-item" href="/home">
                     <img src="/static/img/icons/logo.png" alt="Modimo">
-                    <span class="is-hidden-touch" style="color: #2b5bb2">&nbsp;{{($parent.currentUser ? $parent.currentUser.name.substr(0, $parent.currentUser.name.search(' ')) : "")}}</span>
+                    <span class="is-hidden-touch" style="color: #2b5bb2">&nbsp;{{($parent.currentUser ? $parent.currentUser.name : "")}}</span>
                 </a>
 
                 <div v-if="$route.name != 'Login'" class="navbar-burger burger" data-target="navMenubd-example">
