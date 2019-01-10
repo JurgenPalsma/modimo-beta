@@ -182,6 +182,7 @@ import RateService from '@/services/RateService';
         },
         created() {
             if (this.application) {
+                console.log(this.application)
                 this.load(),
                 this.app.name = this.application.shortname
                 this.app.rate_average = Number(this.application.rate_average.toFixed())

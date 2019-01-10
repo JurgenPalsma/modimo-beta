@@ -39,7 +39,7 @@
                 :key="app._id"
                 class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet"
               >
-                <router-link :to="{ name: 'StoreAppDetails', params: { application: app }}">
+                <a @click="$router.push({ name: 'StoreAppDetails', params: { application: app }})">
                   <div class="card modistore-card" style="border-radius: 3px">
                     <div class="card-content modistore-card">
                       <div class="media is-vertical-align">
@@ -77,7 +77,7 @@
                       </div>
                     </div>
                   </div>
-                </router-link>
+                </a>
               </div>
               <div
                 v-if="applications && applications.length > 0"

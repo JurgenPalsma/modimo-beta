@@ -17,8 +17,8 @@
                 </div>
                 
                 <div class="columns is-multiline is-mobile">
-                    <router-link v-for="app in applications" :key="app._id" :to="app.link" style="position: relative" class="column is-12-mobile is-6-tablet is-4-desktop is-3-widescreen">
-                        <div class="card" style="border-radius: 3px">
+                    <a v-for="app in applications" :key="app._id" :href="app.link" style="position: relative" class="column is-12-mobile is-6-tablet is-4-desktop is-3-widescreen">
+                        <div class="card" style="border-radius: 3px;">
                             <span v-if="editMode && app.shortname != 'ModiStore'" class="edit-remove"><i class="fa fa-times"/></span>
                             <div @click.stop.prevent @click="deleteApp(app)" v-if="editMode && app.shortname != 'ModiStore'" class="edit-card">
                                 <span class="edit-remove-confirm"><i class="fa fa-times"/></span>
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                    </router-link>
+                    </a>
                 </div>
                             <firstTimeModal v-show="first_time_modal" @close_modal="closeModal"></firstTimeModal>
 
@@ -76,6 +76,7 @@ export default {
             ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
             .then(response => {
                 this.applications = response.data.applications;
+                console.log(this.applications);
             })
         },
         closeModal() {
