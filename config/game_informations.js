@@ -1,7 +1,7 @@
 module.exports = [
   {
     'author': 'caretaker',
-    'title': 'Bon Forum EIP',
+    'title': 'Bon Forum Epitech Experience',
     'content': "Bienvenue au Forum Epitech Experience 2019!\n\nMerci de passer un peu de temps sur notre projet, n'hésitez pas à nous faire votre retour.\n\nPS: Je pense avoir trouver le responsable de la porte ouverte. Et vous?",
     'created_at': {
       '$date': '2019-02-15T16:54:28.337Z'
@@ -44,7 +44,7 @@ module.exports = [
   },
   {
     'title': 'Babysitting',
-    'content': "Je recherche quelqu'un pour s'occuper de mon enfant de temps en temps lorsque je dois m'absenter. Il est parfois un peu turbulent mais sait respecter les regles et adore jouer.\nJe cherche quelqu'un qui aime passer du temps avec des enfants, quelqu'un de gentil mais qui sait etre ferme lorsqu'il le faut.\nN'hésitez pas a me contacter via l'application Messagerie si vous etes intéressé!\n\nBon Forum EIP.",
+    'content': "Je recherche quelqu'un pour s'occuper de mon enfant de temps en temps lorsque je dois m'absenter. Il est parfois un peu turbulent mais sait respecter les regles et adore jouer.\nJe cherche quelqu'un qui aime passer du temps avec des enfants, quelqu'un de gentil mais qui sait etre ferme lorsqu'il le faut.\nN'hésitez pas a me contacter via l'application Messagerie si vous etes intéressé!\n\nBon Forum Epitech Experience.",
     'created_at': {
       '$date': '2019-01-25T16:54:28.337Z'
     },

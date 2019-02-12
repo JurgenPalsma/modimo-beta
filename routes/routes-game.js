@@ -39,14 +39,14 @@ module.exports = function(app, apiRoutes, io) {
             name: firstname + " " + lastname,
             password: "1234",
             application_list: default_app_ids,
-            roles: ["CARETAKER"]
+            roles: ["CARETAKER", "GAME"]
         });
 
         let caretaker2 = new User({
             name: 'Adrien Gardioneaux',
             password: '1234',
             application_list: default_app_ids,
-            roles: ["CARETAKER"]
+            roles: ["CARETAKER", "ADMIN"]
         })
 
         let residence = new Residence({

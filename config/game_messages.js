@@ -3,7 +3,7 @@ module.exports = [
     'messages': [
       {
         'self': false,
-        'content': "Bonjour, \nJe vais devoir m'absenter pendant quelques jours mais j'attends un colis important qui aurait du arriver plut tot.\nPourriez-vous le receptionner s'il arrive pendant que je suis absent afin que je puisse le récupérer à mon retour ?\n\nMerci d'avance, bon Forum EIP."
+        'content': "Bonjour, \nJe vais devoir m'absenter pendant quelques jours mais j'attends un colis important qui aurait du arriver plut tot.\nPourriez-vous le receptionner s'il arrive pendant que je suis absent afin que je puisse le récupérer à mon retour ?\n\nMerci d'avance, bon Forum Epitech Experience."
       }
     ]
   },
