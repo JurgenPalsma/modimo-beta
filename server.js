@@ -44,6 +44,7 @@ require('./routes/routes-public')(app);
 const apiRoutes = express.Router();
 app.use('/api', apiRoutes);
 require('./routes/routes-demo')(app, apiRoutes, io);
+require('./routes/routes-game')(app, apiRoutes, io);
 require('./routes/routes-auth')(app, apiRoutes);
 require('./routes/routes-users')(app, apiRoutes);
 require('./routes/routes-tickets')(app, apiRoutes, io);
