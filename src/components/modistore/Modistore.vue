@@ -34,9 +34,9 @@
           <div class="column is-three-quarter-desktop is-full-mobile">
             <div class="columns is-multiline is-mobile">
               <div
-                v-for="app in (searchContent.length ? applicationsFiltered : applications)"
-                v-if="(app.admin && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))) || !app.admin"
+                v-for="app in (searchContent.length ? applicationsFiltered || [] : applications || [])"
                 :key="app._id"
+                v-if="(app.admin && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))) || !app.admin"
                 class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet">
                 <a @click="$router.push({ name: 'StoreAppDetails', params: { application: app }})">
                   <div class="card modistore-card" style="border-radius: 3px">
@@ -60,7 +60,7 @@
                         <div class="modistore-card-footer">
                           <span class="button modistore-see-more">Voir plus</span>
                           <span
-                            v-if="app.link && !app.added && (!app.admin || current_user.roles.includes('ADMIN') || current_user.roles.includes('ADMIN'))"
+                            v-if="app.link && !app.added && (!app.admin || current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN'))"
                             @click.stop.prevent
                             @click="addApp(app)"
                             class="button modistore-button"
@@ -71,7 +71,7 @@
                             @click="$router.push(app.link)"
                             class="button modistore-button-open"
                           >Ouvrir</span>
-                          <span v-else-if="(!app.admin || current_user.roles.includes('ADMIN') || current_user.roles.includes('ADMIN'))" class="button modistore-button-disabled" disabled>À venir</span>
+                          <span v-else-if="(!app.admin || current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN'))" class="button modistore-button-disabled" disabled>À venir</span>
                           <span v-else class="button modistore-button-disabled" disabled>Ajouter</span>
                         </div>
                       </div>

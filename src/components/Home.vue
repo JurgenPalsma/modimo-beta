@@ -79,15 +79,15 @@ export default {
             })
         },
         closeModal() {
-            this.$cookies.set("firstTimeHome", true)
-            this.first_time_modal = false;
+            // this.$cookies.set("firstTimeHome", true)
+            // this.first_time_modal = false;
         },
         firstVisit() {
             if (this.$cookies.get("firstTimeHome")) {
                 this.first_time_modal = false;
             } else {
                 console.warn("No cookie")
-                this.$cookies.set("firstTimeHome", true)
+                // this.$cookies.set("firstTimeHome", true)
                 this.first_time_modal = true;
             }
         },
