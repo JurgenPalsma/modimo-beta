@@ -173,7 +173,7 @@
                             On y est presque
                         </h1>
                         <h2 class="subtitle .text-dark">
-                            Merci de remplir ce formulaire pour avoir une démonstration sur-mesure:
+                            Merci de remplir ce formulaire pour avoir accéder à la plateforme:
                         </h2>
 
                         <div class="box">
