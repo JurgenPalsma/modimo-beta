@@ -36,7 +36,7 @@
                         <div>
                             <div id="thread-content" class="thread-container">
                                 <div v-for="message in currentConv.messages" :key="message.timestamp" :class="message.author != $parent.currentUser._id ? 'message-block' : 'message-block-yours'" >
-                                    <p :class="message.author != $parent.currentUser._id ? 'message' : 'message-yours'" >{{ message.content }}</p>
+                                    <p :class="message.author != $parent.currentUser._id ? 'message' : 'message-yours'" style="white-space: pre-line">{{ message.content }}</p>
                                 </div>
                                 <span v-if="currentConv && (!currentConv.messages || !currentConv.messages.length)" style="color: gray">Aucun message</span>
                             </div>
@@ -155,7 +155,7 @@ export default {
         },
 
         dateFormater(unFormatedDate) {
-            var date = moment(String(unFormatedDate)).format("DD/MM/YYYY, HH:mm");
+            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm');
             return date;
         },
 

@@ -76,7 +76,6 @@ export default {
             ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
             .then(response => {
                 this.applications = response.data.applications;
-                console.log(this.applications);
             })
         },
         closeModal() {

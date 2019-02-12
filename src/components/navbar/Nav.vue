@@ -116,7 +116,6 @@ export default {
 
     notifModal: function() {
       this.selectedInformation = this.currentUser.notifs;
-      console.log(this.currentUser);
       this.showNotifModal = true;
     }
   },

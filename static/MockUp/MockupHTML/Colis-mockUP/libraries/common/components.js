@@ -4697,7 +4697,6 @@ prx.types.vectoranimation = {
             var request = $.getJSON(toCheck);
 
             request.success(function(result) {
-                // console.log(result);
 				if(typeof(result) == 'object') {
                     if (prx.vectorAnimationUtils.isValidBodyMovin(result)) {
                         validRequest();

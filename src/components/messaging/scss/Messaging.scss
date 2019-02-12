@@ -59,7 +59,7 @@ $lines-to-show: 1;
   background-color: white;
   display: inline-block;
   margin-bottom: 0;
-  padding: 5px 15px;
+  padding: 10px 15px;
   border-radius: 10px;
   color: #2b5bb2;
   font-size: 14px;
@@ -72,13 +72,14 @@ $lines-to-show: 1;
   background-color: #2b5bb2;
   display: inline-block;
   margin-bottom: 0;
-  padding: 5px 15px;
+  padding: 10px 15px;
   border-radius: 10px;
   color: white;
   font-size: 14px;
   line-height: 16px;
   box-sizing: border-box;
   max-width: 400px;
+  text-align: left;
 }
 
 .input-message {

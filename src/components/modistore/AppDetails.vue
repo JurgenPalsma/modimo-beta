@@ -182,7 +182,6 @@ import RateService from '@/services/RateService';
         },
         created() {
             if (this.application) {
-                console.log(this.application)
                 this.load(),
                 this.app.name = this.application.shortname
                 this.app.rate_average = Number(this.application.rate_average.toFixed())
@@ -199,7 +198,7 @@ import RateService from '@/services/RateService';
         }, 
         methods: {
             dateFormater(unFormatedDate) {
-                var date = moment(String(unFormatedDate)).format("MM/DD/YYYY");
+                var date = moment(String(unFormatedDate)).format('DD/MM/YYYY');
                 return date;
             },
 

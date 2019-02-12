@@ -8,7 +8,7 @@
                         <p class="modal-card-title modimo-color is-text-overflow" style="padding-bottom : 7px; margin-bottom: 7px; border-bottom : 1px solid #dbdbdb;">{{ticket.author_name}} - {{ticket.title}}</p>
                         <button class="delete" v-on:click="closeModal" aria-label="close"></button>
                     </div>
-                    <span class="content_ticket" ref="display_ticket">{{ticket.content}}</span>
+                    <span class="content_ticket" style="white-space: pre-line" ref="display_ticket">{{ticket.content}}</span>
                     <div ref="space_modif_ticket" v-bind:style="{display: 'none'}">
                         <div class="field">
                             <p class="control">
@@ -158,12 +158,9 @@
         props: ['ticket', 'current_user'],
         data () {
             return {
-                //author_name: '',
                 text_comment: '',
                 isNone: 'none;',
                 isActive: true,
-                //ticket: {},
-                //comment: {}
             }
         },
         methods: {
@@ -236,7 +233,7 @@
                 this.$refs.modif_ticket_button.style = 'display: inline;'
             },
             dateFormater(unFormatedDate) {
-            var date = moment(String(unFormatedDate)).format('MM/DD/YYYY hh:mm')
+            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm')
             return (date)
             },
             closeModal() {

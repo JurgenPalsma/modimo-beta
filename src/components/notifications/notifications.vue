@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     dateFormater(unFormatedDate) {
-      var date = moment(String(unFormatedDate)).format("DD/MM/YYYY à h:mm");
+      var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm');
       return date;
     }
   },

@@ -30,8 +30,9 @@
                                 Nous travaillons dur pour vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence. 
                                 Cliquez sur "Decouvrir Modimo" pour essayer notre beta <b>gratuitement</b>!
                             </p>
-                            <div style="align-self: center">
-                                <a class="button is-large discover-button" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
+                            <div style="align-self: center; text-align: center">
+                                <a class="button is-large discover-button" style="margin-bottom: 10px" v-on:click="scrollToTop();engage('interested')">Découvrir Modimo</a>
+                                <a class="button is-large discover-button" style="margin-bottom: 10px" v-on:click="scrollToTop();engage('game')">Résoudre une affaire</a>
                             </div>
                         </div>
                         <div class="column is-6 is-vertical-center" style="align-items: center;text-align: center">
@@ -69,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <span @click="scrollToTop();engage('not engaged')" class="landing-back-button">Retour</span>
+                <span @click="scrollToTop();engage('not engaged');email_error = false" class="landing-back-button">Retour</span>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
@@ -120,7 +121,7 @@
                             </div>
                             <div class="field is-grouped">    
                                 <p class="control has-icons-left is-expanded">
-                                    <input class="input" v-model="email" type="email" placeholder="Email">
+                                    <input class="input" v-model="email" type="email" @keypress.enter="launch_demo" placeholder="Email">
                                     <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
                                     </span>
@@ -134,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <span @click="scrollToTop();engage('not engaged')" class="landing-back-button">Retour</span>
+                <span @click="scrollToTop();engage('not engaged');email_error = false" class="landing-back-button">Retour</span>
                 <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
@@ -162,6 +163,83 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div v-else-if="form_state === 'game' && !email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight form-registration">
+                <div class="container">
+                    <br/><br/>
+                    <div class="column is-6 is-offset-3">
+                        <h1 class="title">
+                            On y est presque
+                        </h1>
+                        <h2 class="subtitle .text-dark">
+                            Merci de remplir ce formulaire pour avoir une démonstration sur-mesure:
+                        </h2>
+
+                        <div class="box">
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input autofocus class="input" type="text" @keypress.enter="launch_game" v-model="firstname" placeholder="Prenom">
+                                </p>
+                                <p class="control is-expanded">
+                                    <input autofocus class="input" type="text" @keypress.enter="launch_game" v-model="lastname" placeholder="Nom">
+                                </p>
+                            </div>
+
+                            <div class="field is-grouped">    
+                                <p class="control has-icons-left is-expanded">
+                                    <input class="input" v-model="email" type="email" @keypress.enter="launch_game" placeholder="Email">
+                                    <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                    </span>
+                                </p>
+                                <p class="control">
+                                    <a class="button is-info" @click="launch_game">
+                                        J'y vais
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span @click="scrollToTop();engage('not engaged');email_error = false" class="landing-back-button">Retour</span>
+                <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
+            </div>
+
+            <div v-else-if="form_state === 'game' && email_error" class="section modimo-clear modimo-landingtitle-container is-fullheight form-registration">
+                <div class="container" style="z-index: 1">
+                    <div class="column is-6 is-offset-3">
+                        <h1 class="title text-dark">
+                            Ooooups
+                        </h1>
+                        <h2 class="subtitle text-dark">
+                            Votre email est invalide. Veuiller renseigner une vraie adresse email.
+                        </h2>
+
+                        <div class="box">
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input autofocus class="input" type="text" @keypress.enter="launch_game" v-model="firstname" placeholder="Prenom">
+                                </p>
+                                <p class="control is-expanded">
+                                    <input autofocus class="input" type="text" @keypress.enter="launch_game" v-model="lastname" placeholder="Nom">
+                                </p>
+                            </div>
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input autofocus @keypress.enter="launch_game" class="input is-danger" type="text" v-model="email" placeholder="Entre un vrai mail ici">
+                                </p>
+                                <p class="control">
+                                    <a class="button is-info" @click="launch_game">
+                                        J'y vais
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span @click="scrollToTop();engage('not engaged');email_error = false" class="landing-back-button">Retour</span>
+                <span class="modimo-lamndind-down"><i class="fa fa-chevron-down fa-2x"/></span>
             </div>
 
         </div>
@@ -267,6 +345,7 @@
 
 <script>
 import DemoService from '@/services/DemoService'
+import GameService from '@/services/GameService'
 import AuthService from '@/services/AuthService'
 import Contact from './Contact.vue'
 
@@ -373,6 +452,26 @@ export default {
                 this.email_error = true
                 this.loading = false
             }*/
+        },
+        async launch_game () {
+            this.loading = true
+            let conv_roles = ["CARETAKER"];
+            let res = await GameService.create_game(this.firstname, this.lastname, this.email, "1234", conv_roles, "Vilan Neuf");
+            if (res.data.success) {
+                const auth = await AuthService.authenticate(res.data.user.email, "1234")
+                if (auth.data.success) {
+                    this.$cookies.set('api_token', auth.data.token)
+                    this.$parent.current_user = res.data.user
+                    this.$parent.api_token = auth.data.token
+                    this.$router.push('home')
+                } else {
+                    this.$parent.notification = {type: 'failure', message: auth.data.message}
+                    this.loading = false
+                }
+            } else {
+                this.email_error = true
+                this.loading = false
+            }
         },
 
         contactModal: function () {

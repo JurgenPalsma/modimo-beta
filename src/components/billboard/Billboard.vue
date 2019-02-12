@@ -12,8 +12,7 @@
           <a @click="showModalBillboardCreation = true" class="super-button">+</a>
           <p
             style="font-size:80%; margin-top:10px;"
-            v-if="informations.length === 0"
-          >Aucune information disponible</p>
+            v-if="informations.length === 0">...</p>
         </div>
 
         <div class="tile is-ancestor">
@@ -29,10 +28,10 @@
                 ></button>
                 <div
                   @click="idToModal(info)"
-                  style="height: calc(100% - 20px); margin-bottom: 10px"
+                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
                 >
                   <p class="title">{{ info.title }}</p>
-                  <p class="content">{{ info.content }}</p>
+                  <p class="content" style="white-space: pre-line">{{ info.content }}</p>
                 </div>
                 <p class="is-size-7" style="float: left">{{info.author_name}}</p>
                 <p
@@ -64,10 +63,10 @@
                     ></button>
                     <div
                       @click="idToModal(info)"
-                      style="height: calc(100% - 20px); margin-bottom: 10px"
+                      style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
                     >
                       <p class="title">{{ info.title }}</p>
-                      <p class="content">{{ info.content }}</p>
+                      <p class="content" style="white-space: pre-line">{{ info.content }}</p>
                     </div>
                     <p class="is-size-7" style="float: left;">{{info.author_name}}</p>
                     <p
@@ -83,7 +82,7 @@
                   <figure class="title image is-4by3">
                     <img src="./../../../static/img/logofull.svg">
                   </figure>
-                  <p class="content center">Vous souhaite une agréable journée.</p>
+                  <p class="content center" style="white-space: pre-line">Vous souhaite une agréable journée.</p>
                 </article>
               </div>
               <!-- <div v-if="informations.length >= 0" class="tile is-parent">
@@ -111,10 +110,10 @@
                     ></button>
                     <div
                       @click="idToModal(info)"
-                      style="height: calc(100% - 20px); margin-bottom: 10px"
+                      style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
                     >
                       <p class="title">{{ info.title }}</p>
-                      <p class="content">{{ info.content }}</p>
+                      <p class="content" style="white-space: pre-line">{{ info.content }}</p>
                     </div>
                     <p class="is-size-7" style="float: left">{{info.author_name}}</p>
                     <p
@@ -136,10 +135,10 @@
                 ></button>
                 <div
                   @click="idToModal(wideElement)"
-                  style="height: calc(100% - 20px); margin-bottom: 10px"
+                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
                 >
                   <p class="title">{{ wideElement.title }}</p>
-                  <p class="content">{{ wideElement.content }}</p>
+                  <p class="content" style="white-space: pre-line">{{ wideElement.content }}</p>
                 </div>
                 <p class="is-size-7" style="float: left">{{wideElement.author_name}}</p>
                 <p
@@ -169,7 +168,7 @@
                 ></button>
                 <div
                   @click="idToModal(info)"
-                  style="height: calc(100% - 20px); margin-bottom: 10px"
+                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
                 >
                   <p class="title">{{ info.title }}</p>
                   <p class="content">{{ info.content }}</p>
@@ -333,7 +332,7 @@ export default {
     },
 
     dateFormater(unFormatedDate) {
-      var date = moment(String(unFormatedDate)).format("DD MMMM YYYY, h:mm:ss");
+      var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm');
       return date;
     }
   },

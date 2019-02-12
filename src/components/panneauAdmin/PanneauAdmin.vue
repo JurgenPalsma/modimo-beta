@@ -76,10 +76,9 @@ export default {
         this.selectedInformation = this.currentUser;
         const resp = await UserService.getUsers(this.$cookies.get('api_token'), this.currentUser.residence._id)
         if (resp.data.success) {
-          console.log(resp.data);
-            this.users = resp.data.users;
+          this.users = resp.data.users;
         } else {
-            this.$parent.notification = {type: 'failure', message: 'Erreur lors du chargement des données'}
+          this.$parent.notification = {type: 'failure', message: 'Erreur lors du chargement des données'}
         }
     }
   }

@@ -2,19 +2,19 @@ import Api from '@/services/Api'
 
 export default {
 
-    create_resident_demo (email) {
-        return Api().post('/api/demo/resident', {
+    create_resident_game (email) {
+        return Api().post('/api/game/resident', {
             'email': email
         })
     },
-    create_admin_demo (email) {
-        return Api().post('/api/demo/admin', {
+    create_admin_game (email) {
+        return Api().post('/api/game/admin', {
             'email': email
         })
     },
 
-    create_demo (firstname, lastname, email, password, roles, residenceName) {
-        return Api().post('/api/demo', {
+    create_game (firstname, lastname, email, password, roles, residenceName) {
+        return Api().post('/api/game', {
             'email': email,
             'residenceName': residenceName,
             'firstname': firstname,

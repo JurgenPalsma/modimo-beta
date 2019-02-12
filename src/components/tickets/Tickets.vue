@@ -42,6 +42,9 @@
                 </div>
                 <br>
                 <div class="columns is-multiline">
+                    <p
+                        style="width: 100%;text-align: center;font-size:50px; margin-top:10px;"
+                        v-if="showTickets.length === 0">...</p>
                     <div v-for="ticket in showTickets" :key="ticket._id" class="column modimo-tiny-padding is-12">
                         <div class="modimo-tile">
                             <a @click="idToModal(ticket)" style="color: #4a4a4a">
@@ -131,7 +134,6 @@ export default {
             ticket.last_update_at = date
         },
         async loadTickets () {
-            console.log('loadtickets')
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
@@ -174,7 +176,6 @@ export default {
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
                 this.loadTickets()
-                //console.log(ticket)
                 //this.loadDates(ticket)
                 //ticket.author_name = this.current_user.name
                 //this.tickets.push(ticket);
@@ -204,7 +205,7 @@ export default {
         },
 
         dateFormater(unFormatedDate) {
-            var date = moment(String(unFormatedDate)).format('MM/DD/YY à hh:mm')
+            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm')
             return (date)
         }
     },
