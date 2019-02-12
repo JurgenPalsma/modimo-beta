@@ -82,7 +82,7 @@
                   <figure class="title image is-4by3">
                     <img src="./../../../static/img/logofull.svg">
                   </figure>
-                  <p class="content center" style="white-space: pre-line">Vous souhaite une agréable journée.</p>
+                  <p class="content center" style="white-space: pre-line">{{"Bienvenue!\n\nNous travaillons dur afin de vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence.\n\nNous vous souhaitons une agréable journée."}}</p>
                 </article>
               </div>
               <!-- <div v-if="informations.length >= 0" class="tile is-parent">
@@ -332,7 +332,7 @@ export default {
     },
 
     dateFormater(unFormatedDate) {
-      var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm');
+      var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à HH:mm');
       return date;
     }
   },

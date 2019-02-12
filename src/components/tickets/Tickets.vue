@@ -125,6 +125,7 @@ export default {
     },
     methods: {
         loadDates (ticket) {
+            console.log("TUTUT")
             let date = ticket.updated_at
             ticket.comments.forEach(function (comment) {
                 if (date < comment.created_at) {
@@ -134,6 +135,7 @@ export default {
             ticket.last_update_at = date
         },
         async loadTickets () {
+            console.log("LOAD TICKETS");
             const resp = await TicketService.getTickets(this.$cookies.get('api_token'), this.current_user.residence._id)
             if (resp.data.success) {
                 this.tickets = resp.data.tickets
@@ -143,6 +145,7 @@ export default {
             }
         },
         async load() {
+            console.log("LOAD");
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
             this.loadTickets()
@@ -175,6 +178,7 @@ export default {
         },
         closeModalTicketCreation: function(ticket) {
             if (ticket) {
+                console.log("CLOSE MODAL CREATION");
                 this.loadTickets()
                 //this.loadDates(ticket)
                 //ticket.author_name = this.current_user.name
@@ -205,7 +209,7 @@ export default {
         },
 
         dateFormater(unFormatedDate) {
-            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm')
+            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à HH:mm')
             return (date)
         }
     },

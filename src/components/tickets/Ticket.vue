@@ -41,8 +41,7 @@
                         <!-- <article class="media"> -->
                         <p>
                             <strong class="modimo-color">{{comment.author_name}}&nbsp;</strong>
-                            {{comment.content}}
-                            <br>
+                            <p style="font-size: 14px">{{comment.content}}</p>
                             <small class="small-text">
                                 <span v-if="comment.updated_at === comment.created_at">Créé le </span>
                                 <span v-else>Modifié le </span>{{dateFormater(comment.updated_at)}}
@@ -233,11 +232,11 @@
                 this.$refs.modif_ticket_button.style = 'display: inline;'
             },
             dateFormater(unFormatedDate) {
-            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à hh:mm')
+            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à HH:mm')
             return (date)
             },
             closeModal() {
-                this.$parent.loadTickets();
+                // this.$parent.loadTickets();
                 if (this.$refs.modif_ticket_button) {
                     this.$refs.space_modif_ticket.style = 'display: none;'
                     this.$refs.display_ticket.style = 'block;'
