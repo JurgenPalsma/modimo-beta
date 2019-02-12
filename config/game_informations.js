@@ -61,5 +61,15 @@ module.exports = [
     'updated_at': {
         '$date': '2019-01-17T21:43:28.337Z'
     },
+  },
+  {
+    'title': 'Depart',
+    'content': "Bonsoir,\n\nnous quittons la résidence dans quelques jours.\n Nous souhaitions remercier chacun d'entre vous, ainsi que notre gardien qui a mis en place cette plateforme dans notre résidence.\n L'idée était tres bonne et je ne vous cache pas que ca nous a fait hésiter à partir! (On va proposer cette solution à coup sure dans notre prochaine résidence).\nNous serons présent à la fete des voisins afin de tous vous dire au revoir.\n\nBonne journée à tous!",
+    'created_at': {
+      '$date': '2019-01-15T11:53:28.337Z'
+    },
+    'updated_at': {
+        '$date': '2019-01-15T11:53:28.337Z'
+    },
   }
 ]
