@@ -20,7 +20,7 @@
             <div class="tile is-parent is-vertical">
               <article class="tile is-child box">
                 <button
-                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
+                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                   style="float: right"
                   class="delete"
                   aria-label="close"
@@ -55,7 +55,7 @@
                 >
                   <article class="tile is-child box">
                     <button
-                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
+                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                       style="float: right"
                       class="delete"
                       aria-label="close"
@@ -82,7 +82,7 @@
                   <figure class="title image is-4by3">
                     <img src="./../../../static/img/logofull.svg">
                   </figure>
-                  <p class="content center" style="white-space: pre-line">{{"Bienvenue!\n\nNous travaillons dur afin de vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence.\n\nNous vous souhaitons une agréable journée."}}</p>
+                  <p class="content center" style="white-space: pre-line">{{"Bienvenue!\n\nNous travaillons dur afin de vous proposer un outil de gestion de votre residence qui ameliorera votre confort et les relations entre vous, vos voisins, et vos gérants de résidence.\n\nNous vous souhaitons une agréable journée au Forum Epitech Expérience."}}</p>
                 </article>
               </div>
               <!-- <div v-if="informations.length >= 0" class="tile is-parent">
@@ -102,7 +102,7 @@
                 >
                   <article class="tile is-child box">
                     <button
-                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
+                      v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                       style="float: right"
                       class="delete"
                       aria-label="close"
@@ -127,7 +127,7 @@
             <div v-if="informations.length >= 8" class="tile is-parent">
               <article class="tile is-child box">
                 <button
-                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === wideElement.author_id)"
+                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN') || current_user._id === wideElement.author_id)"
                   style="float: right"
                   class="delete"
                   aria-label="close"
@@ -160,7 +160,7 @@
             <div class="tile is-parent">
               <article class="tile is-child box">
                 <button
-                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
+                  v-if="current_user && current_user.roles && (current_user.roles.includes('ROOT') || current_user.roles.includes('ADMIN') || current_user._id === info.author_id)"
                   style="float: right"
                   class="delete"
                   aria-label="close"
@@ -289,7 +289,6 @@ export default {
         this.current_user &&
         this.current_user.roles &&
         (this.current_user.roles.includes("ROOT") ||
-          this.current_user.roles.includes("CARETAKER") ||
           this.current_user.roles.includes("ADMIN") ||
           this.current_user._id === info.author_id)
       ) {

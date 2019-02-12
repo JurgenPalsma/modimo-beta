@@ -37,8 +37,7 @@
                 v-for="app in (searchContent.length ? applicationsFiltered : applications)"
                 v-if="(app.admin && (current_user.roles.includes('ROOT') || current_user.roles.includes('CARETAKER') || current_user.roles.includes('ADMIN'))) || !app.admin"
                 :key="app._id"
-                class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet"
-              >
+                class="column is-one-third-widescreen is-half-desktop is-full-mobile is-full-tablet">
                 <a @click="$router.push({ name: 'StoreAppDetails', params: { application: app }})">
                   <div class="card modistore-card" style="border-radius: 3px">
                     <div class="card-content modistore-card">
@@ -61,7 +60,7 @@
                         <div class="modistore-card-footer">
                           <span class="button modistore-see-more">Voir plus</span>
                           <span
-                            v-if="app.link && !app.added"
+                            v-if="app.link && !app.added && (!app.admin || current_user.roles.includes('ADMIN') || current_user.roles.includes('ADMIN'))"
                             @click.stop.prevent
                             @click="addApp(app)"
                             class="button modistore-button"
@@ -72,7 +71,8 @@
                             @click="$router.push(app.link)"
                             class="button modistore-button-open"
                           >Ouvrir</span>
-                          <span v-else class="button modistore-button-disabled" disabled>À venir</span>
+                          <span v-else-if="(!app.admin || current_user.roles.includes('ADMIN') || current_user.roles.includes('ADMIN'))" class="button modistore-button-disabled" disabled>À venir</span>
+                          <span v-else class="button modistore-button-disabled" disabled>Ajouter</span>
                         </div>
                       </div>
                     </div>
