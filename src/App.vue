@@ -68,7 +68,6 @@ export default {
                 ga('set', 'dimension1', curUser.data.user.residence._id);
                 this.$cookies.set('residenceId', curUser.data.user.residence._id)
                 this.currentUser = curUser.data.user
-                console.log(this.currentUser);
             } else {
                 console.warn('Could not load current user')
             }

@@ -40,7 +40,6 @@ export default new Router({
             name: 'Modistore',
             component: Modistore
         },
-        ,
         {
             path: '/modistore/app',
             name: 'StoreAppDetails',

@@ -8,7 +8,7 @@ export default {
         })
     },
     logout (token) {
-        return Api().post('/api/logout', {
+        return Api().post('/api/logout', {}, {
             headers: {
                 'x-access-token': token
             }

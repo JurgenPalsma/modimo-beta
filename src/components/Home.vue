@@ -40,8 +40,7 @@
                         </div>
                     </a>
                 </div>
-                            <firstTimeModal v-show="first_time_modal" @close_modal="closeModal"></firstTimeModal>
-
+                <firstTimeModal v-show="first_time_modal" @close_modal="closeModal"></firstTimeModal>
             </div>
         </div>
     </section>
@@ -70,24 +69,23 @@ export default {
 
     methods: {
         async load () {
-            this.firstVisit()
             await this.$parent.getCurrentUser();
             this.current_user =  this.$parent.currentUser;
+            this.firstVisit()
             ModistoreService.getMyInstalledApplications(this.$cookies.get('api_token'))
             .then(response => {
                 this.applications = response.data.applications;
             })
         },
         closeModal() {
-            // this.$cookies.set("firstTimeHome", true)
-            // this.first_time_modal = false;
+            this.$cookies.set("firstTimeHome", true)
+            this.first_time_modal = false;
         },
         firstVisit() {
-            if (this.$cookies.get("firstTimeHome")) {
+            if (this.$cookies.get("firstTimeHome") && !this.$route.params.game) {
                 this.first_time_modal = false;
-            } else {
-                console.warn("No cookie")
-                // this.$cookies.set("firstTimeHome", true)
+            } else if ((!this.current_user || !this.current_user.roles || !this.current_user.roles.includes("GAME") || this.$route.params.game)) {
+                this.$cookies.set("firstTimeHome", true)
                 this.first_time_modal = true;
             }
         },

@@ -326,6 +326,7 @@
                 <br/><br/><br/>
             </div>
         </div>
+        <EndGameModal v-if="endGameModalVisible" @close_modal="endGameModalVisible = false" :gameState="$route.params.gameState"/>
         <footer class="footer modimo-dark footer-resized">
             <div class="columns">
                 <div class="column has-text-centered is-full-mobile">
@@ -347,7 +348,8 @@
 import DemoService from '@/services/DemoService'
 import GameService from '@/services/GameService'
 import AuthService from '@/services/AuthService'
-import Contact from './Contact.vue'
+import Contact from './Contact'
+import EndGameModal from './EndGameModal'
 
 export default {
     name: 'landing',
@@ -365,15 +367,20 @@ export default {
             email: '',
             email_error: false,
             api_online: false,
-            loading: false
+            loading: false,
+            endGameModalVisible: false
         }
     },
 
     components: {
-        'contact': Contact
+        'contact': Contact,
+        EndGameModal
     },
 
-    mounted () {
+    created: function () {
+        if (this.$route.params.gameState) {
+            this.endGameModalVisible = true;
+        }
     },
 
     methods: {
@@ -463,7 +470,7 @@ export default {
                     this.$cookies.set('api_token', auth.data.token)
                     this.$parent.current_user = res.data.user
                     this.$parent.api_token = auth.data.token
-                    this.$router.push('home')
+                    this.$router.push({name: 'Home', params: { game: true }});
                 } else {
                     this.$parent.notification = {type: 'failure', message: auth.data.message}
                     this.loading = false

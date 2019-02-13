@@ -53,7 +53,7 @@
                 <footer v-if="ticket" class="modal-card-foot">
                     <div v-if="ticket.status != 'closed'" style="width : 100%;">
                         <div class="field">
-                            <input v-model="text_comment" class="textarea" @keyup.enter="commentTicket" rows="1" placeholder="Écrit ton commentaire...">
+                            <input v-model="text_comment" class="textarea" @keyup.enter="commentTicket" @focus="checkGame" rows="1" placeholder="Écrit ton commentaire...">
                         </div>
                         <div class="field">
                             <p class="control is-pulled-right">
@@ -69,6 +69,7 @@
                 </footer>
             </div>
         </div>
+        <GameModal v-if="gameModalVisible" @close_modal="closeModalGame"></GameModal>
         <!-- <div class="modal is-active">
             <div class="my-modal-background modal-background" v-on:click="closeModal"></div>
             <div class="modal-content">
@@ -153,6 +154,8 @@
     import CommentService from '@/services/CommentService'
     import TicketService from '@/services/TicketService'
     import moment from 'moment'
+    import GameModal from './GameModal'
+
     export default {
         props: ['ticket', 'current_user'],
         data () {
@@ -160,17 +163,20 @@
                 text_comment: '',
                 isNone: 'none;',
                 isActive: true,
+                gameModalVisible: false
             }
         },
         methods: {
             closeTicket: async function (event) {
-                const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
-                if (resp.data.success) {
-                    this.ticket.status = "closed"
-                    this.closeModal()
-                }
-                else {
-                    console.warn('CLOSE TICKET failed :', resp.data.message)
+                if (!this.checkGame()) {
+                    const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
+                    if (resp.data.success) {
+                        this.ticket.status = "closed"
+                        this.closeModal()
+                    }
+                    else {
+                        console.warn('CLOSE TICKET failed :', resp.data.message)
+                    }
                 }
             },
             likeTicket: async function (event) {
@@ -192,26 +198,30 @@
                 }
             },
             commentTicket: async function (event) {
-                if (this.text_comment == "")
-                    return
-                var date = new Date();
-                this.ticket.comments.push({
-                    'author_name' : this.current_user.name,
-                    'content': this.text_comment,
-                    'created_at': date,
-                    'updated_at': date
-                })
-                const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
-                this.text_comment = ''
-                if (resp.data.success) {
-                }
-                else {
-                    console.log(resp.data.message)
+                if (!this.checkGame()) {
+                    if (this.text_comment == "")
+                        return
+                    var date = new Date();
+                    this.ticket.comments.push({
+                        'author_name' : this.current_user.name,
+                        'content': this.text_comment,
+                        'created_at': date,
+                        'updated_at': date
+                    })
+                    const resp = await CommentService.postComment(this.$cookies.get('api_token'), this.ticket._id, 'ticket', this.text_comment)
+                    this.text_comment = ''
+                    if (resp.data.success) {
+                    }
+                    else {
+                        console.log("error commentTicket:", resp.data.message)
+                    }
                 }
             },
             commentAndClose: async function (event) {
-                this.commentTicket()
-                this.closeTicket()
+                if (!this.checkGame()) {
+                    this.commentTicket()
+                    this.closeTicket()
+                }
             },
             activeModifTicket: function (event) {
                 this.$refs.space_modif_ticket.style = 'display: block;'
@@ -232,19 +242,46 @@
                 this.$refs.modif_ticket_button.style = 'display: inline;'
             },
             dateFormater(unFormatedDate) {
-            var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à HH:mm')
-            return (date)
+                var date = moment(String(unFormatedDate)).format('DD/MM/YYYY à HH:mm')
+                return (date)
             },
-            closeModal() {
-                // this.$parent.loadTickets();
+            closeModal(gameState) {
                 if (this.$refs.modif_ticket_button) {
                     this.$refs.space_modif_ticket.style = 'display: none;'
                     this.$refs.display_ticket.style = 'block;'
                     this.$refs.modif_ticket_button.style = 'display: inline;'
                 }
-                this.$emit('close_modal')
+                this.$emit('close_modal', gameState)
+            },
+            checkGame() {
+                if (this.current_user && this.current_user.roles && this.current_user.roles.includes("GAME") && this.ticket.title == '[URGENT] Mais qui laisse cette porte ouverte ?') {
+                    this.gameModalVisible = true;
+                    return true
+                }
+                return false
+            },
+            closeModalGame: async function(residentName) {
+                if (residentName != undefined) {
+                    const resp = await TicketService.closeTicket(this.$cookies.get('api_token'), this.ticket._id, 'closed')
+                    if (resp.data.success) {
+                        this.ticket.status = "closed"
+                        if (residentName === "Jeremy Malfoy") {
+                            this.closeModal('WIN');
+                        }
+                        else {
+                            this.closeModal('LOOSE');
+                        }
+                    }
+                    else {
+                        console.warn('CLOSE TICKET failed :', resp.data.message)
+                    }
+                }
+                this.gameModalVisible = false;
             }
         },
+        components: {
+            GameModal
+        }
     }
 </script>
 <style lang="scss">       
