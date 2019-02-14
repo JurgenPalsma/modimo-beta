@@ -24,7 +24,7 @@ module.exports = [
   {
     'author': 'caretaker',
     'title': 'Fête des voisins Mars 2019',
-    'content': "Bonjour,\n Le 16 Mars 2019 aura lieu la Fête annuel des voisins, que nous organisons chaque année.\n Tout le monde y est convié et peut inviter jusqu'à 3 personnes.\n\nPour une question d'organisation, pensez a me prévenir si vous serez présent ou non. Pour ceux voulant se charger de nourriture, boisson ou autre organisation, merci de le préciser.\n\n Comme chaque année, cette fete commencera à 16h et durera jusqu'à 22h. Essayons de ne pas dépasser sur ces horaire cette fois, la résidence d'en face s'était plaint l'année derniere!\n\n À bientôt.",
+    'content': "Bonjour,\n Le 16 Mars 2019 aura lieu la Fête annuel des voisins, que nous organisons chaque année.\n\n Comme chaque année, cette fete commencera à 16h et se terminera à 22h. Essayons de ne pas dépasser sur ces horaires cette fois, la résidence d'en face s'était plaint l'année dernière!\n\n À bientôt.",
     'created_at': {
       '$date': '2019-02-08T13:21:28.337Z'
     },
@@ -34,7 +34,7 @@ module.exports = [
   },
   {
     'title': 'A celui qui laisse la porte ouverte...',
-    'content': "Message à la personne qui laisse la porte d'entrée ouverte:\n\nLa porte est encore resté ouverte tout le week end! Nous payons tous le chauffage dans cette residence. Moi compris et pourtant je n'etais pas présent pour en profiter! Tes parents aussi le paye, petit garnement!\nEn plus de ca ce n'est pas tres sécurisé et il serait regretable que quelqu'un se fasse voler par ta faute.\n\nAlors qui que ce soit, MERCI DE BIEN VOULOIR FERMER CETTE PORTE !!!!\n\n Bonne journée à tous.",
+    'content': "Message à la personne qui laisse la porte d'entrée ouverte:\n\nLa porte est encore resté ouverte tout le week end! Nous payons tous le chauffage dans cette residence. Moi compris! Tes parents aussi le paye, petit garnement!\nEn plus de ca ce n'est pas tres sécurisé et il serait regretable que quelqu'un se fasse voler par ta faute.\nAlors qui que ce soit, MERCI DE BIEN VOULOIR FERMER CETTE PORTE!\n\nBonne journée à tous.",
     'created_at': {
       '$date': '2019-02-11T16:54:28.337Z'
     },

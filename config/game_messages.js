@@ -3,7 +3,7 @@ module.exports = [
     'messages': [
       {
         'self': false,
-        'content': "Bonjour, \nJe vais devoir m'absenter pendant quelques jours mais j'attends un colis important qui aurait du arriver plut tot.\nPourriez-vous le receptionner s'il arrive pendant que je suis absent afin que je puisse le récupérer à mon retour ?\n\nMerci d'avance, bon Forum Epitech Experience."
+        'content': "Bonjour, \nJe vais devoir m'absenter pendant quelques jours mais j'attends un colis important qui aurait du arriver plus tot.\nPourriez-vous le receptionner s'il arrive pendant que je suis absent afin que je puisse le récupérer à mon retour ?\n\nMerci d'avance, bon Forum Epitech Experience."
       }
     ]
   },
@@ -15,15 +15,15 @@ module.exports = [
       },
       {
         'self': true,
-        'content': "Bonjour... \nPourquoi n'avez vous pas fais votre demande via Modimo? Nous sommes actif sur cette plateforme, vous pouvez nous contacter et echanger ici. \nCela nous permet de mieux et plus rapidement gérer les soucis de nos résidents, ainsi que de vous tenir facilement informé de toute avancé!"
+        'content': "Bonjour... \nPourquoi n'avez vous pas fait votre demande via Modimo? Nous sommes actif sur cette plateforme, vous pouvez nous contacter et echanger ici. \nCela nous permet de mieux et plus rapidement gérer les soucis de nos résidents, ainsi que de vous tenir facilement informé de toute avancé!"
       },
       {
         'self': true,
-        'content': "Je vais voir avec l'agence afin de vous fournir de nouvelles clefs.\n Petite question: Ca ne serais pas vous par hasard qui garderait la porte d'entrée ouverte pour pouvoir rentrer?"
+        'content': "Je vais voir avec l'agence afin de vous fournir de nouvelles clefs.\n\nPetite question: Ne serait-ce pas vous par hasard qui garderait la porte d'entrée ouverte pour pouvoir rentrer?"
       },
       {
         'self': false,
-        'content': "Merci.\n\nNon! Je n'etais presque jamais présent ces derniers jours, sinon je m'arrange avec ma voisine pour pouvoir rentrer. C'est surement les enfants du voisin du dessus... Jeremy son nom, il me semble."
+        'content': "Merci, vraiment pratique Modimo!\n\nNon! Je n'etais presque jamais présent ces derniers jours, sinon je m'arrange avec ma voisine pour pouvoir rentrer. C'est surement les enfants de Mr Maroy, le voisin du dessus..."
       }
     ]
   },
@@ -32,19 +32,19 @@ module.exports = [
     'messages': [
       {
         'self': false,
-        'content': "Bonjour, \nCertaines personnes accuse mes enfants de dégrader l'entrée de l'appartement et de maintenir la porte d'entrée ouverte.\nJe souhaitais vous envoyer un message afin de vous prévenir que mes enfants ne sont pas responsable de ces faits et que la voisine du 2eme à une dent contre moi depuis le fameux ticket du foot dans les couloirs..."
+        'content': "Bonjour, \nCertaines personnes accusent mes enfants de dégrader l'entrée de l'appartement et de maintenir la porte d'entrée ouverte.\nJe souhaitais vous envoyer un message afin de vous prévenir que mes enfants ne sont pas responsable de ces faits et que la voisine du 2eme à une dent contre moi depuis le fameux ticket du foot dans les couloirs..."
       },
       {
         'self': true,
-        'content': "Bonjour, \nJe suis votre nouveau gardien. Je suis en charge de l'affaire de la porte ouverte et recherche activement les reponsables. Si vous avez des informations la dessus, n'hésitez pas à me les transmettre, merci."
+        'content': "Bonjour, \nJe suis votre nouveau gardien. Je suis en charge de l'affaire de la porte ouverte et recherche activement le reponsable. Si vous avez des informations la dessus, n'hésitez pas à me les transmettre, merci."
       },
       {
         'self': false,
-        'content': "Bienvenue! \nPensez bien a allez voir ce qui se dit sur les autres applications, vous pouvez les installer via le Modistore. Beaucoup de réponses peuvent se trouver là bas..."
+        'content': "Bienvenue! \nPensez bien a allez voir ce qui se dit sur les autres applications, vous pouvez les installer via le Modistore. Vous y trouverez sans doute plus d'informations..."
       },
       {
         'self': true,
-        'content': "Merci pour ces informations. \nBonne journée."
+        'content': "Merci, je devrais résoudre rapidement cette affaire.\nBonne journée."
       }
     ]
   },
@@ -57,7 +57,7 @@ module.exports = [
       },
       {
         'self': false,
-        'content': "Nous avons une affaire en cours, un ticket non résolue pour lequel votre aide me serais nécessaire. Pourriez-vous tenter de résoudre ce ticket?"
+        'content': "Nous avons une affaire en cours, un ticket non résolue pour lequel votre aide me serait nécessaire. Pourriez-vous tenter de le résoudre?"
       },
       {
         'self': true,
@@ -69,7 +69,7 @@ module.exports = [
       },
       {
         'self': true,
-        'content': "Et bien... Merci, il s'agit d'un simple petit soucis dans la résidence, je devrais pouvoir me débrouiller..."
+        'content': "Et bien... Merci...\nIl s'agit d'un simple petit soucis dans la résidence, je devrais pouvoir me débrouiller."
       }
     ]
   }
