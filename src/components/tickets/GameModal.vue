@@ -35,12 +35,12 @@
                               </div>
                             </div>
                         </div>
-                        <p style="text-align: left; font-weight: 100">Êtes vous sure de votre réponse ?<br/>Le jeu se terminera dès que vous avez envoyé votre réponse et la solution vous sera dévoilée.</p>
+                        <p style="text-align: left; font-weight: 100">Êtes vous sure de votre réponse ?<br/>Le jeu se terminera dès que vous aurez envoyé votre réponse et la solution vous sera dévoilée.</p>
                       </label>
                     </div>
                 </section>
                 <footer class="modal-card-foot" style="justify-content: center">
-                    <button class="button" @click="$emit('close_modal', residents[index].name)">Je confirm ma réponse</button>
+                    <button class="button" @click="$emit('close_modal', residents[index].name)">Je confirme ma réponse</button>
                 </footer>
             </div>
         </div>

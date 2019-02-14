@@ -210,7 +210,9 @@ export default {
         closeModalTicket: function(gameState) {
             this.showModalTicket = false;
             if (gameState === 'WIN' || gameState === 'LOOSE') {
-                this.logout(gameState);
+                setTimeout(() => {
+                    this.logout(gameState);
+                }, 300);
             }
         },
         logout: function (gameState) {

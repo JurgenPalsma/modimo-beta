@@ -28,10 +28,10 @@
                 ></button>
                 <div
                   @click="idToModal(info)"
-                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
+                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 5px"
                 >
                   <p class="title">{{ info.title }}</p>
-                  <p class="content" style="white-space: pre-line">{{ info.content }}</p>
+                  <p class="content">{{ info.content }}</p>
                 </div>
                 <p class="is-size-7" style="float: left">{{info.author_name}}</p>
                 <p
@@ -63,10 +63,10 @@
                     ></button>
                     <div
                       @click="idToModal(info)"
-                      style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
+                      style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 5px"
                     >
                       <p class="title">{{ info.title }}</p>
-                      <p class="content" style="white-space: pre-line">{{ info.content }}</p>
+                      <p class="content">{{ info.content }}</p>
                     </div>
                     <p class="is-size-7" style="float: left;">{{info.author_name}}</p>
                     <p
@@ -110,10 +110,10 @@
                     ></button>
                     <div
                       @click="idToModal(info)"
-                      style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
+                      style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 5px"
                     >
                       <p class="title">{{ info.title }}</p>
-                      <p class="content" style="white-space: pre-line">{{ info.content }}</p>
+                      <p class="content">{{ info.content }}</p>
                     </div>
                     <p class="is-size-7" style="float: left">{{info.author_name}}</p>
                     <p
@@ -135,10 +135,10 @@
                 ></button>
                 <div
                   @click="idToModal(wideElement)"
-                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
+                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 5px"
                 >
                   <p class="title">{{ wideElement.title }}</p>
-                  <p class="content" style="white-space: pre-line">{{ wideElement.content }}</p>
+                  <p class="content">{{ wideElement.content }}</p>
                 </div>
                 <p class="is-size-7" style="float: left">{{wideElement.author_name}}</p>
                 <p
@@ -168,7 +168,7 @@
                 ></button>
                 <div
                   @click="idToModal(info)"
-                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 10px"
+                  style="cursor:pointer;height: calc(100% - 20px); margin-bottom: 5px"
                 >
                   <p class="title">{{ info.title }}</p>
                   <p class="content">{{ info.content }}</p>

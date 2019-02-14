@@ -7,6 +7,10 @@ $color_validate: green;
 	font-size: 40px;
 }
 
+p.title {
+	font-size: 28px;
+}
+
 .padding-header {
 	padding-top: 20px;
 }
@@ -151,4 +155,14 @@ $color_validate: green;
 	-ms-transform: scale(1, 1);
 	-webkit-transform: scale(1, 1);
 	transform: scale(1, 1);
+}
+
+p.content {
+	white-space: pre-line;
+	background-color: #ffffe6;
+	border-radius: 5px;
+	padding: 5px;
+	margin: -5px -10px;
+	font-size: 15px;
+	box-shadow: 1px 2px 6px rgba(77, 77, 0, .5);
 }
